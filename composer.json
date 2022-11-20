@@ -1,6 +1,7 @@
 {
     "require": {
-        "lemon_framework/lemon": "^3.10"
+        "lemon_framework/lemon": "^3.10",
+        "cycle/orm": "^2.2"
     },
     "autoload": {
         "psr-4": {
