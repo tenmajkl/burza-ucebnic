@@ -1,0 +1,10 @@
+#!/usr/bin/php
+<?php
+
+/** @var \Lemon\Kernel\Application $application */
+$application = include __DIR__.'/init.php';
+
+// --- Loading commands ---
+$application->loadCommands();
+
+$application->get('terminal')->run(array_slice($argv, 1));
