@@ -54,3 +54,12 @@
 - tj najdu platnou rezervaci s danym qr kodem a zjistim, zda je to rezervace vazajici se k produktu overujiciho, pokud jo, rezervace se zneplatni a produkt taky, pokud ne, proste to vrati error nebo neco
 - v pripade ze nekdo zrusi rezervaci, nastavi se jako neplatna a kdyz nekdo pouzije qr kod neplatne rezervace
 - diky tomu, ze hash je de facto nemozne ho zreplikovat, ma k nemu pristup skutecne jen ten kdo vytvoril rezervaci a nikdo jiny tak nemuze ucebnici vyzvednout, unless by to bruteforcoval, coz se mu stejne nepovede, protoze jediny kdo muze overovat je prodavajici
+
+## auth
+
+- zapomnel jsem na auth
+- uzivatel se registruje, je tam kontrola zda jeho email je z urcite domeny (ta je v .env)
+- pokud ne tak smula bozo
+- pokud jo posle se mu overovaci email
+- jakmile se overi bude ulozen do kouli teda do db
+- prihlasovani klasika parku
