@@ -26,6 +26,7 @@
     - jednak by byla potreba brutalni komprese
     - druhak lidi umi byt kokoti
     - ale muze to umoznit spravnou distribuci
+    - za me urcite jo (JH)
 - stav pisemne
 - ucebnice pochopitelne jdou radit, filtrovat a picovinky vsak to zname
 
@@ -63,3 +64,7 @@
 - pokud jo posle se mu overovaci email
 - jakmile se overi bude ulozen do kouli teda do db
 - prihlasovani klasika parku
+
+## ostatni a navrhy
+- focusoval bych dobre filtrovani treba podle predmetu, vydavatele, stavu atd (+ aby tam byl nejaky husty UX pri pridani inzeratu, co te provede tim procesem, ale tak to je detail) (JH)
+- po odebrani inzeratu bych dal dotaznik pripadne i obema stranam, aby se daly sbirat udaje o tom, jak je to uzitecne a co pridat (JH)
