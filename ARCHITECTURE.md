@@ -68,3 +68,12 @@
 ## ostatni a navrhy
 - focusoval bych dobre filtrovani treba podle predmetu, vydavatele, stavu atd (+ aby tam byl nejaky husty UX pri pridani inzeratu, co te provede tim procesem, ale tak to je detail) (JH)
 - po odebrani inzeratu bych dal dotaznik pripadne i obema stranam, aby se daly sbirat udaje o tom, jak je to uzitecne a co pridat (JH)
+
+## technologika
+
+backend
+- lemon - abych otestoval ten framework lol
+- cycle orm https://cycle-orm.dev/ - bo je to zajimave orm a v lemonu neni
+frontend
+- tailwind - bo ho umim lol
+- svelte
