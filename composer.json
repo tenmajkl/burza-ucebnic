@@ -1,7 +1,9 @@
 {
     "require": {
         "lemon_framework/lemon": "^3.10",
-        "cycle/orm": "^2.2"
+        "cycle/orm": "^2.2",
+        "cycle/annotated": "^3.2",
+        "cycle/entity-behavior": "^1.1"
     },
     "autoload": {
         "psr-4": {
