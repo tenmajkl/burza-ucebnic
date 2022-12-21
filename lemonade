@@ -7,4 +7,6 @@ $application = include __DIR__.'/init.php';
 // --- Loading commands ---
 $application->loadCommands();
 
+include __DIR__.'/commands.php';
+
 $application->get('terminal')->run(array_slice($argv, 1));

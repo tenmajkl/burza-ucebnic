@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{ yield 'title' }</title>
+    <!-- 
+        Oh hey, I see you are interested how this works, well...
+        
+        Sourcecode is here https://github.com/TENMAJKL/bs
+
+        Have fun
+    -->
+</head>
+<body>
+    { yield 'content' }
+</body>
+</html>

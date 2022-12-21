@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Contracts\ORM as ORMContract;
 use Cycle\Database\Config\DatabaseConfig;
 use Cycle\Database\DatabaseManager;
+use Cycle\ORM\EntityManager;
+use Cycle\ORM\EntityManagerInterface;
 use Cycle\ORM\Factory;
 use Cycle\ORM\ORM as CycleORM;
+use Cycle\ORM\ORMInterface;
 use Cycle\ORM\Schema as ORMSchema;
 use Cycle\Schema;
 use Cycle\Annotated;
@@ -13,9 +17,13 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Lemon\Contracts\Config\Config;
 use Lemon\Contracts\Support\Env;
 
-class ORM extends CycleORM
+class ORM implements ORMContract
 {
     public readonly DatabaseManager $dbal;
+
+    public readonly EntityManagerInterface $manager;
+
+    private readonly ORMInterface $orm;
 
     public function __construct(
         public readonly Config $config,
@@ -46,6 +54,25 @@ class ORM extends CycleORM
             new Schema\Generator\GenerateTypecast(),        
         ]);
 
-        parent::__construct(new Factory($dbal), new ORMSchema($schema));
+        $this->orm = new CycleORM(new Factory($dbal), new ORMSchema($schema));
+        $this->manager = new EntityManager($this->orm);
+    }
+
+    /**
+     * @return void
+     */
+    public function __destruct()
+    {
+        $this->manager->run();
+    }
+
+    public function getORM(): ORMInterface
+    {
+        return $this->orm;
+    }
+
+    public function getEntityManager(): EntityManager
+    {
+        return $this->manager;
     }
 }
