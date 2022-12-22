@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Entities\Traits;
 
-interface Auth
+trait DateTimes
 {
 }

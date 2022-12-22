@@ -7,6 +7,9 @@ use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\Annotated\Annotation\Relation\{BelongsTo, HasMany};
 use Cycle\ORM\Entity\Behavior;
 
+/**
+ * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU
+ */
 #[Entity]
 #[Behavior\CreatedAt(
     field: 'createdAt',
@@ -16,26 +19,25 @@ use Cycle\ORM\Entity\Behavior;
     field: 'updatedAt', 
     column: 'updated_at'
 )]
-class User
+class Offer
 {
     use DateTimes;
 
     #[Column(type: 'primary')]
     public int $id;
 
-    #[HasMany(target: Offer::class)]
-    public array $offers;
-
     #[HasMany(target: Reservation::class)]
     public array $reservations;
 
     public function __construct(
+        #[BelongsTo(target: Book::class)]
+        public Book $book,
         #[Column()]
-        public string $email,
+        public int $price,
         #[Column()]
-        public string $password,
-        #[BelongsTo(target: Year::class)]
-        public Year $year,
+        public string $description,
+        #[BelongsTo(target: User::class)]
+        public User $user
     ) {
 
     }

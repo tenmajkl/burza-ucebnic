@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Api;
 
-class Books
+class Offers
 {
     // TODO think of api route
 }

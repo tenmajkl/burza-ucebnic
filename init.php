@@ -29,7 +29,7 @@ foreach (config('services') as $service => $aliases) {
     }
 }
 
-new Rules($application->get('validation'));
+new Rules($application);
 
 /** @var \Lemon\Routing\Router $router */
 $router = $application->get('routing');

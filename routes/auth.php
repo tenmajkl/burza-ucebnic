@@ -8,5 +8,5 @@ Route::controller('login', Login::class);
 
 Route::controller('register', Register::class);
 
-Route::get('verify/{token}', Verify::class)
+Route::get('verify/{token}', [Verify::class, 'get'])
     ->middleware([Auth::class, 'onlyUnverified']);
