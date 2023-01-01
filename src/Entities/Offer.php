@@ -32,9 +32,9 @@ class Offer
     public function __construct(
         #[BelongsTo(target: Book::class)]
         public Book $book,
-        #[Column()]
+        #[Column(type: 'int')]
         public int $price,
-        #[Column()]
+        #[Column(type: 'int')]
         public string $description,
         #[BelongsTo(target: User::class)]
         public User $user

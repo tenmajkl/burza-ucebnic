@@ -12,14 +12,14 @@ class Book
     public int $id;
 
     #[HasMany(target: Offer::class)]
-    public array $offers;
+    public array $offers = [];
 
     public function __construct(
-        #[Column()]
+        #[Column(type: 'string')]
         public string $name,
-        #[Column()]
+        #[Column(type: 'string')]
         public string $author,
-        #[Column()]
+        #[Column(type: 'int')]
         public int $release_year,
         #[BelongsTo(target: Year::class)]
         public Year $year

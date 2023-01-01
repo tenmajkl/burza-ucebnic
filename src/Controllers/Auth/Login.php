@@ -5,7 +5,7 @@ namespace App\Controllers\Auth;
 use App\Entities\User;
 use App\ORM;
 use Lemon\Http\Request;
-use Lemon\Http\Response;
+use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
 
 class Login
@@ -15,7 +15,7 @@ class Login
         return template('auth.login');
     }
 
-    public function post(ORM $orm, Request $request): Response
+    public function post(ORM $orm, Request $request): RedirectResponse|Template
     {
         $ok = $request->validate([
             'email' => 'max:128|email|school_email',

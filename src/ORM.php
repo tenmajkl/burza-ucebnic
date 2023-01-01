@@ -39,8 +39,8 @@ class ORM implements ORMContract
 
         $schema = (new Schema\Compiler())->compile(new Schema\Registry($this->dbal), [
             new Schema\Generator\ResetTables(),             
-            new Annotated\Embeddings($classLocator),        
-            new Annotated\Entities($classLocator),          
+            new Annotated\Embeddings($locator),        
+            new Annotated\Entities($locator),          
             new Annotated\TableInheritance(),               
             new Annotated\MergeColumns(),                   
             new Schema\Generator\GenerateRelations(),       
@@ -54,7 +54,7 @@ class ORM implements ORMContract
             new Schema\Generator\GenerateTypecast(),        
         ]);
 
-        $this->orm = new CycleORM(new Factory($dbal), new ORMSchema($schema));
+        $this->orm = new CycleORM(new Factory($this->dbal), new ORMSchema($schema));
         $this->manager = new EntityManager($this->orm);
     }
 
@@ -71,7 +71,7 @@ class ORM implements ORMContract
         return $this->orm;
     }
 
-    public function getEntityManager(): EntityManager
+    public function getEntityManager(): EntityManagerInterface
     {
         return $this->manager;
     }

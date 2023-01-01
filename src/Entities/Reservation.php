@@ -22,7 +22,7 @@ use Cycle\ORM\Entity\Behavior;
     #[Column(type: 'primary')]
     public int $id;
 
-    #[Column()]
+    #[Column(type: 'string')]
     public string $hash;
 
     public function __construct(

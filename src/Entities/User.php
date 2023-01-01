@@ -24,15 +24,15 @@ class User
     public int $id;
 
     #[HasMany(target: Offer::class)]
-    public array $offers;
+    public array $offers = [];
 
     #[HasMany(target: Reservation::class)]
-    public array $reservations;
+    public array $reservations = [];
 
     public function __construct(
-        #[Column()]
+        #[Column(type: 'string')]
         public string $email,
-        #[Column()]
+        #[Column(type: 'string')]
         public string $password,
         #[BelongsTo(target: Year::class)]
         public Year $year,
