@@ -3,5 +3,6 @@
 return [
     'email-send' => '',
     'validation-error' => '',
-    'auth-error' => ''
+    'auth-error' => '',
+    'verify_subject' => '',
 ];

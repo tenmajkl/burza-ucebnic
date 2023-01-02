@@ -27,12 +27,11 @@ class Register
             return template('auth.register', message: 'validation-error');
         }
 
-        // TODO send mail with symfony mailer
         $email = $request->get('email');
 
         $message = 
             (new Email())
-                ->from()
+                ->from(config('mail.from'))
                 ->to($email)
                 ->subject(text('verify_subject'))
                 ->html(template('mail.verify')->render())

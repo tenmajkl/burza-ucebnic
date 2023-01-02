@@ -24,7 +24,7 @@ class Rules
 
     public function schoolEmail(string $email): bool
     {
-        return str_ends_with($email, env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL'));
+        return str_ends_with($email, (env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL')));
     }
 
     public function book(string $book): bool
