@@ -7,6 +7,7 @@ use App\Contracts\ORM;
 use App\Entities\Book;
 use App\Entities\Offer;
 use Lemon\Http\Request;
+use Lemon\Http\Response;
 use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
 
@@ -26,7 +27,7 @@ class Offers
     {
         // TODO uploading images, have no idea how to do it lol
         $ok = $request->validate([
-            'book' => 'book',
+            'book' => 'id:book',
             'price' => 'numeric',
             'description' => 'max:256',
         ]);
@@ -51,7 +52,7 @@ class Offers
         return template('offers.show', edit: $edit, offer: $offer);
     }
 
-    public function update($offer, Auth $auth, ORM $orm, Request $request): Template
+    public function update($offer, Auth $auth, ORM $orm, Request $request): Template|Response
     {
         $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($offer);
         if (!$auth->authorizeOfferEditation($offer)) {
@@ -76,7 +77,7 @@ class Offers
         return template('offers.show', edit: true, offer: $offer, message: 'edit_success');
     }
 
-    public function destroy($offer, ORM $orm, Auth $auth): RedirectResponse
+    public function destroy($offer, ORM $orm, Auth $auth): Response
     {
         $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($offer);
         if (!$auth->authorizeOfferEditation($offer)) {

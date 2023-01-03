@@ -15,7 +15,8 @@ use Cycle\ORM\Entity\Behavior;
 #[Behavior\UpdatedAt(
     field: 'updatedAt', 
     column: 'updated_at'
-)]class Reservation
+)]
+class Reservation
 {
     use DateTimes;
 
@@ -30,6 +31,8 @@ use Cycle\ORM\Entity\Behavior;
         public Offer $offer,
         #[BelongsTo(target: User::class)]
         public User $user,
+        #[Column(type: 'bool')]
+        public bool $active
     ) {
         // Profi token generation coolfido aproves
         $this->hash = str_shuffle(str_shuffle($this->id.$this->offer->id.rand().time()).base64_encode(sha1(rand().time().$user->id)));

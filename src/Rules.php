@@ -6,6 +6,7 @@ use App\Contracts\ORM;
 use App\Entities\Book;
 use Lemon\Config\Exceptions\ConfigException;
 use Lemon\Kernel\Application;
+use Lemon\Support\CaseConverter;
 
 
 /**
@@ -14,11 +15,11 @@ use Lemon\Kernel\Application;
 class Rules
 {
     public function __construct(
-        Application $app
+        private Application $app
     ) {
-        $app->get('validation')->rules()
+        $this->app->get('validation')->rules()
             ->rule('school_email', [$this, 'schoolEmail'])
-            ->rule('book', [$this, 'book'])
+            ->rule('id', [$this, 'id'])
         ;
     }
 
@@ -27,20 +28,20 @@ class Rules
         return str_ends_with($email, (env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL')));
     }
 
-    public function book(string $book): bool
+    public function id(string $entity, string $id): bool
     {
-        if (!is_numeric($book)) {
-            return $false;
+        if (!is_numeric($id)) {
+            return false;
         }
 
-        $book = (int) $book;
+        $id = (int) $id;
 
         /** @var ORM $db */
         $db = $this->app->get(ORM::class);
         return !is_null(
                     $db->getORM()
-                       ->getRepository(Book::class)
-                       ->findByPK($book)
+                       ->getRepository('\\App\\Entities\\'.CaseConverter::toPascal($entity))
+                       ->findByPK($id)
                );
     }
 }

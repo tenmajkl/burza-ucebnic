@@ -7,10 +7,11 @@ use App\Entities\Book;
 use App\Entities\Offer;
 use Lemon\Contracts\Validation\Validator;
 use Lemon\Http\Request;
+use Lemon\Http\Response;
 
 class Offers
 {
-    public function all(ORM $orm, Validator $validator, Request $request): array
+    public function all(ORM $orm, Validator $validator, Request $request): array|Response
     {        
         $ok = $validator->validate($request->query(), [
             'year' => 'number|max:3',

@@ -7,6 +7,7 @@ use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\Annotated\Annotation\Relation\{BelongsTo, HasMany};
 use Cycle\ORM\Entity\Behavior;
 use DateTimeImmutable;
+use JsonSerializable;
 
 /**
  * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU
@@ -25,7 +26,7 @@ use DateTimeImmutable;
     field: 'deletedAt',   
     column: 'deleted_at'  
 )]
-class Offer
+class Offer implements JsonSerializable
 {
     use DateTimes;
 
@@ -49,5 +50,18 @@ class Offer
         public User $author
     ) {
 
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'name' => $this->book->name,
+            'subject' => $this->book->subject,
+            'year' => $this->book->year,
+            'price' => $this->price,
+            'description' => $this->description,
+            'author_email' => $this->author->email,
+            'reserved' => !empty($this->reservations),
+        ];
     }
 }
