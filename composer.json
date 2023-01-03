@@ -1,10 +1,11 @@
 {
     "require": {
-        "lemon_framework/lemon": "^3.10",
+        "lemon_framework/lemon": "dev-master",
         "cycle/orm": "^2.2",
         "cycle/annotated": "^3.2",
         "cycle/entity-behavior": "^1.1",
-        "symfony/mailer": "^6.2"
+        "symfony/mailer": "^6.2",
+        "mockery/mockery": "^1.5"
     },
     "autoload": {
         "psr-4": {
