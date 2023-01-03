@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Contracts\Auth as AuthContract;
+use App\Entities\Offer;
 use App\Entities\User;
 use Lemon\Contracts\Http\Session;
 
@@ -20,5 +21,10 @@ class Auth implements AuthContract
         return $this->orm->getORM()->getRepository(User::class)->findOne([
             'email' => $this->session->get('email')
         ]);
+    }
+
+    public function authorizeOfferEditation(Offer $offer): bool
+    {
+        return $this->user()->id === $offer->author->id;
     }
 }

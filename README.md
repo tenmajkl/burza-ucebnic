@@ -1,11 +1,11 @@
-# Lemon app skeleton
+# Burza ucebnic
 
-This repository contains advanced skeleton based on Lemon and Laravel mix.
+Tento projekt ma za cil digitalizovat kazdorocni burzu ucebnic a umoznit tak snazsi prodej a vice uspesnych objednavek.
 
-## Instalation
+## Instalace
 
-```
-$ git clone https://github.com/Lemon-Framework/app
-
+```sh
 $ make
 ```
+
+Pro instalaci je vyzadovano php 8.1 a vyssi, yarn a nodejs.

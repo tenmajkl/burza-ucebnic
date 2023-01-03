@@ -11,8 +11,7 @@ use Lemon\Http\Request;
 class Offers
 {
     public function all(ORM $orm, Validator $validator, Request $request): array
-    {
-        
+    {        
         $ok = $validator->validate($request->query(), [
             'year' => 'number|max:3',
             'subject' => 'number|max:3',

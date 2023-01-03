@@ -6,6 +6,7 @@ use App\Entities\Traits\DateTimes;
 use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\Annotated\Annotation\Relation\{BelongsTo, HasMany};
 use Cycle\ORM\Entity\Behavior;
+use DateTimeImmutable;
 
 /**
  * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU
@@ -19,6 +20,11 @@ use Cycle\ORM\Entity\Behavior;
     field: 'updatedAt', 
     column: 'updated_at'
 )]
+#[Entity]
+#[Behavior\SoftDelete(
+    field: 'deletedAt',   
+    column: 'deleted_at'  
+)]
 class Offer
 {
     use DateTimes;
@@ -29,6 +35,9 @@ class Offer
     #[HasMany(target: Reservation::class)]
     public array $reservations;
 
+    #[Column(type: 'datetime', nullable: true)]
+    public ?DateTimeImmutable $updatedAt;
+
     public function __construct(
         #[BelongsTo(target: Book::class)]
         public Book $book,
@@ -37,7 +46,7 @@ class Offer
         #[Column(type: 'int')]
         public string $description,
         #[BelongsTo(target: User::class)]
-        public User $user
+        public User $author
     ) {
 
     }
