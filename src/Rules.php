@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Contracts\ORM;
-use App\Entities\Book;
 use Lemon\Config\Exceptions\ConfigException;
 use Lemon\Kernel\Application;
 use Lemon\Support\CaseConverter;
 
-
 /**
- * Custom validation rules
+ * Custom validation rules.
  */
 class Rules
 {
@@ -25,7 +25,7 @@ class Rules
 
     public function schoolEmail(string $email): bool
     {
-        return str_ends_with($email, (env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL')));
+        return str_ends_with($email, env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL'));
     }
 
     public function id(string $entity, string $id): bool
@@ -38,10 +38,11 @@ class Rules
 
         /** @var ORM $db */
         $db = $this->app->get(ORM::class);
+
         return !is_null(
-                    $db->getORM()
-                       ->getRepository('\\App\\Entities\\'.CaseConverter::toPascal($entity))
-                       ->findByPK($id)
-               );
+            $db->getORM()
+                ->getRepository('\\App\\Entities\\'.CaseConverter::toPascal($entity))
+                ->findByPK($id)
+        );
     }
 }

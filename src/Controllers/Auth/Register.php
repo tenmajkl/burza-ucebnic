@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth;
 
 use App\Contracts\ORM;
@@ -7,7 +9,6 @@ use App\Entities\Year;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Templating\Template;
-use Lemon\Terminal;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -34,7 +35,7 @@ class Register
 
         $email = $request->get('email');
 
-        $message = 
+        $message =
             (new Email())
                 ->from(config('mail.from'))
                 ->to($email)

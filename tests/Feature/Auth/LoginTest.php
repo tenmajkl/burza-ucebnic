@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 it('shows login page')
     ->session()
     ->request('login')
@@ -12,4 +14,3 @@ it('redirects logged users')
     ->request('login')
     ->assertLocation('/')
 ;
-

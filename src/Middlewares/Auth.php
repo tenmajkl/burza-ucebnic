@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Middlewares;
 
 use Lemon\Contracts\Http\Session;
-use Lemon\Http\Responses\RedirectResponse;
 
 class Auth
 {

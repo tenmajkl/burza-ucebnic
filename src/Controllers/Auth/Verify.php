@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth;
 
 use App\Contracts\ORM;
@@ -25,6 +27,7 @@ class Verify
 
         $session->dontExpire();
         $session->set('email', $data['email']);
+
         return redirect('/');
     }
 }

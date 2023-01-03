@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth;
 
 use App\Entities\User;
@@ -10,7 +12,7 @@ use Lemon\Templating\Template;
 
 class Login
 {
-    public function get(): Template 
+    public function get(): Template
     {
         return template('auth.login');
     }

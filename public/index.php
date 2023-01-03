@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 use Lemon\Http\Request;
 
 $maintenance = __DIR__.'/../maintenance.php';
 
 if (file_exists($maintenance)) {
     require $maintenance;
-    die();
+
+    exit;
 }
 
 /** @var \Lemon\Kernel\Application $application */

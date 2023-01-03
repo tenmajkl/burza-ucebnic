@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Lemon\Support\CaseConverter;
 use Lemon\Terminal;
 
-Terminal::command('entity:make {name}', function($name) {
+Terminal::command('entity:make {name}', function ($name) {
     $entity = file_get_contents(__DIR__.'/stubs/Entity.php.stub');
     $name = CaseConverter::toPascal($name);
     $file = __DIR__.'/src/Entities/'.$name.'.php';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 include __DIR__.'/vendor/autoload.php';
 
 use App\Middlewares\Auth;
@@ -21,7 +23,7 @@ $application->loadHandler();
 
 $application->get('config')->load();
 
-// --- Loading services from config/services.php --- 
+// --- Loading services from config/services.php ---
 foreach (config('services') as $service => $aliases) {
     $application->add($service);
     foreach ($aliases as $alias) {
@@ -35,17 +37,17 @@ new Rules($application);
 $router = $application->get('routing');
 
 $router->file('routes.web')
-       ->middleware(Csrf::class)
-       ->middleware([Auth::class, 'onlyAuthenticated'])
+    ->middleware(Csrf::class)
+    ->middleware([Auth::class, 'onlyAuthenticated'])
 ;
 
 $router->file('routes.api')
-       ->prefix('api')
-       ->middleware(Cors::class)
+    ->prefix('api')
+    ->middleware(Cors::class)
 ;
 
 $router->file('routes.auth')
-       ->middleware([Auth::class, 'onlyGuest'])
+    ->middleware([Auth::class, 'onlyGuest'])
 ;
 
 return $application;

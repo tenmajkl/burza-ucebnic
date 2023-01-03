@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Auth;
+use App\Contracts\Auth as AuthContract;
+use App\Contracts\ORM as ORMContract;
 use App\Mailer;
 use App\ORM;
-use App\Contracts\ORM as ORMContract;
-use App\Contracts\Auth as AuthContract;
 use Symfony\Component\Mailer\MailerInterface;
 
 return [

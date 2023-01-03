@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use App\Entities\Traits\DateTimes;
-use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\Annotated\Annotation\Relation\{BelongsTo, HasMany};
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
-use DateTimeImmutable;
-use JsonSerializable;
 
 /**
- * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU
+ * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU.
  */
 #[Entity]
 #[Behavior\CreatedAt(
@@ -18,15 +20,15 @@ use JsonSerializable;
     column: 'created_at'
 )]
 #[Behavior\UpdatedAt(
-    field: 'updatedAt', 
+    field: 'updatedAt',
     column: 'updated_at'
 )]
 #[Entity]
 #[Behavior\SoftDelete(
-    field: 'deletedAt',   
-    column: 'deleted_at'  
+    field: 'deletedAt',
+    column: 'deleted_at'
 )]
-class Offer implements JsonSerializable
+class Offer implements \JsonSerializable
 {
     use DateTimes;
 
@@ -37,7 +39,7 @@ class Offer implements JsonSerializable
     public array $reservations;
 
     #[Column(type: 'datetime', nullable: true)]
-    public ?DateTimeImmutable $updatedAt;
+    public ?\DateTimeImmutable $updatedAt;
 
     public function __construct(
         #[BelongsTo(target: Book::class)]
@@ -49,7 +51,6 @@ class Offer implements JsonSerializable
         #[BelongsTo(target: User::class)]
         public User $author
     ) {
-
     }
 
     public function jsonSerialize(): mixed

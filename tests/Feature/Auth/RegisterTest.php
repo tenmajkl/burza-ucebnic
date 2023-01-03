@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Lemon\Env;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -17,11 +19,11 @@ it('redirects logged users')
     ->assertLocation('/')
 ;
 
-it('registers user', function() {
+it('registers user', function () {
     $message = null;
     Env::set('EMAIL', 'example.com');
     Env::set('EMAIL_FROM', 'bar@example.com');
-    $this->mock(MailerInterface::class)->expect(send: function($raw_message) use (&$message) {
+    $this->mock(MailerInterface::class)->expect(send: function ($raw_message) use (&$message) {
         $message = $raw_message;
     });
     $this->session();

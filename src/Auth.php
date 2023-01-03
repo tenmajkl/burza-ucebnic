@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Contracts\Auth as AuthContract;
@@ -13,13 +15,12 @@ class Auth implements AuthContract
         private Session $session,
         private ORM $orm
     ) {
-
     }
 
     public function user(): User
     {
         return $this->orm->getORM()->getRepository(User::class)->findOne([
-            'email' => $this->session->get('email')
+            'email' => $this->session->get('email'),
         ]);
     }
 

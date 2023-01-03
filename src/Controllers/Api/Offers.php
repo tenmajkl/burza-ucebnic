@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\ORM;
@@ -12,11 +14,11 @@ use Lemon\Http\Response;
 class Offers
 {
     public function all(ORM $orm, Validator $validator, Request $request): array|Response
-    {        
+    {
         $ok = $validator->validate($request->query(), [
             'year' => 'number|max:3',
             'subject' => 'number|max:3',
-            'sort' => 'number|max:3'
+            'sort' => 'number|max:3',
         ]);
 
         $book = $orm->getORM()->getRepository(Book::class)->findOne([
@@ -24,7 +26,7 @@ class Offers
             'year' => $request->query('year'),
         ]);
 
-        if ($book === null || !$ok) {
+        if (null === $book || !$ok) {
             return response([
                 'error' => '400',
                 'message' => 'Bad data',
@@ -32,7 +34,7 @@ class Offers
         }
 
         return $orm->getORM()->getRepository(Offer::class)->findAll([
-              'book' => $book->id
+            'book' => $book->id,
         ]);
     }
 }

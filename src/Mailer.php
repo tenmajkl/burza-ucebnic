@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Lemon\Contracts\Config\Config;
@@ -10,7 +12,7 @@ use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\RawMessage;
 
 /**
- * Hack that adapts symfony mailer to Lemon container
+ * Hack that adapts symfony mailer to Lemon container.
  */
 class Mailer implements MailerInterface
 {

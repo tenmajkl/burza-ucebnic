@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
-use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\Annotated\Annotation\Relation\{BelongsTo, HasMany};
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use Cycle\Annotated\Annotation\Relation\HasMany;
 
 #[Entity]
 class Book
@@ -26,6 +30,5 @@ class Book
         #[BelongsTo(target: Subject::class)]
         public Subject $subject,
     ) {
-
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Contracts\Auth;
@@ -8,7 +10,6 @@ use App\Entities\Book;
 use App\Entities\Offer;
 use Lemon\Http\Request;
 use Lemon\Http\Response;
-use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
 
 class Offers
@@ -35,9 +36,9 @@ class Offers
         if (!$ok) {
             return template('offers.create', message: 'validation-error');
         }
-        
+
         $book = $orm->getORM()->getRepository(Book::class)->findByPK($request->get('id'));
-        
+
         $offer = new Offer($book, (int) $request->get('price'), $request->get('description'), $auth->user());
 
         $orm->getEntityManager()->persist($offer);
@@ -49,6 +50,7 @@ class Offers
     {
         $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($offer);
         $edit = $auth->user()->id === $offer->author->id;
+
         return template('offers.show', edit: $edit, offer: $offer);
     }
 
@@ -85,7 +87,7 @@ class Offers
         }
 
         $orm->getEntityManager()->delete($offer);
-        
+
         return redirect('offers');
     }
 }

@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use App\Entities\Traits\DateTimes;
-use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\Annotated\Annotation\Relation\{BelongsTo, HasMany};
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
 
 #[Entity]
@@ -13,7 +17,7 @@ use Cycle\ORM\Entity\Behavior;
     column: 'created_at'
 )]
 #[Behavior\UpdatedAt(
-    field: 'updatedAt', 
+    field: 'updatedAt',
     column: 'updated_at'
 )]
 class User
@@ -37,6 +41,5 @@ class User
         #[BelongsTo(target: Year::class)]
         public Year $year,
     ) {
-
     }
 }
