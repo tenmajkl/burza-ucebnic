@@ -22,7 +22,6 @@ class Reservations
 
     public function store(Request $request, Auth $auth, ORM $orm)
     {
-        // TODO maybe api?
         $ok = $request->validate([
             'offer' => 'id:offer',
         ]);
@@ -38,8 +37,6 @@ class Reservations
         }
 
         $book = $offer->book->id;
-        
-        // todo maybe bad idea idk
         if (!empty(array_filter($user->reservations, fn(Reservation $reservation) => $reservation->offer->book->id == $book))) {
             return template('offers.show', message: 'reservation-exists-error');
         }
