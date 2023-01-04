@@ -9,6 +9,7 @@ use App\Contracts\ORM;
 use App\Entities\Offer;
 use App\Entities\Reservation;
 use Lemon\Http\Request;
+use Lemon\Http\Response;
 
 class Reservations
 {
@@ -52,7 +53,7 @@ class Reservations
         return template('offers.show');
     }
 
-    public function destroy($target, Auth $auth, ORM $orm)
+    public function destroy($target, Auth $auth, ORM $orm): Response
     {
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findByPK($target);
         $user = $auth->user()->id;
@@ -69,8 +70,18 @@ class Reservations
         return redirect('/');
     }
 
-    public function aprove($hash, ORM $orm)
+    public function aprove($hash, ORM $orm, Auth $auth)
     {
-        
+        $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
+            'hash' => $hash,
+        ]);
+
+        if ($reservation->offer->author->id !== $auth->user()->id) {
+            return template('reservations.aprove', success: false);
+        }
+
+        $orm->getEntityManager()->delete($reservation->offer);
+
+        return template('reservations.aprove', success: true);
     }
 }
