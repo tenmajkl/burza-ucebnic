@@ -1,9 +1,19 @@
 { extends 'layout' }
 
 { block 'title' }
-    Login
+    { text login_title }
 { /block }
 
 { block 'content' }
-    
+    <main class="flex items-center justify-center h-screen">
+        <form method="POST" class="flex flex-col">
+            { ifset $message }
+                <div class="mb-2 alert">{{ text($message) }}</div>
+            { /ifset }
+            { csrf }
+            <input name="email" type="email" class="mb-2 card" placeholder="{ text email }">
+            <input name="password" type="password" class="mb-2 card" placeholder="{ text password }">
+            <button class="card hover:bg-primary hover:text-white">{ text login }</button>
+        </form>
+    </main>
 { /block }

@@ -11,7 +11,7 @@ class Auth
     public function onlyAuthenticated(Session $session)
     {
         if (!$session->has('email')) {
-            return redirect('login');
+            return redirect('/login');
         }
     }
 
@@ -19,13 +19,6 @@ class Auth
     {
         if ($session->has('email')) {
             return redirect('/');
-        }
-    }
-
-    public function onlyUnverified(Session $session)
-    {
-        if (!$session->has('verify_data')) {
-            return redirect('register');
         }
     }
 }

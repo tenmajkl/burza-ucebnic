@@ -60,11 +60,6 @@ class ORM implements ORMContract
         $this->manager = new EntityManager($this->orm);
     }
 
-    public function __destruct()
-    {
-        $this->manager->run();
-    }
-
     public function getORM(): ORMInterface
     {
         return $this->orm;

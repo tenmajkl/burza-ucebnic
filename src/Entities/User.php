@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entities;
 
 use App\Entities\Traits\DateTimes;
+use App\Entities\Traits\Dynamic;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
@@ -22,7 +23,7 @@ use Cycle\ORM\Entity\Behavior;
 )]
 class User
 {
-    use DateTimes;
+    use DateTimes, Dynamic;
 
     #[Column(type: 'primary')]
     public int $id;
@@ -32,9 +33,6 @@ class User
 
     #[HasMany(target: Reservation::class)]
     public array $reservations = [];
-
-    #[HasMany(target: SellingPoint::class)]
-    public array $sellingPoints = [];
 
     public function __construct(
         #[Column(type: 'string')]

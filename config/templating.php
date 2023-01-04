@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Directives\IfSet;
 use Lemon\Templating\Juice\Syntax;
 
 return [
@@ -10,4 +11,7 @@ return [
     'juice' => [
         'syntax' => new Syntax(),
     ],
+    'directives' => [
+        'ifset' => IfSet::class,
+    ]
 ];

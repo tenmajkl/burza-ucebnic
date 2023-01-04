@@ -31,8 +31,13 @@ foreach (config('app.services') as $service => $aliases) {
     }
 }
 
+$compiler = $application->get('juice');
+foreach (config('templating.directives') as $name => $class) {
+    $compiler->addDirectiveCompiler($name, $class);
+}
+
 date_default_timezone_set(config('app.timezone'));
-@ini_set('date.timezone');
+@ini_set('date.timezone', config('app.timezone'));
 
 new Rules($application);
 
@@ -40,17 +45,18 @@ new Rules($application);
 $router = $application->get('routing');
 
 $router->file('routes.web')
-    ->middleware(Csrf::class)
-    ->middleware([Auth::class, 'onlyAuthenticated'])
+       ->middleware(Csrf::class)
+       ->middleware([Auth::class, 'onlyAuthenticated'])
 ;
 
 $router->file('routes.api')
-    ->prefix('api')
-    ->middleware(Cors::class)
+       ->prefix('api')
+       ->middleware(Cors::class)
 ;
 
 $router->file('routes.auth')
-    ->middleware([Auth::class, 'onlyGuest'])
+       ->middleware([Auth::class, 'onlyGuest'])
+       ->middleware(Csrf::class)
 ;
 
 return $application;

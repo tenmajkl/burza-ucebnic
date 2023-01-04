@@ -25,10 +25,13 @@ class Rules
 
     public function schoolEmail(string $email): bool
     {
-        return str_ends_with($email, env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL'));
+        return 
+            strlen($email) > strlen(env('EMAIL')) + 1 
+            && str_ends_with($email, '@'.(env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL')))
+        ;
     }
 
-    public function id(string $entity, string $id): bool
+    public function id(string $id, string $entity): bool
     {
         if (!is_numeric($id)) {
             return false;
@@ -41,7 +44,7 @@ class Rules
 
         return !is_null(
             $db->getORM()
-                ->getRepository('\\App\\Entities\\'.CaseConverter::toPascal($entity))
+                ->getRepository('App\\Entities\\'.CaseConverter::toPascal($entity))
                 ->findByPK($id)
         );
     }

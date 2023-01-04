@@ -1,8 +1,24 @@
 { extends 'layout' }
 
 { block 'title' }
-    Register
+    { text register_title }
 { /block }
 
 { block 'content' }
+    <main class="flex items-center justify-center h-screen">
+        <form method="POST" class="flex flex-col">
+            { ifset $message }
+                <div class="mb-2 alert">{{ text($message) }}</div>
+            { /ifset }
+            { csrf }
+            <input name="email" type="email" class="mb-2 card" placeholder="{ text email }">
+            <input name="password" type="password" class="mb-2 card" placeholder="{ text password }">
+            <select id="years" name="year" class="mb-2 card">
+                { foreach $years as $year }
+                    <option value="{{ $year->id }}">{{ $year->name }}</option>
+                { /foreach }
+            </select>
+            <button class="card hover:bg-primary hover:text-white">{ text register }</button>
+        </form>
+    </main>
 { /block }

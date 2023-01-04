@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: ["resources/**/*.{juice,svelte}"],
   theme: {
-    extend: {},
+      colors: {
+          'white': '#ffffff',
+          'primary': '#0F172A',
+          'red': '#ef4444',
+      }
   },
   plugins: [],
 }

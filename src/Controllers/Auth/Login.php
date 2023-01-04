@@ -6,6 +6,7 @@ namespace App\Controllers\Auth;
 
 use App\Entities\User;
 use App\ORM;
+use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
@@ -17,7 +18,7 @@ class Login
         return template('auth.login');
     }
 
-    public function post(ORM $orm, Request $request): RedirectResponse|Template
+    public function post(ORM $orm, Request $request, Session $session): RedirectResponse|Template
     {
         $ok = $request->validate([
             'email' => 'max:128|email|school_email',
@@ -32,9 +33,11 @@ class Login
             'email' => $request->get('email'),
         ]);
 
-        if (!password_verify($request->get('password'), $user->password)) {
+        if (!$user || !password_verify($request->get('password'), $user->password)) {
             return template('login', message: 'auth-error');
         }
+
+        $session->set('email', $request->get('email'));
 
         return redirect('/');
     }
