@@ -43,7 +43,9 @@ class Reservations
             return template('offers.show', message: 'reservation-exists-error');
         }
 
-        $reservation = new Reservation($offer, $user);
+        $active = empty($offer->reservations);
+
+        $reservation = new Reservation($offer, $user, $active);
     
         $orm->getEntityManager()->persist($reservation);
 
@@ -58,12 +60,17 @@ class Reservations
             return error(403);
         }
 
+        $offer = $reservation->offer;
+
         $orm->getEntityManager()->delete($reservation);
+
+        @$offer->reservations[0]->active = true; // TODO but something like this it must be
 
         return redirect('/');
     }
 
-    public function aprove($hash)
+    public function aprove($hash, ORM $orm)
     {
+        
     }
 }
