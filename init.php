@@ -23,13 +23,16 @@ $application->loadHandler();
 
 $application->get('config')->load();
 
-// --- Loading services from config/services.php ---
-foreach (config('services') as $service => $aliases) {
+// --- Loading services from config/app.php ---
+foreach (config('app.services') as $service => $aliases) {
     $application->add($service);
     foreach ($aliases as $alias) {
         $application->alias($alias, $service);
     }
 }
+
+date_default_timezone_set(config('app.timezone'));
+@ini_set('date.timezone');
 
 new Rules($application);
 

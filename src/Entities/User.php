@@ -33,6 +33,9 @@ class User
     #[HasMany(target: Reservation::class)]
     public array $reservations = [];
 
+    #[HasMany(target: SellingPoint::class)]
+    public array $sellingPoints = [];
+
     public function __construct(
         #[Column(type: 'string')]
         public string $email,

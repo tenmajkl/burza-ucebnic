@@ -10,7 +10,7 @@ use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\ORM\Entity\Behavior;
 
-#[Entity]
+#[Entity()]
 #[Behavior\CreatedAt(
     field: 'createdAt',
     column: 'created_at'

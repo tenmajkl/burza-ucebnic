@@ -10,7 +10,10 @@ use App\ORM;
 use Symfony\Component\Mailer\MailerInterface;
 
 return [
-    ORM::class => [ORMContract::class],
-    Auth::class => [AuthContract::class],
-    Mailer::class => [MailerInterface::class],
+    'services' => [
+        ORM::class => [ORMContract::class],
+        Auth::class => [AuthContract::class],
+        Mailer::class => [MailerInterface::class],
+    ],
+    'timezone' => 'Europe/Prague',
 ];

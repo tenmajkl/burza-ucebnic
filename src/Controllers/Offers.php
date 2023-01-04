@@ -19,9 +19,10 @@ class Offers
         return template('offers.index', offers: $auth->user()->offers);
     }
 
-    public function create(): Template
+    public function create(ORM $orm): Template
     {
-        return template('offers.create');
+        $books = $orm->getORM()->getRepository(Book::class)->findAll();
+        return template('offers.create', books: $books);
     }
 
     public function store(Request $request, Auth $auth, ORM $orm): Template
@@ -46,17 +47,17 @@ class Offers
         return template('offers.index', message: 'create_success', offers: $auth->user()->offers);
     }
 
-    public function show($offer, Auth $auth, ORM $orm): Template
+    public function show($target, Auth $auth, ORM $orm): Template
     {
-        $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($offer);
+        $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($target);
         $edit = $auth->user()->id === $offer->author->id;
 
         return template('offers.show', edit: $edit, offer: $offer);
     }
 
-    public function update($offer, Auth $auth, ORM $orm, Request $request): Template|Response
+    public function update($target, Auth $auth, ORM $orm, Request $request): Template|Response
     {
-        $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($offer);
+        $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($target);
         if (!$auth->authorizeOfferEditation($offer)) {
             return error(403);
         }
@@ -79,9 +80,9 @@ class Offers
         return template('offers.show', edit: true, offer: $offer, message: 'edit_success');
     }
 
-    public function destroy($offer, ORM $orm, Auth $auth): Response
+    public function destroy($target, ORM $orm, Auth $auth): Response
     {
-        $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($offer);
+        $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($target);
         if (!$auth->authorizeOfferEditation($offer)) {
             return error(403);
         }
