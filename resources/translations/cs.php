@@ -15,4 +15,5 @@ return [
     'login_title' => 'Prihlaseni',
     'year' => 'Rocnik',
     'user-exists' => 'Uzivatel s timto emailem jiz existuje',
+    'forgotten-password' => 'Zapomenute heslo',
 ];

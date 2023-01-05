@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Controllers\Auth;
+namespace App\Controllers\Auth\ForgottenPassword;
 
-class ChangePassword
+class Request
 {
 }

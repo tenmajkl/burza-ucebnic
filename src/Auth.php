@@ -24,7 +24,12 @@ class Auth implements AuthContract
         ]);
     }
 
-    public function authorizeOfferEditation(Offer $offer): bool
+    public function canChangeForgottenPassword(string $token): bool
+    {
+        return $this->session->get('token') == $token;
+    }
+
+    public function canEditOffer(Offer $offer): bool
     {
         return $this->user()->id === $offer->author->id;
     }

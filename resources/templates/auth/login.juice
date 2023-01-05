@@ -14,6 +14,7 @@
             <input name="email" type="email" class="mb-2 card" placeholder="{ text email }">
             <input name="password" type="password" class="mb-2 card" placeholder="{ text password }">
             <button class="card hover:bg-primary hover:text-white">{ text login }</button>
+            <a href="/forgotten-password">{ text forgotten-password }</a>
         </form>
     </main>
 { /block }

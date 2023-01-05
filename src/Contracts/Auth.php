@@ -11,5 +11,7 @@ interface Auth
 {
     public function user(): User;
 
-    public function authorizeOfferEditation(Offer $offer): bool;
+    public function canChangeForgottenPassword(string $token): bool;
+    
+    public function canEditOffer(Offer $offer): bool;
 }

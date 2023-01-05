@@ -58,7 +58,7 @@ class Offers
     public function update($target, Auth $auth, ORM $orm, Request $request): Template|Response
     {
         $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($target);
-        if (!$auth->authorizeOfferEditation($offer)) {
+        if (!$auth->canEditOffer($offer)) {
             return error(403);
         }
 
@@ -83,7 +83,7 @@ class Offers
     public function destroy($target, ORM $orm, Auth $auth): Response
     {
         $offer = $orm->getORM()->getRepository(Offer::class)->findByPK($target);
-        if (!$auth->authorizeOfferEditation($offer)) {
+        if (!$auth->canEditOffer($offer)) {
             return error(403);
         }
 
