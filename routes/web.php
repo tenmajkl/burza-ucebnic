@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Controllers\Api\Offers;
+use App\Controllers\Offers;
 use App\Controllers\Welcome;
 use Lemon\Route;
 

@@ -16,4 +16,5 @@ return [
     'year' => 'Rocnik',
     'user-exists' => 'Uzivatel s timto emailem jiz existuje',
     'forgotten-password' => 'Zapomenute heslo',
+    'offers-error' => 'nabidky nejsou'
 ];

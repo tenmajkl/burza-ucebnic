@@ -23,7 +23,6 @@ use Cycle\ORM\Entity\Behavior;
     field: 'updatedAt',
     column: 'updated_at'
 )]
-#[Entity]
 #[Behavior\SoftDelete(
     field: 'deletedAt',
     column: 'deleted_at'
@@ -56,8 +55,9 @@ class Offer implements \JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
+            'id' => $this->id,
             'name' => $this->book->name,
-            'subject' => $this->book->subject,
+            'subject' => $this->book->subject->id,
             'year' => $this->book->year,
             'price' => $this->price,
             'description' => $this->description,

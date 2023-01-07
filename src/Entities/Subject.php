@@ -14,8 +14,12 @@ class Subject
     #[Column(type: 'primary')]
     public int $id;
 
-    #[Column(type: 'string')]
-    public string $name;
+    public function __construct(
+        #[Column(type: 'string')]
+        public string $name
+    ) {
+
+    }
 
     #[HasMany(target: Book::class)]
     public array $books = [];

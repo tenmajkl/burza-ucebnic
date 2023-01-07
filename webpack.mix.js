@@ -2,7 +2,7 @@ const mix = require('laravel-mix')
 require('laravel-mix-svelte');
 
 mix
-    .ts('resources/ts/main.ts', 'public/js')
+    .js('resources/js/main.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require("tailwindcss"),
     ])

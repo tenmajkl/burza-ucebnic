@@ -23,4 +23,5 @@ Route::get('logout', [Logout::class, 'get'])
 ;
 
 Route::controller('forgotten-password', Request::class);
-Route::controller('forgotten-password/{token}', Change::class);
+Route::get('forgotten-password/{token}', [Change::class, 'get']);
+Route::post('forgotten-password/{token}', [Change::class, 'post']);

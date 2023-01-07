@@ -34,7 +34,7 @@ class Login
         ]);
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
-            return template('login', message: 'auth-error');
+            return template('auth.login', message: 'auth-error');
         }
 
         $session->set('email', $request->get('email'));
