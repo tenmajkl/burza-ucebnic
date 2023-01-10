@@ -6,7 +6,7 @@ namespace App\Entities;
 
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
-use Cycle\Annotated\Annotation\Relation\HasMany;
+use Cycle\Annotated\Annotation\Relation\{HasMany, BelongsTo};
 
 #[Entity()]
 class Subject
@@ -14,8 +14,14 @@ class Subject
     #[Column(type: 'primary')]
     public int $id;
 
-    #[Column(type: 'string')]
-    public string $name;
+    public function __construct(
+        #[Column(type: 'string')]
+        public string $name,
+        #[BelongsTo(target: School::class)]
+        public School $school,
+    ) {
+        
+    }
 
     #[HasMany(target: Book::class)]
     public array $books = [];

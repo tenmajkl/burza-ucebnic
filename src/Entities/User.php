@@ -41,6 +41,8 @@ class User
         public string $password,
         #[BelongsTo(target: Year::class)]
         public Year $year,
+        #[BelongsTo(target: School::class)]
+        public School $school
     ) {
     }
 }

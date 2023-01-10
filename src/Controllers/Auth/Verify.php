@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\Auth;
 
 use App\Contracts\ORM;
+use App\Entities\School;
 use App\Entities\User;
 use App\Entities\Year;
 use Lemon\Contracts\Http\Session;
@@ -20,7 +21,11 @@ class Verify
 
         $year = $orm->getORM()->getRepository(Year::class)->findByPK($data['year']);
 
-        $user = new User($data['email'], $data['password'], $year);
+        [$email, $host] = explode('@', $data['email']);
+
+        $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
+
+        $user = new User($email, $data['password'], $year, $school);
 
         $orm->getEntityManager()->persist($user)->run();
 

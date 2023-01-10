@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Contracts\ORM;
+use App\Entities\School;
 use Lemon\Config\Exceptions\ConfigException;
 use Lemon\Kernel\Application;
 use Lemon\Support\CaseConverter;
@@ -25,10 +26,10 @@ class Rules
 
     public function schoolEmail(string $email): bool
     {
-        return 
-            strlen($email) > strlen(env('EMAIL')) + 1 
-            && str_ends_with($email, '@'.(env('EMAIL') ?? throw new ConfigException('Undefined env variable EMAIL')))
-        ;
+        [$email, $host] = explode('@', $email);
+        $school = $this->app->get(ORM::class)->getORM()->getRepository(School::class)->findOne(['email' => $host]);
+
+        return $school !== null;
     }
 
     public function id(string $id, string $entity): bool

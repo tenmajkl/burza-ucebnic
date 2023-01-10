@@ -6,7 +6,7 @@ namespace App\Entities;
 
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
-use Cycle\Annotated\Annotation\Relation\HasMany;
+use Cycle\Annotated\Annotation\Relation\{HasMany, BelongsTo};
 
 #[Entity()]
 class Year
@@ -16,7 +16,9 @@ class Year
 
     public function __construct(
         #[Column(type: 'string')]
-        public string $name
+        public string $name,
+        #[BelongsTo(target: School::class)]
+        public School $school
     ) {
 
     }
