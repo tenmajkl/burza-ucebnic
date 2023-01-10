@@ -14,15 +14,15 @@ class Subject
     #[Column(type: 'primary')]
     public int $id;
 
+    #[HasMany(target: Book::class)]
+    public array $books;
+
     public function __construct(
         #[Column(type: 'string')]
         public string $name,
-        #[BelongsTo(target: School::class)]
-        public School $school,
+        #[BelongsTo(Year::class)]
+        public Year $year
     ) {
         
     }
-
-    #[HasMany(target: Book::class)]
-    public array $books = [];
 }

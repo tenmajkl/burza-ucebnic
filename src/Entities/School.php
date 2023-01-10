@@ -14,12 +14,6 @@ class School
     #[HasMany(target: User::class)]
     public array $users;
 
-    #[HasMany(target: Year::class)]
-    public array $years;
-
-    #[HasMany(target: Subject::class)]
-    public array $subjects;
-
     public function __construct(
         #[Column(type: 'string')]
         public string $name,

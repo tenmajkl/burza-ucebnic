@@ -15,8 +15,9 @@ class Welcome
 {
     public function handle(Auth $auth, ORM $orm): Template
     {
-        $years = $orm->getORM()->getRepository(Year::class)->findAll();
-        $subjects = $orm->getORM()->getRepository(Subject::class)->findAll();
+        $school = $auth->user()->school->id;
+        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school]);
+        $subjects = $orm->getORM()->getRepository(Subject::class)->findAll(['school_id' => $school]);
         $sorts = [];
         $year = $auth->user()->year->id;
         return template('welcome', years: $years, subjects: $subjects, sorts: $sorts, year: $year);

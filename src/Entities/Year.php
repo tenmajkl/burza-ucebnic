@@ -14,6 +14,12 @@ class Year
     #[Column(type: 'primary')]
     public int $id;
 
+    #[HasMany(target: User::class)]
+    public array $users = [];
+
+    #[HasMany(target: Subject::class)]
+    public array $subjects = [];
+
     public function __construct(
         #[Column(type: 'string')]
         public string $name,
@@ -22,7 +28,4 @@ class Year
     ) {
 
     }
-
-    #[HasMany(target: User::class)]
-    public array $users = [];
 }
