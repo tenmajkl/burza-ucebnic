@@ -15,7 +15,9 @@ class Verify
 {
     public function get($token, Session $session, ORM $orm): RedirectResponse
     {
-        if (!$session->has('data') || $token !== ($data = $session->get('data'))['token']) {
+        if (!$session->has('verify_data') 
+            || $token !== ($data = $session->get('verify_data'))['token']
+        ) {
             return redirect('/register');
         }
 
@@ -31,7 +33,6 @@ class Verify
 
         $session->dontExpire();
         $session->set('email', $data['email']);
-
         return redirect('/');
     }
 }

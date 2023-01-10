@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    Welcome to Lemon Framework version {{ \Lemon\Kernel\Application::VERSION }}!
-</body>
-</html>
+{ extends 'layout' }
+
+{ block 'title' }
+    { text login_title }
+{ /block }
+
+{ block 'content' }
+    <Offers />
+{ /block }
+
+<script>
+    let years = {{ $years }};
+    let subjects = {{ $subjects}};
+    let sorts = {{ $sorts }};
+    let year = {{ $year }};
+    let error_message = {{ text('offers-error') }};
+</script>
+<script src="js/main.js"></script>
