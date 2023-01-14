@@ -1,0 +1,20 @@
+{ extends 'layout' }
+
+{ block 'title' }
+    { text login_title }
+{ /block }
+
+{ block 'content' }
+
+<form method="POST">
+    {csrf}
+    <select name="book" class="card">
+        { foreach $books as $book }
+            <option value="{{ $book-> id}}">{{ $book->name }}</option>
+        { /foreach }
+    </select>
+    <input type="number" name="price" class="card">
+    <textarea name="description" cols="30" rows="10" class="card"></textarea>
+</form>
+
+{ /block }

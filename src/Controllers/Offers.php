@@ -38,7 +38,7 @@ class Offers
             return template('offers.create', message: 'validation-error');
         }
 
-        $book = $orm->getORM()->getRepository(Book::class)->findByPK($request->get('id'));
+        $book = $orm->getORM()->getRepository(Book::class)->findByPK((int) $request->get('book'));
 
         $offer = new Offer($book, (int) $request->get('price'), $request->get('description'), $auth->user());
 
