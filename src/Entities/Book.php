@@ -28,8 +28,6 @@ class Book
         public string $author,
         #[Column(type: 'int')]
         public int $release_year,
-        #[BelongsTo(target: Year::class)]
-        public Year $year,
         #[BelongsTo(target: Subject::class)]
         public Subject $subject,
     ) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\Auth;
 
 use App\Contracts\ORM;
+use App\Entities\School;
 use App\Entities\User;
 use App\Entities\Year;
 use Lemon\Contracts\Http\Session;
@@ -25,7 +26,7 @@ class Register
     public function post(Request $request, Session $session, MailerInterface $mailer, ORM $orm): Template
     {
         $ok = $request->validate([
-            'email' => 'max:128|school_email',
+            'email' => 'max:128|school-email',
             'password' => 'max:128|min:8',
             'year' => 'id:year',
         ]);

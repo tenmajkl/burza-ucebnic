@@ -22,7 +22,7 @@ class Login
     public function post(ORM $orm, Request $request, Session $session): RedirectResponse|Template
     {
         $ok = $request->validate([
-            'email' => 'max:128|email|school_email',
+            'email' => 'max:128|email',
             'password' => 'max:128|min:8',
         ]);
 
