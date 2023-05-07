@@ -16,24 +16,20 @@ class ChangePassword
 
     public function post(Request $request, Auth $auth, ORM $orm): Template
     {
-        $ok = $request->validate([
+        $request->validate([
             'old_password' => 'max:256',
             'password' => 'min:8|max:256'
-        ]);
-
-        if (!$ok) {
-            return template('auth.change-password', message: 'validation-error');
-        }
+        ], template('auth.change-password'));
 
         $user = $auth->user();
 
         if (!password_verify($request->get('password'), $user->password)) {
-            return template('auth.change-password', message: 'auth-error');
+            return template('auth.change-password', message: 'auth.error');
         }
 
         $user->password = $request->get('password');
         $orm->getEntityManager()->persist($user);
 
-        return template('auth.change-password', message: 'success');
+        return template('auth.change-password', message: 'auth.success');
     }
 }

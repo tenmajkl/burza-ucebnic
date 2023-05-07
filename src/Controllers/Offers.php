@@ -28,15 +28,11 @@ class Offers
     public function store(Request $request, Auth $auth, ORM $orm): Template
     {
         // TODO uploading images, have no idea how to do it lol
-        $ok = $request->validate([
+        $request->validate([
             'book' => 'id:book',
             'price' => 'numeric',
             'description' => 'max:256',
-        ]);
-
-        if (!$ok) {
-            return template('offers.create', message: 'validation-error');
-        }
+        ], template('offers.create'));
 
         $book = $orm->getORM()->getRepository(Book::class)->findByPK((int) $request->get('book'));
 
@@ -62,15 +58,11 @@ class Offers
             return error(403);
         }
 
-        $ok = $request->validate([
+        $request->validate([
             'book' => 'book',
             'price' => 'numeric',
             'description' => 'max:256',
-        ]);
-
-        if (!$ok) {
-            return template('offers.show', edit: true, offer: $offer, message: 'validation_error');
-        }
+        ], template('offers.show', edit: true, offer: $offer));
 
         $offer->price = $request->get('price');
         $offer->description = $request->get('description');

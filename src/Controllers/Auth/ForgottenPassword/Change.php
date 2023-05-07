@@ -25,13 +25,9 @@ class Change
             return redirect('login');
         }
         
-        $ok = $request->validate([
+        $request->validate([
             'password' => 'min:8|max:256',
-        ]);
-
-        if (!$ok) {
-            return template('auth.forgotten-password.change', message: 'validation_error');
-        }
+        ], template('auth.forgotten-password.change')); 
 
         $user = $auth->user();
         $user->password = $request->get('password');

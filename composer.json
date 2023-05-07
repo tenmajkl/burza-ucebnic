@@ -1,6 +1,6 @@
 {
     "require": {
-        "lemon_framework/lemon": "^3.12",
+        "lemon_framework/lemon": "^3.15",
         "cycle/orm": "^2.2",
         "cycle/annotated": "^3.2",
         "cycle/entity-behavior": "^1.1",

@@ -22,13 +22,9 @@ class Reservations
 
     public function store(Request $request, Auth $auth, ORM $orm)
     {
-        $ok = $request->validate([
+        $request->validate([
             'offer' => 'id:offer',
-        ]);
-
-        if (!$ok) {
-            return template('offers.show', message: 'validation_error');
-        }
+        ], template('offers.show'));
 
         $user = $auth->user();
         $offer = $orm->getORM()->getRepository(Offer::class)->findByPK((int) $request->get('offer'));

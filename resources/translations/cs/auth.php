@@ -3,18 +3,16 @@
 declare(strict_types=1);
 
 return [
-    'email-sent' => 'Overovaci email poslan',
-    'validation-error' => 'Spatna data',
-    'auth-error' => '',
-    'verify_subject' => '',
+    'error' => '',
     'password' => 'Heslo',
     'email' => 'Skolni Email',
     'register' => 'Registrovat',
-    'register_title' => 'Registrace',
+    'register-title' => 'Registrace',
     'login' => 'Prihlasit se',
-    'login_title' => 'Prihlaseni',
-    'year' => 'Rocnik',
+    'login-title' => 'Prihlaseni',
     'user-exists' => 'Uzivatel s timto emailem jiz existuje',
     'forgotten-password' => 'Zapomenute heslo',
-    'offers-error' => 'nabidky nejsou'
+    'email-sent' => 'Overovaci email poslan',
+    'verify-subject' => 'Overeni',
+    'success' => '',
 ];

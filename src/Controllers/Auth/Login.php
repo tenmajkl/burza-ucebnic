@@ -21,21 +21,17 @@ class Login
 
     public function post(ORM $orm, Request $request, Session $session): RedirectResponse|Template
     {
-        $ok = $request->validate([
+        $request->validate([
             'email' => 'max:128|email',
             'password' => 'max:128|min:8',
-        ]);
-
-        if (!$ok) {
-            return template('auth.login', message: 'validation-error');
-        }
+        ], template('auth.login'));
 
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $request->get('email'),
         ]);
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
-            return template('auth.login', message: 'auth-error');
+            return template('auth.login', message: 'auth.error');
         }
 
         $session->set('email', $request->get('email'));

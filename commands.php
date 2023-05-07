@@ -17,3 +17,4 @@ Terminal::command('server', function() {
     exec('php -S localhost:8000 -t public &');
     exec('yarn run mix watch &');
 }, 'starts server with mix watch');
+

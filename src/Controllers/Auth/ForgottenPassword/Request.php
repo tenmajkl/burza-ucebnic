@@ -20,16 +20,12 @@ class Request
 
     public function post(LemonRequest $request, MailerInterface $mailer, ORM $orm, Session $session): Template
     {
-        $ok = $request->validate([
+        $request->validate([
             'email' => 'email'
-        ]);
-
-        if (!$ok) {
-            return template('auth.forgotten-password.request', message: 'validation-error');
-        }
+        ], template('auth.forgotten-password.request'));
 
         if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => $request->get('email')]))) {
-            return template('auth.forgotten-password.request', message: 'auth-error');
+            return template('auth.forgotten-password.request', message: 'auth.error');
         }
 
         $token = TokenGenerator::generate($request->get('email'));
@@ -39,10 +35,10 @@ class Request
         $mailer->send((new Email())
                ->from(config('mail.from'))
                ->to($request->get('email'))
-               ->subject(text('forgotten-password-subject')) 
+               ->subject(text('auth.forgotten-password-subject')) 
                ->html(template('email.forgotten-password', token: $token)->render()) 
         );
 
-        return template('auth.forgotten-password.request', message: 'email-sent');
+        return template('auth.forgotten-password.request', message: 'auth.email-sent');
     }
 }

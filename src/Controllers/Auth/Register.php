@@ -25,22 +25,18 @@ class Register
 
     public function post(Request $request, Session $session, MailerInterface $mailer, ORM $orm): Template
     {
-        $ok = $request->validate([
+        $years = $orm->getORM()->getRepository(Year::class)->findAll();
+        
+        $request->validate([
             'email' => 'max:128|school-email',
             'password' => 'max:128|min:8',
             'year' => 'id:year',
-        ]);
-
-        $years = $orm->getORM()->getRepository(Year::class)->findAll();
-
-        if (!$ok) {
-            return template('auth.register', message: 'validation-error', years: $years);
-        }
+        ], template('auth.register', years: $years));
 
         $email = $request->get('email');
 
         if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $email])) {
-            return template('auth.register', message: 'user-exists', years: $years);
+            return template('auth.register', message: 'auth.user-exists', years: $years);
         }
 
         $token = str_shuffle(sha1(str_shuffle(rand().time().$email)));
@@ -49,7 +45,7 @@ class Register
             (new Email())
                 ->from(config('mail.from'))
                 ->to($email)
-                ->subject(text('verify_subject'))
+                ->subject(text('auth.verify_subject'))
                 ->html(template('mail.verify', token: $token)->render())
         ;
 
@@ -60,6 +56,6 @@ class Register
         $session->set('verify_data', ['email' => $email, 'password' => $password, 'year' => $year, 'token' => $token]);
         $session->expireAt(3);
 
-        return template('auth.register', message: 'email-sent', years: $years);
+        return template('auth.register', message: 'auth.email-sent', years: $years);
     }
 }
