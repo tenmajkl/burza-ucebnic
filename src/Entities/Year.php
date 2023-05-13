@@ -6,7 +6,7 @@ namespace App\Entities;
 
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
-use Cycle\Annotated\Annotation\Relation\{HasMany, BelongsTo};
+use Cycle\Annotated\Annotation\Relation\{HasMany, BelongsTo, ManyToMany};
 
 #[Entity()]
 class Year
@@ -17,8 +17,11 @@ class Year
     #[HasMany(target: User::class)]
     public array $users = [];
 
-    #[HasMany(target: Subject::class)]
+    #[ManyToMany(target: Subject::class, though: YearSubject::class)]
     public array $subjects = [];
+
+    #[ManyToMany(target: Book::class, though: YearBook::class)]
+    public array $books = [];
 
     public function __construct(
         #[Column(type: 'string')]
