@@ -19,7 +19,6 @@ class Rules
         private Application $app
     ) {
         $this->app->get('validation')->rules()
-            ->rule('school_email', [$this, 'schoolEmail'])
             ->rule('id', [$this, 'id'])
         ;
     }
@@ -27,7 +26,6 @@ class Rules
     public function schoolEmail(string $email): bool
     {
         [$email, $host] = explode('@', $email);
-        $school = $this->app->get(ORM::class)->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
         return $school !== null;
     }

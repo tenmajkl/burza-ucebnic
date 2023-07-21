@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.card {
-    @apply border-2 shadow-xl outline-none border-primary p-1 bg-white
+.input {
+    @apply outline-none p-1 bg-primary rounded-md
+}
+
+.button {
+    @apply bg-blue text-white p-1 rounded-md
 }
 
 .alert {
-     @apply border-2 shadow-xl outline-none border-red p-1 bg-white   
+     @apply bg-red p-1 rounded-md text-white
 }

@@ -1,18 +1,15 @@
 { extends 'layout' }
 
 { block 'title' }
-    { text login_title }
+    { text app.title }
 { /block }
 
 { block 'content' }
-    <Offers />
+    <div id="app">    
+        <App />
+    </div>
+    <script>
+        let translations = {{ \Lemon\Translator::translations('app') }}
+    </script>
+    <script src="js/main.js"></script>
 { /block }
-
-<script>
-    let years = {{ $years }};
-    let subjects = {{ $subjects}};
-    let sorts = {{ $sorts }};
-    let year = {{ $year }};
-    let error_message = {{ text('offers-error') }};
-</script>
-<script src="js/main.js"></script>

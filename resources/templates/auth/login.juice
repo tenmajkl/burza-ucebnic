@@ -1,20 +1,24 @@
 { extends 'layout' }
 
 { block 'title' }
-    { text login_title }
+    { text auth.login-title }
 { /block }
 
 { block 'content' }
     <main class="flex items-center justify-center h-screen">
         <form method="POST" class="flex flex-col">
+            <span class="mb-2 text-2xl">{ text auth.login-title }</span>
+            { ifError }
+                <div class="mb-2 alert">{ error }</div>
+            { /ifError }
             { ifset $message }
                 <div class="mb-2 alert">{{ text($message) }}</div>
             { /ifset }
             { csrf }
-            <input name="email" type="email" class="mb-2 card" placeholder="{ text email }">
-            <input name="password" type="password" class="mb-2 card" placeholder="{ text password }">
-            <button class="card hover:bg-primary hover:text-white">{ text login }</button>
-            <a href="/forgotten-password">{ text forgotten-password }</a>
+            <input name="email" type="email" class="mb-2 input" placeholder="{ text auth.email }">
+            <input name="password" type="password" class="mb-2 input" placeholder="{ text auth.password }">
+            <button class="button">{ text auth.login }</button>
+            <a href="/forgotten-password">{ text auth.forgotten-password }</a>
         </form>
     </main>
 { /block }

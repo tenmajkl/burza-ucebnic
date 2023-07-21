@@ -15,4 +15,5 @@ return [
     'email-sent' => 'Overovaci email poslan',
     'verify-subject' => 'Overeni',
     'success' => '',
+    'verify-title' => 'Dokoncit registraci'
 ];

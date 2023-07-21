@@ -10,10 +10,11 @@ use App\Entities\User;
 use App\Entities\Year;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Responses\RedirectResponse;
+use Lemon\Templating\Template;
 
 class Verify
 {
-    public function get($token, Session $session, ORM $orm): RedirectResponse
+    public function get($token, Session $session, ORM $orm): RedirectResponse|Template
     {
         if (!$session->has('verify_data') 
             || $token !== ($data = $session->get('verify_data'))['token']
@@ -27,12 +28,18 @@ class Verify
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
-        $user = new User($email, $data['password'], $year, $school);
+        $user = new User($email, $data['password'], null);
 
         $orm->getEntityManager()->persist($user)->run();
 
         $session->dontExpire();
         $session->set('email', $data['email']);
-        return redirect('/');
+        $years = $orm->getORM()->getRepository(Year::class)->findAll();
+
+        return template('verify', years: $years);
+    }
+
+    public function post()
+    {
     }
 }

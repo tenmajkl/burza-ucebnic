@@ -11,8 +11,8 @@ class School
     #[Column(type: 'primary')]
     public int $id;
 
-    #[HasMany(target: User::class)]
-    public array $users;
+    #[HasMany(target: Year::class)]
+    public array $years = [];
 
     public function __construct(
         #[Column(type: 'string')]

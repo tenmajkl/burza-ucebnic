@@ -1,8 +1,9 @@
 {
     "require": {
         "lemon_framework/lemon": "^3.15",
-        "cycle/orm": "^2.2",
+        "cycle/orm": "^2.3",
         "cycle/annotated": "^3.2",
+        "doctrine/annotations": "^1.14.3",
         "cycle/entity-behavior": "^1.1",
         "symfony/mailer": "^6.2",
         "mockery/mockery": "^1.5"

@@ -4,8 +4,10 @@ module.exports = {
   theme: {
       colors: {
           'white': '#ffffff',
-          'primary': '#0F172A',
-          'red': '#ef4444',
+          'primary': '#F0F0F0',
+          'secondary': '#535353',
+          'red': '#860D0D',
+          'blue': '#0D6286',
       }
   },
   plugins: [],

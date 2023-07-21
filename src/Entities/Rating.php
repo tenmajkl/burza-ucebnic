@@ -3,7 +3,7 @@
 namespace App\Entities;
 
 use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\Annotated\Annotation\Relation\HasOne;
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
 
 #[Entity]
 class Rating
@@ -11,10 +11,10 @@ class Rating
     #[Column(type: 'primary')]
     public int $id;
 
-    #[HasOne(target: User::class)]
+    #[BelongsTo(target: User::class)]
     public User $author;
 
-    #[HasOne(target: User::class)]
+    #[BelongsTo(target: User::class)]
     public User $rated;
 
     public function __construct(

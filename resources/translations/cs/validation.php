@@ -15,4 +15,5 @@ return [
     'contains' => 'Hodnota %field není validní.',
     'doesntContain' => 'Hodnota %field není validní.',
     'missing' => 'Hodnota %field chybí.',
+    'school-email' => 'Hodnota %field musí být email existující školy.',
 ];

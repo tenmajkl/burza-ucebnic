@@ -1,0 +1,23 @@
+{ extends 'layout' }
+
+{ block 'title' }
+    { text auth.verify-title }
+{ /block }
+
+{ block 'content' }
+    <main class="flex items-center justify-center h-screen">
+        <form method="POST" class="flex flex-col">
+            <span class="mb-2 text-2xl">{ text auth.verify-title }</span>
+            { ifError }
+                <div class="mb-2 alert">{ error }</div>
+            { /ifError }
+            { csrf }
+            <select id="years" name="year" class="mb-2 input">
+                { foreach $years as $year }
+                    <option value="{{ $year->id }}">{{ $year->name }}</option>
+                { /foreach }
+            </select>
+            <button class="button">{ text auth.login }</button>
+        </form>
+    </main>
+{ /block }

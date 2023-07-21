@@ -3,7 +3,7 @@
 namespace App\Entities;
 
 use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\Annotated\Annotation\Relation\HasOne;
+use Cycle\Annotated\Annotation\Relation\{HasOne, BelongsTo};
 
 #[Entity]
 class Inquiry
@@ -14,7 +14,7 @@ class Inquiry
     #[HasOne(target: Book::class)]
     public Book $book;
 
-    #[HasOne(target: User::class)]
+    #[BelongsTo(target: User::class)]
     public User $user;
 
     public function __construct(

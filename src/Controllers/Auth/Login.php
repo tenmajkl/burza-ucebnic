@@ -25,16 +25,20 @@ class Login
             'email' => 'max:128|email',
             'password' => 'max:128|min:8',
         ], template('auth.login'));
-
+        
+        [$email, $host] = explode('@', $request->get('email'));
+            
         $user = $orm->getORM()->getRepository(User::class)->findOne([
-            'email' => $request->get('email'),
+            'email' => $email,
         ]);
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
             return template('auth.login', message: 'auth.error');
         }
 
-        $session->set('email', $request->get('email'));
+        $session->set('email', explode('@', $request->get('email'))[0]);
+
+        $session->dontExpire();
 
         return redirect('/');
     }

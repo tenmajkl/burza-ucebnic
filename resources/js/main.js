@@ -1,5 +1,5 @@
-import Offers from "./Offers.svelte";
+import App from './App.svelte';
 
-export default new Offers({
-    target: document.body
+export default new App({
+    target: document.getElementById('app'),
 });
