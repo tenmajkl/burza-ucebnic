@@ -1,25 +1,14 @@
 <script>
+    // TODO chat
     import Text from "../components/Text.svelte";
 </script>
 
 <div class="text-2xl font-bold">
-    <Text text="offers-title" />
+    <Text text="reservations-title" />
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
     <div class="flex flex-col">
         <label for="subject" class="text-xs text-secondary"><Text text="subject" /></label>
-        <select id="subject" name="subject" class="input">
-            <option value=""></option>
-        </select>
-    </div>
-    <div class="flex flex-col">
-        <label for="subject" class="text-xs text-secondary"><Text text="book-state" /></label>
-        <select id="subject" name="subject" class="input">
-            <option value=""></option>
-        </select>
-    </div>
-    <div class="flex flex-col">
-        <label for="subject" class="text-xs text-secondary"><Text text="sorting" /></label>
         <select id="subject" name="subject" class="input">
             <option value=""></option>
         </select>
@@ -46,7 +35,7 @@
                 <div class="text-sm text-secondary">NOVA</div>
                 <div class="flex gap-3">
                     <div class="text-xl">200 Kc</div>
-                    <button class="text-sm button">REZERVOVAT</button>
+                    <i class="text-lg bi bi-chat text-blue"></i>
                 </div>
             </div>
         </div>

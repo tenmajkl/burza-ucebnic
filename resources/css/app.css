@@ -10,6 +10,19 @@
     @apply bg-blue text-white p-1 rounded-md
 }
 
+.button-red {
+    @apply bg-red text-white p-1 rounded-md
+}
+
 .alert {
      @apply bg-red p-1 rounded-md text-white
 }
+
+.card {
+    @apply bg-primary p-2 rounded-md shadow-md
+}
+
+.card-image {
+    @apply object-cover w-32 h-32 rounded-xl
+}
+

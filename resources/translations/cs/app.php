@@ -18,4 +18,35 @@ return [
     // Offers
 
     'offers-title' => 'Aktualni nabidky',
+
+    // Filters
+
+    'subject' => 'Predmet',
+    'book-state' => 'Stav ucebnice',
+    'sorting' => 'Razeni',
+    'offer-state' => 'Filtr dle stavu nabidky',
+
+    // Reservations
+
+    'reservations-title' => 'Moje rezervace',
+
+    // Wishlist
+
+    'wishlist-title' => 'Wishlist',
+    'search' => 'Hledat',
+    'remove' => 'Odebrat',
+
+    // Add
+
+    'add-title' => 'Vytvorit nabidku',
+    'add-button' => 'VYTVORIT',
+    'price' => 'Cena',
+
+    // My Offers
+
+    'my-offers-title' => 'Moje nabidky',
+
+    // Profile
+
+    'profile-title' => 'Profil',
 ];

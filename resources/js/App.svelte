@@ -1,14 +1,18 @@
 <script>
     import Menu from './components/Menu.svelte';
     import Text from './components/Text.svelte';
+    import Add from './pages/Add.svelte';
+    import MyOffers from './pages/MyOffers.svelte';
     import Offers from './pages/Offers.svelte';
+    import Reservations from './pages/Reservations.svelte';
+    import Wishlist from './pages/Wishlist.svelte';
 
-    let items = [
+    const items = [
         ['offers', Offers, 'book'],
-        ['reservations', null, 'cart'],
-        ['wishlist', null, 'star'],
-        ['add', null, 'plus-circle'],
-        ['my-offers', null, 'person-lines-fill'],
+        ['reservations', Reservations, 'cart'],
+        ['wishlist', Wishlist, 'star'],
+        ['add', Add, 'plus-circle'],
+        ['my-offers', MyOffers, 'person-lines-fill'],
         ['profile', null, 'person-fill'],
     ];
 
@@ -17,15 +21,15 @@
 
 <div class="md:grid md:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-10">
     <div class="fixed bottom-0 flex justify-around w-screen p-2 border-t-4 md:hidden border-primary">
-        <Menu items={items} selected={selected} />
+        <Menu items={items} bind:selected={selected} />
     </div>
     <div class="flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex">
         <div class="grid gap-4">
             <span class="text-xl"><Text text="title" /></span>
-            <Menu items={items} selected={selected} />
+            <Menu items={items} bind:selected={selected} />
         </div>
     </div>
-    <div class="p-3 md:col-span-4 xl:grid-cols-7 2xl:grid-cols-9">
+    <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9">
         <svelte:component this={items[selected][1]} />        
     </div>
 </div>
