@@ -41,6 +41,7 @@
             <div>
                 <div class="text-xl">Programovaci jazyk C</div>
                 <div class="text-sm text-secondary">@kripa19111</div>
+                <div class="text-sm text-secondary">2023-07-23T21:01:46</div>
             </div>
             <div>
                 <div class="text-sm text-secondary">NOVA</div>
