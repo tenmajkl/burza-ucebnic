@@ -2,6 +2,6 @@
 
 namespace App\Controllers\Admin;
 
-class Users
+class Offfers
 {
 }

@@ -1,0 +1,6 @@
+{ extends 'admin.layout' }
+
+
+{ block 'content' }
+    
+{ /block }

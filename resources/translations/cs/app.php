@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 return [
+
+    'current_year' => date('Y'),
+
     'year' => 'Rocnik',
     'offers-error' => 'nabidky nejsou',
     'title' => 'Burza Ucebnic',

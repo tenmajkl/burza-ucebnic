@@ -38,7 +38,7 @@ class Login
 
         $session->set('email', explode('@', $request->get('email'))[0]);
 
-        $session->dontExpire();
+        $session->expireAt(31536000); // 1 year
 
         return redirect('/');
     }

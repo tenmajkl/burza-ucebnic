@@ -1,6 +1,6 @@
 {
     "require": {
-        "lemon_framework/lemon": "^3.15",
+        "lemon_framework/lemon": "dev-master",
         "cycle/orm": "^2.3",
         "cycle/annotated": "^3.2",
         "doctrine/annotations": "^1.14.3",

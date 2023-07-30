@@ -59,4 +59,11 @@ $router->file('routes.auth')
        ->middleware(Csrf::class)
 ;
 
+$router->file('routes.admin')
+       ->middleware([Auth::class, 'onlyAuthenticated'])
+       ->middleware(Csrf::class)
+       ->middleware([Auth::class, 'onlyAdmin'])
+       ->prefix('admin')
+;
+
 return $application;

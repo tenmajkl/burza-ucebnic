@@ -2,6 +2,6 @@
 
 namespace App\Controllers\Admin;
 
-class Schools
+class Subjects
 {
 }

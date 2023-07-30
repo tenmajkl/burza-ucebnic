@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19ae012c22902736d4d9e0709596253e",
+    "content-hash": "dfa6113a6f12b7aecaeb67862b8e4186",
     "packages": [
         {
             "name": "cycle/annotated",
@@ -161,16 +161,16 @@
         },
         {
             "name": "cycle/orm",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cycle/orm.git",
-                "reference": "15ea9c0ea0a7841d2483e55584312d6c183da20a"
+                "reference": "8b85b83191ba998eda00e2dd7c3a65b1eb01bbb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cycle/orm/zipball/15ea9c0ea0a7841d2483e55584312d6c183da20a",
-                "reference": "15ea9c0ea0a7841d2483e55584312d6c183da20a",
+                "url": "https://api.github.com/repos/cycle/orm/zipball/8b85b83191ba998eda00e2dd7c3a65b1eb01bbb8",
+                "reference": "8b85b83191ba998eda00e2dd7c3a65b1eb01bbb8",
                 "shasum": ""
             },
             "require": {
@@ -202,7 +202,7 @@
             "description": "PHP DataMapper ORM and Data Modelling Engine",
             "support": {
                 "issues": "https://github.com/cycle/orm/issues",
-                "source": "https://github.com/cycle/orm/tree/v2.3.2"
+                "source": "https://github.com/cycle/orm/tree/v2.3.3"
             },
             "funding": [
                 {
@@ -210,7 +210,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-19T21:41:40+00:00"
+            "time": "2023-07-21T18:34:41+00:00"
         },
         {
             "name": "cycle/schema-builder",
@@ -736,16 +736,16 @@
         },
         {
             "name": "lemon_framework/lemon",
-            "version": "3.16.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Lemon-Framework/Lemon.git",
-                "reference": "409f662ce98b19858661164ca9ebe6072dda515b"
+                "reference": "8e432240b4dd20816336991489d34c746d0c5224"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Lemon-Framework/Lemon/zipball/409f662ce98b19858661164ca9ebe6072dda515b",
-                "reference": "409f662ce98b19858661164ca9ebe6072dda515b",
+                "url": "https://api.github.com/repos/Lemon-Framework/Lemon/zipball/8e432240b4dd20816336991489d34c746d0c5224",
+                "reference": "8e432240b4dd20816336991489d34c746d0c5224",
                 "shasum": ""
             },
             "require": {
@@ -760,6 +760,7 @@
                 "phpstan/phpstan": "^1.4",
                 "phpunit/phpunit": "^9"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -782,9 +783,9 @@
             "description": "A php microframework",
             "support": {
                 "issues": "https://github.com/Lemon-Framework/Lemon/issues",
-                "source": "https://github.com/Lemon-Framework/Lemon/tree/3.16.2"
+                "source": "https://github.com/Lemon-Framework/Lemon/tree/master"
             },
-            "time": "2023-07-21T09:46:30+00:00"
+            "time": "2023-07-29T14:33:20+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -3293,16 +3294,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.26",
+            "version": "9.2.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "443bc6912c9bd5b409254a40f4b0f4ced7c80ea1"
+                "reference": "b0a88255cb70d52653d80c890bd7f38740ea50d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/443bc6912c9bd5b409254a40f4b0f4ced7c80ea1",
-                "reference": "443bc6912c9bd5b409254a40f4b0f4ced7c80ea1",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/b0a88255cb70d52653d80c890bd7f38740ea50d1",
+                "reference": "b0a88255cb70d52653d80c890bd7f38740ea50d1",
                 "shasum": ""
             },
             "require": {
@@ -3358,7 +3359,8 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.26"
+                "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.27"
             },
             "funding": [
                 {
@@ -3366,7 +3368,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-06T12:58:08+00:00"
+            "time": "2023-07-26T13:44:30+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -5550,7 +5552,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "lemon_framework/lemon": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
