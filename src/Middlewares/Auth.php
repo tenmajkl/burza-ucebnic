@@ -25,8 +25,22 @@ class Auth
 
     public function onlyAdmin(AuthContract $auth)
     {
-        if ($auth->user()->email !== 'majkel') {
+        if ($auth->user()->role === 0) {
             return error(404);
-        }    
+        }
+    }
+
+    public function onlyUser(AuthContract $auth)
+    {
+        if ($auth->user()->role === 1) {
+            return redirect('/admin/');
+        }
+    }
+
+    public function onlyMajkel(AuthContract $auth)
+    {
+        if ($auth->user()->role !== 2) {
+            return error(404);
+        }
     }
 }

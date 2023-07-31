@@ -47,6 +47,7 @@ $router = $application->get('routing');
 $router->file('routes.web')
        ->middleware(Csrf::class)
        ->middleware([Auth::class, 'onlyAuthenticated'])
+       ->middleware([Auth::class, 'onlyUser'])
 ;
 
 $router->file('routes.api')

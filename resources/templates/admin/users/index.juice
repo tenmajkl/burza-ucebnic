@@ -1,0 +1,45 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.users }
+{ /block }
+
+{ block 'content' }
+    { ifset $message }
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    { /ifset }
+    <div class="flex justify-end w-full">
+        <a href="create" class="button">
+            <i class="bi bi-plus"></i>
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="table-item">{ text admin.user-name }</th>
+                <th class="table-item">{ text admin.user-role }</th>
+                <th class="table-item">{ text admin.user-year }</th>
+                <th class="table-item">{ text admin.user-rating }</th>
+                <th class="table-item">{ text admin.user-reports }</th>
+                <th class="table-item">{ text admin.actions }</th>
+            </tr>
+        </thead>
+        <tbody>
+            { foreach $users as $user }
+                <tr class="{{ false ? 'text-secondary' : 'text-black' }}"> {#wip#}
+                    <td class="table-item">{{ $user->email }}</td>
+                    <td class="table-item">{{ text('admin.'.\App\Auth::Roles[$user->role]) }}</td>
+                    <td class="table-item">{{ $user->year->name }}</td>
+                    <td class="table-item">{{ $user->countRating() }}</td>
+                    <td class="table-item">{{ count($user->received_reports) }}</td>
+                    <td class="table-item">
+                        <a href="/admin/users/{{ $user->id }}" class="button"><i class="bi bi-eye"></i></a>
+                        <a href="/admin/users/{{ $user->id }}/ban" class="button-red"><i class="bi bi-x"></i></a>
+                    </td>
+                </tr>
+            { /foreach }
+        </tbody>
+    </table>
+{ /block }

@@ -1,0 +1,12 @@
+<script>
+    function addSubject() {
+        if (i == 16) return;
+        i++;
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'subject' + i;
+        input.className = 'w-full mb-2 input';
+        input.placeholder = i + '. { text admin.subject }';
+        document.getElementById('subjects').appendChild(input);
+    }
+</script>

@@ -1,0 +1,14 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.ban }
+{ /block }
+
+{ block 'content' }
+<form method="post" class="flex flex-col">
+    { csrf }
+    <input type="text" class="input" name="reason">
+    <input type="date" name="expires">
+    <button class="button">{ text admin.ban }</button>
+</form>
+{ /block }

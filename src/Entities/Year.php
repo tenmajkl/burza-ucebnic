@@ -14,10 +14,10 @@ class Year
     #[Column(type: 'primary')]
     public int $id;
 
-    #[HasMany(target: User::class)]
-    public array $users = [];
+    #[HasMany(target: User::class, nullable: true)]
+    public ?array $users = [];
 
-    #[ManyToMany(target: Subject::class, though: YearSubject::class)]
+    #[HasMany(target: Subject::class)]
     public array $subjects = [];
 
     #[ManyToMany(target: Book::class, though: YearBook::class)]

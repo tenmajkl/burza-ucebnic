@@ -30,8 +30,9 @@ class Register
         ], template('auth.register'));
 
         $email = $request->get('email');
+        $host = explode('@', $email)[1];
 
-        $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $email]);
+        $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
         if ($school === null) {
             Validator::addError('school-email', 'email', '');
@@ -44,16 +45,18 @@ class Register
         }
 
         $token = str_shuffle(sha1(str_shuffle(rand().time().$email)));
-        
-        $message =
-            (new Email())
-                ->from(config('mail.from'))
-                ->to($email)
-                ->subject(text('auth.verify_subject'))
-                ->html(template('mail.verify', token: $token)->render())
-        ;
 
-        $mailer->send($message);
+        d($token);
+
+//        $message =
+//            (new Email())
+//                ->from(config('mail.from'))
+//                ->to($email)
+//                ->subject(text('auth.verify_subject'))
+//                ->html(template('mail.verify', token: $token)->render())
+//        ;
+//
+//        $mailer->send($message);
 
         $password = password_hash($request->get('password'), PASSWORD_ARGON2I);
         $session->set('verify_data', ['email' => $email, 'password' => $password, 'school' => $school->id, 'token' => $token]);

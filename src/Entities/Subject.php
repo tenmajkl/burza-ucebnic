@@ -15,16 +15,14 @@ class Subject
     public int $id;
 
     #[HasMany(target: Book::class)]
-    public array $books;
+    public array $books = [];
 
-    #[ManyToMany(target: Year::class, though: YearSubject::class)]
-    public array $years;
+    #[BelongsTo(Year::class)]
+    public Year $year;
 
     public function __construct(
         #[Column(type: 'string')]
         public string $name,
-        #[BelongsTo(Year::class)]
-        public Year $year
     ) {
         
     }

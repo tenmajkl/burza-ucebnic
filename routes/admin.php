@@ -11,10 +11,10 @@ Route::redirect('/', 'years');
 
 Route::controller('years', Years::class);
 
-Route::controller('subjects', Subjects::class);
-
 Route::controller('books', Books::class);
 
-Route::controller('users', Users::class);
+$users = Route::controller('users', Users::class);
+$users->add('{target}/ban', 'get', [Users::class, 'banMenu']);
+$users->add('{target}/ban', 'post', [Users::class, 'ban']);
 
 Route::controller('offers', Offers::class);

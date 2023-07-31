@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ text('admin.title').' | '.text($_name) }}</title>
+    <title>{ text admin.title } | { yield 'header' }</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/app.css">
@@ -20,6 +20,9 @@
             <div>Burza ucebnic { text app.current_year }; <a href="https://github.com/tenmajkl/bs">Source code</a></div>
         </div>
         <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9">
+            <div class="text-2xl font-bold">
+                { yield 'header' } 
+            </div>
             { yield 'content' }
         </div>
     </div>

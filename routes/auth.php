@@ -16,6 +16,7 @@ Route::controller('login', Login::class);
 Route::controller('register', Register::class);
 
 Route::get('verify/{token}', [Verify::class, 'get']);
+Route::post('verify/{token}', [Verify::class, 'post']);
 
 Route::get('logout', [Logout::class, 'get'])
     ->exclude([Auth::class, 'onlyGuest'])

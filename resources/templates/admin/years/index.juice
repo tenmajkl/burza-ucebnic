@@ -1,6 +1,32 @@
 { extends 'admin.layout' }
 
+{ block 'header' }
+    { text admin.years }
+{ /block }
 
 { block 'content' }
-    
+    <div class="flex justify-end w-full">
+        <a href="/admin/years/create" class="button">
+            <i class="bi bi-plus"></i>
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="table-item">{ text admin.year-name }</th>
+                <th class="table-item">{ text admin.actions }</th>
+            </tr>
+        </thead>
+        <tbody>
+            { foreach $years as $year}
+                <tr>
+                    <td class="table-item">{{ $year->name }}</td>
+                    <td class="table-item">
+                        <a href="/admin/years/{{ $year->id }}" class="button"><i class="bi bi-eye"></i></a>
+                        <a href="/admin/years/{{ $year->id }}/delete" class="button-red"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            { /foreach }
+        </tbody>
+    </table>
 { /block }

@@ -1,0 +1,25 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.years-create }
+{ /block }
+
+{ block 'content' }
+<form method="post">
+    { csrf }
+    <div class="flex flex-col">
+        { text admin.year-name }
+        <input type="text" name="name" class="input">
+    </div>
+    <div class="flex flex-col w-full">
+        { text admin.subjects }
+        <div id="subjects" class="w-full">
+            <input type="text" name="subject1" class="w-full mb-2 input" placeholder="1. { text admin.subject }">
+        </div>
+        <span id="add" class="text-center button" onclick="addSubject()"><i class="bi bi-plus"></i></span>
+    </div>
+    <button class="mt-2 button">{ text admin.create }</button>
+</form>
+<script>let i = 1</script>
+{ include 'admin.years.script' }
+{ /block }

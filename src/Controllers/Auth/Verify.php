@@ -9,6 +9,7 @@ use App\Entities\School;
 use App\Entities\User;
 use App\Entities\Year;
 use Lemon\Contracts\Http\Session;
+use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
 
@@ -22,24 +23,48 @@ class Verify
             return redirect('/register');
         }
 
-        $year = $orm->getORM()->getRepository(Year::class)->findByPK($data['year']);
-
         [$email, $host] = explode('@', $data['email']);
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
-        $user = new User($email, $data['password'], null);
+        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id]);
+
+        return template('auth.verify', years: $years);
+    }
+
+    public function post($token, Session $session, ORM $orm, Request $request): RedirectResponse|Template
+    {
+        if (!$session->has('verify_data') 
+            || $token !== ($data = $session->get('verify_data'))['token']
+        ) {
+            return redirect('/register');
+        }
+
+        $request->validate([
+            'year' => 'numeric',
+        ], redirect('/verify/'.$token));
+
+        [$email, $host] = explode('@', $data['email']);
+
+        $year = $orm->getORM()->getRepository(Year::class)
+                              ->findOne([
+                                  'id' => $request->get('year'), 
+                              ])
+        ;
+
+        if ($year === null) {
+            return redirect('/verify/'.$token);
+        }
+
+        $user = new User($email, $data['password'], $year, 0);
+
+        $session->dontExpire();
+        $session->remove('verify_data');
+
+        $session->set('email', $email);
 
         $orm->getEntityManager()->persist($user)->run();
 
-        $session->dontExpire();
-        $session->set('email', $data['email']);
-        $years = $orm->getORM()->getRepository(Year::class)->findAll();
-
-        return template('verify', years: $years);
-    }
-
-    public function post()
-    {
+        return redirect('/');
     }
 }

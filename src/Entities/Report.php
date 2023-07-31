@@ -2,7 +2,6 @@
 
 namespace App\Entities;
 
-use App\Entities\Traits\DateTimes;
 use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\ORM\Entity\Behavior;
@@ -12,14 +11,8 @@ use Cycle\ORM\Entity\Behavior;
     field: 'createdAt',
     column: 'created_at'
 )]
-#[Behavior\UpdatedAt(
-    field: 'updatedAt',
-    column: 'updated_at'
-)]
-class Rating
+class Report
 {
-    use DateTimes;
-
     #[Column(type: 'primary')]
     public int $id;
 
@@ -27,11 +20,14 @@ class Rating
     public User $author;
 
     #[BelongsTo(target: User::class)]
-    public User $rated;
+    public User $reported;
+
+    #[Column(type: 'datetime')]
+    public \DateTimeImmutable $createdAt;
 
     public function __construct(
-        #[Column(type: 'int')]
-        public int $rating,
+        #[Column(type: 'string')]
+        public string $reason,
     ) {
 
     }

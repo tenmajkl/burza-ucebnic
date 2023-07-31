@@ -1,0 +1,27 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.years-show }
+{ /block }
+
+{ block 'content' }
+<form method="post">
+    { csrf }
+    <div class="flex flex-col">
+        { text admin.year-name }
+        <input type="text" name="name" class="input" value="{{ $year->name }}">
+    </div>
+    <div class="flex flex-col w-full">
+        { text admin.subjects }
+        <div id="subjects" class="w-full">
+            { foreach $year->subjects as $index => $subject }
+                <input type="text" name="subject{{ $index + 1 }}" class="w-full mb-2 input" value="{{ $subject->name }}" placeholder="{{ $index + 1 }}. { text admin.subject }">
+            { /foreach }
+        </div>
+        <span id="add" class="text-center button" onclick="addSubject()"><i class="bi bi-plus"></i></span>
+    </div>
+    <button class="mt-2 button">{ text admin.edit }</button>
+</form>
+<script>let i = {{ count($year->subjects) }}</script>
+{ include 'admin.years.script' }
+{ /block }

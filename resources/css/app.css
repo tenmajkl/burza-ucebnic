@@ -29,3 +29,11 @@
 .card-image {
     @apply object-cover w-32 h-32 rounded-xl
 }
+
+.table {
+    @apply w-full p-2 table-auto
+}
+
+.table-item {
+    @apply p-2 text-left border-b border-secondary
+}
