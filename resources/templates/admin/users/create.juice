@@ -6,7 +6,12 @@
 
 { block 'content' }
     <form method="post" class="flex flex-col">
-        {csrf}
+        { ifset $message }
+            <div class="mb-2 alert">
+                {{ $message }}
+            </div>
+        { /ifset }
+        { csrf }
         { text admin.user-name }
         <input class="input" type="text" name="name">
         { text admin.user-year }

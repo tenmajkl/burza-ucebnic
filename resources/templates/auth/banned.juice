@@ -1,0 +1,13 @@
+{ extends 'layout' }
+
+{ block 'title' }
+    { text auth.banned-title }
+{ /block }
+
+{ block 'content' }
+    <main class="flex flex-col items-center justify-center h-screen text-center">
+        <div class="text-2xl font-bold">{ text auth.banned-title }</div>
+        <div>{ text auth.reason }: {{ $user->getBan()->reason }}</div>
+        <div>{ text auth.expires-at } {{ diff($user->getBan()->expiresAt) }}</div>
+    </main>
+{ /block }

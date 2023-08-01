@@ -6,6 +6,8 @@ include __DIR__.'/vendor/autoload.php';
 
 use App\Middlewares\Auth;
 use App\Rules;
+use Carbon\Carbon;
+use Lemon\Contracts\Translating\Translator;
 use Lemon\Http\Middlewares\Cors;
 use Lemon\Kernel\Application;
 use Lemon\Protection\Middlwares\Csrf;
@@ -38,6 +40,8 @@ foreach (config('templating.directives') as $name => $class) {
 
 date_default_timezone_set(config('app.timezone'));
 @ini_set('date.timezone', config('app.timezone'));
+
+Carbon::setLocale($application->get(Translator::class)->locale());
 
 new Rules($application);
 

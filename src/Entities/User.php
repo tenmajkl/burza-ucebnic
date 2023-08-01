@@ -47,10 +47,10 @@ class User
     #[HasMany(target: Report::class)]
     public array $received_reports = [];
 
-    #[HasMany(target: Ban::class)]
+    #[HasMany(target: Ban::class, outerKey: 'admin_id')]
     public array $given_bans = [];
 
-    #[HasMany(target: Ban::class)]
+    #[HasMany(target: Ban::class, outerKey: 'banned_id')]
     public array $received_bans = [];
 
     public function __construct(
@@ -75,9 +75,28 @@ class User
         return $sum;
     }
 
-    public function hasBan()
+    public function isBanned()
     {
-        print_r($this->bans);
-        return count(array_filter($this->bans, fn($ban) => $ban->banned->id === $this->id)) === 1;
+        return count(
+            array_filter($this->received_bans, fn ($ban) => $ban->isActive())
+        ) === 1;
+    }
+
+    public function banUntil(): ?\DateTimeImmutable
+    {
+        return $this->getBan()?->expiresAt ?? null;
+    }
+
+    public function getBan(): ?Ban
+    {
+        $now = new \DateTimeImmutable();
+
+        foreach ($this->received_bans as $ban) {
+            if ($ban->expiresAt > $now) {
+                return $ban;
+            }
+        }
+
+        return null;
     }
 }

@@ -9,10 +9,14 @@ use Lemon\Contracts\Http\Session;
 
 class Auth
 {
-    public function onlyAuthenticated(Session $session)
+    public function onlyAuthenticated(Session $session, AuthContract $auth)
     {
         if (!$session->has('email')) {
             return redirect('/login');
+        }
+
+        if ($auth->user()->isBanned()) {
+            return template('auth.banned', user: $auth->user());
         }
     }
 

@@ -24,11 +24,18 @@ class Ban
         public string $reason,
         #[Column(type: 'datetime')]
         public \DateTimeImmutable $expiresAt,
-        #[BelongsTo(target: User::class)]
+        #[BelongsTo(target: User::class, innerKey: 'banned_id')]
         public User $banned,
-        #[BelongsTo(target: User::class)]
-        public User $admin
+        #[BelongsTo(target: User::class, innerKey: 'admin_id')]
+        public User $admin,
+        #[Column(type: 'boolean')]
+        public int $active = 1,
     ) {
 
+    }
+
+    public function isActive()
+    {
+        return $this->active && $this->expiresAt > new \DateTimeImmutable();
     }
 }

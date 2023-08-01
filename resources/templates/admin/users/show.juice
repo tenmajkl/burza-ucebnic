@@ -1,0 +1,51 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.users-show }
+{ /block }
+
+{ block 'content' }
+    <form method="post" class="flex flex-col">
+        { ifset $message }
+            <div class="mb-2 alert">
+                {{ $message }}
+            </div>
+        { /ifset }
+        { csrf }
+        { text admin.user-name }
+        <input class="input" type="text" name="name" value="{{ $user->email }}">
+        { text admin.user-year }
+        <select id="years" name="year" class="mb-2 input">
+            { foreach $years as $year }
+                <option value="{{ $year->id }}" {{ $year->id === $user->year->id ? 'selected' : '' }} >{{ $year->name }}</option>
+            { /foreach }
+        </select> 
+        <div class="flex gap-1">
+            { text admin.user-is-admin }
+            <input type="checkbox" name="admin" {{ $user->role > 0 ? 'checked' : '' }}>
+        </div>
+        <button class="button">{ text admin.user-edit }</button>
+    </form>
+    <div class="text-lg font-bold">{ text admin.user-bans }</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="table-item">{ text admin.user-bans-from }</th>
+                <th class="table-item">{ text admin.user-bans-to }</th>
+                <th class="table-item">{ text admin.user-bans-reason }</th>
+                <th class="table-item">{ text admin.user-bans-by }</th>
+                <th class="table-item">{ text admin.user-bans-active }</th>
+            </tr>
+        </thead>
+        <tbody>
+            { foreach $user->received_bans as $ban }
+                <tr>
+                    <td class="table-item">{{ diff($ban->createdAt) }}</td>
+                    <td class="table-item">{{ diff($ban->expiresAt) }}</td>
+                    <td class="table-item">{{ $ban->reason }}</td>                                      
+                    <td class="table-item">{{ $ban->admin->email }}</td>                                                            
+                    <td class="table-item">{{ text($ban->isActive() ? 'admin.yes' : 'admin.no') }}</td>                                                            
+                </tr>
+            { /foreach }
+        </tbody>
+{ /block }

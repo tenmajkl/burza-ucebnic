@@ -6,12 +6,12 @@
 
 { block 'content' }
     { ifset $message }
-        <div class="alert alert-success">
+        <div class="mb-2 alert-success">
             {{ $message }}
         </div>
     { /ifset }
     <div class="flex justify-end w-full">
-        <a href="create" class="button">
+        <a href="/admin/users/create" class="button">
             <i class="bi bi-plus"></i>
         </a>
     </div>
@@ -23,20 +23,30 @@
                 <th class="table-item">{ text admin.user-year }</th>
                 <th class="table-item">{ text admin.user-rating }</th>
                 <th class="table-item">{ text admin.user-reports }</th>
+                <th class="table-item">{ text admin.user-ban }</th>
                 <th class="table-item">{ text admin.actions }</th>
             </tr>
         </thead>
         <tbody>
             { foreach $users as $user }
-                <tr class="{{ false ? 'text-secondary' : 'text-black' }}"> {#wip#}
+                <tr class="{{ $user->isBanned() ? 'text-red' : 'text-black' }}">
                     <td class="table-item">{{ $user->email }}</td>
                     <td class="table-item">{{ text('admin.'.\App\Auth::Roles[$user->role]) }}</td>
                     <td class="table-item">{{ $user->year->name }}</td>
                     <td class="table-item">{{ $user->countRating() }}</td>
                     <td class="table-item">{{ count($user->received_reports) }}</td>
+                    { if $user->isBanned() }
+                        <td class="table-item" title="{{ $user->banUntil()->format(\DateTimeInterface::ISO8601) }}" >{{ diff($user->banUntil()) }}</td>
+                    { else }
+                         <td class="table-item">{ text admin.user-ban-free }</td>                       
+                    { /if }
                     <td class="table-item">
                         <a href="/admin/users/{{ $user->id }}" class="button"><i class="bi bi-eye"></i></a>
-                        <a href="/admin/users/{{ $user->id }}/ban" class="button-red"><i class="bi bi-x"></i></a>
+                        { if $user->isBanned() }
+                            <a href="/admin/users/{{ $user->id }}/unban" class="button-red"><i class="bi bi-check"></i></a>
+                        { else }
+                            <a href="/admin/users/{{ $user->id }}/ban" class="button-red"><i class="bi bi-x"></i></a>
+                        { /if }
                     </td>
                 </tr>
             { /foreach }

@@ -1,6 +1,6 @@
 { foreach [['years'], ['books'], ['users'], ['offers']] as [$item] }
     <div class="flex flex-col items-center text-xs md:flex-row md:gap-2 md:text-sm">
-        <a href="{{ $item }}">
+        <a href="/admin/{{ $item }}">
             <div class="{{ explode('.', $_name)[1] === $item ? 'text-blue' : ''}} flex flex-col md:flex-row md:gap-2 items-center transition ease-in-out">
                 {{ text('admin.'.$item) }}
             </div>

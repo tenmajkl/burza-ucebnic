@@ -15,5 +15,8 @@ return [
     'email-sent' => 'Overovaci email poslan',
     'verify-subject' => 'Overeni',
     'success' => '',
-    'verify-title' => 'Dokoncit registraci'
+    'verify-title' => 'Dokoncit registraci',
+    'banned-title' => 'Pristup zamitnut.',
+    'reason' => 'Duvod',
+    'expires-at' => 'Zakaz vyprsi',
 ];

@@ -6,12 +6,16 @@
         "doctrine/annotations": "^1.14.3",
         "cycle/entity-behavior": "^1.1",
         "symfony/mailer": "^6.2",
-        "mockery/mockery": "^1.5"
+        "mockery/mockery": "^1.5",
+        "nesbot/carbon": "^2.68"
     },
     "autoload": {
         "psr-4": {
             "App\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

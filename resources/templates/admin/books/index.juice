@@ -1,0 +1,31 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.books }
+{ /block }
+
+{ block 'content' }
+    <div class="flex justify-end w-full">
+        <a href="/admin/users/create" class="button">
+            <i class="bi bi-plus"></i>
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="table-item">{ text admin.book-name }</th>
+                <th class="table-item">{ text admin.book-author }</th>
+                <th class="table-item">{ text admin.book-release-year }</th>
+                <th class="table-item">{ text admin.book-subject }</th>
+                <th class="table-item">{ text admin.actions }</th>
+            </tr>
+        </thead>
+        <tbody>
+            { foreach $books as $book }
+                <tr>
+                    <td class="table-item">{{ $user->email }}</td>
+                </tr>
+            { /foreach }
+        </tbody>
+    </table>
+{ /block }
