@@ -20,9 +20,6 @@ class Year
     #[HasMany(target: Subject::class)]
     public array $subjects = [];
 
-    #[ManyToMany(target: Book::class, though: YearBook::class)]
-    public array $books = [];
-
     public function __construct(
         #[Column(type: 'string')]
         public string $name,

@@ -6,7 +6,7 @@
 
 { block 'content' }
     <div class="flex justify-end w-full">
-        <a href="/admin/users/create" class="button">
+        <a href="/admin/books/create" class="button">
             <i class="bi bi-plus"></i>
         </a>
     </div>
@@ -16,14 +16,21 @@
                 <th class="table-item">{ text admin.book-name }</th>
                 <th class="table-item">{ text admin.book-author }</th>
                 <th class="table-item">{ text admin.book-release-year }</th>
-                <th class="table-item">{ text admin.book-subject }</th>
+                <th class="table-item">{ text admin.book-publisher }</th>
                 <th class="table-item">{ text admin.actions }</th>
             </tr>
         </thead>
         <tbody>
             { foreach $books as $book }
                 <tr>
-                    <td class="table-item">{{ $user->email }}</td>
+                    <td class="table-item">{{ $book->name }}</td>
+                    <td class="table-item">{{ $book->author }}</td>
+                    <td class="table-item">{{ $book->release_year }}</td>
+                    <td class="table-item">{{ $book->publisher }}</td>
+                    <td class="table-item">
+                        <a href="/admin/books/{{ $book->id }}" class="button"><i class="bi bi-eye"></i></a>
+                        <a href="/admin/books/{{ $book->id }}/delete" class="button-red"><i class="bi bi-x"></i></a>
+                    </td>
                 </tr>
             { /foreach }
         </tbody>

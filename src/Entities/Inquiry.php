@@ -11,7 +11,7 @@ class Inquiry
     #[Column(type: 'primary')]
     public int $id;
 
-    #[HasOne(target: Book::class)]
+    #[BelongsTo(target: Book::class)]
     public Book $book;
 
     #[BelongsTo(target: User::class)]

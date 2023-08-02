@@ -7,7 +7,7 @@ return [
     'actions' => 'Akce',
     'add' => 'Pridat',
     'create' => 'Vytvorit',
-    'edit' => 'Rocnik',
+    'edit' => 'Upravit',
     'yes' => 'Ano',
     'no' => 'Ne',
 
@@ -61,4 +61,16 @@ return [
     'user-bans-active' => 'Aktivni?',
 
 
+    // Books
+
+    'book-name' => 'Nazev',
+    'book-author' => 'Autor',
+    'book-year' => 'Rocniky',
+    'book-release-year' => 'Rok vydani',
+    'book-subjects' => 'Predmety', 
+    'book-subject' => 'Predmet',  
+    'book-publisher' => 'Nakladatelstvi',
+    'books-create' => 'Pridat ucebnici',
+    'books-show' => 'Zobrazit ucebnici',
+    'book-cover' => 'Ukazka obalu knihy'
 ];

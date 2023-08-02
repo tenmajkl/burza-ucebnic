@@ -22,8 +22,8 @@ class Book
     #[HasMany(target: Offer::class)]
     public array $offers = [];
 
-    #[ManyToMany(target: Year::class, though: YearBook::class)]
-    public array $years = [];
+    #[ManyToMany(target: Subject::class, though: SubjectBook::class)]
+    public array $subjects = [];
 
     public function __construct(
         #[Column(type: 'string')]
@@ -32,8 +32,8 @@ class Book
         public string $author,
         #[Column(type: 'int')]
         public int $release_year,
-        #[BelongsTo(target: Subject::class)]
-        public Subject $subject,
+        #[Column(type: 'string')]
+        public string $publisher,
     ) {
     }
 }

@@ -1,0 +1,35 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.books-create }
+{ /block }
+
+{ block 'content' }
+    <form method="post" class="flex flex-col" enctype="multipart/form-data">
+        { csrf }
+        { text admin.book-name }
+        <input type="text" name="name" class="input" />
+        { text admin.book-author }
+        <input type="text" name="author" class="input" />
+        { text admin.book-release-year }
+        <input type="number" name="release_year" class="input" />
+        { text admin.book-publisher }
+        <input type="text" name="publisher" class="input" />
+        { text admin.book-subjects }
+        <div id="subjects" class="flex flex-col w-full gap-2">
+            <select id="subject1" name="subject1" class="w-full input">
+                { foreach $subjects as $subject }
+                    <option value="{{ $subject->id }}">{{ $subject->year->name }} &ndash; {{ $subject->name }}</option>
+                { /foreach }
+            </select>
+        </div>
+        <div class="mt-2 text-center button" onclick='addSubject({{ $subjects }})'><i class="bi bi-plus"></i></div>
+        { text admin.book-cover }
+        <input type="file" class="input" name="cover">
+        <button class="mt-2 button">{ text admin.add }</button>
+    </form>
+    <script>
+        let i = 1;
+    </script>
+    { include 'admin.books.script' }
+{ /block }

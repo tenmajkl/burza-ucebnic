@@ -1,0 +1,35 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.books-create }
+{ /block }
+
+{ block 'content' }
+    <form method="post" class="flex flex-col">
+        { csrf }
+        { text admin.book-name }
+        <input type="text" name="name" class="input" value="{{ $book->name }}" />
+        { text admin.book-author }
+        <input type="text" name="author" class="input" value="{{ $book->author }}" />
+        { text admin.book-release-year }
+        <input type="number" name="release_year" class="input" value="{{ $book->release_year }}" />
+        { text admin.book-publisher }
+        <input type="text" name="publisher" class="input" value="{{ $book->publisher }}" />
+        { text admin.book-subjects }
+        <div id="subjects" class="flex flex-col w-full gap-2">
+            { foreach $book->subjects as $index => $book_subject }
+                <select id="subject{{ $index + 1 }}" name="subject{{ $index + 1 }}" class="w-full input">
+                    { foreach $subjects as $subject }
+                        <option value="{{ $subject->id }}" {{ $book_subject->id === $subject->id ? 'selected' : '' }}>{{ $subject->year->name }} &ndash; {{ $subject->name }}</option>
+                    { /foreach }
+                </select>
+            { /foreach }
+        </div>
+        <div class="mt-2 text-center button" onclick='addSubject({{ $subjects }})'><i class="bi bi-plus"></i></div>
+        <button class="mt-2 button">{ text admin.edit }</button>
+    </form>
+    <script>
+        let i = 1;
+    </script>
+    { include 'admin.books.script' }
+{ /block }

@@ -1,0 +1,18 @@
+<script>        
+    function addSubject(subjects) {
+        if (i === 17) return;
+        i++;
+        let select = document.createElement('select');
+        select.id = 'subject' + i;
+        select.name = 'subject' + i;
+        select.className = 'w-full input';
+        let option;
+        for (let subject of subjects) {
+            option = document.createElement('option');
+            option.value = subject.id;
+            option.innerText = subject.year.name + ' – ' + subject.name;
+            select.appendChild(option);
+        }
+        document.getElementById('subjects').appendChild(select);
+    }
+</script>
