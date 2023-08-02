@@ -11,7 +11,9 @@ Route::redirect('/', 'years');
 
 Route::controller('years', Years::class);
 
-Route::controller('books', Books::class);
+Route::get('books/upload', [Books::class, 'uploadMenu']);
+Route::post('books/upload', [Books::class, 'upload']);
+$books = Route::controller('books', Books::class);
 
 $users = Route::controller('users', Users::class);
 $users->add('{target}/ban', 'get', [Users::class, 'banMenu']);

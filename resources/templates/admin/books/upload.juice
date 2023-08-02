@@ -1,0 +1,13 @@
+{ extends 'admin.layout' }
+
+{ block 'header' }
+    { text admin.books-upload }
+{ /block }
+
+{ block 'content' }
+    <form method="post" class="flex flex-col" enctype="multipart/form-data">
+        { csrf }
+        <input type="file" name="books" class="mt-2 input" />
+        <button class="mt-2 button">{ text admin.upload }</button>
+    </form>
+{ /block }

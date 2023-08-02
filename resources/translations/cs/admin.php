@@ -10,6 +10,7 @@ return [
     'edit' => 'Upravit',
     'yes' => 'Ano',
     'no' => 'Ne',
+    'upload' => 'Nahrat',
 
     // Roles
 
@@ -72,5 +73,6 @@ return [
     'book-publisher' => 'Nakladatelstvi',
     'books-create' => 'Pridat ucebnici',
     'books-show' => 'Zobrazit ucebnici',
-    'book-cover' => 'Ukazka obalu knihy'
+    'book-cover' => 'Ukazka obalu ucebnice',
+    'books-upload' => 'Nahrat ucebnice',
 ];

@@ -6,6 +6,7 @@ use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Book;
 use App\Entities\Subject;
+use App\Entities\Year;
 use Lemon\Http\Request;
 use Lemon\Kernel\Application;
 
@@ -164,6 +165,66 @@ class Books
         }
 
         $orm->getEntityManager()->delete($book)->run();
+
+        return redirect('/admin/books');
+    }
+
+    public function uploadMenu()
+    {
+        return template('admin.books.upload');
+    }
+
+    public function upload(Request $request, ORM $orm, Auth $auth)
+    {
+        if ($request->file('books')?->error !== UPLOAD_ERR_OK) {
+            return $this->uploadMenu();
+        }
+
+        if ($request->file('books')->type !== 'text/csv') {
+            return $this->uploadMenu();
+        }
+
+        /**
+         * THE FORMAT 
+         *
+         * subject,year,name,author,publisher,release_year
+         *
+         * which will be converted to this shit db architecture
+         *
+         * probably ineffitient as shit
+         */
+
+        $file = fopen($request->file('books')->tmp_path, 'r');
+
+        $school = $auth->user()->year->school;
+
+        while ($line = fgetcsv($file)) {
+            [$subject_name, $year_name, $name, $author, $publisher, $release_year] = $line;
+
+            if (($year = $orm->getORM()->getRepository(Year::class)->findOne(['name' => $year_name, 'school.id' => $school->id])) === null) {
+                $year = new Year($year_name, $school);
+                $orm->getEntityManager()->persist($year)->run();
+            }
+
+            if (($subject = $orm->getORM()->getRepository(Subject::class)->findOne(['name' => $subject_name, 'year.id' => $year->id])) === null) {
+                $subject = new Subject($subject_name);
+                $subject->year = $year;
+                $orm->getEntityManager()->persist($subject)->run();
+            }
+
+            if (($book = $orm->getORM()->getRepository(Book::class)->findOne(['name' => $name, 'author' => $author, 'publisher' => $publisher, 'release_year' => $release_year]))) {
+                $book->subjects[] = $subject;
+                $orm->getEntityManager()->persist($book)->run();
+                continue;
+            }
+
+            $book = new Book($name, $author, (int) $release_year, $publisher);
+            $book->subjects[] = $subject;
+
+            $orm->getEntityManager()->persist($book)->run();
+        }
+
+        fclose($file);
 
         return redirect('/admin/books');
     }

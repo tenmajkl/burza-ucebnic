@@ -5,9 +5,12 @@
 { /block }
 
 { block 'content' }
-    <div class="flex justify-end w-full">
+    <div class="flex justify-end w-full gap-2">
         <a href="/admin/books/create" class="button">
             <i class="bi bi-plus"></i>
+        </a>
+        <a href="/admin/books/upload" class="button">
+            <i class="bi bi-upload"></i>
         </a>
     </div>
     <table class="table">
