@@ -740,12 +740,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Lemon-Framework/Lemon.git",
-                "reference": "0cb3599ea786b712ab40f52eb85bbb5f267b828d"
+                "reference": "1ce2576cfaad93b9f14ad4ba26b9e0f8e4d889b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Lemon-Framework/Lemon/zipball/0cb3599ea786b712ab40f52eb85bbb5f267b828d",
-                "reference": "0cb3599ea786b712ab40f52eb85bbb5f267b828d",
+                "url": "https://api.github.com/repos/Lemon-Framework/Lemon/zipball/1ce2576cfaad93b9f14ad4ba26b9e0f8e4d889b1",
+                "reference": "1ce2576cfaad93b9f14ad4ba26b9e0f8e4d889b1",
                 "shasum": ""
             },
             "require": {
@@ -785,7 +785,7 @@
                 "issues": "https://github.com/Lemon-Framework/Lemon/issues",
                 "source": "https://github.com/Lemon-Framework/Lemon/tree/master"
             },
-            "time": "2023-08-02T13:36:14+00:00"
+            "time": "2023-08-04T14:36:51+00:00"
         },
         {
             "name": "mockery/mockery",

@@ -36,4 +36,16 @@ class Book
         public string $publisher,
     ) {
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name, 
+            'author' => $this->author,
+            'release_year' => $this->release_year,
+            'publisher' => $this->publisher,
+        ];
+    }
+
 }

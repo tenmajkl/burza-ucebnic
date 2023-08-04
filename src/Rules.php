@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Contracts\ORM;
+use App\Entities\Offer;
 use App\Entities\School;
 use Lemon\Config\Exceptions\ConfigException;
 use Lemon\Kernel\Application;
@@ -19,15 +20,9 @@ class Rules
         private Application $app
     ) {
         $this->app->get('validation')->rules()
-            ->rule('id', [$this, 'id'])
+                  ->rule('id', [$this, 'id'])
+                  ->rule('state', [$this, 'state'])
         ;
-    }
-
-    public function schoolEmail(string $email): bool
-    {
-        [$email, $host] = explode('@', $email);
-
-        return $school !== null;
     }
 
     public function id(string $id, string $entity): bool
@@ -46,5 +41,10 @@ class Rules
                 ->getRepository('App\\Entities\\'.CaseConverter::toPascal($entity))
                 ->findByPK($id)
         );
+    }
+
+    public function state(string $state): bool
+    {
+        return isset(Offer::States[$state]);
     }
 }

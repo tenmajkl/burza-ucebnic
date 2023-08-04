@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 return [
+    'state-new' => 'Nova',
+    'state-used' => 'Pouzita',
+    'state-damaged' => 'Poskozena',
 
     'current_year' => date('Y'),
 
@@ -44,6 +47,7 @@ return [
     'add-title' => 'Vytvorit nabidku',
     'add-button' => 'VYTVORIT',
     'price' => 'Cena',
+    'select' => 'Vybrat',
 
     // My Offers
 

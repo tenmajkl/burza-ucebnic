@@ -9,7 +9,7 @@ use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\{HasMany, BelongsTo, ManyToMany};
 
 #[Entity()]
-class Year
+class Year implements \JsonSerializable
 {
     #[Column(type: 'primary')]
     public int $id;
@@ -27,5 +27,19 @@ class Year
         public School $school
     ) {
 
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'books' => array_reduce(
+                $this->subjects, 
+                fn($acc, $subject) => array_merge(
+                    $acc, 
+                    array_map(fn($book) => $book->jsonSerialize(), $subject->books)
+            ), []),
+        ];        
     }
 }

@@ -18,6 +18,9 @@ class Subject implements JsonSerializable
     #[BelongsTo(Year::class)]
     public Year $year;
 
+    #[ManyToMany(target: Book::class, through: SubjectBook::class)]
+    public array $books = [];
+
     public function __construct(
         #[Column(type: 'string')]
         public string $name,
@@ -33,7 +36,7 @@ class Subject implements JsonSerializable
             'year' => [
                 'id' => $this->year->id,
                 'name' => $this->year->name,
-            ]
+            ],
         ];
     }
 

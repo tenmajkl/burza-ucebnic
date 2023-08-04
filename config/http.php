@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Lemon\Env;
+
 return [
     'cors' => [
-        'alowed-origins' => '*',
+        'alowed-origins' => Env::get('CORS_ALLOWED_ORIGINS', '*'),
         'expose-headers' => null,
         'max-age' => null,
         'allowed-credentials' => null,

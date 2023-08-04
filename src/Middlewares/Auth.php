@@ -12,7 +12,7 @@ class Auth
     public function onlyAuthenticated(Session $session, AuthContract $auth)
     {
         if (!$session->has('email')) {
-            return redirect('/login');
+            return error(404);
         }
 
         if ($auth->user()->isBanned()) {
