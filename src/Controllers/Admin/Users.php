@@ -28,41 +28,30 @@ class Users
         return template('admin.users.index', users: $users);
     }
 
-    public function banMenu($target, ORM $orm, Auth $auth)
+    public function banMenu(?User $target, ORM $orm, Auth $auth)
     {
-        $user = $orm->getORM()->getRepository(User::class)->findOne([
-            'id' => $target,
-            'year.school.id' => $auth->user()->year->school->id,
-        ]);
-
-        if ($user === null || $user->isBanned()) {
+        if ($target === null || $target->isBanned()) {
             return error(404);
         }
         
-
         return template('admin.users.ban');
     }
 
-    public function ban($target, ORM $orm, Auth $auth, Request $request)
+    public function ban(?User $target, ORM $orm, Auth $auth, Request $request)
     {
         $request->validate([
             'reason' => 'max:256',
             'expires' => 'datetime',
         ], template('admin.users.ban'));
 
-        $user = $orm->getORM()->getRepository(User::class)->findOne([
-            'id' => $target,
-            'year.school.id' => $auth->user()->year->school->id,
-        ]);
-
-        if ($user === null || $user->isBanned()) {
+        if ($target === null || $target->isBanned()) {
             return error(404);
         }
 
         $reason = $request->get('reason');
         $expires = DateTimeImmutable::createFromFormat('Y-m-d\\TH:i', $request->get('expires'));
 
-        $ban = new Ban($reason, $expires, $user, $auth->user());
+        $ban = new Ban($reason, $expires, $target, $auth->user());
         $orm->getEntityManager()->persist($ban)->run();
 
         return redirect('/admin/users');
@@ -126,13 +115,9 @@ class Users
         return $this->index($orm, $auth)->with(message: text('admin.user-create-success').$password.'.');
     }
 
-    public function show($target, ORM $orm, Auth $auth)
+    public function show(?User $target, ORM $orm, Auth $auth)
     {
-        $user = $orm->getORM()->getRepository(User::class)->findOne([
-            'id' => $target,
-            'year.school.id' => $auth->user()->year->school->id,
-        ]);
-        if ($user === null) {
+        if ($target === null) {
             return error(404);
         }
 
@@ -143,21 +128,17 @@ class Users
                                ->fetchAll()
         ;
 
-        return template('admin.users.show', user: $user, years: $years);
+        return template('admin.users.show', user: $target, years: $years);
     }
 
-    public function update($target, Request $request, ORM $orm, Auth $auth)
+    public function update(?User $target, Request $request, ORM $orm, Auth $auth)
     {
         $request->validate([
             'name' => 'max:64',
             'year' => 'numeric',
         ], $this->show($target, $orm, $auth));
 
-        $user = $orm->getORM()->getRepository(User::class)->findOne([
-            'id' => $target,
-            'year.school.id' => $auth->user()->year->school->id,
-        ]);
-        if ($user === null) {
+        if ($target === null) {
             return error(404);
         }
 
@@ -170,10 +151,10 @@ class Users
             return $this->show($target, $orm, $auth);
         }
 
-        $user->name = $request->get('name');
-        $user->year = $year;
-        $user->isAdmin = (int) ($request->get('admin') === 'on');
-        $orm->getEntityManager()->persist($user)->run();
+        $target->email = $request->get('name');
+        $target->year = $year;
+        $target->role = (int) ($request->get('admin') === 'on');
+        $orm->getEntityManager()->persist($target)->run();
 
         return $this->index($orm, $auth);
     }

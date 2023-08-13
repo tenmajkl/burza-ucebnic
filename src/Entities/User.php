@@ -6,12 +6,14 @@ namespace App\Entities;
 
 use App\Entities\Traits\DateTimes;
 use App\Entities\Traits\Dynamic;
+use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\Annotated\Annotation\Relation\HasOne;
 use Cycle\ORM\Entity\Behavior;
+use Lemon\Contracts\Kernel\Injectable;
 
 #[Entity]
 #[Behavior\CreatedAt(
@@ -22,9 +24,11 @@ use Cycle\ORM\Entity\Behavior;
     field: 'updatedAt',
     column: 'updated_at'
 )]
-class User
+class User implements Injectable
 {
-    use DateTimes, Dynamic;
+    use DateTimes, Dynamic, InjectableEntity;
+
+    public const RelationToSchool = 'year.school.id';
 
     #[Column(type: 'primary')]
     public int $id;
