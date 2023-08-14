@@ -22,8 +22,14 @@
                 <tr>
                     <td class="table-item">{{ $year->name }}</td>
                     <td class="table-item">
-                        <a href="/admin/years/{{ $year->id }}" class="button"><i class="bi bi-eye"></i></a>
-                        <a href="/admin/years/{{ $year->id }}/delete" class="button-red"><i class="bi bi-trash"></i></a>
+                        <div class="flex gap-1">
+                            <a href="/admin/years/{{ $year->id }}" class="button"><i class="bi bi-eye"></i></a>
+                            <form action="/admin/years/{{ $year->id }}/delete" method="post">
+                                { csrf }
+                                <button class="button-red"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+
                     </td>
                 </tr>
             { /foreach }

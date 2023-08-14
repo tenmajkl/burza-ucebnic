@@ -31,8 +31,13 @@
                     <td class="table-item">{{ $book->release_year }}</td>
                     <td class="table-item">{{ $book->publisher }}</td>
                     <td class="table-item">
-                        <a href="/admin/books/{{ $book->id }}" class="button"><i class="bi bi-eye"></i></a>
-                        <a href="/admin/books/{{ $book->id }}/delete" class="button-red"><i class="bi bi-x"></i></a>
+                        <div class="flex gap-1">
+                            <a href="/admin/books/{{ $book->id }}" class="button"><i class="bi bi-eye"></i></a>
+                            <form action="/admin/books/{{ $book->id }}/delete" method="post">
+                                { csrf }
+                                <button class="button-red"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             { /foreach }

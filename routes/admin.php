@@ -20,4 +20,4 @@ $users->add('{target}/ban', 'get', [Users::class, 'banMenu']);
 $users->add('{target}/ban', 'post', [Users::class, 'ban']);
 $users->add('{target}/unban', 'get', [Users::class, 'unban']);   
 
-Route::controller('offers', Offers::class);
+//Route::controller('offers', Offers::class);

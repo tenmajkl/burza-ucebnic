@@ -147,6 +147,8 @@ class Books
             return error(404);
         }
 
+        $target->subjects = [];
+
         $orm->getEntityManager()->delete($target)->run();
 
         return redirect('/admin/books');
