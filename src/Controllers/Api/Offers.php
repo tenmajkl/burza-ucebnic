@@ -8,7 +8,8 @@ use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Book;
 use App\Entities\Offer;
-use App\Entities\OfferState;
+use App\Entities\OfferSort;
+use App\Entities\BookState;
 use App\Entities\Subject;
 use App\Entities\Year;
 use Lemon\Http\Request;
@@ -18,10 +19,53 @@ use Lemon\Validator;
 
 class Offers
 {
+    public function index(Request $request, ORM $orm)
+    {
+        $ok = Validator::validate($request->query() ?? [], [
+            'subject' => 'numeric',
+            'state' => 'state',
+            'sort' => 'sort',
+            'offer-state' => 'offer-state',
+        ]);
+
+        if (!$ok) {
+            return response([
+                'status' => '400',
+                'message' => Validator::error(),
+            ])->code(400);
+        }
+
+        $subject = $request->query('subject');
+        $state = $request->query('state');
+        $sort = $request->query('sort');
+        $offerState = $request->query('offer-state');
+
+
+        // todo add offerstate
+        $select = $orm->getORM()->getRepository(Offer::class)->select()
+                ->where(['state' => $state])
+        ; 
+
+        $select = OfferSort::from($sort)->sort($select);
+
+        $data = $select->fetchAll();
+
+        return $data;
+    }
+
+    public function init(Auth $auth)
+    {
+        return [
+            'subjects' => $auth->user()->year->subjects,
+            'states' => BookState::cases(),
+            'sorts' => OfferSort::cases(),
+        ]; 
+    } 
+
     public function create(ORM $orm, Auth $auth): array
     {
         $years = $orm->getORM()->getRepository(Year::class)->findAll(['school.id' => $auth->user()->year->school->id, 'id' => ['!=' => $auth->user()->year->id]]);
-        $states = OfferState::cases();
+        $states = BookState::cases();
 
         return [
             'years' => $years,
@@ -84,7 +128,7 @@ class Offers
         $offer = new Offer(
             $book,
             $request->get('price'),
-            OfferState::fromId($request->get('state')),
+            BookState::fromId($request->get('state')),
             $auth->user(),
         );
 

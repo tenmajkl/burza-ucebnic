@@ -16,7 +16,7 @@
         ['profile', null, 'person-fill'],
     ];
 
-    let selected = 0;
+    let selected = 0; 
 </script>
 
 <div class="md:grid md:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-10">
@@ -31,6 +31,6 @@
         <div>Burza ucebnic <Text text="current_year" />; <a href="https://github.com/tenmajkl/bs">Source code</a></div>
     </div>
     <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9">
-        <svelte:component this={items[selected][1]} />        
+        <svelte:component this={items[selected][1]} bind:selected={selected} />        
     </div>
 </div>

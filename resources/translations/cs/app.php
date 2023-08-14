@@ -31,6 +31,19 @@ return [
     'book-state' => 'Stav ucebnice',
     'sorting' => 'Razeni',
     'offer-state' => 'Filtr dle stavu nabidky',
+    'offer-state-free' => 'Bez Rezervovanych',
+    'offer-state-reserved' => 'Vcetne Rezervovanych',
+
+    // Sorting
+
+    'sorting-newest' => 'Nejnovejsi',
+    'sorting-oldest' => 'Nejstarsi',
+    'sorting-cheapest' => 'Nejlevnejsi',
+    'sorting-most-expensive' => 'Nejdrazsi',
+    'sorting-best-reviews' => 'Nejlepsi hodnoceni',
+    'sorting-worst-reviews' => 'Nejhorsi hodnoceni',
+    'sorting-optimal' => 'Doporucene',
+
 
     // Reservations
 
@@ -48,6 +61,8 @@ return [
     'add-button' => 'VYTVORIT',
     'price' => 'Cena',
     'select' => 'Vybrat',
+    'missing-image'=> 'Chybi obrazek',
+    'image-error'=> 'Chyba v obrazku',
 
     // My Offers
 

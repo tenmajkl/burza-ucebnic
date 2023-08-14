@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App;
 
 use App\Contracts\ORM;
+use App\Entities\BookState;
 use App\Entities\Offer;
+use App\Entities\OfferSort;
+use App\Entities\OfferState;
 use App\Entities\School;
 use Lemon\Config\Exceptions\ConfigException;
 use Lemon\Kernel\Application;
@@ -22,6 +25,8 @@ class Rules
         $this->app->get('validation')->rules()
                   ->rule('id', [$this, 'id'])
                   ->rule('state', [$this, 'state'])
+                  ->rule('offer-state', [$this, 'offerState'])
+                  ->rule('sort', [$this, 'sort'])
         ;
     }
 
@@ -45,6 +50,16 @@ class Rules
 
     public function state(string $state): bool
     {
-        return isset(Offer::States[$state]);
+        return BookState::fromId((int) $state) ? true : false;
+    }
+
+    public function offerState(string $state): bool
+    {
+        return in_array($state, ['0', '1']);
+    }
+
+    public function sort(string $sort): bool
+    {
+        return in_array(OfferSort::from($sort), OfferSort::cases());
     }
 }

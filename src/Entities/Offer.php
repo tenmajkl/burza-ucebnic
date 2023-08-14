@@ -46,8 +46,8 @@ class Offer implements \JsonSerializable
         public Book $book,
         #[Column(type: 'int')]
         public int $price,
-        #[Column(type: 'int', typecast: OfferState::class)]
-        public OfferState $state,
+        #[Column(type: 'int', typecast: BookState::class)]
+        public BookState $state,
         #[BelongsTo(target: User::class, nullable: true)]
         public User $user,
     ) {
