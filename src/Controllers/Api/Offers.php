@@ -8,6 +8,7 @@ use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Book;
 use App\Entities\Offer;
+use App\Entities\OfferState;
 use App\Entities\Subject;
 use App\Entities\Year;
 use Lemon\Http\Request;
@@ -20,7 +21,7 @@ class Offers
     public function create(ORM $orm, Auth $auth): array
     {
         $years = $orm->getORM()->getRepository(Year::class)->findAll(['school.id' => $auth->user()->year->school->id, 'id' => ['!=' => $auth->user()->year->id]]);
-        $states = Offer::States;
+        $states = OfferState::cases();
 
         return [
             'years' => $years,
@@ -83,7 +84,7 @@ class Offers
         $offer = new Offer(
             $book,
             $request->get('price'),
-            $request->get('state'),
+            OfferState::fromId($request->get('state')),
             $auth->user(),
         );
 

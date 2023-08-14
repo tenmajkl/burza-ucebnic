@@ -30,12 +30,6 @@ use Cycle\ORM\Entity\Behavior;
 )]
 class Offer implements \JsonSerializable
 {
-    public const States = [
-        '0' => 'new',
-        '1' => 'used',
-        '2' => 'damaged',
-    ];
-
     use DateTimes, Dynamic;
 
     #[Column(type: 'primary')]
@@ -52,23 +46,22 @@ class Offer implements \JsonSerializable
         public Book $book,
         #[Column(type: 'int')]
         public int $price,
-        #[Column(type: 'int')]
-        public int $state,
+        #[Column(type: 'int', typecast: OfferState::class)]
+        public OfferState $state,
         #[BelongsTo(target: User::class, nullable: true)]
         public User $user,
     ) {
     }
 
+    // TBD
     public function jsonSerialize(): mixed
     {
         return [
             'id' => $this->id,
             'name' => $this->book->name,
-            'subject' => $this->book->subject->id,
-            'year' => $this->book->year,
             'price' => $this->price,
-            'description' => $this->description,
-            'author_email' => $this->author->email,
+            'state' => $this->state,
+            'author_email' => $this->user->email,
             'reserved' => !empty($this->reservations),
         ];
     }
