@@ -46,59 +46,46 @@ class Years
         return redirect('/admin/years');
     }
 
-    public function show(ORM $orm, Auth $auth, $target)
+    public function show(ORM $orm, Auth $auth, ?Year $target)
     {
-        $year = $orm->getORM()->getRepository(Year::class)->findOne([
-            'id' => $target,
-            'school.id' => $auth->user()->year->school->id,
-        ]);
-        if ($year === null) {
+        if ($target === null) {
             return error(404);
         }
-        return template('admin.years.show', year: $year);
+
+        return template('admin.years.show', year: $target);
     }
 
-    public function update(ORM $orm, Auth $auth, $target, Request $request)
+    public function update(ORM $orm, Auth $auth, ?Year $target, Request $request)
     {
         $request->validate([
             'name' => 'max:32',
         ], template('admin.years.create'));
 
-        $year = $orm->getORM()->getRepository(Year::class)->findOne([
-            'id' => $target,
-            'school.id' => $auth->user()->year->school->id,
-        ]); 
-
-        if ($year === null) {
+        if ($target === null) {
             return error(404);
         }
 
-        $year->name = $request->get('name');
-        $year->subjects = [];
+        $target->name = $request->get('name');
+        $target->subjects = [];
 
         for ($index = 1; $index <= 16; $index++) {
             if ($request->get("subject{$index}") === null) {
                 break;
             }
-            $year->subjects[] = new Subject($request->get("subject{$index}"));
+            $target->subjects[] = new Subject($request->get("subject{$index}"));
         }
-        $orm->getEntityManager()->persist($year)->run();
+        $orm->getEntityManager()->persist($target)->run();
 
         return redirect('/admin/years');
     }
 
-    public function delete($target, ORM $orm, Auth $auth)
+    public function delete(?Year $target, ORM $orm, Auth $auth)
     {
-        $year = $orm->getORM()->getRepository(Year::class)->findOne([
-            'id' => $target,
-            'school.id' => $auth->user()->year->school->id,
-        ]);
-
-        if ($year === null) {
+        if ($target === null) {
             return redirect('/admin/years');
         }
 
-        $orm->getEntityManager()->delete($year)->run();
+        $orm->getEntityManager()->delete($target)->run();
 
         return redirect('/admin/years');
     }

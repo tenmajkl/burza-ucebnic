@@ -86,15 +86,9 @@ class Books
         return redirect('/admin/books');
     }
 
-    public function show(ORM $orm, Auth $auth, $target)
+    public function show(ORM $orm, Auth $auth, ?Book $target)
     {
-        $book = $orm->getORM()->getRepository(Book::class)
-                              ->select()
-                              ->where('id', $target)
-                              ->where('subjects.year.school.id', $auth->user()->year->school->id)
-                              ->fetchOne();
-
-        if ($book === null) {
+        if ($target === null) {
             return error(404);
         }
 
@@ -103,34 +97,30 @@ class Books
                                   ->where('year.school.id', $auth->user()->year->school->id)
                                   ->fetchAll();
 
-        return template('admin.books.show', book: $book, subjects: $subjects);
+        return template('admin.books.show', book: $target, subjects: $subjects);
     }
 
-    public function update(ORM $orm, Auth $auth, Request $request, $target)
+    public function update(ORM $orm, Auth $auth, Request $request, ?Book $target)
     {
          $request->validate([
             'name' => 'max:512',
             'author' => 'max:512',
             'release_year' => 'numeric',
             'publisher' => 'max:512',
-        ], $this->create($orm, $auth));
+        ], $this->show($orm, $auth, $target));
 
         if ($request->get('release_year') < 0 && $request->get('release_year') > (int) date('Y')) {
             return $this->create($orm, $auth);
         }
 
-        $book = $orm->getORM()->getRepository(Book::class)
-                              ->select()
-                              ->where('id', $target)
-                              ->where('subjects.year.school.id', $auth->user()->year->school->id)
-                              ->fetchOne()
-        ;
+        if ($target === null) {
+            return error(404);
+        }
 
-
-        $book->name = $request->get('name');
-        $book->author = $request->get('author');
-        $book->release_year = $request->get('release_year');
-        $book->publisher = $request->get('publisher');
+        $target->name = $request->get('name');
+        $target->author = $request->get('author');
+        $target->release_year = $request->get('release_year');
+        $target->publisher = $request->get('publisher');
 
         $subjects = [];
 
@@ -143,28 +133,21 @@ class Books
             $subjects[$id] = $orm->getORM()->getRepository(Subject::class)->findOne(['id' => $id, 'year.school.id' => $auth->user()->year->school->id]);
         }
 
-        $book->subjects = array_values($subjects);
+        $target->subjects = array_values($subjects);
 
-        $orm->getEntityManager()->persist($book)->run();
+        $orm->getEntityManager()->persist($target)->run();
 
 
         return redirect('/admin/books'); 
     }
 
-    public function delete(ORM $orm, Auth $auth, $target)
+    public function delete(ORM $orm, Auth $auth, ?Book $target)
     {
-        $book = $orm->getORM()->getRepository(Book::class)
-                              ->select()
-                              ->where('id', $target)
-                              ->where('subjects.year.school.id', $auth->user()->year->school->id)
-                              ->fetchOne()
-        ;
-
-        if ($book === null) {
+        if ($target === null) {
             return error(404);
         }
 
-        $orm->getEntityManager()->delete($book)->run();
+        $orm->getEntityManager()->delete($target)->run();
 
         return redirect('/admin/books');
     }

@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
+use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\{HasMany, BelongsTo, ManyToMany};
+use Lemon\Contracts\Kernel\Injectable;
 
 #[Entity()]
-class Year implements \JsonSerializable
+class Year implements \JsonSerializable, Injectable
 {
+    use InjectableEntity;
+
+    const RelationToSchool = 'school.id';
+
     #[Column(type: 'primary')]
     public int $id;
 

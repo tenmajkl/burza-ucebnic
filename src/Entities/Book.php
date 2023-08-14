@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace App\Entities;
 
 use App\Entities\Traits\Dynamic;
+use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\Annotated\Annotation\Relation\ManyToMany;
+use Lemon\Contracts\Kernel\Injectable;
 
 #[Entity]
-class Book
+class Book implements \JsonSerializable, Injectable
 {
-    use Dynamic; 
+    use Dynamic, InjectableEntity; 
+
+    const RelationToSchool = 'subjects.year.school.id';
 
     #[Column(type: 'primary')]
     public int $id;
