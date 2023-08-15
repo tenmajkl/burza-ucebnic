@@ -27,7 +27,7 @@ class Verify
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
-        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id]);
+        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id, 'name' => ['!=' => 'admins']]);
 
         return template('auth.verify', years: $years);
     }

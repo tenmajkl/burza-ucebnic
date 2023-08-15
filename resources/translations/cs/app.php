@@ -8,6 +8,7 @@ return [
     'state-damaged' => 'Poskozena',
 
     'current_year' => date('Y'),
+    'currency' => 'Kc',
 
     'year' => 'Rocnik',
     'offers-error' => 'nabidky nejsou',
@@ -24,6 +25,7 @@ return [
     // Offers
 
     'offers-title' => 'Aktualni nabidky',
+    'reserve' => 'REZERVOVAT',
 
     // Filters
 

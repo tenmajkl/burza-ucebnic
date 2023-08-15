@@ -21,8 +21,8 @@ enum BookState: string
     /**
      * For cycle ORM
      */
-    public static function typecast(int $value): self
+    public static function typecast(mixed $value): self
     {
-        return self::fromId($value);
+        return self::fromId((int) $value);
     } 
 }

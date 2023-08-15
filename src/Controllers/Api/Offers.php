@@ -41,9 +41,9 @@ class Offers
         $offerState = $request->query('offer-state');
 
 
-        // todo add offerstate
+        // todo add offerstate, normal state
         $select = $orm->getORM()->getRepository(Offer::class)->select()
-                ->where(['state' => $state])
+//                ->where(['state' => BookState::fromId((int) $state)])
         ; 
 
         $select = OfferSort::from($sort)->sort($select);
@@ -64,7 +64,7 @@ class Offers
 
     public function create(ORM $orm, Auth $auth): array
     {
-        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school.id' => $auth->user()->year->school->id, 'id' => ['!=' => $auth->user()->year->id]]);
+        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school.id' => $auth->user()->year->school->id, 'id' => ['!=' => $auth->user()->year->id], 'name' => ['!=' => 'admin']]);
         $states = BookState::cases();
 
         return [
@@ -84,7 +84,7 @@ class Offers
             'message' => Validator::error(),
         ])->code(400));
 
-        if ($orm->getORM()->getRepository(Offer::class)->findOne(['book.id' => $request->get('book'), 'author.id' => $auth->user()->id])) {
+        if ($orm->getORM()->getRepository(Offer::class)->findOne(['book.id' => $request->get('book'), 'user.id' => $auth->user()->id])) {
             return response([
                 'status' => '400',
                 'message' => text('validation.already-offered'),

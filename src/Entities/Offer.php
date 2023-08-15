@@ -63,6 +63,7 @@ class Offer implements \JsonSerializable
             'state' => $this->state,
             'author_email' => $this->user->email,
             'reserved' => !empty($this->reservations),
+            'created_at' => diff($this->createdAt),
         ];
     }
 }

@@ -9,5 +9,5 @@ return [
     'dumper' => [
         'style' => new Style(),
     ],
-    'debug' => true, // Env::get('DEBUG') === 'true',
+    'debug' => Env::get('DEBUG') === 'true',
 ];
