@@ -7,8 +7,10 @@ include __DIR__.'/vendor/autoload.php';
 use App\Middlewares\Auth;
 use App\Rules;
 use Carbon\Carbon;
+use Lemon\Contracts\Http\ResponseFactory;
 use Lemon\Contracts\Translating\Translator;
 use Lemon\Http\Middlewares\Cors;
+use Lemon\Http\Request;
 use Lemon\Kernel\Application;
 use Lemon\Protection\Middlwares\Csrf;
 
@@ -44,6 +46,14 @@ date_default_timezone_set(config('app.timezone'));
 Carbon::setLocale($application->get(Translator::class)->locale());
 
 new Rules($application);
+
+/** @var \Lemon\Contracts\Http\ResponseFactory $response */
+$response = $application->get(ResponseFactory::class);
+$response->handle(404, function(Request $request) {
+    if (str_starts_with(trim($request->path, '/'), 'api')) {
+        return response(['code' => 404, 'message' => 'Not found'])->code(404);
+    }
+});
 
 /** @var \Lemon\Routing\Router $router */
 $router = $application->get('routing');

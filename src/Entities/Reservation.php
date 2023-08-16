@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
+use App\Contracts\Auth;
+use App\Contracts\ORM;
 use App\Entities\Traits\DateTimes;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use Cycle\Annotated\Annotation\Relation\HasMany;
+use Cycle\Database\Query\SelectQuery;
 use Cycle\ORM\Entity\Behavior;
+use Lemon\Contracts\Kernel\Injectable;
+use Lemon\Kernel\Container;
 
 #[Entity()]
 #[Behavior\CreatedAt(
@@ -19,7 +25,7 @@ use Cycle\ORM\Entity\Behavior;
     field: 'updatedAt',
     column: 'updated_at'
 )]
-class Reservation
+class Reservation implements \JsonSerializable, Injectable
 {
     use DateTimes;
 
@@ -29,15 +35,47 @@ class Reservation
     #[Column(type: 'string')]
     public string $hash;
 
+    #[HasMany(target: Message::class)]
+    public array $messages = [];
+
     public function __construct(
         #[BelongsTo(target: Offer::class)]
         public Offer $offer,
         #[BelongsTo(target: User::class)]
         public User $user,
         #[Column(type: 'bool')]
-        public bool $active
+        public int $active
     ) {
         // Profi token generation coolfido aproves
-        $this->hash = str_shuffle(str_shuffle($this->id.$this->offer->id.rand().time()).base64_encode(sha1(rand().time().$user->id)));
+        $this->hash = str_shuffle(str_shuffle($this->offer->id.rand().time()).base64_encode(sha1(rand().time().$user->id)));
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'active' => $this->active,
+            'createdAt' => $this->createdAt,
+            'updatedAt' => $this->updatedAt,
+            'offer' => $this->offer->jsonSerialize()
+        ];
+    }
+
+    public static function fromInjection(Container $container, mixed $value): ?self
+    {
+        $user_id = $container->get(Auth::class)->user()->id;
+        return $container->get(ORM::class)->getORM()
+                                          ->getRepository(self::class)
+                                          ->where(['id' => (int) $value])
+                                          ->where(
+                                              static function(SelectQuery $select) use ($user_id) {
+                                                    $select
+                                                        ->where(['user.id' => $user_id])
+                                                        ->orWhere(['offer.user.id' => $user_id])
+                                                    ;
+                                              }
+
+                                          )
+                                          ->findOne();
     }
 }

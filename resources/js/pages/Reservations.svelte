@@ -5,32 +5,17 @@
 
     let message = null;
 
-    let data = [
-        {
-            title: "programovaci jazyk c",
-            seller: "kripa19111",
-            price: 200,
-            state: "nova",
-        },
-        {
-            title: "programovaci jazyk c",
-            seller: "kripa19111",
-            price: 200,
-            state: "nova",
-            },
-        {
-            title: "programovaci jazyk c",
-            seller: "kripa19111",
-            price: 200,
-            state: "nova",
-        },
-        {
-            title: "programovaci jazyk c",
-            seller: "kripa19111",
-            price: 200,
-            state: "nova",
-        }
-    ]
+    let data = [];
+
+    fetch("/api/reservations")
+        .then(response => response.json())
+        .then(res => {
+            data = res;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
 </script>
 
 <div class="text-2xl font-bold">
@@ -60,13 +45,13 @@
                 <img src="https://cdn.aukro.cz/images/sk1630929533050/programovaci-jazyk-c-106861907.jpeg" alt="cecko" class="card-image">
                 <div class="flex flex-col justify-between font-bold">
                     <div>
-                        <div class="text-xl">{reservation.title}</div>
-                        <div class="text-sm text-secondary">@{reservation.seller}</div>
+                        <div class="text-xl">{reservation.offer.name}</div>
+                        <div class="text-sm text-secondary">@{reservation.offer.author_email}</div>
                     </div>
                     <div>
-                        <div class="text-sm text-secondary">{reservation.state}</div>
+                        <div class="text-sm text-secondary">{reservation.offer.state}</div>
                         <div class="flex gap-3">
-                            <div class="text-xl">{reservation.price} Kc</div>
+                            <div class="text-xl">{reservation.offer.price} Kc</div>
                             <i class="text-lg bi bi-chat text-blue" on:click={() => message = message === index ? null : index}></i>
                         </div>
                     </div>

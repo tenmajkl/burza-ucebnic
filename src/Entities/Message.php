@@ -14,15 +14,13 @@ class Message
     #[Column(type: 'primary')]
     public int $id;
 
-    #[BelongsTo(target: User::class)]
-    public User $from;
-
-    #[BelongsTo(target: User::class)]
-    public User $to;
-
     public function __construct(
         #[Column(type: 'string')]
         public string $content,
+        #[BelongsTo(target: User::class)]
+        public User $author,
+        #[BelongsTo(target: Reservation::class)]
+        public Reservation $reservation,
     ) {
 
     }

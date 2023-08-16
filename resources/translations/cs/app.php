@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'state-any' => 'Vse',
     'state-new' => 'Nova',
     'state-used' => 'Pouzita',
     'state-damaged' => 'Poskozena',

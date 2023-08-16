@@ -40,11 +40,15 @@ class Offers
         $sort = $request->query('sort');
         $offerState = $request->query('offer-state');
 
+        $state = (int) $state;
 
-        // todo add offerstate, normal state
         $select = $orm->getORM()->getRepository(Offer::class)->select()
-//                ->where(['state' => BookState::fromId((int) $state)])
-        ; 
+                ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
+        ;
+
+        if (!$offerState) {
+            $select->where(['reservations' => []]);
+        }
 
         $select = OfferSort::from($sort)->sort($select);
 

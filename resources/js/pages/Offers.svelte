@@ -22,6 +22,18 @@
         ;
     }
 
+    function reserve(offer)
+    {
+        fetch(`/api/reservations/make/${offer}`, {
+            method: 'post',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+        ;
+    }
+
 
     fetch('/api/offers/init')
         .then(res => res.json())
@@ -42,7 +54,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
     <div class="flex flex-col">
         <label for="subject" class="text-xs text-secondary"><Text text="subject" /></label>
-        <select id="subject" name="subject" class="input" bind:value={subject} on:input={getOffers}>
+        <select id="subject" name="subject" class="input" bind:value={subject} on:change={getOffers}>
             {#each subjects as _subject}
                 <option value={_subject.id}>{_subject.name}</option>
             {/each}
@@ -50,7 +62,7 @@
     </div>
     <div class="flex flex-col">
         <label for="state" class="text-xs text-secondary"><Text text="book-state" /></label>
-            <select id="state" name="state" class="input" bind:value={state} on:input={getOffers}>
+            <select id="state" name="state" class="input" bind:value={state} on:change={getOffers}>
             {#each states as _state, id}
                 <option value={id}><Text text="state-{_state}" /></option>
             {/each}
@@ -58,7 +70,7 @@
     </div>
     <div class="flex flex-col">
         <label for="sort" class="text-xs text-secondary"><Text text="sorting" /></label>
-        <select id="sort" name="sort" class="input" bind:value={sort} on:input={getOffers}>
+        <select id="sort" name="sort" class="input" bind:value={sort} on:change={getOffers}>
             {#each sorting as _sort}
                 <option value={_sort} ><Text text="sorting-{_sort}" /></option>
             {/each}
@@ -66,7 +78,7 @@
     </div>
     <div class="flex flex-col">
         <label for="offer-state" class="text-xs text-secondary"><Text text="offer-state" /></label>
-            <select id="offer-state" name="offer-state" class="input" bind:value={offerState} on:input={getOffers}>
+            <select id="offer-state" name="offer-state" class="input" bind:value={offerState} on:change={getOffers}>
             <option value="0"><Text text="offer-state-free" /></option>
             <option value="1"><Text text="offer-state-reserved" /></option>
         </select>
@@ -89,7 +101,7 @@
                     <div class="text-sm text-secondary"><Text text='state-{offer.state}' /></div>
                     <div class="flex gap-3">
                         <div class="text-xl">{offer.price} <Text text='currency' /></div>
-                        <button class="text-sm button"><Text text='reserve' /></button>
+                            <button class="text-sm button" on:click={() => reserve(offer.id)}><Text text='reserve' /></button>
                     </div>
                 </div>
             </div>

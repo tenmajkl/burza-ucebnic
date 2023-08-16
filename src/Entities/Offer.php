@@ -6,11 +6,13 @@ namespace App\Entities;
 
 use App\Entities\Traits\DateTimes;
 use App\Entities\Traits\Dynamic;
+use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
+use Lemon\Contracts\Kernel\Injectable;
 
 /**
  * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU.
@@ -28,15 +30,17 @@ use Cycle\ORM\Entity\Behavior;
     field: 'deletedAt',
     column: 'deleted_at'
 )]
-class Offer implements \JsonSerializable
+class Offer implements \JsonSerializable, Injectable
 {
-    use DateTimes, Dynamic;
+    use DateTimes, Dynamic, InjectableEntity;
+
+    const RelationToSchool = 'book.subjects.year.school.id';
 
     #[Column(type: 'primary')]
     public int $id;
 
     #[HasMany(target: Reservation::class)]
-    public array $resevations = [];
+    public array $reservations = [];
 
     #[Column(type: 'datetime', nullable: true)]
     public ?\DateTimeImmutable $updatedAt;
@@ -62,8 +66,8 @@ class Offer implements \JsonSerializable
             'price' => $this->price,
             'state' => $this->state,
             'author_email' => $this->user->email,
-            'reserved' => !empty($this->reservations),
             'created_at' => diff($this->createdAt),
+            'reserved' => !empty($this->reservations),
         ];
     }
 }
