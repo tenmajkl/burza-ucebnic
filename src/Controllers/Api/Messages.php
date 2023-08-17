@@ -18,7 +18,11 @@ class Messages
             return error(404);
         }
 
-        return $target->messages;
+        return [
+            'code' => 200,
+            'message' => 'OK',
+            'data' => $target->messages,
+        ];
     }
 
     public function update(?Reservation $target, Request $request, Auth $auth, ORM $orm)

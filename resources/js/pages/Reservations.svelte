@@ -10,7 +10,7 @@
     fetch("/api/reservations")
         .then(response => response.json())
         .then(res => {
-            data = res;
+            data = res.data;
         })
         .catch(error => {
             console.error(error);

@@ -10,7 +10,7 @@
         })
         .then(res => res.json())
         .then(data => {
-            messages = data;
+            messages = data.data;
             })
     }
 
