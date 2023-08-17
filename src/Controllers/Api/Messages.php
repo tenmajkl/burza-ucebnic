@@ -8,6 +8,7 @@ use App\Entities\Offer;
 use App\Entities\Reservation;
 use Lemon\Http\Request;
 use Lemon\Validator;
+use App\Contracts\ORM;
 
 class Messages
 {
@@ -20,11 +21,11 @@ class Messages
         return $target->messages;
     }
 
-    public function update(?Reservation $target, Request $request, Auth $auth)
+    public function update(?Reservation $target, Request $request, Auth $auth, ORM $orm)
     {
         $request->validate([
             'content' => 'max:512|min:1',
-        ], response([
+        ], fn() => response([
             'code' => 400,
             'message' => Validator::error(),
         ])->code(400));
@@ -34,6 +35,7 @@ class Messages
         }
 
         $message = new Message($request->get('content'), $auth->user(), $target);
+        $orm->getEntityManager()->persist($message)->run();
 
         return [
             'code' => 200,

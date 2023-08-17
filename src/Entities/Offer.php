@@ -67,7 +67,7 @@ class Offer implements \JsonSerializable, Injectable
             'state' => $this->state,
             'author_email' => $this->user->email,
             'created_at' => diff($this->createdAt),
-            'reserved' => !empty($this->reservations),
+            'reservations' => count($this->reservations),
         ];
     }
 }

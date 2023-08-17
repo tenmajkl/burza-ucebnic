@@ -25,7 +25,6 @@ class Offers
             'subject' => 'numeric',
             'state' => 'state',
             'sort' => 'sort',
-            'offer-state' => 'offer-state',
         ]);
 
         if (!$ok) {
@@ -45,10 +44,6 @@ class Offers
         $select = $orm->getORM()->getRepository(Offer::class)->select()
                 ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
         ;
-
-        if (!$offerState) {
-            $select->where(['reservations' => []]);
-        }
 
         $select = OfferSort::from($sort)->sort($select);
 

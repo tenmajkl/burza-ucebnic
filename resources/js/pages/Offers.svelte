@@ -78,7 +78,7 @@
     </div>
     <div class="flex flex-col">
         <label for="offer-state" class="text-xs text-secondary"><Text text="offer-state" /></label>
-            <select id="offer-state" name="offer-state" class="input" bind:value={offerState} on:change={getOffers}>
+        <select id="offer-state" name="offer-state" class="input" bind:value={offerState}>
             <option value="0"><Text text="offer-state-free" /></option>
             <option value="1"><Text text="offer-state-reserved" /></option>
         </select>
@@ -89,22 +89,24 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each offers as offer}
-        <div class="flex card gap-5">
-            <img src="/static/img/offers/{offer.id}" alt="cecko" class="card-image">
-            <div class="flex flex-col justify-between font-bold">
-                <div>
-                    <div class="text-xl">{offer.name}</div>
-                    <div class="text-sm text-secondary">@{offer.author_email}</div>
-                    <div class="text-sm text-secondary">{offer.created_at}</div>
-                </div>
-                <div>
-                    <div class="text-sm text-secondary"><Text text='state-{offer.state}' /></div>
-                    <div class="flex gap-3">
-                        <div class="text-xl">{offer.price} <Text text='currency' /></div>
-                            <button class="text-sm button" on:click={() => reserve(offer.id)}><Text text='reserve' /></button>
+        {#if offerState == 1 || offer.reservations == 0}
+            <div class="flex card gap-5">
+                <img src="/static/img/offers/{offer.id}" alt="cecko" class="card-image">
+                <div class="flex flex-col justify-between font-bold">
+                    <div>
+                        <div class="text-xl">{offer.name}</div>
+                        <div class="text-sm text-secondary">@{offer.author_email}</div>
+                        <div class="text-sm text-secondary">{offer.created_at}</div>
+                    </div>
+                    <div>
+                        <div class="text-sm text-secondary"><Text text='state-{offer.state}' /></div>
+                        <div class="flex gap-3">
+                            <div class="text-xl">{offer.price} <Text text='currency' /></div>
+                                <button class="text-sm button" on:click={() => reserve(offer.id)}><Text text='reserve' /></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {/if}
     {/each}
 </div>

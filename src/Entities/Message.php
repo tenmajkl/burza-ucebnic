@@ -2,14 +2,19 @@
 
 namespace App\Entities;
 
-use App\Entities\Traits\DateTimes;
 use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use Cycle\ORM\Entity\Behavior;
 
 #[Entity]
-class Message
+#[Behavior\CreatedAt(
+    field: 'createdAt',
+    column: 'created_at'
+)]
+class Message implements \JsonSerializable
 {
-    use DateTimes;
+    #[Column(type: 'datetime')]
+    public \DateTimeImmutable $createdAt;
 
     #[Column(type: 'primary')]
     public int $id;
@@ -23,5 +28,15 @@ class Message
         public Reservation $reservation,
     ) {
 
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'content' => $this->content,
+            'author' => $this->author->email,
+            'createdAt' => $this->createdAt->format('Y-m-dTH:i:s'),
+        ];
     }
 }

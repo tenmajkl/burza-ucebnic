@@ -11,7 +11,7 @@ use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
-use Cycle\Database\Query\SelectQuery;
+use Cycle\ORM\Select\QueryBuilder;
 use Cycle\ORM\Entity\Behavior;
 use Lemon\Contracts\Kernel\Injectable;
 use Lemon\Kernel\Container;
@@ -66,9 +66,10 @@ class Reservation implements \JsonSerializable, Injectable
         $user_id = $container->get(Auth::class)->user()->id;
         return $container->get(ORM::class)->getORM()
                                           ->getRepository(self::class)
+                                          ->select()
                                           ->where(['id' => (int) $value])
                                           ->where(
-                                              static function(SelectQuery $select) use ($user_id) {
+                                              static function(QueryBuilder $select) use ($user_id) {
                                                     $select
                                                         ->where(['user.id' => $user_id])
                                                         ->orWhere(['offer.user.id' => $user_id])
@@ -76,6 +77,6 @@ class Reservation implements \JsonSerializable, Injectable
                                               }
 
                                           )
-                                          ->findOne();
+                                          ->fetchOne();
     }
 }

@@ -58,7 +58,7 @@
                 </div>
             </div>
             {#if message === index}
-                <Conversation opponent={reservation.seller} />
+                <Conversation opponent={reservation.seller} reservation={reservation} />
             {/if}
          </div>           
     {/each}
