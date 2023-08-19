@@ -76,7 +76,7 @@
                         <div class="text-xs text-secondary">{book.author}</div>
                         <div class="text-xs text-secondary">{book.publisher} {book.release_year}</div>
                     </div>
-                    <button class="{offer.book == book.id ? 'button' : 'button-secondary'} " on:click={() => offer.book = book.id}><Text text="select" /></button>
+                    <button class="{offer.book == book.id ? 'button' : 'button-secondary'} " on:click={() => offer.book = book.id}><Text text="{offer.book === book.id ? 'selected' : 'select'}" /></button>
                 </div>
             {/each}
         {/if}

@@ -13,6 +13,9 @@ use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
 use Lemon\Contracts\Kernel\Injectable;
+use Lemon\Kernel\Container;
+use App\Contracts\Auth;
+use App\Contracts\ORM;
 
 /**
  * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU.

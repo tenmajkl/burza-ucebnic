@@ -11,6 +11,6 @@ trait InjectableEntity
 {
     public static function fromInjection(Container $container, mixed $value): ?self
     {
-        return $container->get(ORM::class)->getORM()->getRepository(self::class)->findOne(['id' => $value, self::RelationToSchool => $container->get(Auth::class)->user()->id]);
+        return $container->get(ORM::class)->getORM()->getRepository(self::class)->findOne(['id' => $value, self::RelationToSchool => $container->get(Auth::class)->user()->year->school->id]);
     }
 }

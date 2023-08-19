@@ -23,8 +23,11 @@ class Auth implements AuthContract
     ) {
     }
 
-    public function user(): User
+    public function user(): ?User
     {
+        if (!$this->session->has('email')) {
+            return null;
+        }
         return $this->orm->getORM()->getRepository(User::class)->findOne([
             'email' => $this->session->get('email'),
         ]);

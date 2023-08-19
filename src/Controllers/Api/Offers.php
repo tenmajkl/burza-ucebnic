@@ -11,6 +11,7 @@ use App\Entities\Offer;
 use App\Entities\OfferSort;
 use App\Entities\BookState;
 use App\Entities\Subject;
+use App\Entities\User;
 use App\Entities\Year;
 use Lemon\Http\Request;
 use Lemon\Http\Response;
@@ -41,8 +42,11 @@ class Offers
 
         $state = (int) $state;
 
-        $select = $orm->getORM()->getRepository(Offer::class)->select()
-                ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
+        $select = $orm->getORM()->getRepository(Offer::class)
+                                ->select()
+                                ->where(['book.subjects.id' => $subject])
+                                ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
+
         ;
 
         $select = OfferSort::from($sort)->sort($select);
@@ -68,7 +72,7 @@ class Offers
 
         return [
             'years' => $years,
-            'states' => $states,
+            'states' => array_slice($states, 1),
         ];
     }
 
@@ -138,6 +142,41 @@ class Offers
         return [
             'status' => '200',
             'message' => text('validation.ok'),
+        ];
+    }
+
+    /**
+     * Returns offers of logged user
+     */
+    public function mine(Auth $auth)
+    {
+        return [
+            'status' => '200',
+            'message' => 'OK',
+            'data' => $auth->user()->offers,
+        ];
+    }
+
+    public function update(?Offer $target, Request $request, ORM $orm, Auth $auth)
+    {
+        if (!$target || $target->user->id !== $auth->user()->id) {
+            return error(404);
+        }
+
+        $request->validate([
+            'price' => 'numeric',
+        ], fn() => response([
+            'status' => '400',
+            'message' => Validator::error(),
+        ])->code(400));
+
+        $target->price = (int) $request->get('price');
+
+        $orm->getEntityManager()->persist($target)->run();
+
+        return [
+            'status' => '200',
+            'message' => 'OK',
         ];
     }
 }

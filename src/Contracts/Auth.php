@@ -9,7 +9,7 @@ use App\Entities\User;
 
 interface Auth
 {
-    public function user(): User;
+    public function user(): ?User;
 
     public function canChangeForgottenPassword(string $token): bool;
     

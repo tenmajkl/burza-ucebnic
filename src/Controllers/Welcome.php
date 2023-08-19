@@ -13,10 +13,11 @@ use Lemon\Templating\Template;
 
 class Welcome
 {
-    public function handle(Auth $auth, ORM $orm): Template
+    public function handle(Auth $auth): Template
     {
-        $sorts = [];
-        $year = $auth->user()->year->id;
+        if (!$auth->user()) {
+            return template('about');
+        }
         return template('welcome');
     }
 }

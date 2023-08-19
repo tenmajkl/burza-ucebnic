@@ -8,6 +8,8 @@ return [
     'state-used' => 'Pouzita',
     'state-damaged' => 'Poskozena',
 
+    'get-back' => 'Zpet',
+
     'current_year' => date('Y'),
     'currency' => 'Kc',
 
@@ -51,6 +53,12 @@ return [
     // Reservations
 
     'reservations-title' => 'Moje rezervace',
+    'qr-info' => 'Ukaz tento qr kod prodavajicimu a over, ze je objednavka tvoje',
+    'order-acceptance' => 'Vyzvednuti objednavky',
+    'order-acceptance-fail' => 'Vami nascanovana objednavka neexistuje, nebo k ni nemate pristup.',
+    'order-acceptance-unauthorized' => 'Pro zobrazeni objednavky se musite prihlasit.',
+    'reserved-by' => 'Rezervoval',
+    'order-accept' => 'Predat',
 
     // Wishlist
 
@@ -64,12 +72,17 @@ return [
     'add-button' => 'VYTVORIT',
     'price' => 'Cena',
     'select' => 'Vybrat',
+    'selected' => 'Vybrano',
     'missing-image'=> 'Chybi obrazek',
     'image-error'=> 'Chyba v obrazku',
 
     // My Offers
 
     'my-offers-title' => 'Moje nabidky',
+    // fuck morphology (jk morphology is cool)
+    'interested-1' => 'zajemce',
+    'interested-2-3' => 'zajemci',
+    'interested' => 'zajemcu',
 
     // Profile
 

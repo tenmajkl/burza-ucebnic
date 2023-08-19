@@ -1,9 +1,10 @@
 <script>
-    // TODO chat
     import Conversation from "../components/Conversation.svelte";
     import Text from "../components/Text.svelte";
+    import QR from "../components/QR.svelte";
 
     let message = null;
+    let qr = null;
 
     let data = [];
 
@@ -49,16 +50,22 @@
                         <div class="text-sm text-secondary">@{reservation.offer.author_email}</div>
                     </div>
                     <div>
-                        <div class="text-sm text-secondary">{reservation.offer.state}</div>
+                        <div class="text-sm text-secondary"><Text text="state-{reservation.offer.state}" /></div>
                         <div class="flex gap-3">
                             <div class="text-xl">{reservation.offer.price} Kc</div>
-                            <i class="text-lg bi bi-chat text-blue" on:click={() => message = message === index ? null : index}></i>
+                            <i class="text-lg bi bi-chat text-blue" on:click={() => message = message === index ? null : (qr = null) || index}></i>
+                            {#if reservation.active}
+                                <i class="text-lg bi bi-qr-code text-blue" on:click={() => qr = qr === index ? null : (message = null) || index}></i>
+                            {/if}
                         </div>
                     </div>
                 </div>
             </div>
             {#if message === index}
                 <Conversation opponent={reservation.seller} reservation={reservation} />
+            {/if}
+            {#if qr === index} 
+                <QR reservation={reservation} />
             {/if}
          </div>           
     {/each}

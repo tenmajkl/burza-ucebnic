@@ -47,7 +47,7 @@ class Reservation implements \JsonSerializable, Injectable
         public int $active
     ) {
         // Profi token generation coolfido aproves
-        $this->hash = str_shuffle(str_shuffle($this->offer->id.rand().time()).base64_encode(sha1(rand().time().$user->id)));
+        $this->hash = sha1(str_shuffle(base64_encode(str_shuffle($this->offer->id.rand().time()).sha1(rand().time().$user->id))));
     }
 
     public function jsonSerialize(): array
