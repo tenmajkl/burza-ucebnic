@@ -1,9 +1,12 @@
 { extends 'layout' }
 
 { block 'title' } 
-    O Projektu
+    { text app.about-title }
 { /block }
 
 { block 'content' }
-
+    <main class="w-screen h-screen flex flex-col items-center justify-center">
+        <h1 class="text-2xl font-bold">{ text app.about-title }</h1>
+        <p>{ text app.about-content }</p>
+    </main>
 { /block }

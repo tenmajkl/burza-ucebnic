@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Controllers\Api\Offers;
 use App\Controllers\Api\Messages;
+use App\Controllers\Api\Wishlist;
 use Lemon\Route;
 
 Route::get('/offers/init', [Offers::class, 'init']);
@@ -15,3 +16,5 @@ $reservations->add('make/{offer}', 'post', [\App\Controllers\Api\Reservations::c
 $reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations::class, 'qr']);
 
 Route::controller('messages', Messages::class);
+
+Route::controller('wishlist', Wishlist::class);

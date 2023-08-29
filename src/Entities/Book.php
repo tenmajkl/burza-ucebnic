@@ -8,7 +8,6 @@ use App\Entities\Traits\Dynamic;
 use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
-use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\Annotated\Annotation\Relation\ManyToMany;
 use Lemon\Contracts\Kernel\Injectable;
@@ -28,6 +27,9 @@ class Book implements \JsonSerializable, Injectable
 
     #[ManyToMany(target: Subject::class, though: SubjectBook::class)]
     public array $subjects = [];
+
+    #[HasMany(target: Inquiry::class)]
+    public array $inquiries = [];
 
     public function __construct(
         #[Column(type: 'string')]

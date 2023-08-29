@@ -5,74 +5,73 @@ declare(strict_types=1);
 return [
     'title' => 'Administrace',
     'actions' => 'Akce',
-    'add' => 'Pridat',
-    'create' => 'Vytvorit',
+    'add' => 'Přidat',
+    'create' => 'Vytvořit',
     'edit' => 'Upravit',
     'yes' => 'Ano',
     'no' => 'Ne',
-    'upload' => 'Nahrat',
+    'upload' => 'Nahrát',
 
     // Roles
 
     'admin' => 'Admin',
-    'user' => 'Uzivatel',
+    'user' => 'Uživatel',
     'majkel' => 'Majkel',
 
     // Menu
 
-    'years' => 'Rocniky',
-    'subjects' => 'Predmety',
-    'books' => 'Ucebnice',
-    'users' => 'Uzivatele',
-    'offers' => 'Nabidky',
+    'years' => 'Ročníky',
+    'subjects' => 'Předměty',
+    'books' => 'Učebnice',
+    'users' => 'Uživatelé',
+    'offers' => 'Nabídky',
 
     // Years
 
-    'year-name' => 'Nazev',
-    'years-create' => 'Vytvorit rocnik',
-    'years-show' => 'Zobrazit rocnik',
+    'year-name' => 'Název',
+    'years-create' => 'Vytvořit ročník',
+    'years-show' => 'Zobrazit ročník',
 
     // Subjects
 
-    'subject' => 'predmet',
+    'subject' => 'Předmět',
 
     // Users
 
-    'user-name' => 'Jmeno',
+    'user-name' => 'Jméno',
     'user-role' => 'Role',
-    'user-year' => 'Rocnik',
-    'user-create' => 'Pridat uzivatele',
-    'user-edit' => 'Upravit uzivatele',
-    'user-rating' => 'Hodnoceni',
-    'user-reports' => 'Nahlaseni',
-    'users-add' => 'Pridat uzivatele',
+    'user-year' => 'Ročník',
+    'user-create' => 'Přidat uživatele',
+    'user-edit' => 'Upravit uživatele',
+    'user-rating' => 'Hodnocení',
+    'user-reports' => 'Nahlášení',
+    'users-add' => 'Přidat uživatele',
     'user-is-admin' => 'Je admin?',
-    'user-create-success' => 'Pridani uzivatele uspesne, heslo je ',
-    'users-show' => 'Zobrazit uzivatele',
+    'user-create-success' => 'Přidání uživatele úspěšné, heslo je ',
+    'users-show' => 'Zobrazit uživatele',
     
     // Bans
-    'ban' => 'Odeprit pristup',
-    'user-ban' => 'Zakaz vyprsi',
+    'ban' => 'Odepřít přístup',
+    'user-ban' => 'Zákaz vyprší',
     'user-ban-free' => 'Nevztahuje se',
-    'user-bans' => 'Historie zakazu',
-    'user-bans-from' => 'Udelen',
-    'user-bans-to' => 'Vyprsi',
-    'user-bans-reason' => 'Duvod',
-    'user-bans-by' => 'Zakaz udelil',
-    'user-bans-active' => 'Aktivni?',
-
+    'user-bans' => 'Historie zákazů',
+    'user-bans-from' => 'Udělen',
+    'user-bans-to' => 'Vyprší',
+    'user-bans-reason' => 'Důvod',
+    'user-bans-by' => 'Zákaz udělil',
+    'user-bans-active' => 'Aktivní?',
 
     // Books
 
-    'book-name' => 'Nazev',
+    'book-name' => 'Název',
     'book-author' => 'Autor',
-    'book-year' => 'Rocniky',
-    'book-release-year' => 'Rok vydani',
-    'book-subjects' => 'Predmety', 
-    'book-subject' => 'Predmet',  
-    'book-publisher' => 'Nakladatelstvi',
-    'books-create' => 'Pridat ucebnici',
-    'books-show' => 'Zobrazit ucebnici',
-    'book-cover' => 'Ukazka obalu ucebnice',
-    'books-upload' => 'Nahrat ucebnice',
+    'book-year' => 'Ročníky',
+    'book-release-year' => 'Rok vydání',
+    'book-subjects' => 'Předměty', 
+    'book-subject' => 'Předmět',  
+    'book-publisher' => 'Nakladatelství',
+    'books-create' => 'Přidat učebnici',
+    'books-show' => 'Zobrazit učebnici',
+    'book-cover' => 'Ukázka obalu učebnice',
+    'books-upload' => 'Nahrát učebnice',
 ];

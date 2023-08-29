@@ -52,7 +52,7 @@
                     <div>
                         <div class="text-sm text-secondary"><Text text="state-{reservation.offer.state}" /></div>
                         <div class="flex gap-3">
-                            <div class="text-xl">{reservation.offer.price} Kc</div>
+                            <div class="text-xl">{reservation.offer.price} <Text text="currency" /></div>
                             <i class="text-lg bi bi-chat text-blue" on:click={() => message = message === index ? null : (qr = null) || index}></i>
                             {#if reservation.active}
                                 <i class="text-lg bi bi-qr-code text-blue" on:click={() => qr = qr === index ? null : (message = null) || index}></i>

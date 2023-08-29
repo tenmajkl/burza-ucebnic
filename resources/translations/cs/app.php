@@ -3,86 +3,98 @@
 declare(strict_types=1);
 
 return [
-    'state-any' => 'Vse',
-    'state-new' => 'Nova',
-    'state-used' => 'Pouzita',
-    'state-damaged' => 'Poskozena',
+    'state-any' => 'Vše',
+    'state-new' => 'Nová',
+    'state-used' => 'Použitá',
+    'state-damaged' => 'Poškozená',
 
-    'get-back' => 'Zpet',
+    'get-back' => 'Zpět',
 
     'current_year' => date('Y'),
-    'currency' => 'Kc',
+    'currency' => 'Kč',
 
-    'year' => 'Rocnik',
-    'offers-error' => 'nabidky nejsou',
-    'title' => 'Burza Ucebnic',
+    'year' => 'Ročník',
+    'offers-error' => 'Nabídky neexistují',
+    'title' => 'Burza Učebnic',
+
+    // About
+    'about-title' => 'O projektu',
+    'about-content' => 'Jde o projekt',
+
+    // Feedback
+    'feedback-title' => 'Zpětná vazba',
+    'feedback-content' => 'Napište nám, co byste chtěli zlepšit, nebo co se vám nelíbí. Děkujeme za každou zpětnou vazbu.',
+    'send' => 'Odeslat',
 
     // Menu
-    'offers' => 'Nabidky',
+    'offers' => 'Nabídky',
     'reservations' => 'Rezervace',
-    'wishlist' => 'Wishlist',
-    'add' => 'Pridat',
-    'my-offers' => 'Moje nabidky',
+    'wishlist' => 'Seznam přání',
+    'add' => 'Přidat',
+    'my-offers' => 'Moje nabídky',
     'profile' => 'Profil',
 
     // Offers
 
-    'offers-title' => 'Aktualni nabidky',
+    'offers-title' => 'Aktuální nabídky',
     'reserve' => 'REZERVOVAT',
 
     // Filters
 
-    'subject' => 'Predmet',
-    'book-state' => 'Stav ucebnice',
-    'sorting' => 'Razeni',
-    'offer-state' => 'Filtr dle stavu nabidky',
-    'offer-state-free' => 'Bez Rezervovanych',
-    'offer-state-reserved' => 'Vcetne Rezervovanych',
+    'subject' => 'Předmět',
+    'book-state' => 'Stav učebnice',
+    'sorting' => 'Řazení',
+    'offer-state' => 'Filtr podle stavu nabídky',
+    'offer-state-free' => 'Bez rezervovaných',
+    'offer-state-reserved' => 'Včetně rezervovaných',
 
     // Sorting
 
-    'sorting-newest' => 'Nejnovejsi',
-    'sorting-oldest' => 'Nejstarsi',
-    'sorting-cheapest' => 'Nejlevnejsi',
-    'sorting-most-expensive' => 'Nejdrazsi',
-    'sorting-best-reviews' => 'Nejlepsi hodnoceni',
-    'sorting-worst-reviews' => 'Nejhorsi hodnoceni',
-    'sorting-optimal' => 'Doporucene',
+    'sorting-newest' => 'Nejnovější',
+    'sorting-oldest' => 'Nejstarší',
+    'sorting-cheapest' => 'Nejlevnější',
+    'sorting-most-expensive' => 'Nejdražší',
+    'sorting-best-reviews' => 'Nejlepší hodnocení',
+    'sorting-worst-reviews' => 'Nejhorší hodnocení',
+    'sorting-optimal' => 'Doporučené',
 
 
     // Reservations
 
     'reservations-title' => 'Moje rezervace',
-    'qr-info' => 'Ukaz tento qr kod prodavajicimu a over, ze je objednavka tvoje',
-    'order-acceptance' => 'Vyzvednuti objednavky',
-    'order-acceptance-fail' => 'Vami nascanovana objednavka neexistuje, nebo k ni nemate pristup.',
-    'order-acceptance-unauthorized' => 'Pro zobrazeni objednavky se musite prihlasit.',
+    'qr-info' => 'Ukažte tento QR kód prodejci a ověřte, že objednávka je vaše',
+    'order-acceptance' => 'Převzetí objednávky',
+    'order-acceptance-fail' => 'Skenovaná objednávka neexistuje nebo k ní nemáte přístup.',
+    'order-acceptance-unauthorized' => 'Pro zobrazení objednávky se musíte přihlásit.',
     'reserved-by' => 'Rezervoval',
-    'order-accept' => 'Predat',
+    'order-accept' => 'Předat',
 
     // Wishlist
 
-    'wishlist-title' => 'Wishlist',
+    'wishlist-title' => 'Seznam přání',
     'search' => 'Hledat',
     'remove' => 'Odebrat',
+    'wishlist-select-title' => 'Vyber ucebnic do seznamu',
+    'wishlist-max-price' => 'Maximálne za',
+    'wishlist-empty' => 'Seznam přání je prázdný',
 
     // Add
 
-    'add-title' => 'Vytvorit nabidku',
-    'add-button' => 'VYTVORIT',
+    'add-title' => 'Vytvořit nabídku',
+    'add-button' => 'VYTVOŘIT',
     'price' => 'Cena',
     'select' => 'Vybrat',
-    'selected' => 'Vybrano',
-    'missing-image'=> 'Chybi obrazek',
-    'image-error'=> 'Chyba v obrazku',
+    'selected' => 'Vybráno',
+    'missing-image'=> 'Chybí obrázek',
+    'image-error'=> 'Chyba v obrázku',
 
     // My Offers
 
-    'my-offers-title' => 'Moje nabidky',
-    // fuck morphology (jk morphology is cool)
-    'interested-1' => 'zajemce',
-    'interested-2-3' => 'zajemci',
-    'interested' => 'zajemcu',
+    'my-offers-title' => 'Moje nabídky',
+    // do pekla s morfologií (jen žertuji, morfologie je fajn)
+    'interested-1' => 'zájemce',
+    'interested-2-3' => 'zájemci',
+    'interested' => 'zájemců',
 
     // Profile
 

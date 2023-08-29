@@ -1,1 +1,1 @@
-{"php":"8.2.9","version":"3.14.2:v3.14.2#14f0541651841b63640e7aafad041ad55dc7aa88","indent":"    ","lineEnding":"\n","rules":{"ordered_imports":true},"hashes":{"stdin.php":"35ad58b3a7c61300f3a30c266d456373"}}
+{"php":"8.2.9","version":"3.14.2:v3.14.2#14f0541651841b63640e7aafad041ad55dc7aa88","indent":"    ","lineEnding":"\n","rules":{"declare_strict_types":true},"hashes":{"stdin.php":"f7316c51792083b50dd55ab1d615b65e"}}

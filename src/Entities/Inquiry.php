@@ -11,13 +11,11 @@ class Inquiry
     #[Column(type: 'primary')]
     public int $id;
 
-    #[BelongsTo(target: Book::class)]
-    public Book $book;
-
-    #[BelongsTo(target: User::class)]
-    public User $user;
-
     public function __construct(
+        #[BelongsTo(target: Book::class)]
+        public Book $book,
+        #[BelongsTo(target: User::class)]
+        public User $user,
         #[Column(type: 'int')]
         public int $expected_price,
     ) {
