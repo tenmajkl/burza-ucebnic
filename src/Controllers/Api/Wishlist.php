@@ -7,6 +7,7 @@ use App\Contracts\ORM;
 use App\Entities\Book;
 use App\Entities\Inquiry;
 use Lemon\Http\Request;
+use Lemon\Http\Response;
 
 class Wishlist
 {
@@ -19,18 +20,22 @@ class Wishlist
                 $orm->getORM()->getRepository(Inquiry::class)->findAll([
                     'user.id' => $auth->user()->id,
                 ]),
-                $orm->getORM()->getRepository(Book::class)->findAll([
-                    'subjects.year.id' => $auth->user()->year->id,
-    //                'inquiries.user.id' => ['!=' => $auth->user()->id], TBD
+                $orm->getORM()->getRepository(Book::class)->findAll([ 
+                    'subjects.year.id' => $auth->user()->year->id
+                    // TODO there is probably way to filter inquired books, but time is money and we need both
                 ]),
             ],
         ];
     }
 
-    public function update(Book $target, Auth $auth, Request $request, ORM $orm): array
+    public function update(?Book $target, Auth $auth, Request $request, ORM $orm): array|Response
     {
+        if ($target === null) {
+            return error(404); 
+        }
+
         $request->validate([
-            'max_price' => 'numeric|greaterThan:0|smallerThan:1000',
+            'max_price' => 'numeric|gt:0|lt:1000',
         ], response([ 
             'code' => 400,
             'message' => 'Bad Request',
@@ -42,14 +47,18 @@ class Wishlist
             $request->get('max_price'),
         );
 
-        $orm->getEntityManager()->persist($inquiry);
+        $orm->getEntityManager()->persist($inquiry)->run();
 
         return $this->index($orm, $auth);
     }
 
-    public function delete(Inquiry $target, ORM $orm, Auth $auth): array
+    public function delete(?Inquiry $target, ORM $orm, Auth $auth): array
     {
-        $orm->getEntityManager()->delete($target);
+        if ($target === null) {
+            return error(404); 
+        }
+
+        $orm->getEntityManager()->delete($target)->run();
 
         return $this->index($orm, $auth);
     }

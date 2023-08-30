@@ -39,7 +39,7 @@ class ORM implements ORMContract
 
         AnnotationRegistry::registerLoader('class_exists');
 
-        $schema = (new Schema\Compiler())->compile(new Schema\Registry($this->dbal), [
+        $settings = [
             new Schema\Generator\ResetTables(),
             new Annotated\Embeddings($locator),
             new Annotated\Entities($locator),
@@ -52,9 +52,14 @@ class ORM implements ORMContract
             new Schema\Generator\RenderRelations(),
             new Schema\Generator\RenderModifiers(),
             new Annotated\MergeIndexes(),
-            $env->get('DEBUG', false) ? new Schema\Generator\SyncTables() : null,
             new Schema\Generator\GenerateTypecast(),
-        ]);
+        ];
+
+        if ($env->get('DEBUG', false)) {
+            $settings[] = new Schema\Generator\SyncTables();
+        }
+
+        $schema = (new Schema\Compiler())->compile(new Schema\Registry($this->dbal), $settings);
 
         $this->orm = new CycleORM(new Factory($this->dbal), new ORMSchema($schema));
         $this->manager = new EntityManager($this->orm);

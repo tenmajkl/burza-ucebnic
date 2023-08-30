@@ -61,6 +61,7 @@
                     </div>
                 </div>
             </div>
+            TODO TLACITKO PRO ODEBRANI
             {#if message === index}
                 <Conversation opponent={reservation.seller} reservation={reservation} />
             {/if}
