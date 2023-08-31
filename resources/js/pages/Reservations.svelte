@@ -1,7 +1,6 @@
 <script>
-    import Conversation from "../components/Conversation.svelte";
+    import Reservation from '../components/Reservation.svelte';
     import Text from "../components/Text.svelte";
-    import QR from "../components/QR.svelte";
 
     let message = null;
     let qr = null;
@@ -41,33 +40,6 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each data as reservation, index}
-         <div class="flex flex-col card gap-5 {message === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
-            <div class="flex gap-5">
-                <img src="https://cdn.aukro.cz/images/sk1630929533050/programovaci-jazyk-c-106861907.jpeg" alt="cecko" class="card-image">
-                <div class="flex flex-col justify-between font-bold">
-                    <div>
-                        <div class="text-xl">{reservation.offer.name}</div>
-                        <div class="text-sm text-secondary">@{reservation.offer.author_email}</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-secondary"><Text text="state-{reservation.offer.state}" /></div>
-                        <div class="flex gap-3">
-                            <div class="text-xl">{reservation.offer.price} <Text text="currency" /></div>
-                            <i class="text-lg bi bi-chat text-blue" on:click={() => message = message === index ? null : (qr = null) || index}></i>
-                            {#if reservation.active}
-                                <i class="text-lg bi bi-qr-code text-blue" on:click={() => qr = qr === index ? null : (message = null) || index}></i>
-                            {/if}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            TODO TLACITKO PRO ODEBRANI
-            {#if message === index}
-                <Conversation opponent={reservation.seller} reservation={reservation} />
-            {/if}
-            {#if qr === index} 
-                <QR reservation={reservation} />
-            {/if}
-         </div>           
+        <Reservation reservation={reservation} index={index} bind:message={message} bind:qr={qr} />
     {/each}
 </div>

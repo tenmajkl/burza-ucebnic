@@ -29,15 +29,11 @@
         return 'interested';
     }
 
-    function getReservation(offer)
+    async function getReservation(offer)
     {
-        let result;
-        fetch('/api/reservations/' + offer.id)
-            .then(response => response.json())
-            .then(res => {
-                result = res.data;
-            });
-        return result;
+        const res = await fetch('/api/reservations/' + offer.id);
+        const data = await res.json();
+        return data.data;
     }
 
     function edit(index)
@@ -65,8 +61,6 @@
     <Text text="my-offers-title" />
 </div>
 
-<hr class="my-2 border-t-4 rounded-sm border-secondary">
-
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each data as offer, index}
         <div class="flex flex-col card gap-5 {openned === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
@@ -84,15 +78,16 @@
                                 <input type="number" bind:value={offer.price} class="w-20 input"> <Text text="currency" />
                             </div>
                             <button on:click={() => edit(index)}><i class="text-lg bi bi-pen text-blue"></i></button>
-                            <button on:click={() => {reservation = getReservation(offer); openned = index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
+                            <button on:click={async () => {reservation = await getReservation(offer); openned = index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         <div>
-            {#if reservation}
+            {#if openned === index}
                 <Conversation reservation={reservation} opponent={reservation.author} />
-            {/if}</div>
+            {/if}
+        </div>
         </div>
     {/each}
 </div>

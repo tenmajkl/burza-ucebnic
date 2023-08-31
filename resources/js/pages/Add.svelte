@@ -1,3 +1,4 @@
+nezobrazovat knihy duplicitne
 <script>
     import Text from "../components/Text.svelte";
     let states = [];

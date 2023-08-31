@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\Api\Notifications;
 use App\Controllers\Api\Offers;
 use App\Controllers\Api\Messages;
 use App\Controllers\Api\Wishlist;
@@ -18,3 +19,5 @@ $reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations
 Route::controller('messages', Messages::class);
 
 Route::controller('wishlist', Wishlist::class);
+
+Route::controller('notifications', Notifications::class);

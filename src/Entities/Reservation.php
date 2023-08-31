@@ -57,6 +57,7 @@ class Reservation implements \JsonSerializable, Injectable
             'active' => $this->active,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
+            'author' => $this->user->email,
             'offer' => $this->offer->jsonSerialize()
         ];
     }

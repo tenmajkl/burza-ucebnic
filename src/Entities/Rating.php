@@ -23,15 +23,13 @@ class Rating
     #[Column(type: 'primary')]
     public int $id;
 
-    #[BelongsTo(target: User::class)]
-    public User $author;
-
-    #[BelongsTo(target: User::class)]
-    public User $rated;
-
     public function __construct(
         #[Column(type: 'int')]
         public int $rating,
+        #[BelongsTo(target: User::class)]
+        public User $author,
+        #[BelongsTo(target: Offer::class)]
+        public Offer $offer,
     ) {
 
     }

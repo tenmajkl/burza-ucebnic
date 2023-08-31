@@ -55,8 +55,6 @@
     <Text text="wishlist-title" />
 </div>
 
-<hr class="my-2 border-t-4 rounded-sm border-secondary">
-
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each wishlist as inquiry}
         <div class="flex card gap-5">
@@ -79,11 +77,11 @@
     {/each}
 </div>
 
+<hr class="my-2 border-t-4 rounded-sm border-secondary">
+
 <div class="text-2xl font-bold">
     <Text text="wishlist-select-title" />
 </div>
-
-<hr class="my-2 border-t-4 rounded-sm border-secondary">
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each available as book, index}

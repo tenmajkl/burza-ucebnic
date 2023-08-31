@@ -32,6 +32,7 @@ return [
     'wishlist' => 'Seznam přání',
     'add' => 'Přidat',
     'my-offers' => 'Moje nabídky',
+    'notifications' => 'Notifikace',
     'profile' => 'Profil',
 
     // Offers
@@ -95,6 +96,14 @@ return [
     'interested-1' => 'zájemce',
     'interested-2-3' => 'zájemci',
     'interested' => 'zájemců',
+
+    // Notifications
+    
+    'notifications-title' => 'Notifikace',
+    'notifications-unsupported' => 'Tato notifikace nemuze byt zobrazena!',
+    'notification-wishlist' => 'Ucebnice "%arg" je nyni k dispozici!',
+    'notification-rating' => 'Jak jste byli spokojeni s prodavajicim @%arg?',
+    'notification-active-reservation' => 'Rezervace ucebnice "%arg" je nyni aktivni!',
 
     // Profile
 

@@ -1,4 +1,6 @@
 <script>
+    import { slide } from 'svelte/transition';
+
     export let reservation;
     export let opponent
     let messages = [];

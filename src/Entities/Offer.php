@@ -13,9 +13,6 @@ use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
 use Lemon\Contracts\Kernel\Injectable;
-use Lemon\Kernel\Container;
-use App\Contracts\Auth;
-use App\Contracts\ORM;
 
 /**
  * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU.
@@ -48,6 +45,15 @@ class Offer implements \JsonSerializable, Injectable
     #[Column(type: 'datetime', nullable: true)]
     public ?\DateTimeImmutable $updatedAt;
 
+    #[Column(type: 'datetime', nullable: true)]
+    public ?\DateTimeImmutable $boughtAt;
+
+    #[BelongsTo(target: User::class, nullable: true)]
+    public ?User $buyer;
+
+    #[HasOne(target: Rating::class, nullable: true)]
+    public ?Rating $rating;
+
     public function __construct(
         #[BelongsTo(target: Book::class)]
         public Book $book,
@@ -69,8 +75,14 @@ class Offer implements \JsonSerializable, Injectable
             'price' => $this->price,
             'state' => $this->state,
             'author_email' => $this->user->email,
+            'author_rating' => $this->user->countRating(),
             'created_at' => diff($this->createdAt),
             'reservations' => count($this->reservations),
         ];
+    }
+
+    public function canRate(User $user): bool
+    {
+        return $this->rating === null && $this->buyer?->id === $user->id;
     }
 }

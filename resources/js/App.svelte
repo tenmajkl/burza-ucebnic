@@ -6,6 +6,8 @@
     import Offers from './pages/Offers.svelte';
     import Reservations from './pages/Reservations.svelte';
     import Wishlist from './pages/Wishlist.svelte';
+    import Notifications from './pages/Notifications.svelte';
+    import Profile from './pages/Profile.svelte';
 
     const items = [
         ['offers', Offers, 'book'],
@@ -13,7 +15,8 @@
         ['wishlist', Wishlist, 'star'],
         ['add', Add, 'plus-circle'],
         ['my-offers', MyOffers, 'person-lines-fill'],
-        ['profile', null, 'person-fill'],
+        ['notifications', Notifications, 'bell'],
+        ['profile', Profile, 'person-fill'],
     ];
 
     let selected = 0; 

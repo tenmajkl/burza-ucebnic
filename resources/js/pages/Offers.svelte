@@ -1,5 +1,6 @@
 <script>
     import Text from "../components/Text.svelte";
+    import Offer from '../components/Offer.svelte';
 
     let subjects = [];
     let states = [];
@@ -21,19 +22,6 @@
             })
         ;
     }
-
-    function reserve(offer)
-    {
-        fetch(`/api/reservations/make/${offer}`, {
-            method: 'post',
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
-        ;
-    }
-
 
     fetch('/api/offers/init')
         .then(res => res.json())
@@ -86,26 +74,12 @@
 </div>
 
 <hr class="my-2 border-t-4 rounded-sm border-secondary">
-
+TODO ADD RATING
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each offers as offer}
         {#if offerState == 1 || offer.reservations == 0}
-            <div class="flex card gap-5">
-                <img src="/static/img/offers/{offer.id}" alt="cecko" class="card-image">
-                <div class="flex flex-col justify-between font-bold">
-                    <div>
-                        <div class="text-xl">{offer.name}</div>
-                        <div class="text-sm text-secondary">@{offer.author_email}</div>
-                        <div class="text-sm text-secondary">{offer.created_at}</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-secondary"><Text text='state-{offer.state}' /></div>
-                        <div class="flex gap-3">
-                            <div class="text-xl">{offer.price} <Text text='currency' /></div>
-                                <button class="text-sm button" on:click={() => reserve(offer.id)}><Text text='reserve' /></button>
-                        </div>
-                    </div>
-                </div>
+            <div class="card">
+                <Offer offer={offer} />
             </div>
         {/if}
     {/each}

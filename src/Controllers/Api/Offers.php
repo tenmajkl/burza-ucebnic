@@ -44,6 +44,7 @@ class Offers
 
         $select = $orm->getORM()->getRepository(Offer::class)
                                 ->select()
+                                ->where(['bought_at' => null])
                                 ->where(['book.subjects.id' => $subject])
                                 ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
 
@@ -130,8 +131,8 @@ class Offers
 
         $offer = new Offer(
             $book,
-            $request->get('price'),
-            BookState::fromId($request->get('state')),
+            (int) $request->get('price'),
+            BookState::fromId((int) $request->get('state')),
             $auth->user(),
         );
 

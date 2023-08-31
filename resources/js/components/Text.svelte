@@ -1,5 +1,10 @@
 <script>
     export let text;
+    export let arg = null;
 </script>
 
-{translations[text]}
+{#if arg}
+    {translations[text].replace('%arg', arg)}
+{:else}
+    {translations[text]}
+{/if}
