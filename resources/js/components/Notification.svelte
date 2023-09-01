@@ -14,6 +14,13 @@
     function open() {
         openned = !openned;
         notification.seen = true;
+        fetch('/api/notifications/'+notification.id, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: '{}'
+        })
     }
 </script>
 <div class="gap-2 flex flex-col">

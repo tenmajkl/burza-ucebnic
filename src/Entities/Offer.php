@@ -51,8 +51,8 @@ class Offer implements \JsonSerializable, Injectable
     #[BelongsTo(target: User::class, nullable: true)]
     public ?User $buyer;
 
-    #[HasOne(target: Rating::class, nullable: true)]
-    public ?Rating $rating;
+    #[HasMany(target: Rating::class, nullable: true)]
+    public ?array $ratings = [];
 
     public function __construct(
         #[BelongsTo(target: Book::class)]
@@ -83,6 +83,10 @@ class Offer implements \JsonSerializable, Injectable
 
     public function canRate(User $user): bool
     {
-        return $this->rating === null && $this->buyer?->id === $user->id;
+        // ayo what the fuck is this
+        return ($this->buyer?->id === $user->id 
+            || (array_filter($this->reservations, fn(Reservation $item) => $item->user->id === $user->id)[0] ?? null)?->state === ReservationStatus::Denied)
+            && (array_filter($this->ratings, fn(Rating $rating) => $rating->author->id === $user->id) === [])
+        ;
     }
 }

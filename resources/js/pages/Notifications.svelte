@@ -2,6 +2,7 @@
     import Text from "../components/Text.svelte";
     import Notification from "../components/Notification.svelte";
     import Offer from '../components/Offer.svelte';
+    import Rating from '../components/Rating.svelte';
 
     let notifications = [];
 
@@ -25,6 +26,7 @@
             </Notification>
         {:else if notification.type == 1} <!-- rating -->
             <Notification bind:notification={notification} emoji='📊' title="notification-rating" arg={notification.offer.author_email} created_at={notification.created_at}>
+                <Rating offer={notification.offer} />
             </Notification>
         {:else if notification.type == 2} <!-- active reservation -->
             <Notification bind:notification={notification} emoji='✨' title="notification-active-reservation" arg={notification.offer.name} created_at={notification.created_at}>

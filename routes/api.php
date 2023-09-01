@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Middlewares\Auth;
 use App\Controllers\Api\Notifications;
 use App\Controllers\Api\Offers;
 use App\Controllers\Api\Messages;
+use App\Controllers\Api\Rating;
 use App\Controllers\Api\Wishlist;
+use App\Controllers\Auth\Logout;
 use Lemon\Route;
 
 Route::get('/offers/init', [Offers::class, 'init']);
@@ -21,3 +24,11 @@ Route::controller('messages', Messages::class);
 Route::controller('wishlist', Wishlist::class);
 
 Route::controller('notifications', Notifications::class);
+
+Route::get('/rating/verify/{target}', [Rating::class, 'verify']);
+Route::post('/rating/{target}', [Rating::class, 'update']);
+
+Route::post('logout', [Logout::class, 'post'])
+    ->exclude([Auth::class, 'onlyGuest'])
+    ->middleware([Auth::class, 'onlyAuthenticated'])
+;

@@ -3,9 +3,12 @@
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
+use App\Contracts\Notifier;
 use App\Contracts\ORM;
 use App\Entities\Offer;
 use App\Entities\Reservation;
+use App\Entities\ReservationStatus;
+use DateTimeImmutable;
 
 class Reservations
 {
@@ -36,9 +39,9 @@ class Reservations
             ])->code(400);
         }
 
-        $active = $offer->reservations === [];
+        $status = $offer->reservations === [];
 
-        $reservation = new Reservation($offer, $user, (int) $active); 
+        $reservation = new Reservation($offer, $user, ReservationStatus::tryFrom((int) $status)); 
 
         $orm->getEntityManager()->persist($reservation)->run();
 
@@ -59,21 +62,19 @@ class Reservations
         ];
     }
 
-    public function delete($target, ORM $orm, Auth $user)
+    public function delete($target, ORM $orm, Auth $auth)
     {
-        $reservation = $orm->getRepository(Reservation::class)->findOne([
+        $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
             'hash' => $target,
             'user.id' => $auth->user()->id,
-            'active' => true,
+            'status' => ['!=' => 2],
         ]);
 
         if (!$reservation) {
             return error(404);
         }
 
-        $reservation->active = 0;
-
-        $orm->getEntityManager()->persist($reservation)->run();
+        $orm->getEntityManager()->delete($reservation)->run();
 
         return [
             'status' => '200',
@@ -89,7 +90,7 @@ class Reservations
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
             'offer.id' => $target,
             'offer.user.id' => $auth->user()->id,
-            'active' => true,
+            'status' => 1,
         ]);
 
         if (!$reservation) {
@@ -123,14 +124,52 @@ class Reservations
         $reservation = $user ? $orm->getORM()->getRepository(Reservation::class)->findOne([
             'hash' => $target,
             'offer.user.id' => $auth->user()->id,
-            'active' => true,
+            'status' => 1,
         ]) : null;
 
         return template('order-acceptance', reservation: $reservation, user: $user);
     }
 
-    public function forward($target, ORM $orm)
+    public function forward($target, ORM $orm, Auth $auth, Notifier $notifier)
     {
+        $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
+            'hash' => $target,
+            'offer.user.id' => $auth->user()->id,
+            'status' => 1,
+        ]);
 
+        if ($reservation === null) {
+            return error(404);
+        }
+
+        /** @var \App\Entities\Offer $offer */
+        $offer = $reservation->offer;
+        $offer->boughtAt = new DateTimeImmutable();
+        $offer->buyer = $reservation->user;
+
+        $offer->reservations = [];
+        $notifier->notifyRating($auth->user(), $offer);
+        $orm->getEntityManager()->persist($offer)->run();
+
+        return redirect('/');
+    }
+
+    public function deny($target, ORM $orm, Auth $auth, Notifier $notifier)
+    {
+        $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
+            'hash' => $target,
+            'offer.user.id' => $auth->user()->id,
+            'status' => 1,
+        ]);
+
+        if ($reservation === null) {
+            return error(404);
+        }
+
+        $reservation->status = ReservationStatus::Denied;
+        $notifier->notifyRating($auth->user(), $reservation->offer);
+        $orm->getEntityManager()->persist($reservation)->run();
+
+        return redirect('/');
     }
 }

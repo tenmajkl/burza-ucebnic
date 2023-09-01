@@ -2,11 +2,16 @@
 
 namespace App\Entities;
 
+use App\Contracts\Auth;
+use App\Contracts\ORM;
 use App\Entities\Traits\DateTimes;
+use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\ORM\Entity\Behavior;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use JsonSerializable;
+use Lemon\Contracts\Kernel\Injectable;
+use Lemon\Kernel\Container;
 
 #[Entity]
 #[Behavior\CreatedAt(
@@ -16,7 +21,7 @@ use JsonSerializable;
 /**
  * Represents notification somehow related to user 
  */
-class OfferNotification implements JsonSerializable
+class OfferNotification implements JsonSerializable, Injectable
 {
     use DateTimes;
 
@@ -39,11 +44,23 @@ class OfferNotification implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
+            'id' => $this->id,
             'offer' => $this->offer,
             'user' => $this->user,
             'type' => $this->type,
             'seen' => (bool) $this->seen,
             'created_at' => diff($this->createdAt),
         ];
+    }
+
+    public static function fromInjection(Container $container, mixed $value): ?self
+    {
+        return $container->get(ORM::class)
+                         ->getORM()
+                         ->getRepository(self::class)
+                         ->findOne([
+                             'id' => $value, 
+                             'user.id' => $container->get(Auth::class)->user()->id
+                         ]);
     }
 }

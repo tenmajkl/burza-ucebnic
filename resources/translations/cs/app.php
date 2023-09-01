@@ -108,4 +108,5 @@ return [
     // Profile
 
     'profile-title' => 'Profil',
+    'profile-logout' => 'Odhlasit se',
 ];
