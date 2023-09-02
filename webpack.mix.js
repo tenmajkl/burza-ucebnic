@@ -6,4 +6,6 @@ mix
     .postCss('resources/css/app.css', 'public/css', [
         require("tailwindcss"),
     ])
-    .svelte()
+    .svelte({
+        dev: true
+    })

@@ -39,6 +39,7 @@ return [
 
     'offers-title' => 'Aktuální nabídky',
     'reserve' => 'REZERVOVAT',
+    'rating' => 'Hodnoceni uzivatele @%arg',
 
     // Filters
 
@@ -88,6 +89,10 @@ return [
     'selected' => 'Vybráno',
     'missing-image'=> 'Chybí obrázek',
     'image-error'=> 'Chyba v obrázku',
+    'average-price' => 'Prumerna cena',
+    'average-max-price' => 'Maximalni cena',
+    'book' => 'Ucebnice',
+    'photo' => 'Fotografie',
 
     // My Offers
 
@@ -109,4 +114,7 @@ return [
 
     'profile-title' => 'Profil',
     'profile-logout' => 'Odhlasit se',
+    'profile-change-password' => 'Zmenit heslo',
+    'profile-old-password' => 'Stare heslo',
+    'profile-new-password' => 'Nove heslo',
 ];

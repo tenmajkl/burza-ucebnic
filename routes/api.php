@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Middlewares\Auth;
+use App\Controllers\Auth\ChangePassword;
 use App\Controllers\Api\Notifications;
 use App\Controllers\Api\Offers;
 use App\Controllers\Api\Messages;
@@ -28,7 +28,6 @@ Route::controller('notifications', Notifications::class);
 Route::get('/rating/verify/{target}', [Rating::class, 'verify']);
 Route::post('/rating/{target}', [Rating::class, 'update']);
 
-Route::post('logout', [Logout::class, 'post'])
-    ->exclude([Auth::class, 'onlyGuest'])
-    ->middleware([Auth::class, 'onlyAuthenticated'])
-;
+Route::post('logout', [Logout::class, 'post']);
+
+Route::post('change-password', [ChangePassword::class, 'post']);

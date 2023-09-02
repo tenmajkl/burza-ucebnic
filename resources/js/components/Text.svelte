@@ -1,10 +1,7 @@
 <script>
     export let text;
     export let arg = null;
+    import {_text} from '../main.js';
 </script>
 
-{#if arg}
-    {translations[text].replace('%arg', arg)}
-{:else}
-    {translations[text]}
-{/if}
+{_text(text, arg)}

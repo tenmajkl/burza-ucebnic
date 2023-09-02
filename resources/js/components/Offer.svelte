@@ -1,5 +1,7 @@
 <script>
     import Text from './Text.svelte';
+    import {_text} from '../main.js';
+
     export let offer;
 
     function reserve(offer)
@@ -20,7 +22,7 @@
     <div class="flex flex-col justify-between font-bold">
         <div>
             <div class="text-xl">{offer.name}</div>
-            <div class="text-sm text-secondary">@{offer.author_email}</div>
+            <div class="text-sm text-secondary">@{offer.author_email} (<span class="text-{offer.author_rating > 0 ? 'blue' : 'red'}" title={_text('rating', offer.author_email)}>{offer.author_rating}</span>)</div>
             <div class="text-sm text-secondary">{offer.created_at}</div>
         </div>
         <div>

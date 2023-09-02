@@ -14,7 +14,7 @@
                     <div class="alert">{ error }</div>
                 { /ifError }
                 { csrf }
-                <textarea name="description" rows="5" class="card resize-none outline-none w-full">...</textarea>
+                <textarea name="description" rows="5" class="card resize-none outline-none w-full" placeholder='...'></textarea>
                 <button class="button">{ text app.send }</button>
             </form>
         </div>

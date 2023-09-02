@@ -6,20 +6,19 @@ use App\Auth;
 use App\Contracts\ORM;
 use Lemon\Http\Request;
 use Lemon\Templating\Template;
+use Lemon\Validator;
 
 class ChangePassword
 {
-    public function get(): Template
-    {
-        return template('auth.change-password');
-    }
-
     public function post(Request $request, Auth $auth, ORM $orm): Template
     {
         $request->validate([
             'old_password' => 'max:256',
             'password' => 'min:8|max:256'
-        ], template('auth.change-password'));
+        ], fn() => response([ 
+            'status' => 400,
+            'message' => Validator::error(),
+        ])->code(400));
 
         $user = $auth->user();
 
@@ -30,6 +29,9 @@ class ChangePassword
         $user->password = $request->get('password');
         $orm->getEntityManager()->persist($user);
 
-        return template('auth.change-password', message: 'auth.success');
+        return [
+            'status' => 200,
+            'message' => 'OK',
+        ];
     }
 }

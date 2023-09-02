@@ -44,7 +44,7 @@ class Year implements \JsonSerializable, Injectable
                 $this->subjects, 
                 fn($acc, $subject) => array_merge(
                     $acc, 
-                    array_map(fn($book) => $book->jsonSerialize(), $subject->books)
+                    array_map(fn($book) => $book->jsonSerializeWithAverages(), $subject->books)
             ), []),
         ];        
     }
