@@ -14,6 +14,8 @@ interface Notifier
 
     public function notifyActiveReservation(User $user, Offer $offer): self;
 
+    public function notifyNewReservation(User $user, Offer $offer): self;
+
     public function of(User $user): array;
 
     public function see(OfferNotification $notification): self; 

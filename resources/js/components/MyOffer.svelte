@@ -1,0 +1,76 @@
+<script>
+    import Conversation from "../components/Conversation.svelte";
+
+    import Text from "../components/Text.svelte";
+
+    export let offer;
+    let message = null; 
+    let reservation;
+    export let editing; 
+    export let openned;
+
+    function interestedText(interested)
+    {
+        if (interested === 1) {
+            return 'interested-1';
+        }
+        if (interested == 2 || interested == 3) {
+            return 'interested-2-3';
+        }
+
+        return 'interested';
+    }
+
+    async function getReservation(offer)
+    {
+        const res = await fetch('/api/reservations/' + offer.id);
+        const data = await res.json();
+        return data.data;
+    }
+
+    function edit(index)
+    {
+        fetch('/api/offers/' + data[index].id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                price: data[index].price
+            })
+        })
+            .then(response => response.json())
+            .then(res => {
+                if (res.success) {
+
+                }
+            });
+    }
+</script>
+
+<div class="flex flex-col card gap-5 {openned === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
+    <div class="flex gap-5">
+        <img src="/static/img/offers/{offer.id}" alt="cecko" class="card-image">
+        <div class="flex flex-col justify-between font-bold">
+            <div>
+                <div class="text-xl">{offer.name}</div>
+                <div class="text-sm text-secondary">{offer.reservations} <Text text="{interestedText(offer.reservations)}" /></div>
+            </div>
+            <div>
+                <div class="text-sm text-secondary"><Text text="state-{offer.state}" /></div>
+                <div class="flex gap-3">
+                    <div class="text-xl flex items-center">
+                        <input type="number" bind:value={offer.price} class="w-20 input"> <Text text="currency" />
+                    </div>
+                    <button on:click={() => edit(index)}><i class="text-lg bi bi-pen text-blue"></i></button>
+                    <button on:click={async () => {reservation = await getReservation(offer); openned = index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        {#if openned === index}
+            <Conversation reservation={reservation} opponent={reservation.author} />
+        {/if}
+    </div>
+</div>

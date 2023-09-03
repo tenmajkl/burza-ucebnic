@@ -30,7 +30,10 @@
             </Notification>
         {:else if notification.type == 2} <!-- active reservation -->
             <Notification bind:notification={notification} emoji='✨' title="notification-active-reservation" arg={notification.offer.name} created_at={notification.created_at}>
-                tbd
+            </Notification>
+        {:else if notification.type == 3}
+            <Notification bind:notification={notification} emoji='🤑' title="notification-new-reservation" arg={notification.offer.name} created_at={notification.created_at}>
+                <MyOffer offer={notification.offer} editing={null} openned={null} />
             </Notification>
         {:else}
             <Text text="notifications-unsupported" />

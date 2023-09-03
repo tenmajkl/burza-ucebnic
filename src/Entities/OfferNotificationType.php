@@ -12,6 +12,8 @@ enum OfferNotificationType: int
 
     case ActiveReseration = 2;
 
+    case NewReservation = 3;
+
     /**
      * For cycle ORM
      */

@@ -38,6 +38,12 @@ class Notifier implements NotifierContract
         return $this;
     }
 
+    public function notifyNewReservation(User $user, Offer $offer): self
+    {
+        $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
+        return $this;
+    }
+
     public function of(User $user): array
     {
         return $this->orm->getORM()->getRepository(OfferNotification::class)->findAll([ 

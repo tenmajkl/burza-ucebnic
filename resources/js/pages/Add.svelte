@@ -39,9 +39,10 @@ nezobrazovat knihy duplicitne
             },
             body: JSON.stringify(offer)
         })
+        .then(res => res.json())
         .then(data => {
             result = data.message;
-            if (result && result !== 'OK') {
+            if (result && result === 'OK') {
                 offer = { state: 0 };
                 selected = 0;
             }
@@ -55,7 +56,7 @@ nezobrazovat knihy duplicitne
 </div>
 {#if result && result != "OK"}
     <div class="alert">
-        {result.message}
+        {result}
     </div>
 {/if}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 xl:w-1/2 2xl:w-1/3">
@@ -68,11 +69,11 @@ nezobrazovat knihy duplicitne
             </select>
     </div>
     <div class="text-xs text-secondary"><Text text="book" /></div>
-    <div class="flex overflow-x-auto md:col-span-2 gap-3">
+    <div class="flex overflow-x-auto md:col-span-2 gap-3 pb-2">
         {#if years[year]}
             {#each years[year].books as book}
                 <div class="w-1/4 font-bold card">
-                    <div class="h-1/2"><img src="/img/cover/{book.id}.png" alt="Photo of {book.name}" class="object-cover w-full h-full rounded-md"></div>
+                    <div ><img src="/img/cover/{book.id}.png" alt="Photo of {book.name}" class="object-cover w-full h-full rounded-md"></div>
                     <div>
                         <div class="text-xl">{book.name}</div>
                         <div class="text-xs text-secondary">{book.author}</div>

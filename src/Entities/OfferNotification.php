@@ -5,7 +5,6 @@ namespace App\Entities;
 use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Traits\DateTimes;
-use App\Entities\Traits\InjectableEntity;
 use Cycle\Annotated\Annotation\{Entity, Column};
 use Cycle\ORM\Entity\Behavior;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;

@@ -20,6 +20,7 @@ return [
     // About
     'about-title' => 'O projektu',
     'about-content' => 'Jde o projekt',
+    'about-thanks' => 'Podekovani',
 
     // Feedback
     'feedback-title' => 'Zpětná vazba',
@@ -101,6 +102,7 @@ return [
     'interested-1' => 'zájemce',
     'interested-2-3' => 'zájemci',
     'interested' => 'zájemců',
+    'my-offers-none' => 'Nic nenabizis',
 
     // Notifications
     
@@ -109,6 +111,7 @@ return [
     'notification-wishlist' => 'Ucebnice "%arg" je nyni k dispozici!',
     'notification-rating' => 'Jak jste byli spokojeni s prodavajicim @%arg?',
     'notification-active-reservation' => 'Rezervace ucebnice "%arg" je nyni aktivni!',
+    'notifications-new-reservations' => 'Nova rezervace od uzivatele @%arg! parada',
 
     // Profile
 
