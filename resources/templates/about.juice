@@ -19,5 +19,6 @@
             <li>Tvoje máma</li>
             <li>Trent Reznor</li>
         </ul>
+        <h1 class="text-2xl font-bold"><a href="https://github.com/tenmajkl/bs">GitHub</h1>
     </main>
 { /block }
