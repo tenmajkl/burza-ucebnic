@@ -98,7 +98,7 @@
                         <Text text="wishlist-max-price" />:
                         <div class="flex gap-2">
                             <div class="flex items-center gap-1 w-1/2">
-                                <input type="number" class="w-full input" placeholder="..." bind:value={book.price}>
+                                <input type="number" class="w-full input" placeholder="..." bind:value={book.price} max='999' min='1' required>
                                 <Text text="currency" />
                             </div>
                             <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>

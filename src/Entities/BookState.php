@@ -25,6 +25,6 @@ enum BookState: string
      */
     public static function typecast(mixed $value): self
     {
-        return self::fromId((int) $value);
+        return self::fromId((int) $value + 1);
     } 
 }

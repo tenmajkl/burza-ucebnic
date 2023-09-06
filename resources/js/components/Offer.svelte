@@ -8,6 +8,10 @@
     {
         fetch(`/api/reservations/make/${offer}`, {
             method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: '{}'
         })
             .then(res => res.json())
             .then(data => {
