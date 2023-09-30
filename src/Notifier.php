@@ -7,7 +7,9 @@ use App\Entities\OfferNotification;
 use App\Entities\OfferNotificationType;
 use App\Entities\Offer;
 use App\Entities\User;
+use Lemon\Templating\Template;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class Notifier implements NotifierContract
 {
@@ -21,26 +23,28 @@ class Notifier implements NotifierContract
     public function notifyWishlist(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::Wishlist);
-
+        $this->mail('wishlist', $offer->book->name, template('mail.wishlist', offer: $offer), $user);
         return $this;
     }
-// todo maile
+
     public function notifyRating(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::Rating);
-
+        $this->mail('rating', $offer->user->email, template('mail.rating', offer: $offer), $user);
         return $this;
     }
     
     public function notifyActiveReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::ActiveReseration);
+        $this->mail('active-reservation', $offer->book->name, template('mail.active_reservation', offer: $offer), $user);
         return $this;
     }
 
     public function notifyNewReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
+        $this->mail('new-reservations', $offer->book->name, template('mail.new_reservations', offer: $offer), $user);
         return $this;
     }
 
@@ -69,5 +73,17 @@ class Notifier implements NotifierContract
             $user,
             $type
         ))->run();
+    }
+
+    private function mail(string $subject, string $arg, Template $template, User $user): void
+    {
+        $message = (new Email())
+                    ->from(config('mail.from'))
+                    ->to($user->email.'@'.$user->year->school->email)
+                    ->subject(str_replace('%arg', $arg, text('notification-'.$subject)))
+                    ->html($template->render())
+        ;
+
+        $this->mailer->send($message);
     } 
 }
