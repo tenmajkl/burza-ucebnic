@@ -16,7 +16,7 @@ Route::get('/offers/mine', [Offers::class, 'mine']);
 Route::controller('offers', Offers::class);
 
 $reservations = Route::controller('reservations', \App\Controllers\Api\Reservations::class);
-$reservations->add('make/{offer}', 'post', [\App\Controllers\Api\Reservations::class, 'make']);
+$reservations->add('make/{target}', 'post', [\App\Controllers\Api\Reservations::class, 'make']);
 $reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations::class, 'qr']);
 
 Route::controller('messages', Messages::class);

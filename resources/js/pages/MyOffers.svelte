@@ -23,7 +23,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each data as offer, index}
-        <MyOffer offer={offer} bind:editing={editing} bind:openned={openned} />
+        <MyOffer {offer} bind:editing={editing} bind:openned={openned} {index} />
     {:else}
         <Text text="my-offers-none" />
     {/each}

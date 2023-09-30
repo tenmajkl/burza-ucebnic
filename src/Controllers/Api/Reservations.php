@@ -12,16 +12,22 @@ use DateTimeImmutable;
 
 class Reservations
 {
-    public function make(?Offer $offer, Auth $auth, ORM $orm)
+    public function make($target, Auth $auth, ORM $orm)
     {
+        $offer = $orm->getORM()
+                     ->getRepository(Offer::class)
+                     ->findOne([
+                        'id' => $target,
+                     ]);
+
         if (!$offer) {
             return error(404);
         }
 
         // this is terrible I guess
-        if (array_intersect($offer->book->subjects, $auth->user()->year->subjects) === []) {
-            return error(404);
-        }
+//        if (array_intersect($offer->book->subjects, $auth->user()->year->subjects) === []) {
+//            return error(404);
+//        }
 
         if ($offer->user->id === $auth->user()->id) {
             return response([

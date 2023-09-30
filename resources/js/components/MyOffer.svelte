@@ -8,6 +8,7 @@
     let reservation;
     export let editing; 
     export let openned;
+    export let index;
 
     function interestedText(interested)
     {
@@ -28,15 +29,15 @@
         return data.data;
     }
 
-    function edit(index)
+    function edit() 
     {
-        fetch('/api/offers/' + data[index].id, {
+        fetch('/api/offers/' + offer.id, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                price: data[index].price
+                price: offer.price
             })
         })
             .then(response => response.json())
@@ -60,9 +61,9 @@
                 <div class="text-sm text-secondary"><Text text="state-{offer.state}" /></div>
                 <div class="flex gap-3">
                     <div class="text-xl flex items-center">
-                        <input type="number" bind:value={offer.price} class="w-20 input"> <Text text="currency" />
+                        <input type="number" bind:value={offer.price} class="w-20 input" required min='1' max='999'> <Text text="currency" />
                     </div>
-                    <button on:click={() => edit(index)}><i class="text-lg bi bi-pen text-blue"></i></button>
+                    <button on:click={() => edit()}><i class="text-lg bi bi-pen text-blue"></i></button>
                     <button on:click={async () => {reservation = await getReservation(offer); openned = index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
                 </div>
             </div>

@@ -23,10 +23,10 @@
 </script>
 
 <div class="md:grid md:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-10">
-    <div class="fixed bottom-0 flex justify-around w-screen p-2 bg-white border-t-4 md:hidden border-primary">
+    <div class="fixed bottom-0 flex justify-around w-screen p-2 bg-white border-t-4 md:hidden border-primary shadow-2xl">
         <Menu items={items} bind:selected={selected} />
     </div>
-    <div class="flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex">
+    <div class="flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex shadow-lg">
         <div class="grid gap-4">
             <span class="text-xl"><Text text="title" /></span>
             <Menu items={items} bind:selected={selected} />

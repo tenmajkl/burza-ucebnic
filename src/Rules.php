@@ -50,7 +50,7 @@ class Rules
 
     public function state(string $state): bool
     {
-        return BookState::fromId((int) $state) ? true : false;
+        return BookState::fromId((int) $state + 1) ? true : false;
     }
 
     public function offerState(string $state): bool
