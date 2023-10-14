@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\Api\Notifications;
 use App\Controllers\Files;
 use App\Controllers\Feedback;
 use App\Middlewares\Auth;

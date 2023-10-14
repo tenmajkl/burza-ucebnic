@@ -26,11 +26,11 @@
 <div class="gap-2 flex flex-col">
     <div on:click={open} class="flex gap-2 items-center {notification.seen ? 'text-secondary' : 'text-black'} transition duration-400 justify-between">
         <div class="flex gap-2 items-center">
-            <span class="text-4xl {notification.seen ? 'grayscale' : ''} transition duration-400">{emoji}</span>
+            <span class="text-4xl {notification.seen ? 'grayscale' : ''} transition duration-400"><Text text={'emoji-' + title} /></span>
             <span>
                 <div>{created_at}</div>
                 <div class="text-xl"> 
-                    <Text text={title} arg={arg} />
+                    <Text text={'notification-' + title} arg={arg} />
                 </div>
             </span>
         </div>

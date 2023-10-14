@@ -30,4 +30,9 @@ class Notifications
             'message' => 'OK',
         ];
     }
+
+    public function clear(Auth $auth)
+    {
+        // TODO
+    }
 }

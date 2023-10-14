@@ -113,6 +113,13 @@ return [
     'notification-active-reservation' => 'Rezervace ucebnice "%arg" je nyni aktivni!',
     'notifications-new-reservations' => 'Nova rezervace od uzivatele @%arg! parada',
 
+    // Emojis
+    
+    'emoji-wishlist' => '🎉',
+    'emoji-rating' => '📊',
+    'emoji-active-reservation' => '✨',
+    'emoji-new-reservation' => '🤑',
+
     // Profile
 
     'profile-title' => 'Profil',

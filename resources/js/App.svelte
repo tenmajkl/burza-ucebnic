@@ -20,6 +20,17 @@
     ];
 
     let selected = 0; 
+    
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get('page')
+    if (page) {
+        console.log(items, page);
+        let location = items.findIndex((item) => item[0] == page);
+        if (location != undefined) {
+            selected = location;
+        }
+        window.history.pushState('page2', 'Title', '/');
+    }
 </script>
 
 <div class="md:grid md:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-10">

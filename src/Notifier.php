@@ -44,7 +44,7 @@ class Notifier implements NotifierContract
     public function notifyNewReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
-        $this->mail('new-reservations', $offer->book->name, template('mail.new_reservations', offer: $offer), $user);
+        $this->mail('new-reservations', $offer->book->name, template('mail.new_res$subject->year->idervations', offer: $offer), $user);
         return $this;
     }
 
@@ -80,7 +80,7 @@ class Notifier implements NotifierContract
         $message = (new Email())
                     ->from(config('mail.from'))
                     ->to($user->email.'@'.$user->year->school->email)
-                    ->subject(str_replace('%arg', $arg, text('notification-'.$subject)))
+                    ->subject(text('emoji-'.$subject).' '.str_replace('%arg', $arg, text('notification-'.$subject)))
                     ->html($template->render())
         ;
 

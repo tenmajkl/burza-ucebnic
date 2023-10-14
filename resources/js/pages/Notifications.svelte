@@ -21,18 +21,18 @@
 {#each notifications as notification}
     <div class="w-full p-2">
         {#if notification.type == 0} <!-- wishlist --> 
-            <Notification bind:notification={notification} emoji='🎉' title="notification-wishlist" arg={notification.offer.name} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="wishlist" arg={notification.offer.name} created_at={notification.created_at}>
                 <Offer offer={notification.offer} />
             </Notification>
         {:else if notification.type == 1} <!-- rating -->
-            <Notification bind:notification={notification} emoji='📊' title="notification-rating" arg={notification.offer.author_email} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="rating" arg={notification.offer.author_email} created_at={notification.created_at}>
                 <Rating offer={notification.offer} />
             </Notification>
-        {:else if notification.type == 2} <!-- active reservation -->
-            <Notification bind:notification={notification} emoji='✨' title="notification-active-reservation" arg={notification.offer.name} created_at={notification.created_at}>
+        {:else if notification.type == 2} <!-- active reservation --> 
+            <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at}>
             </Notification>
         {:else if notification.type == 3}
-            <Notification bind:notification={notification} emoji='🤑' title="notification-new-reservation" arg={notification.offer.name} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at}>
                 <MyOffer offer={notification.offer} editing={null} openned={null} />
             </Notification>
         {:else}
