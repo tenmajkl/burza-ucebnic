@@ -51,6 +51,8 @@ class Books
             $request->get('release_year'),
             $request->get('publisher'),
         );
+
+        $years = [];
         
         // we support max 16 subjects
         for ($index = 1; $index <= 16; $index++) {
@@ -58,8 +60,17 @@ class Books
                 break;
             }
 
-            $book->subjects[$id] = $orm->getORM()->getRepository(Subject::class)->findOne(['id' => $id, 'year.school.id' => $auth->user()->year->school->id]);
+
+            $subject = $orm->getORM()->getRepository(Subject::class)->findOne(['id' => $id, 'year.school.id' => $auth->user()->year->school->id]);
+            $year = $subject->year->id;
+            if (isset($years[$year])) {
+                return $this->create($orm, $auth); // TODO errors
+            }
+            $years[$year] = true;
+            $book->subjects[$id] = $subject;            
         }
+
+        unset($years); // jsem ted zas nejakou dobu programoval jen v c
 
         $book->subjects = array_values($book->subjects);
 
