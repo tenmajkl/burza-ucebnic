@@ -11,6 +11,9 @@
             { ifError }
                 <div class="mb-2 alert">{ error }</div>
             { /ifError }
+            { ifset $message }
+                 <div class="mb-2 alert-success">{{ text($message) }}</div>               
+            {/ifset}
             { csrf }
             <input name="email" type="email" class="mb-2 input" placeholder="{ text auth.email }">
             <input name="password" type="password" class="mb-2 input" placeholder="{ text auth.password }">
