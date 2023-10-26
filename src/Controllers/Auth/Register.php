@@ -30,7 +30,7 @@ class Register
         ], template('auth.register'));
 
         $email = $request->get('email');
-        $host = explode('@', $email)[1];
+        [$login, $host] = explode('@', $email);
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
@@ -39,9 +39,9 @@ class Register
             return template('auth.register');
         }
 
-        if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $email])) {
-            Validator::addError('school-email', 'email', '');
-            return template('auth.register', message: 'auth.user-exists');
+        if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $login])) {
+            Validator::addError('user-exists', 'email', '');
+            return template('auth.register');
         }
 
         $token = str_shuffle(sha1(str_shuffle(rand().time().$email)));
@@ -59,7 +59,7 @@ class Register
         $mailer->send($message);
 
         $password = password_hash($request->get('password'), PASSWORD_ARGON2I);
-        $session->set('verify_data', ['email' => $email, 'password' => $password, 'school' => $school->id, 'token' => $token]);
+        $session->set('verify_data', ['email' => $login, 'password' => $password, 'school' => $school->id, 'token' => $token]);
         $session->expireAt(3);
 
         return template('auth.register', message: 'auth.email-sent');

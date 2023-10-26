@@ -20,3 +20,17 @@ if (!function_exists('sum')) {
         ;
     }
 }
+
+if (!function_exists('url')) {
+    function url(): string
+    {
+        return 
+            (empty($_SERVER['HTTPS'])
+                ? 'http'
+                : 'https'
+            )
+            .'://'
+            .$_SERVER['HTTP_HOST']
+        ;
+    }
+}

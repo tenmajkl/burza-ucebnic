@@ -23,28 +23,28 @@ class Notifier implements NotifierContract
     public function notifyWishlist(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::Wishlist);
-        $this->mail('wishlist', $offer->book->name, template('mail.wishlist', offer: $offer), $user);
+        $this->mail('wishlist', $offer->book->name, $user);
         return $this;
     }
 
     public function notifyRating(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::Rating);
-        $this->mail('rating', $offer->user->email, template('mail.rating', offer: $offer), $user);
+        $this->mail('rating', $offer->user->email, $user);
         return $this;
     }
     
     public function notifyActiveReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::ActiveReseration);
-        $this->mail('active-reservation', $offer->book->name, template('mail.active_reservation', offer: $offer), $user);
+        $this->mail('active-reservation', $offer->book->name, $user);
         return $this;
     }
 
     public function notifyNewReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
-        $this->mail('new-reservations', $offer->book->name, template('mail.new_res$subject->year->idervations', offer: $offer), $user);
+        $this->mail('new-reservations', $offer->book->name, $user);
         return $this;
     }
 
@@ -75,13 +75,14 @@ class Notifier implements NotifierContract
         ))->run();
     }
 
-    private function mail(string $subject, string $arg, Template $template, User $user): void
+    private function mail(string $subject, string $arg, User $user): void
     {
+        $text = text('emoji-'.$subject).' '.str_replace('%arg', $arg, text('notification-'.$subject));
         $message = (new Email())
                     ->from(config('mail.from'))
                     ->to($user->email.'@'.$user->year->school->email)
-                    ->subject(text('emoji-'.$subject).' '.str_replace('%arg', $arg, text('notification-'.$subject)))
-                    ->html($template->render())
+                    ->subject($text)
+                    ->html(template('mail.notifications', text: $text)->render())
         ;
 
         $this->mailer->send($message);

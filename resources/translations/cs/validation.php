@@ -23,5 +23,6 @@ return [
     'invalid-image-type' => 'Obrázek má nesprávný typ',
     'state' => 'Neplatný stav učebnice',
     'image-too-big' => 'Obrázek je příliš velký',
-    'already-offered' => 'Tuto učebnici jste již nabídl/a.',
+    'already-offered' => 'Tuto učebnici jste již nabídl/a',
+    'user-exists' => 'Uživatel s tímto emailem již existuje',
 ];

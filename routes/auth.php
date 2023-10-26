@@ -21,4 +21,3 @@ Route::post('verify/{token}', [Verify::class, 'post']);
 Route::controller('forgotten-password', Request::class);
 Route::get('forgotten-password/{token}', [Change::class, 'get']);
 Route::post('forgotten-password/{token}', [Change::class, 'post']);
-

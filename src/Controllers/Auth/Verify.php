@@ -23,9 +23,9 @@ class Verify
             return redirect('/register');
         }
 
-        [$email, $host] = explode('@', $data['email']);
+        $email= explode('@', $data['email']);
 
-        $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
+        $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
 
         $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id, 'name' => ['!=' => 'admins']]);
 
@@ -44,7 +44,7 @@ class Verify
             'year' => 'numeric',
         ], redirect('/verify/'.$token));
 
-        [$email, $host] = explode('@', $data['email']);
+        $email = $data['email'];
 
         $year = $orm->getORM()->getRepository(Year::class)
                               ->findOne([
