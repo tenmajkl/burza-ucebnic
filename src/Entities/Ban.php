@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
-use Cycle\Annotated\Annotation\{Entity, Column};
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\ORM\Entity\Behavior;
 
@@ -31,7 +34,6 @@ class Ban
         #[Column(type: 'boolean')]
         public int $active = 1,
     ) {
-
     }
 
     public function isActive()

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth\ForgottenPassword;
 
 use App\Contracts\Auth;
@@ -26,16 +28,16 @@ class Change
         if (!$auth->canChangeForgottenPassword($token)) {
             return error(404);
         }
-        
+
         $request->validate([
             'password' => 'min:8|max:256',
-        ], template('auth.forgotten-password.change')); 
+        ], template('auth.forgotten-password.change'));
 
         [$email, $host] = explode('@', $session->get('reset-email'));
 
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
-            'year.school.email' => $host, 
+            'year.school.email' => $host,
         ]);
         $user->password = password_hash($request->get('password'), PASSWORD_ARGON2I);
         $orm->getEntityManager()->persist($user)->run();

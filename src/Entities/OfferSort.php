@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use Cycle\Database\Query\SelectQuery;
@@ -14,21 +16,21 @@ enum OfferSort: string
     case MostExpensive = 'most-expensive';
     case BestReviews = 'best-reviews';
     case WorstReviews = 'worst-reviews';
-    
+
     public function sort(Select $select): Select
     {
-        // TODO incorporate ratings 
+        // TODO incorporate ratings
         return match ($this) {
             self::Newest => $select->orderBy('created_at', SelectQuery::SORT_DESC),
             self::Oldest => $select->orderBy('created_at', SelectQuery::SORT_ASC),
             self::Cheapest => $select->orderBy('price', SelectQuery::SORT_ASC),
             self::MostExpensive => $select->orderBy('price', SelectQuery::SORT_ASC),
-            self::BestReviews => $select, //->orderBy('user.received_ratings', SelectQuery::SORT_DESC),
-            self::WorstReviews => $select, //->orderBy('user.received_ratings', SelectQuery::SORT_ASC),
+            self::BestReviews => $select, // ->orderBy('user.received_ratings', SelectQuery::SORT_DESC),
+            self::WorstReviews => $select, // ->orderBy('user.received_ratings', SelectQuery::SORT_ASC),
             self::Optimal => $select
                 ->orderBy('created_at', SelectQuery::SORT_DESC)
                 ->orderBy('price', SelectQuery::SORT_ASC),
-//                ->orderBy('user.received_ratings', SelectQuery::SORT_DESC),
+            //                ->orderBy('user.received_ratings', SelectQuery::SORT_DESC),
         };
     }
 }

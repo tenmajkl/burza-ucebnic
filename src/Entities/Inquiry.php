@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use App\Entities\Traits\InjectableEntity;
-use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\Annotated\Annotation\Relation\{HasOne, BelongsTo};
-use JsonSerializable;
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Lemon\Contracts\Kernel\Injectable;
 
 #[Entity]
-class Inquiry implements JsonSerializable, Injectable
+class Inquiry implements \JsonSerializable, Injectable
 {
     use InjectableEntity;
 
@@ -26,13 +28,12 @@ class Inquiry implements JsonSerializable, Injectable
         #[Column(type: 'int')]
         public int $expected_price,
     ) {
-
     }
 
     public function jsonSerialize(): mixed
     {
         return [
-            'id'=> $this->id,
+            'id' => $this->id,
             'book' => $this->book->jsonSerialize(),
             'max_price' => $this->expected_price,
         ];

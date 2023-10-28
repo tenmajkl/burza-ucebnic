@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Admin;
 
 use App\Contracts\Auth;
@@ -13,14 +15,14 @@ class Years
     public function index(ORM $orm, Auth $auth)
     {
         $years = $orm->getORM()->getRepository(Year::class)
-                               ->select()
-                               ->with('school')
-                               ->where('school.id', $auth->user()->year->school->id)
-                               ->fetchAll()
+            ->select()
+            ->with('school')
+            ->where('school.id', $auth->user()->year->school->id)
+            ->fetchAll()
         ;
 
         return template('admin.years.index', years: $years);
-    } 
+    }
 
     public function create()
     {
@@ -35,8 +37,8 @@ class Years
 
         $year = new Year($request->get('name'), $auth->user()->year->school);
 
-        for ($index = 1; $index <= 16; $index++) {
-            if ($request->get("subject{$index}") === null) {
+        for ($index = 1; $index <= 16; ++$index) {
+            if (null === $request->get("subject{$index}")) {
                 break;
             }
             $year->subjects[] = new Subject($request->get("subject{$index}"));
@@ -48,7 +50,7 @@ class Years
 
     public function show(ORM $orm, Auth $auth, ?Year $target)
     {
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 
@@ -61,15 +63,15 @@ class Years
             'name' => 'max:32',
         ], template('admin.years.create'));
 
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 
         $target->name = $request->get('name');
         $target->subjects = [];
 
-        for ($index = 1; $index <= 16; $index++) {
-            if ($request->get("subject{$index}") === null) {
+        for ($index = 1; $index <= 16; ++$index) {
+            if (null === $request->get("subject{$index}")) {
                 break;
             }
             $target->subjects[] = new Subject($request->get("subject{$index}"));
@@ -81,7 +83,7 @@ class Years
 
     public function delete(?Year $target, ORM $orm, Auth $auth)
     {
-        if ($target === null) {
+        if (null === $target) {
             return redirect('/admin/years');
         }
 

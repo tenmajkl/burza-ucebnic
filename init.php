@@ -5,16 +5,16 @@ declare(strict_types=1);
 include __DIR__.'/vendor/autoload.php';
 
 use App\Middlewares\Auth;
+use App\Middlewares\MustBeJson;
 use App\Rules;
 use Carbon\Carbon;
 use Lemon\Contracts\Http\ResponseFactory;
 use Lemon\Contracts\Translating\Translator;
 use Lemon\Http\Middlewares\Cors;
+use Lemon\Http\Middlewares\TrimStrings;
 use Lemon\Http\Request;
 use Lemon\Kernel\Application;
 use Lemon\Protection\Middlwares\Csrf;
-use App\Middlewares\MustBeJson;
-use Lemon\Http\Middlewares\TrimStrings;
 
 $application = new Application(__DIR__);
 
@@ -51,7 +51,7 @@ new Rules($application);
 
 /** @var \Lemon\Contracts\Http\ResponseFactory $response */
 $response = $application->get(ResponseFactory::class);
-$response->handle(404, function(Request $request) {
+$response->handle(404, function (Request $request) {
     if (str_starts_with(trim($request->path, '/'), 'api')) {
         return response(['code' => 404, 'message' => 'Not found'])->code(404);
     }
@@ -61,30 +61,30 @@ $response->handle(404, function(Request $request) {
 $router = $application->get('routing');
 
 $router->file('routes.web')
-       ->middleware(Csrf::class)
-       ->middleware(TrimStrings::class)
+    ->middleware(Csrf::class)
+    ->middleware(TrimStrings::class)
 ;
 
 $router->file('routes.api')
-       ->prefix('api')
-       ->middleware(Cors::class)
-       ->middleware([Auth::class, 'onlyAuthenticated'])
-       ->middleware(MustBeJson::class)
-       ->middleware(TrimStrings::class)
+    ->prefix('api')
+    ->middleware(Cors::class)
+    ->middleware([Auth::class, 'onlyAuthenticated'])
+    ->middleware(MustBeJson::class)
+    ->middleware(TrimStrings::class)
 ;
 
 $router->file('routes.auth')
-       ->middleware([Auth::class, 'onlyGuest'])
-       ->middleware(Csrf::class)
-       ->middleware(TrimStrings::class)
+    ->middleware([Auth::class, 'onlyGuest'])
+    ->middleware(Csrf::class)
+    ->middleware(TrimStrings::class)
 ;
 
 $router->file('routes.admin')
-       ->prefix('admin')
-       ->middleware([Auth::class, 'onlyAuthenticated'])
-       ->middleware(Csrf::class)
-       ->middleware([Auth::class, 'onlyAdmin'])
-       ->middleware(TrimStrings::class)
-   ;
+    ->prefix('admin')
+    ->middleware([Auth::class, 'onlyAuthenticated'])
+    ->middleware(Csrf::class)
+    ->middleware([Auth::class, 'onlyAdmin'])
+    ->middleware(TrimStrings::class)
+;
 
 return $application;

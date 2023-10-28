@@ -7,10 +7,9 @@ namespace App\Controllers\Api;
 use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Book;
+use App\Entities\BookState;
 use App\Entities\Offer;
 use App\Entities\OfferSort;
-use App\Entities\BookState;
-use App\Entities\Subject;
 use App\Entities\User;
 use App\Entities\Year;
 use Lemon\Http\Request;
@@ -42,20 +41,17 @@ class Offers
         $state = (int) $state;
 
         $select = $orm->getORM()->getRepository(Offer::class)
-                                ->select()
-                                ->where(['bought_at' => null])
-                                ->where(['book.subjects.id' => $subject])
-                                ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
-                                ->load('reservations')
+            ->select()
+            ->where(['bought_at' => null])
+            ->where(['book.subjects.id' => $subject])
+            ->where(0 === $state ? [] : ['state' => BookState::fromId($state)])
+            ->load('reservations')
         ;
 
         $select = OfferSort::from($sort)->sort($select);
 
-        $data = $select->fetchAll();
-
+        return $select->fetchAll();
         // TODO filtr pro rezervovane
-
-        return $data;
     }
 
     public function init(Auth $auth)
@@ -64,8 +60,8 @@ class Offers
             'subjects' => $auth->user()->year->subjects,
             'states' => BookState::cases(),
             'sorts' => OfferSort::cases(),
-        ]; 
-    } 
+        ];
+    }
 
     public function create(ORM $orm, Auth $auth): array
     {
@@ -84,7 +80,7 @@ class Offers
             'book' => 'numeric',
             'price' => 'numeric',
             'state' => 'state',
-        ], fn() => response([
+        ], fn () => response([
             'status' => '400',
             'message' => Validator::error(),
         ])->code(400));
@@ -98,7 +94,8 @@ class Offers
 
         $school = $auth->user()->year->school;
         $book = $orm->getORM()->getRepository(Book::class)
-                              ->findOne(['id' => $request->get('book'), 'subjects.year.school.id' => $school->id]);
+            ->findOne(['id' => $request->get('book'), 'subjects.year.school.id' => $school->id])
+        ;
 
         if (null === $book) {
             return response([
@@ -140,7 +137,7 @@ class Offers
         $orm->getEntityManager()->persist($offer)->run();
 
         file_put_contents($app->file('storage.images.offers.'.$offer->id, 'image'), $image);
-        
+
         return [
             'status' => '200',
             'message' => text('validation.ok'),
@@ -148,7 +145,7 @@ class Offers
     }
 
     /**
-     * Returns offers of logged user
+     * Returns offers of logged user.
      */
     public function mine(Auth $auth)
     {
@@ -167,7 +164,7 @@ class Offers
 
         $request->validate([
             'price' => 'numeric|gt:0|lt:1000',
-        ], fn() => response([
+        ], fn () => response([
             'status' => '400',
             'message' => Validator::error(),
         ])->code(400));

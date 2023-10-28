@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Traits\DateTimes;
-use Cycle\Annotated\Annotation\{Entity, Column};
-use Cycle\ORM\Entity\Behavior;
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
-use JsonSerializable;
+use Cycle\ORM\Entity\Behavior;
 use Lemon\Contracts\Kernel\Injectable;
 use Lemon\Kernel\Container;
 
@@ -18,9 +20,9 @@ use Lemon\Kernel\Container;
     column: 'created_at'
 )]
 /**
- * Represents notification somehow related to user 
+ * Represents notification somehow related to user.
  */
-class OfferNotification implements JsonSerializable, Injectable
+class OfferNotification implements \JsonSerializable, Injectable
 {
     use DateTimes;
 
@@ -37,7 +39,6 @@ class OfferNotification implements JsonSerializable, Injectable
         #[Column(type: 'bool')]
         public int $seen = 0,
     ) {
-
     }
 
     public function jsonSerialize(): mixed
@@ -55,11 +56,12 @@ class OfferNotification implements JsonSerializable, Injectable
     public static function fromInjection(Container $container, mixed $value): ?self
     {
         return $container->get(ORM::class)
-                         ->getORM()
-                         ->getRepository(self::class)
-                         ->findOne([
-                             'id' => $value, 
-                             'user.id' => $container->get(Auth::class)->user()->id
-                         ]);
+            ->getORM()
+            ->getRepository(self::class)
+            ->findOne([
+                'id' => $value,
+                'user.id' => $container->get(Auth::class)->user()->id,
+            ])
+        ;
     }
 }

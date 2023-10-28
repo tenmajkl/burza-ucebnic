@@ -49,7 +49,7 @@ return [
     'user-is-admin' => 'Je admin?',
     'user-create-success' => 'Přidání uživatele úspěšné, heslo je ',
     'users-show' => 'Zobrazit uživatele',
-    
+
     // Bans
     'ban' => 'Odepřít přístup',
     'user-ban' => 'Zákaz vyprší',
@@ -67,8 +67,8 @@ return [
     'book-author' => 'Autor',
     'book-year' => 'Ročníky',
     'book-release-year' => 'Rok vydání',
-    'book-subjects' => 'Předměty', 
-    'book-subject' => 'Předmět',  
+    'book-subjects' => 'Předměty',
+    'book-subject' => 'Předmět',
     'book-publisher' => 'Nakladatelství',
     'books-create' => 'Přidat učebnici',
     'books-show' => 'Zobrazit učebnici',

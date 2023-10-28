@@ -14,6 +14,7 @@ class Welcome
         if (!$auth->user()) {
             return template('about');
         }
+
         return template('welcome');
     }
 }

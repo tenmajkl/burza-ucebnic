@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Contracts\Auth;
@@ -7,7 +9,7 @@ use App\Contracts\Discord;
 use Lemon\Http\Request;
 use Lemon\Templating\Template;
 
-class Feedback 
+class Feedback
 {
     public function get(): Template
     {
@@ -24,7 +26,6 @@ class Feedback
             $request->get('description'),
             $auth->user()
         )) {
-
         }
 
         return template('feedback');

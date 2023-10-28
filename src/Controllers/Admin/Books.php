@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Admin;
 
 use App\Contracts\Auth;
@@ -15,9 +17,10 @@ class Books
     public function index(ORM $orm, Auth $auth)
     {
         $books = $orm->getORM()->getRepository(Book::class)
-                               ->select()
-                               ->where('subjects.year.school.id', $auth->user()->year->school->id)
-                               ->fetchAll();
+            ->select()
+            ->where('subjects.year.school.id', $auth->user()->year->school->id)
+            ->fetchAll()
+        ;
 
         return template('admin.books.index', books: $books);
     }
@@ -25,9 +28,10 @@ class Books
     public function create(ORM $orm, Auth $auth)
     {
         $subjects = $orm->getORM()->getRepository(Subject::class)
-                                  ->select()
-                                  ->where('year.school.id', $auth->user()->year->school->id)
-                                  ->fetchAll();
+            ->select()
+            ->where('year.school.id', $auth->user()->year->school->id)
+            ->fetchAll()
+        ;
 
         return template('admin.books.create', subjects: $subjects);
     }
@@ -53,13 +57,12 @@ class Books
         );
 
         $years = [];
-        
+
         // we support max 16 subjects
-        for ($index = 1; $index <= 16; $index++) {
+        for ($index = 1; $index <= 16; ++$index) {
             if (($id = $request->get("subject{$index}")) === null) {
                 break;
             }
-
 
             $subject = $orm->getORM()->getRepository(Subject::class)->findOne(['id' => $id, 'year.school.id' => $auth->user()->year->school->id]);
             $year = $subject->year->id;
@@ -67,7 +70,7 @@ class Books
                 return $this->create($orm, $auth); // TODO errors
             }
             $years[$year] = true;
-            $book->subjects[$id] = $subject;            
+            $book->subjects[$id] = $subject;
         }
 
         unset($years); // jsem ted zas nejakou dobu programoval jen v c
@@ -78,7 +81,7 @@ class Books
             return $this->create($orm, $auth);
         }
 
-        if ($request->file('cover')->error !== UPLOAD_ERR_OK) {
+        if (UPLOAD_ERR_OK !== $request->file('cover')->error) {
             return $this->create($orm, $auth);
         }
 
@@ -86,7 +89,7 @@ class Books
             return $this->create($orm, $auth);
         }
 
-        if ($request->file('cover')->type !== 'image/png') {
+        if ('image/png' !== $request->file('cover')->type) {
             return $this->create($orm, $auth);
         }
 
@@ -99,21 +102,22 @@ class Books
 
     public function show(ORM $orm, Auth $auth, ?Book $target)
     {
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 
         $subjects = $orm->getORM()->getRepository(Subject::class)
-                                  ->select()
-                                  ->where('year.school.id', $auth->user()->year->school->id)
-                                  ->fetchAll();
+            ->select()
+            ->where('year.school.id', $auth->user()->year->school->id)
+            ->fetchAll()
+        ;
 
         return template('admin.books.show', book: $target, subjects: $subjects);
     }
 
     public function update(ORM $orm, Auth $auth, Request $request, ?Book $target)
     {
-         $request->validate([
+        $request->validate([
             'name' => 'max:512',
             'author' => 'max:512',
             'release_year' => 'numeric',
@@ -124,7 +128,7 @@ class Books
             return $this->create($orm, $auth);
         }
 
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 
@@ -136,7 +140,7 @@ class Books
         $subjects = [];
 
         // we support max 16 subjects
-        for ($index = 1; $index <= 16; $index++) {
+        for ($index = 1; $index <= 16; ++$index) {
             if (($id = $request->get("subject{$index}")) === null) {
                 break;
             }
@@ -148,13 +152,12 @@ class Books
 
         $orm->getEntityManager()->persist($target)->run();
 
-
-        return redirect('/admin/books'); 
+        return redirect('/admin/books');
     }
 
     public function delete(ORM $orm, Auth $auth, ?Book $target)
     {
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 
@@ -172,16 +175,16 @@ class Books
 
     public function upload(Request $request, ORM $orm, Auth $auth)
     {
-        if ($request->file('books')?->error !== UPLOAD_ERR_OK) {
+        if (UPLOAD_ERR_OK !== $request->file('books')?->error) {
             return $this->uploadMenu();
         }
 
-        if ($request->file('books')->type !== 'text/csv') {
+        if ('text/csv' !== $request->file('books')->type) {
             return $this->uploadMenu();
         }
 
         /**
-         * THE FORMAT 
+         * THE FORMAT.
          *
          * subject,year,name,author,publisher,release_year
          *
@@ -189,7 +192,6 @@ class Books
          *
          * probably ineffitient as shit
          */
-
         $file = fopen($request->file('books')->tmp_path, 'r');
 
         $school = $auth->user()->year->school;
@@ -208,9 +210,10 @@ class Books
                 $orm->getEntityManager()->persist($subject)->run();
             }
 
-            if (($book = $orm->getORM()->getRepository(Book::class)->findOne(['name' => $name, 'author' => $author, 'publisher' => $publisher, 'release_year' => $release_year]))) {
+            if ($book = $orm->getORM()->getRepository(Book::class)->findOne(['name' => $name, 'author' => $author, 'publisher' => $publisher, 'release_year' => $release_year])) {
                 $book->subjects[] = $subject;
                 $orm->getEntityManager()->persist($book)->run();
+
                 continue;
             }
 

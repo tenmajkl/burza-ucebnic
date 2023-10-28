@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entities;
+declare(strict_types=1);
 
-use Exception;
+namespace App\Entities;
 
 enum ReservationState: int
 {
@@ -12,7 +12,7 @@ enum ReservationState: int
 
     case Denied = 2;
 
-    static function typecast(mixed $value): self
+    public static function typecast(mixed $value): self
     {
         return self::tryFrom($value);
     }

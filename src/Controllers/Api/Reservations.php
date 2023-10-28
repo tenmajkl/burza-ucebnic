@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
@@ -8,18 +10,18 @@ use App\Contracts\ORM;
 use App\Entities\Offer;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
-use DateTimeImmutable;
 
 class Reservations
 {
     public function make($target, Auth $auth, ORM $orm)
     {
         $offer = $orm->getORM()
-                     ->getRepository(Offer::class)
-                     ->findOne([
-                         'id' => $target,
-                         'book.subjects.year.id' => $auth->user()->year->id
-                     ]);
+            ->getRepository(Offer::class)
+            ->findOne([
+                'id' => $target,
+                'book.subjects.year.id' => $auth->user()->year->id,
+            ])
+        ;
 
         if (!$offer) {
             return error(404);
@@ -41,9 +43,9 @@ class Reservations
             ])->code(400);
         }
 
-        $status = $offer->reservations === [];
+        $status = [] === $offer->reservations;
 
-        $reservation = new Reservation($offer, $user, ReservationState::tryFrom((int) $status)); 
+        $reservation = new Reservation($offer, $user, ReservationState::tryFrom((int) $status));
 
         $orm->getEntityManager()->persist($reservation)->run();
 
@@ -92,7 +94,7 @@ class Reservations
             'status' => ReservationState::Active,
         ]);
 
-        if ($reservation === null) {
+        if (null === $reservation) {
             return response([
                 'status' => '404',
                 'message' => 'Not found',
@@ -103,21 +105,20 @@ class Reservations
         $deletion = $orm->getEntityManager()->delete($reservation);
 
         $reservation = $orm->getORM()->getRepository(Reservation::class)
-                      ->findOne([
-                          'offer.id' => $offer->id, 
-                          'id' => ['!=' => $reservation->id]
-                      ]);
+            ->findOne([
+                'offer.id' => $offer->id,
+                'id' => ['!=' => $reservation->id],
+            ])
+        ;
 
         if ($reservation) {
             $reservation->status = ReservationState::Active;
             $orm->getEntityManager()->persist($reservation)->run();
-            
+
             $notifier->notifyActiveReservation($reservation->user, $offer);
         } else {
             $deletion->run();
         }
-
-        
 
         return [
             'status' => '200',
@@ -126,7 +127,9 @@ class Reservations
     }
 
     /**
-     * Shows active reservation of offer (only to the owner of the offer)
+     * Shows active reservation of offer (only to the owner of the offer).
+     *
+     * @param mixed $target
      */
     public function show($target, ORM $orm, Auth $auth)
     {
@@ -181,13 +184,13 @@ class Reservations
             'status' => 1,
         ]);
 
-        if ($reservation === null) {
+        if (null === $reservation) {
             return error(404);
         }
 
         /** @var \App\Entities\Offer $offer */
         $offer = $reservation->offer;
-        $offer->boughtAt = new DateTimeImmutable();
+        $offer->boughtAt = new \DateTimeImmutable();
         $offer->buyer = $reservation->user;
 
         $offer->reservations = [];
@@ -205,7 +208,7 @@ class Reservations
             'status' => 1,
         ]);
 
-        if ($reservation === null) {
+        if (null === $reservation) {
             return error(404);
         }
 
@@ -215,10 +218,11 @@ class Reservations
         $deletion = $orm->getEntityManager()->persist($reservation);
 
         $reservation = $orm->getORM()->getRepository(Reservation::class)
-                      ->findOne([
-                          'offer.id' => $offer->id, 
-                          'id' => ['!=' => $reservation->id]
-                      ]);
+            ->findOne([
+                'offer.id' => $offer->id,
+                'id' => ['!=' => $reservation->id],
+            ])
+        ;
 
         if ($reservation) {
             $reservation->status = ReservationState::Active;

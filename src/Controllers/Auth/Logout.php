@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth;
 
 use Lemon\Contracts\Http\Session;
@@ -10,6 +12,7 @@ class Logout
     public function post(Session $session): RedirectResponse
     {
         $session->clear();
+
         return redirect('login');
     }
 }

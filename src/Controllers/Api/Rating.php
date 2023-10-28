@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
@@ -23,7 +25,7 @@ class Rating
 
     public function update(?Offer $target, ORM $orm, Auth $auth, Request $request): Response|array
     {
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 
@@ -34,9 +36,9 @@ class Rating
 
         $request->validate([
             'rating' => 'regex:-?1',
-        ], fn() => response([ 
+        ], fn () => response([
             'status' => 400,
-            'message' => Validator::error()
+            'message' => Validator::error(),
         ]));
 
         $rating = new RatingEntity((int) $request->get('rating'), $auth->user(), $target);
@@ -48,4 +50,4 @@ class Rating
             'message' => 'OK',
         ];
     }
-} 
+}

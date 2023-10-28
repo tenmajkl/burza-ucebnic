@@ -61,7 +61,6 @@ return [
     'sorting-worst-reviews' => 'Nejhorší hodnocení',
     'sorting-optimal' => 'Doporučené',
 
-
     // Reservations
 
     'reservations-title' => 'Moje rezervace',
@@ -88,8 +87,8 @@ return [
     'price' => 'Cena',
     'select' => 'Vybrat',
     'selected' => 'Vybráno',
-    'missing-image'=> 'Chybí obrázek',
-    'image-error'=> 'Chyba v obrázku',
+    'missing-image' => 'Chybí obrázek',
+    'image-error' => 'Chyba v obrázku',
     'average-price' => 'Průměrná cena',
     'average-max-price' => 'Maximální cena',
     'book' => 'Učebnice',
@@ -105,7 +104,7 @@ return [
     'my-offers-none' => 'Nic nenabízíš',
 
     // Notifications
-    
+
     'notifications-title' => 'Notifikace',
     'notifications-unsupported' => 'Tato notifikace nemůže být zobrazena!',
     'notification-wishlist' => 'Učebnice "%arg" je nyní k dispozici!',
@@ -114,7 +113,7 @@ return [
     'notifications-new-reservations' => 'Nová rezervace od uživatele @%arg!',
 
     // Emojis
-    
+
     'emoji-wishlist' => '🎉',
     'emoji-rating' => '📊',
     'emoji-active-reservation' => '✨',

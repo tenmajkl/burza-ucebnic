@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Controllers\Auth\ForgottenPassword\Change;
+use App\Controllers\Auth\ForgottenPassword\Request;
 use App\Controllers\Auth\Login;
-use App\Controllers\Auth\Logout;
 use App\Controllers\Auth\Register;
 use App\Controllers\Auth\Verify;
-use App\Controllers\Auth\ForgottenPassword\Request;
-use App\Controllers\Auth\ForgottenPassword\Change;
-use App\Middlewares\Auth;
 use Lemon\Route;
 
 Route::controller('login', Login::class);

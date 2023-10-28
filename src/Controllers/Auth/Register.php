@@ -7,7 +7,6 @@ namespace App\Controllers\Auth;
 use App\Contracts\ORM;
 use App\Entities\School;
 use App\Entities\User;
-use App\Entities\Year;
 use App\TokenGenerator;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
@@ -35,13 +34,15 @@ class Register
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
 
-        if ($school === null) {
+        if (null === $school) {
             Validator::addError('school-email', 'email', '');
+
             return template('auth.register');
         }
 
         if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $login])) {
             Validator::addError('user-exists', 'email', '');
+
             return template('auth.register');
         }
 

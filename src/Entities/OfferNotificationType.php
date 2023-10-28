@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entities;
+declare(strict_types=1);
 
-use Exception;
+namespace App\Entities;
 
 enum OfferNotificationType: int
 {
@@ -15,15 +15,15 @@ enum OfferNotificationType: int
     case NewReservation = 3;
 
     /**
-     * For cycle ORM
+     * For cycle ORM.
      */
     public static function typecast(mixed $value): self
     {
-        return match($value) {
+        return match ($value) {
             0 => self::Wishlist,
             1 => self::Rating,
             2 => self::ActiveReseration,
-            default => throw new Exception('Unexpected value: '.$value),
+            default => throw new \Exception('Unexpected value: '.$value),
         };
-    } 
+    }
 }

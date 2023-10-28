@@ -13,5 +13,5 @@ return [
     ],
     'directives' => [
         'ifset' => IfSet::class,
-    ]
+    ],
 ];

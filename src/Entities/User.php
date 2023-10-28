@@ -11,7 +11,6 @@ use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
-use Cycle\Annotated\Annotation\Relation\HasOne;
 use Cycle\ORM\Entity\Behavior;
 use Lemon\Contracts\Kernel\Injectable;
 
@@ -26,7 +25,9 @@ use Lemon\Contracts\Kernel\Injectable;
 )]
 class User implements Injectable
 {
-    use DateTimes, Dynamic, InjectableEntity;
+    use DateTimes;
+    use Dynamic;
+    use InjectableEntity;
 
     public const RelationToSchool = 'year.school.id';
 
@@ -81,9 +82,9 @@ class User implements Injectable
 
     public function isBanned()
     {
-        return count(
+        return 1 === count(
             array_filter($this->received_bans, fn ($ban) => $ban->isActive())
-        ) === 1;
+        );
     }
 
     public function banUntil(): ?\DateTimeImmutable

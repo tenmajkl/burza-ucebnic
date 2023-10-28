@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Contracts\Auth;
@@ -10,10 +12,9 @@ use Lemon\Kernel\Application;
 
 class Files
 {
-
     public function offer($image, Application $app, ORM $orm, Auth $auth)
     {
-        if ($orm->getORM()->getRepository(Offer::class)->findOne(['id' => $image, 'book.subjects.year.school.id' => $auth->user()->year->school->id]) === null) {
+        if (null === $orm->getORM()->getRepository(Offer::class)->findOne(['id' => $image, 'book.subjects.year.school.id' => $auth->user()->year->school->id])) {
             return error(404);
         }
 
@@ -33,5 +34,4 @@ class Files
             'Content-Type' => $content_type,
         ]);
     }
-
 }

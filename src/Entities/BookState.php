@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 enum BookState: string
@@ -16,15 +18,15 @@ enum BookState: string
             1 => self::New,
             2 => self::Used,
             3 => self::Damaged,
-            default => null 
+            default => null
         };
     }
 
     /**
-     * For cycle ORM
+     * For cycle ORM.
      */
     public static function typecast(mixed $value): self
     {
         return self::fromId((int) $value + 1);
-    } 
+    }
 }

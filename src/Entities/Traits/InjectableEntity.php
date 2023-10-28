@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities\Traits;
 
 use App\Contracts\Auth;
 use App\Contracts\ORM;
-use Lemon\Contracts\Kernel\Injectable;
 use Lemon\Kernel\Container;
 
 trait InjectableEntity

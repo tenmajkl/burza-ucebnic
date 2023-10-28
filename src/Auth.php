@@ -28,6 +28,7 @@ class Auth implements AuthContract
         if (!$this->session->has('email')) {
             return null;
         }
+
         return $this->orm->getORM()->getRepository(User::class)->findOne([
             'email' => $this->session->get('email'),
         ]);
@@ -35,10 +36,9 @@ class Auth implements AuthContract
 
     public function canChangeForgottenPassword(string $token): bool
     {
-        return 
-            $this->session->has('token') 
-            && $this->session->get('token') == $token
-        ;
+        return
+            $this->session->has('token')
+            && $this->session->get('token') == $token;
     }
 
     public function canEditOffer(Offer $offer): bool

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth\ForgottenPassword;
 
-use App\TokenGenerator;
 use App\Contracts\ORM;
 use App\Entities\User;
+use App\TokenGenerator;
 use Lemon\Http\Request as LemonRequest;
 use Lemon\Http\Session;
 use Lemon\Templating\Template;
@@ -21,7 +23,7 @@ class Request
     public function post(LemonRequest $request, MailerInterface $mailer, ORM $orm, Session $session): Template
     {
         $request->validate([
-            'email' => 'email'
+            'email' => 'email',
         ], template('auth.forgotten-password.request'));
 
         if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => explode('@', $request->get('email'))[0]]))) {
@@ -33,11 +35,12 @@ class Request
         $session->set('token', $token);
         $session->set('reset-email', $request->get('email'));
 
-        $mailer->send((new Email())
-               ->from(config('mail.from'))
-               ->to($request->get('email'))
-               ->subject(text('auth.forgotten-password-subject')) 
-               ->html(template('mail.forgotten-password', token: $token)->render()) 
+        $mailer->send(
+            (new Email())
+                ->from(config('mail.from'))
+                ->to($request->get('email'))
+                ->subject(text('auth.forgotten-password-subject'))
+                ->html(template('mail.forgotten-password', token: $token)->render())
         );
 
         return template('auth.forgotten-password.request', message: 'auth.reset-email-sent');

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Controllers\Auth\ChangePassword;
+use App\Controllers\Api\Messages;
 use App\Controllers\Api\Notifications;
 use App\Controllers\Api\Offers;
-use App\Controllers\Api\Messages;
 use App\Controllers\Api\Rating;
 use App\Controllers\Api\Wishlist;
+use App\Controllers\Auth\ChangePassword;
 use App\Controllers\Auth\Logout;
 use Lemon\Route;
 

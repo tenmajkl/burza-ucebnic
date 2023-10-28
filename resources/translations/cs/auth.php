@@ -16,7 +16,7 @@ return [
     'forgotten-password-text' => 'Obdrželi jsme žádost o obnovení hesla vašeho účtu na Burze Učebnic. Pro obnovení zapomenutého hesla klikněte na tlačítko "Obnovit heslo" a zadejte nové heslo. Pokud jste žádost neposlali, email ignorujte!',
     'reset-password' => 'Obnovit heslo',
     'resetting-password' => 'Obnovení hesla',
-    'new-password' => 'Nové heslo', 
+    'new-password' => 'Nové heslo',
     'reset-email-sent' => 'Email pro resetování hesla poslán.',
     'email-sent' => 'Ověřovací email poslán',
     'send-email' => 'Poslat e-mail',

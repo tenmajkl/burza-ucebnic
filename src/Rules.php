@@ -6,11 +6,7 @@ namespace App;
 
 use App\Contracts\ORM;
 use App\Entities\BookState;
-use App\Entities\Offer;
 use App\Entities\OfferSort;
-use App\Entities\OfferState;
-use App\Entities\School;
-use Lemon\Config\Exceptions\ConfigException;
 use Lemon\Kernel\Application;
 use Lemon\Support\CaseConverter;
 
@@ -23,10 +19,10 @@ class Rules
         private Application $app
     ) {
         $this->app->get('validation')->rules()
-                  ->rule('id', [$this, 'id'])
-                  ->rule('state', [$this, 'state'])
-                  ->rule('offer-state', [$this, 'offerState'])
-                  ->rule('sort', [$this, 'sort'])
+            ->rule('id', [$this, 'id'])
+            ->rule('state', [$this, 'state'])
+            ->rule('offer-state', [$this, 'offerState'])
+            ->rule('sort', [$this, 'sort'])
         ;
     }
 

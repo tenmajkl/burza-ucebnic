@@ -15,9 +15,10 @@ use Lemon\Contracts\Kernel\Injectable;
 #[Entity]
 class Book implements \JsonSerializable, Injectable
 {
-    use Dynamic, InjectableEntity; 
+    use Dynamic;
+    use InjectableEntity;
 
-    const RelationToSchool = 'subjects.year.school.id';
+    public const RelationToSchool = 'subjects.year.school.id';
 
     #[Column(type: 'primary')]
     public int $id;
@@ -47,7 +48,7 @@ class Book implements \JsonSerializable, Injectable
     {
         return [
             'id' => $this->id,
-            'name' => $this->name, 
+            'name' => $this->name,
             'author' => $this->author,
             'release_year' => $this->release_year,
             'publisher' => $this->publisher,
@@ -58,12 +59,12 @@ class Book implements \JsonSerializable, Injectable
     {
         return [
             'id' => $this->id,
-            'name' => $this->name, 
+            'name' => $this->name,
             'author' => $this->author,
             'release_year' => $this->release_year,
             'publisher' => $this->publisher,
-            'average_price' => sum($this->offers, fn($item) => $item->price),
-            'average_max_price' => sum($this->inquiries, fn($item) => $item->expected_price),
+            'average_price' => sum($this->offers, fn ($item) => $item->price),
+            'average_max_price' => sum($this->inquiries, fn ($item) => $item->expected_price),
         ];
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entities;
 
 use App\Entities\Traits\DateTimes;
-use Cycle\Annotated\Annotation\{Entity, Column};
+use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\ORM\Entity\Behavior;
 
@@ -31,6 +34,5 @@ class Rating
         #[BelongsTo(target: Offer::class)]
         public Offer $offer,
     ) {
-
     }
 }

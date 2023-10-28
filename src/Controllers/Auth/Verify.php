@@ -17,13 +17,13 @@ class Verify
 {
     public function get($token, Session $session, ORM $orm): RedirectResponse|Template
     {
-        if (!$session->has('verify_data') 
+        if (!$session->has('verify_data')
             || $token !== ($data = $session->get('verify_data'))['token']
         ) {
             return redirect('/register');
         }
 
-        $email= explode('@', $data['email']);
+        $email = explode('@', $data['email']);
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
 
@@ -34,7 +34,7 @@ class Verify
 
     public function post($token, Session $session, ORM $orm, Request $request): RedirectResponse|Template
     {
-        if (!$session->has('verify_data') 
+        if (!$session->has('verify_data')
             || $token !== ($data = $session->get('verify_data'))['token']
         ) {
             return redirect('/register');
@@ -47,12 +47,12 @@ class Verify
         $email = $data['email'];
 
         $year = $orm->getORM()->getRepository(Year::class)
-                              ->findOne([
-                                  'id' => $request->get('year'), 
-                              ])
+            ->findOne([
+                'id' => $request->get('year'),
+            ])
         ;
 
-        if ($year === null) {
+        if (null === $year) {
             return redirect('/verify/'.$token);
         }
 

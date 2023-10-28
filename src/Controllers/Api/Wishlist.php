@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
@@ -20,8 +22,8 @@ class Wishlist
                 $orm->getORM()->getRepository(Inquiry::class)->findAll([
                     'user.id' => $auth->user()->id,
                 ]),
-                $orm->getORM()->getRepository(Book::class)->findAll([ 
-                    'subjects.year.id' => $auth->user()->year->id
+                $orm->getORM()->getRepository(Book::class)->findAll([
+                    'subjects.year.id' => $auth->user()->year->id,
                     // TODO there is probably way to filter inquired books, but time is money and we need both
                 ]),
             ],
@@ -30,13 +32,13 @@ class Wishlist
 
     public function update(?Book $target, Auth $auth, Request $request, ORM $orm): array|Response
     {
-        if ($target === null) {
-            return error(404); 
+        if (null === $target) {
+            return error(404);
         }
 
         $request->validate([
             'max_price' => 'numeric|gt:0|lt:1000',
-        ], response([ 
+        ], response([
             'code' => 400,
             'message' => 'Bad Request',
         ])->code(400));
@@ -54,8 +56,8 @@ class Wishlist
 
     public function delete(?Inquiry $target, ORM $orm, Auth $auth): array
     {
-        if ($target === null) {
-            return error(404); 
+        if (null === $target) {
+            return error(404);
         }
 
         $orm->getEntityManager()->delete($target)->run();

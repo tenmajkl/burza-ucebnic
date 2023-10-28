@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
@@ -11,7 +13,7 @@ class Notifications
     public function index(Notifier $notifier, Auth $auth): array
     {
         return [
-            'status'=> 200,
+            'status' => 200,
             'message' => 'OK',
             'data' => $notifier->of($auth->user()),
         ];
@@ -19,7 +21,7 @@ class Notifications
 
     public function update(?OfferNotification $target, Notifier $notifier)
     {
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 

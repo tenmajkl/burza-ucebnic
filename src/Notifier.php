@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Contracts\Notifier as NotifierContract;
+use App\Entities\Offer;
 use App\Entities\OfferNotification;
 use App\Entities\OfferNotificationType;
-use App\Entities\Offer;
 use App\Entities\User;
-use Lemon\Templating\Template;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -17,13 +18,13 @@ class Notifier implements NotifierContract
         public readonly MailerInterface $mailer,
         public readonly ORM $orm,
     ) {
-
     }
 
     public function notifyWishlist(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::Wishlist);
         $this->mail('wishlist', $offer->book->name, $user);
+
         return $this;
     }
 
@@ -31,13 +32,15 @@ class Notifier implements NotifierContract
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::Rating);
         $this->mail('rating', $offer->user->email, $user);
+
         return $this;
     }
-    
+
     public function notifyActiveReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::ActiveReseration);
         $this->mail('active-reservation', $offer->book->name, $user);
+
         return $this;
     }
 
@@ -45,12 +48,13 @@ class Notifier implements NotifierContract
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
         $this->mail('new-reservations', $offer->book->name, $user);
+
         return $this;
     }
 
     public function of(User $user): array
     {
-        return $this->orm->getORM()->getRepository(OfferNotification::class)->findAll([ 
+        return $this->orm->getORM()->getRepository(OfferNotification::class)->findAll([
             'user.id' => $user->id,
         ]);
     }
@@ -63,6 +67,7 @@ class Notifier implements NotifierContract
 
         $notification->seen = 1;
         $this->orm->getEntityManager()->persist($notification)->run();
+
         return $this;
     }
 
@@ -79,12 +84,12 @@ class Notifier implements NotifierContract
     {
         $text = text('emoji-'.$subject).' '.str_replace('%arg', $arg, text('notification-'.$subject));
         $message = (new Email())
-                    ->from(config('mail.from'))
-                    ->to($user->email.'@'.$user->year->school->email)
-                    ->subject($text)
-                    ->html(template('mail.notifications', text: $text)->render())
+            ->from(config('mail.from'))
+            ->to($user->email.'@'.$user->year->school->email)
+            ->subject($text)
+            ->html(template('mail.notifications', text: $text)->render())
         ;
 
         $this->mailer->send($message);
-    } 
+    }
 }

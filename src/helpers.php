@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Carbon\Carbon;
 
 if (!function_exists('diff')) {
@@ -10,27 +12,26 @@ if (!function_exists('diff')) {
 }
 
 if (!function_exists('sum')) {
-    function sum(array $array, callable $fn): int 
+    function sum(array $array, callable $fn): int
     {
         $count = count($array);
-        return 
-            $count === 0
+
+        return
+            0 === $count
             ? 0
-            : intdiv(array_reduce($array, fn($acc, $item) => $acc + $fn($item)), $count) 
-        ;
+            : intdiv(array_reduce($array, fn ($acc, $item) => $acc + $fn($item)), $count);
     }
 }
 
 if (!function_exists('url')) {
     function url(): string
     {
-        return 
+        return
             (empty($_SERVER['HTTPS'])
                 ? 'http'
                 : 'https'
             )
             .'://'
-            .$_SERVER['HTTP_HOST']
-        ;
+            .$_SERVER['HTTP_HOST'];
     }
 }

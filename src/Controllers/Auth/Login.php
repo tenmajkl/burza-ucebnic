@@ -10,7 +10,6 @@ use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
-use Lemon\Terminal;
 
 class Login
 {
@@ -25,9 +24,9 @@ class Login
             'email' => 'max:128|email',
             'password' => 'max:128|min:8',
         ], template('auth.login'));
-        
+
         [$email, $host] = explode('@', $request->get('email'));
-            
+
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
         ]);

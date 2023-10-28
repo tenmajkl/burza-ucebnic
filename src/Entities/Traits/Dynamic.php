@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entities\Traits;
+declare(strict_types=1);
 
-use Exception;
+namespace App\Entities\Traits;
 
 trait Dynamic
 {
@@ -15,6 +15,6 @@ trait Dynamic
 
     public function __get(string $name)
     {
-        return $this->data[$name] ?? throw new Exception('Undefined property '.$name);
+        return $this->data[$name] ?? throw new \Exception('Undefined property '.$name);
     }
 }

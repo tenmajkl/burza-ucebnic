@@ -29,21 +29,21 @@ class Auth
 
     public function onlyAdmin(AuthContract $auth)
     {
-        if ($auth->user()->role === 0) {
+        if (0 === $auth->user()->role) {
             return error(404);
         }
     }
 
     public function onlyUser(AuthContract $auth)
     {
-        if ($auth->user()->role === 1) {
+        if (1 === $auth->user()->role) {
             return redirect('/admin/');
         }
     }
 
     public function onlyMajkel(AuthContract $auth)
     {
-        if ($auth->user()->role !== 2) {
+        if (2 !== $auth->user()->role) {
             return error(404);
         }
     }

@@ -32,9 +32,11 @@ use Lemon\Contracts\Kernel\Injectable;
 )]
 class Offer implements \JsonSerializable, Injectable
 {
-    use DateTimes, Dynamic, InjectableEntity;
+    use DateTimes;
+    use Dynamic;
+    use InjectableEntity;
 
-    const RelationToSchool = 'book.subjects.year.school.id';
+    public const RelationToSchool = 'book.subjects.year.school.id';
 
     #[Column(type: 'primary')]
     public int $id;
@@ -84,9 +86,8 @@ class Offer implements \JsonSerializable, Injectable
     public function canRate(User $user): bool
     {
         // ayo what the fuck is this
-        return ($this->buyer?->id === $user->id 
-            || (array_filter($this->reservations, fn(Reservation $item) => $item->user->id === $user->id)[-2] ?? null)?->state === ReservationState::Denied)
-            && (array_filter($this->ratings, fn(Rating $rating) => $rating->author->id === $user->id) === [])
-        ;
+        return ($this->buyer?->id === $user->id
+            || (array_filter($this->reservations, fn (Reservation $item) => $item->user->id === $user->id)[-2] ?? null)?->state === ReservationState::Denied)
+            && ([] === array_filter($this->ratings, fn (Rating $rating) => $rating->author->id === $user->id));
     }
 }

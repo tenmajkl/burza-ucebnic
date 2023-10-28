@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Auth;
 
 use App\Auth;
@@ -14,8 +16,8 @@ class ChangePassword
     {
         $request->validate([
             'old_password' => 'max:256',
-            'password' => 'min:8|max:256'
-        ], fn() => response([ 
+            'password' => 'min:8|max:256',
+        ], fn () => response([
             'status' => 400,
             'message' => Validator::error(),
         ])->code(400));

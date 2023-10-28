@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
+use App\Contracts\ORM;
 use App\Entities\Message;
-use App\Entities\Offer;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
 use Lemon\Http\Request;
 use Lemon\Validator;
-use App\Contracts\ORM;
 
 class Messages
 {
@@ -30,7 +31,7 @@ class Messages
     {
         $request->validate([
             'content' => 'max:512|min:1',
-        ], fn() => response([
+        ], fn () => response([
             'code' => 400,
             'message' => Validator::error(),
         ])->code(400));
@@ -39,7 +40,7 @@ class Messages
             return error(404);
         }
 
-        if ($target->status !== ReservationState::Active) {
+        if (ReservationState::Active !== $target->status) {
             return error(404);
         }
 

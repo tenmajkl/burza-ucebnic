@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Directives;
 
 use Lemon\Templating\Exceptions\CompilerException;
@@ -10,7 +12,7 @@ class IfSet implements Directive
 {
     public function compileOpenning(Token $token, array $stack): string
     {
-        if ('' === $token->content[1]) {    
+        if ('' === $token->content[1]) {
             throw new CompilerException('Directive ifset expects arguments', $token->line);
         }
 
