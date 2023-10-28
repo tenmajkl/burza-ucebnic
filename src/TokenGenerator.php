@@ -6,11 +6,10 @@ class TokenGenerator
 {
     /**
      * Generates token
-     * @see @CoolFido
+     * 
      */
-    public static function generate(string $unique): string
+    public static function generate(int $length = 32): string
     {
-        $token = env('TOKEN');
-        return implode('', array_rand(str_split(str_shuffle(sha1(time().$unique).$token.'!@#$%')), 64));
+        return bin2hex(random_bytes($length));
     } 
 }

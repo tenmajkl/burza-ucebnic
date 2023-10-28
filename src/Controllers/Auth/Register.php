@@ -8,6 +8,7 @@ use App\Contracts\ORM;
 use App\Entities\School;
 use App\Entities\User;
 use App\Entities\Year;
+use App\TokenGenerator;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Templating\Template;
@@ -44,9 +45,7 @@ class Register
             return template('auth.register');
         }
 
-        $token = str_shuffle(sha1(str_shuffle(rand().time().$email)));
-
-//        d($token);
+        $token = TokenGenerator::generate();
 
         $message =
             (new Email())

@@ -28,7 +28,7 @@ class Request
             return template('auth.forgotten-password.request', message: 'auth.wrong-email');
         }
 
-        $token = TokenGenerator::generate($request->get('email'));
+        $token = TokenGenerator::generate();
 
         $session->set('token', $token);
         $session->set('reset-email', $request->get('email'));
