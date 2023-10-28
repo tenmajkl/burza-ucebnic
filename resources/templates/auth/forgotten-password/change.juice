@@ -1,0 +1,22 @@
+{ extends 'layout' }
+
+{ block 'title' }
+    { text auth.resetting-password }
+{ /block }
+
+{ block 'content' }
+    <main class="flex items-center justify-center h-screen">
+        <form method="POST" class="flex flex-col">
+            <span class="mb-2 text-2xl">{ text auth.resetting-password }</span>
+            { ifError }
+                <div class="mb-2 alert">{ error }</div>
+            { /ifError }
+            { ifset $message }
+                <div class="mb-2 alert-success">{{ text($message) }}</div>
+            { /ifset }
+            { csrf }
+            <input name="password" type="password" class="mb-2 input" placeholder="{ text auth.new-password }">
+            <button class="button">{ text auth.reset-password }</button>
+        </form>
+    </main>
+{ /block }

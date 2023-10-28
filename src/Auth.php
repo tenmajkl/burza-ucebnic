@@ -35,7 +35,10 @@ class Auth implements AuthContract
 
     public function canChangeForgottenPassword(string $token): bool
     {
-        return $this->session->get('token') == $token;
+        return 
+            $this->session->has('token') 
+            && $this->session->get('token') == $token
+        ;
     }
 
     public function canEditOffer(Offer $offer): bool

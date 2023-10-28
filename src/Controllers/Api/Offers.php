@@ -38,7 +38,6 @@ class Offers
         $subject = $request->query('subject');
         $state = $request->query('state');
         $sort = $request->query('sort');
-        $offerState = $request->query('offer-state');
 
         $state = (int) $state;
 
@@ -47,8 +46,7 @@ class Offers
                                 ->where(['bought_at' => null])
                                 ->where(['book.subjects.id' => $subject])
                                 ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
-  //                              ->where(['reservations.user.id' => ['!=' => $auth->user()->id]])
-
+                                ->load('reservations')
         ;
 
         $select = OfferSort::from($sort)->sort($select);

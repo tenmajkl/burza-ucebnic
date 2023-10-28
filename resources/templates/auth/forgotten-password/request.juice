@@ -1,0 +1,22 @@
+{ extends 'layout' }
+
+{ block 'title' }
+    { text auth.forgotten-password }
+{ /block }
+
+{ block 'content' }
+    <main class="flex items-center justify-center h-screen">
+        <form method="POST" class="flex flex-col">
+            <span class="mb-2 text-2xl">{ text auth.forgotten-password }</span>
+            { ifError }
+                <div class="mb-2 alert">{ error }</div>
+            { /ifError }
+            { ifset $message }
+                <div class="mb-2 alert-success">{{ text($message) }}</div>
+            { /ifset }
+            { csrf }
+            <input name="email" type="email" class="mb-2 input" placeholder="{ text auth.email }">
+            <button class="button">{ text auth.send-email }</button>
+        </form>
+    </main>
+{ /block }

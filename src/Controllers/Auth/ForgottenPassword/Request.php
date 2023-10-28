@@ -24,21 +24,22 @@ class Request
             'email' => 'email'
         ], template('auth.forgotten-password.request'));
 
-        if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => $request->get('email')]))) {
-            return template('auth.forgotten-password.request', message: 'auth.error');
+        if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => explode('@', $request->get('email'))[0]]))) {
+            return template('auth.forgotten-password.request', message: 'auth.wrong-email');
         }
 
         $token = TokenGenerator::generate($request->get('email'));
 
         $session->set('token', $token);
+        $session->set('reset-email', $request->get('email'));
 
         $mailer->send((new Email())
                ->from(config('mail.from'))
                ->to($request->get('email'))
                ->subject(text('auth.forgotten-password-subject')) 
-               ->html(template('email.forgotten-password', token: $token)->render()) 
+               ->html(template('mail.forgotten-password', token: $token)->render()) 
         );
 
-        return template('auth.forgotten-password.request', message: 'auth.email-sent');
+        return template('auth.forgotten-password.request', message: 'auth.reset-email-sent');
     }
 }

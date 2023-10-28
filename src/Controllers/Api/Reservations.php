@@ -100,16 +100,24 @@ class Reservations
         }
 
         $offer = $reservation->offer;
-        $orm->getEntityManager()->delete($reservation);
+        $deletion = $orm->getEntityManager()->delete($reservation);
 
         $reservation = $orm->getORM()->getRepository(Reservation::class)
                       ->findOne([
                           'offer.id' => $offer->id, 
+                          'id' => ['!=' => $reservation->id]
                       ]);
 
-        $reservation->status = ReservationState::Active;
+        if ($reservation) {
+            $reservation->status = ReservationState::Active;
+            $orm->getEntityManager()->persist($reservation)->run();
+            
+            $notifier->notifyActiveReservation($reservation->user, $offer);
+        } else {
+            $deletion->run();
+        }
 
-        $orm->getEntityManager()->persist($reservation)->run();
+        
 
         return [
             'status' => '200',
@@ -203,9 +211,25 @@ class Reservations
 
         $reservation->status = ReservationState::Denied;
         $notifier->notifyRating($auth->user(), $reservation->offer);
-        $orm->getEntityManager()->persist($reservation)->run();
+        $offer = $reservation->offer;
+        $deletion = $orm->getEntityManager()->persist($reservation);
 
-        // TODO zaktivneni
+        $reservation = $orm->getORM()->getRepository(Reservation::class)
+                      ->findOne([
+                          'offer.id' => $offer->id, 
+                          'id' => ['!=' => $reservation->id]
+                      ]);
+
+        if ($reservation) {
+            $reservation->status = ReservationState::Active;
+            $orm->getEntityManager()->persist($reservation)->run();
+
+            $notifier->notifyActiveReservation($reservation->user, $offer);
+        } else {
+            $deletion->run();
+        }
+
+        // TODO less boilerplate, maybe
 
         return redirect('/');
     }
