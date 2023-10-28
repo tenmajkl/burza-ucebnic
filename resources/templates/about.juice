@@ -5,9 +5,9 @@
 { /block }
 
 { block 'content' }
-    <main class="w-screen h-screen flex flex-col items-center justify-center">
+    <main class="w-screen h-screen flex flex-col items-center justify-center p-4">
         <h1 class="text-2xl font-bold">{ text app.about-title }</h1>
-        <p>{ text app.about-content }</p>
+        <p class='text-center'>{ text app.about-content }</p>
         <h1 class="text-2xl font-bold">{ text app.about-thanks }</h1>
         <ul class="text-center">
             <li>Jakub Harabiš (<a href="https://github.com/harabisj">@harabisj</a>)</li>

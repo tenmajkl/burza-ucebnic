@@ -6,6 +6,7 @@ use App\Contracts\Auth;
 use App\Entities\Message;
 use App\Entities\Offer;
 use App\Entities\Reservation;
+use App\Entities\ReservationState;
 use Lemon\Http\Request;
 use Lemon\Validator;
 use App\Contracts\ORM;
@@ -35,6 +36,10 @@ class Messages
         ])->code(400));
 
         if (!$target) {
+            return error(404);
+        }
+
+        if ($target->status !== ReservationState::Active) {
             return error(404);
         }
 

@@ -19,8 +19,8 @@ return [
 
     // About
     'about-title' => 'O projektu',
-    'about-content' => 'Jde o projekt',
-    'about-thanks' => 'Podekovani',
+    'about-content' => 'Projekt JMENO má za cíl digitalizovat fyzickou burzu učebnic, probíhající na středních školách skrz webovou aplikaci, kde mohou studenti vkládat kromě nabídek také poptávky. Aplikace je navržená tak, aby ji mohlo využívat více škol nezávisle na sobě. Projekt je zároveň součást Středoškolské Odborné Činnosti Michala Křipače.',
+    'about-thanks' => 'Poděkování',
 
     // Feedback
     'feedback-title' => 'Zpětná vazba',
@@ -40,7 +40,7 @@ return [
 
     'offers-title' => 'Aktuální nabídky',
     'reserve' => 'REZERVOVAT',
-    'rating' => 'Hodnoceni uzivatele @%arg',
+    'rating' => 'Hodnocení uživatele @%arg',
 
     // Filters
 
@@ -69,7 +69,7 @@ return [
     'order-acceptance' => 'Převzetí objednávky',
     'order-acceptance-fail' => 'Skenovaná objednávka neexistuje nebo k ní nemáte přístup.',
     'order-acceptance-unauthorized' => 'Pro zobrazení objednávky se musíte přihlásit.',
-    'reserved-by' => 'Rezervoval',
+    'reserved-by' => 'Rezervováno uživatelem',
     'order-accept' => 'Předat',
 
     // Wishlist
@@ -77,8 +77,8 @@ return [
     'wishlist-title' => 'Seznam přání',
     'search' => 'Hledat',
     'remove' => 'Odebrat',
-    'wishlist-select-title' => 'Vyber ucebnic do seznamu',
-    'wishlist-max-price' => 'Maximálne za',
+    'wishlist-select-title' => 'Výběr učebnic do seznamu',
+    'wishlist-max-price' => 'Maximálně za',
     'wishlist-empty' => 'Seznam přání je prázdný',
 
     // Add
@@ -90,9 +90,9 @@ return [
     'selected' => 'Vybráno',
     'missing-image'=> 'Chybí obrázek',
     'image-error'=> 'Chyba v obrázku',
-    'average-price' => 'Prumerna cena',
-    'average-max-price' => 'Maximalni cena',
-    'book' => 'Ucebnice',
+    'average-price' => 'Průměrná cena',
+    'average-max-price' => 'Maximální cena',
+    'book' => 'Učebnice',
     'photo' => 'Fotografie',
 
     // My Offers
@@ -102,16 +102,16 @@ return [
     'interested-1' => 'zájemce',
     'interested-2-3' => 'zájemci',
     'interested' => 'zájemců',
-    'my-offers-none' => 'Nic nenabizis',
+    'my-offers-none' => 'Nic nenabízíš',
 
     // Notifications
     
     'notifications-title' => 'Notifikace',
-    'notifications-unsupported' => 'Tato notifikace nemuze byt zobrazena!',
-    'notification-wishlist' => 'Ucebnice "%arg" je nyni k dispozici!',
-    'notification-rating' => 'Jak jste byli spokojeni s prodavajicim @%arg?',
-    'notification-active-reservation' => 'Rezervace ucebnice "%arg" je nyni aktivni!',
-    'notifications-new-reservations' => 'Nova rezervace od uzivatele @%arg! parada',
+    'notifications-unsupported' => 'Tato notifikace nemůže být zobrazena!',
+    'notification-wishlist' => 'Učebnice "%arg" je nyní k dispozici!',
+    'notification-rating' => 'Jak jste byli spokojeni s prodávajícím @%arg?',
+    'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
+    'notifications-new-reservations' => 'Nová rezervace od uživatele @%arg!',
 
     // Emojis
     
@@ -123,8 +123,8 @@ return [
     // Profile
 
     'profile-title' => 'Profil',
-    'profile-logout' => 'Odhlasit se',
-    'profile-change-password' => 'Zmenit heslo',
-    'profile-old-password' => 'Stare heslo',
-    'profile-new-password' => 'Nove heslo',
+    'profile-logout' => 'Odhlásit se',
+    'profile-change-password' => 'Změnit heslo',
+    'profile-old-password' => 'Staré heslo',
+    'profile-new-password' => 'Nové heslo',
 ];

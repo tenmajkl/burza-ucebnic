@@ -7,7 +7,7 @@ use App\Contracts\Notifier;
 use App\Contracts\ORM;
 use App\Entities\Offer;
 use App\Entities\Reservation;
-use App\Entities\ReservationStatus;
+use App\Entities\ReservationState;
 use DateTimeImmutable;
 
 class Reservations
@@ -18,7 +18,7 @@ class Reservations
                      ->getRepository(Offer::class)
                      ->findOne([
                          'id' => $target,
-                         'subjects.year.id' => $auth->user()->year->id
+                         'book.subjects.year.id' => $auth->user()->year->id
                      ]);
 
         if (!$offer) {
@@ -43,7 +43,7 @@ class Reservations
 
         $status = $offer->reservations === [];
 
-        $reservation = new Reservation($offer, $user, ReservationStatus::tryFrom((int) $status)); 
+        $reservation = new Reservation($offer, $user, ReservationState::tryFrom((int) $status)); 
 
         $orm->getEntityManager()->persist($reservation)->run();
 
@@ -77,6 +77,39 @@ class Reservations
         }
 
         $orm->getEntityManager()->delete($reservation)->run();
+
+        return [
+            'status' => '200',
+            'message' => 'OK',
+        ];
+    }
+
+    public function disable($target, ORM $orm, Auth $auth)
+    {
+        $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
+            'id' => $target,
+            'user.id' => $auth->user()->id,
+            'status' => ReservationState::Active,
+        ]);
+
+        if ($reservation === null) {
+            return response([
+                'status' => '404',
+                'message' => 'Not found',
+            ])->code(404);
+        }
+
+        $offer = $reservation->offer;
+        $orm->getEntityManager()->delete($reservation);
+
+        $reservation = $orm->getORM()->getRepository(Reservation::class)
+                      ->findOne([
+                          'offer.id' => $offer->id, 
+                      ]);
+
+        $reservation->status = ReservationState::Active;
+
+        $orm->getEntityManager()->persist($reservation)->run();
 
         return [
             'status' => '200',
@@ -168,9 +201,11 @@ class Reservations
             return error(404);
         }
 
-        $reservation->status = ReservationStatus::Denied;
+        $reservation->status = ReservationState::Denied;
         $notifier->notifyRating($auth->user(), $reservation->offer);
         $orm->getEntityManager()->persist($reservation)->run();
+
+        // TODO zaktivneni
 
         return redirect('/');
     }

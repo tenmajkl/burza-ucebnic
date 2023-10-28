@@ -25,4 +25,6 @@ return [
     'image-too-big' => 'Obrázek je příliš velký',
     'already-offered' => 'Tuto učebnici jste již nabídl/a',
     'user-exists' => 'Uživatel s tímto emailem již existuje',
+    'gt' => 'Hodnota %field musí být větší než %arg',
+    'lt' => 'Hodnota %field musí být menší než %arg',
 ];

@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use Exception;
 
-enum ReservationStatus: int
+enum ReservationState: int
 {
     case Waiting = 0;
 

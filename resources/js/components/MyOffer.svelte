@@ -4,7 +4,7 @@
     import Text from "../components/Text.svelte";
 
     export let offer;
-    let message = null; 
+    let result = 200; 
     let reservation;
     export let editing; 
     export let openned;
@@ -42,9 +42,7 @@
         })
             .then(response => response.json())
             .then(res => {
-                if (res.success) {
-
-                }
+                result = res.status;
             });
     }
 </script>
@@ -61,7 +59,7 @@
                 <div class="text-sm text-secondary"><Text text="state-{offer.state}" /></div>
                 <div class="flex gap-3">
                     <div class="text-xl flex items-center">
-                        <input type="number" bind:value={offer.price} class="w-20 input" required min='1' max='999'> <Text text="currency" />
+                        <input type="number" bind:value={offer.price} class="w-20 input {result != 200 ? 'border-2 border-red rounded-0 mr-1' : ''}" required min='1' max='999'> <Text text="currency" />
                     </div>
                     <button on:click={() => edit()}><i class="text-lg bi bi-pen text-blue"></i></button>
                     <button on:click={async () => {reservation = await getReservation(offer); openned = index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>

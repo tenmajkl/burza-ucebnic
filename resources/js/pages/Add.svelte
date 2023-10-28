@@ -1,4 +1,3 @@
-nezobrazovat knihy duplicitne
 <script>
     import Text from "../components/Text.svelte";
     let states = [];
@@ -41,8 +40,8 @@ nezobrazovat knihy duplicitne
         })
         .then(res => res.json())
         .then(data => {
-            result = data.message;
-            if (result && result === 'OK') {
+            result = data;
+            if (result && result.status == '200') {
                 offer = { state: 0 };
                 selected = 0;
             }
@@ -54,9 +53,9 @@ nezobrazovat knihy duplicitne
 <div class="text-2xl font-bold">
     <Text text="add-title" />
 </div>
-{#if result && result != "OK"}
+{#if result}
     <div class="alert">
-        {result}
+        {result.message}
     </div>
 {/if}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 xl:w-1/2 2xl:w-1/3">
@@ -64,7 +63,9 @@ nezobrazovat knihy duplicitne
         <label for="subject" class="text-xs text-secondary"><Text text="year" /></label>
             <select id="year" name="year" class="input" bind:value={year} required>
                 {#each years as year, index}
-                    <option value="{index}">{year.name}</option>
+                    {#if year.name != 'admins'}
+                        <option value="{index}">{year.name}</option>
+                    {/if}
                 {/each}
             </select>
     </div>

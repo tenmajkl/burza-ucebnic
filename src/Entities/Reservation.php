@@ -43,8 +43,8 @@ class Reservation implements \JsonSerializable, Injectable
         public Offer $offer,
         #[BelongsTo(target: User::class)]
         public User $user,
-        #[Column(type: 'int', typecast: ReservationStatus::class)]
-        public ReservationStatus $status,
+        #[Column(type: 'int', typecast: ReservationState::class)]
+        public ReservationState $status,
     ) {
         // Profi token generation coolfido aproves
         $this->hash = sha1(str_shuffle(base64_encode(str_shuffle($this->offer->id.rand().time()).sha1(rand().time().$user->id))));
@@ -54,7 +54,7 @@ class Reservation implements \JsonSerializable, Injectable
     {
         return [
             'id' => $this->id,
-            'active' => $this->active,
+            'active' => $this->status === ReservationState::Active,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
             'author' => $this->user->email,

@@ -20,7 +20,7 @@ use Lemon\Validator;
 
 class Offers
 {
-    public function index(Request $request, ORM $orm)
+    public function index(Request $request, ORM $orm, Auth $auth)
     {
         $ok = Validator::validate($request->query() ?? [], [
             'subject' => 'numeric',
@@ -47,12 +47,15 @@ class Offers
                                 ->where(['bought_at' => null])
                                 ->where(['book.subjects.id' => $subject])
                                 ->where($state === 0 ? [] : ['state' => BookState::fromId($state)])
+  //                              ->where(['reservations.user.id' => ['!=' => $auth->user()->id]])
 
         ;
 
         $select = OfferSort::from($sort)->sort($select);
 
         $data = $select->fetchAll();
+
+        // TODO filtr pro rezervovane
 
         return $data;
     }
@@ -165,7 +168,7 @@ class Offers
         }
 
         $request->validate([
-            'price' => 'numeric',
+            'price' => 'numeric|gt:0|lt:1000',
         ], fn() => response([
             'status' => '400',
             'message' => Validator::error(),

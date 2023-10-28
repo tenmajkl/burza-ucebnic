@@ -21,6 +21,7 @@
                 offers = data;
             })
         ;
+        selected = 1;
     }
 
     fetch('/api/offers/init')
@@ -78,9 +79,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each offers as offer}
         {#if offerState == 1 || offer.reservations == 0}
-            <div class="card">
-                <Offer offer={offer} />
-            </div>
+            <Offer offer={offer} />
         {/if}
     {/each}
 </div>

@@ -85,7 +85,7 @@ class Offer implements \JsonSerializable, Injectable
     {
         // ayo what the fuck is this
         return ($this->buyer?->id === $user->id 
-            || (array_filter($this->reservations, fn(Reservation $item) => $item->user->id === $user->id)[-2] ?? null)?->state === ReservationStatus::Denied)
+            || (array_filter($this->reservations, fn(Reservation $item) => $item->user->id === $user->id)[-2] ?? null)?->state === ReservationState::Denied)
             && (array_filter($this->ratings, fn(Rating $rating) => $rating->author->id === $user->id) === [])
         ;
     }

@@ -18,6 +18,7 @@ Route::controller('offers', Offers::class);
 $reservations = Route::controller('reservations', \App\Controllers\Api\Reservations::class);
 $reservations->add('make/{target}', 'post', [\App\Controllers\Api\Reservations::class, 'make']);
 $reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations::class, 'qr']);
+$reservations->add('disable/{target}', 'post', [\App\Controllers\Api\Reservations::class, 'disable']);
 
 Route::controller('messages', Messages::class);
 

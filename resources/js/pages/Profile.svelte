@@ -27,6 +27,8 @@
                 'password': new_password
             })
         })
+
+        // TODO error
     }
 </script>
 
@@ -38,6 +40,8 @@
     <button class="button" on:click={logout}><Text text="profile-logout" /></button>
     
     <hr class="my-2 border-t-2 rounded-sm border-primary">
+
+
 
     <div class="block gap-1">
         <div class="text-xl font-bold"><Text text="profile-change-password" /></div>
