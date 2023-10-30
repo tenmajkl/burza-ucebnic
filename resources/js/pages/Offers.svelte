@@ -21,7 +21,6 @@
                 offers = data;
             })
         ;
-        selected = 1;
     }
 
     fetch('/api/offers/init')
