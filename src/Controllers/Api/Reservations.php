@@ -24,13 +24,13 @@ class Reservations
         ;
 
         if (!$offer) {
-            return error(404);
+            return error(404); 
         }
 
         if ($offer->user->id === $auth->user()->id) {
             return response([
                 'status' => '400',
-                'message' => 'cannot-reserve-own-offer',
+                'message' => text('cannot-reserve-own-offer'),
             ])->code(400);
         }
 
@@ -39,7 +39,7 @@ class Reservations
         if (array_filter($offer->reservations, fn ($reservation) => $reservation->user->id === $user->id)) {
             return response([
                 'status' => '400',
-                'message' => 'already-reserved',
+                'message' => text('already-reserved'),
             ])->code(400);
         }
 
@@ -49,10 +49,10 @@ class Reservations
 
         $orm->getEntityManager()->persist($reservation)->run();
 
-        return response([
+        return [
             'status' => '200',
             'message' => 'OK',
-        ])->code(200);
+        ];
     }
 
     public function index(Auth $auth)
@@ -86,7 +86,7 @@ class Reservations
         ];
     }
 
-    public function disable($target, ORM $orm, Auth $auth)
+    public function disable($target, ORM $orm, Auth $auth, Notifier $notifier)
     {
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
             'id' => $target,
@@ -95,10 +95,7 @@ class Reservations
         ]);
 
         if (null === $reservation) {
-            return response([
-                'status' => '404',
-                'message' => 'Not found',
-            ])->code(404);
+            return error(404); 
         }
 
         $offer = $reservation->offer;

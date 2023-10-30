@@ -46,7 +46,7 @@ class Wishlist
         $inquiry = new Inquiry(
             $target,
             $auth->user(),
-            $request->get('max_price'),
+            (int) $request->get('max_price'),
         );
 
         $orm->getEntityManager()->persist($inquiry)->run();

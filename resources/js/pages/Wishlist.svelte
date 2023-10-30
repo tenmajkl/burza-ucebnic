@@ -5,6 +5,8 @@
     let wishlist = [];
     let available = [];
 
+    let error = null;
+
     fetch("/api/wishlist")
         .then(response => response.json())
         .then(data => {
@@ -26,11 +28,12 @@
             .then(response => response.json())
             .then(data => {
                 if (data.code === 400) {
-                    // TODO error
+                    error = book;
                     return;
                 }
                 wishlist = data['data'][0];
                 available = data['data'][1];
+                error = null;
             });
     }
 
@@ -98,7 +101,7 @@
                         <Text text="wishlist-max-price" />:
                         <div class="flex gap-2">
                             <div class="flex items-center gap-1 w-1/2">
-                                <input type="number" class="w-full input" placeholder="..." bind:value={book.price} max='999' min='1' required>
+                                <input type="number" class="w-full input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required>
                                 <Text text="currency" />
                             </div>
                             <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>
