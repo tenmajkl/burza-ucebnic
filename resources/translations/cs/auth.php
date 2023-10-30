@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'error' => 'Špatný email nebo heslo.',
     'wrong-email' => 'Špatný email.',
+    'wrong-password' => 'Špatné heslo.',
     'password' => 'Heslo',
     'email' => 'Školní Email',
     'register' => 'Registrovat',

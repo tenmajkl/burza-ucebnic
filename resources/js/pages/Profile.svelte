@@ -27,8 +27,12 @@
                 'password': new_password
             })
         })
-
-        // TODO error
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.status != 200) {
+                error = res.message;
+            }
+        })
     }
 </script>
 
@@ -41,10 +45,13 @@
     
     <hr class="my-2 border-t-2 rounded-sm border-primary">
 
-
-
     <div class="block gap-1">
         <div class="text-xl font-bold"><Text text="profile-change-password" /></div>
+        {#if error}
+            <div class="alert">
+                {error}
+            </div>            
+        {/if}
         <div class="flex flex-col sm:w-1/3 md:w-1/2 xl:w-1/4">
             <Text text="profile-old-password" />
             <input class="input" type="password" bind:value={old_password}></div>

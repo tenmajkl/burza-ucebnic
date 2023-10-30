@@ -12,7 +12,7 @@ use Lemon\Validator;
 
 class ChangePassword
 {
-    public function post(Request $request, Auth $auth, ORM $orm): Template
+    public function post(Request $request, Auth $auth, ORM $orm) 
     {
         $request->validate([
             'old_password' => 'max:256',
@@ -25,7 +25,10 @@ class ChangePassword
         $user = $auth->user();
 
         if (!password_verify($request->get('password'), $user->password)) {
-            return template('auth.change-password', message: 'auth.error');
+            return response([
+                'status' => 400,
+                'message' => text('auth.wrong-password'),
+            ])->code(400);
         }
 
         $user->password = $request->get('password');
