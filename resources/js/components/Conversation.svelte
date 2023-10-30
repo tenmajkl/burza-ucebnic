@@ -35,7 +35,7 @@
 
 </script>
 
-<div class="flex flex-col justify-between h-96">
+<div class="flex flex-col justify-between h-64 md:h-96">
     <div class="overflow-y-auto">
         {#each messages as message}
             <div class="flex flex-col gap-1">
