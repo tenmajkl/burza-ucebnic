@@ -43,7 +43,7 @@ class Offers
         $select = $orm->getORM()->getRepository(Offer::class)
             ->select(['SUM(offer_user_received_ratings.ratings) AS rating_value'])
             ->where(['bought_at' => null])
-            //->where(['book.subjects.id' => $subject])
+            ->where(['book.subjects.id' => $subject])
             ->where(0 === $state ? [] : ['state' => BookState::fromId($state)])
             //->with('user.received_ratings')
         ;
