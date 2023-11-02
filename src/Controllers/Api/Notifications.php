@@ -38,4 +38,9 @@ class Notifications
     {
         
     }
+
+    public function readAll()
+    {
+
+    }
 }
