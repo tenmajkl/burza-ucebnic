@@ -41,14 +41,16 @@ class Offers
         $state = (int) $state;
 
         $select = $orm->getORM()->getRepository(Offer::class)
-            ->select()
+            ->select(['SUM(offer_user_received_ratings.ratings) AS rating_value'])
             ->where(['bought_at' => null])
-            ->where(['book.subjects.id' => $subject])
+            //->where(['book.subjects.id' => $subject])
             ->where(0 === $state ? [] : ['state' => BookState::fromId($state)])
-            ->load('reservations')
+            //->with('user.received_ratings')
         ;
 
         $select = OfferSort::from($sort)->sort($select);
+
+        //dd($select->sqlStatement());
 
         return $select->fetchAll();
         // TODO filtr pro rezervovane
@@ -172,6 +174,20 @@ class Offers
         $target->price = (int) $request->get('price');
 
         $orm->getEntityManager()->persist($target)->run();
+
+        return [
+            'status' => '200',
+            'message' => 'OK',
+        ];
+    }
+
+    public function delete(?Offer $target, Auth $auth, ORM $orm)
+    {
+        if ($target->user->id !== $auth->user()->id) {
+            return error(404);
+        }
+
+        $orm->getEntityManager()->delete($target)->run();
 
         return [
             'status' => '200',

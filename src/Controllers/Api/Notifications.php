@@ -7,6 +7,7 @@ namespace App\Controllers\Api;
 use App\Contracts\Auth;
 use App\Contracts\Notifier;
 use App\Entities\OfferNotification;
+use App\Contracts\ORM;
 
 class Notifications
 {
@@ -33,8 +34,8 @@ class Notifications
         ];
     }
 
-    public function clear(Auth $auth)
+    public function clear(Auth $auth, ORM $orm)
     {
-        // TODO
+        
     }
 }

@@ -9,6 +9,7 @@
     export let editing; 
     export let openned;
     export let index;
+    let enabled = true;
 
     function interestedText(interested)
     {
@@ -45,8 +46,22 @@
                 result = res.status;
             });
     }
+
+    function remove()
+    {
+        fetch('/api/offers/' + offer.id + '/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: ''
+        })
+
+        enabled = false;
+    }
 </script>
 
+{#if enabled}
 <div class="flex flex-col card gap-5 {openned === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
     <div class="flex gap-5">
         <img src="/static/img/offers/{offer.id}" alt="cecko" class="card-image">
@@ -63,6 +78,7 @@
                     </div>
                     <button on:click={() => edit()}><i class="text-lg bi bi-pen text-blue"></i></button>
                     <button on:click={async () => {reservation = await getReservation(offer); openned = index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
+                    <button on:click={() => remove()}><i class="text-lg bi bi-trash text-red"></i></button>
                 </div>
             </div>
         </div>
@@ -73,3 +89,4 @@
         {/if}
     </div>
 </div>
+{/if}
