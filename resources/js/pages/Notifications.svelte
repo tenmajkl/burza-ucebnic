@@ -12,12 +12,44 @@
             notifications = data['data'];
         });
 
+    function readAll() {
+        fetch('/api/messages/read-all', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: '{}'
+        }).then((res) => res.json())
+        .then((res) => {
+            notifications = res['data']
+        })
+    }
+
+    function clear() {
+        fetch('/api/messages/clear', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: '{}'
+        }).then((res) => res.json())
+        .then((res) => {
+            notifications = res['data']
+        })
+    }
+
 </script>
 
-<div class="text-2xl font-bold">
-    <Text text="notifications-title" />
-</div>
+<div class="flex justify-between w-full">
+    <div class="text-2xl font-bold">
+        <Text text="notifications-title" />
+    </div>
 
+    <div class="flex gap-2">
+        <i class="bi bi-eye text-2xl" on:click={readAll}></i>
+        <i class="bi bi-trash text-2xl" on:click={clear}></i>
+    </div>
+</div>
 {#each notifications as notification}
     <div class="w-full p-2">
         {#if notification.type == 0} <!-- wishlist --> 

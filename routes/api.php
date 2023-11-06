@@ -20,7 +20,9 @@ $reservations->add('make/{target}', 'post', [\App\Controllers\Api\Reservations::
 $reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations::class, 'qr']);
 $reservations->add('disable/{target}', 'post', [\App\Controllers\Api\Reservations::class, 'disable']);
 
-Route::controller('messages', Messages::class);
+$messages = Route::controller('messages', Messages::class);
+$messages->add('read-all', 'POST', [Messages::class, 'readAll']);
+$messages->add('clear', 'POST', [Messages::class, 'clear']);
 
 Route::controller('wishlist', Wishlist::class);
 

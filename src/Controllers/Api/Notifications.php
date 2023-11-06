@@ -34,13 +34,26 @@ class Notifications
         ];
     }
 
-    public function clear(Auth $auth, ORM $orm)
+    public function clear(Notifier $notifier, Auth $auth, ORM $orm)
     {
-        
+        $orm->getORM()->getRepository(OfferNotification::class)
+                      ->delete([
+                          'user.id' => $auth->user()->id,
+                          'seen' => 1,
+                      ]);
+
+        $this->index($notifier, $auth);
     }
 
-    public function readAll()
+    public function readAll(Notifier $notifier, Auth $auth, ORM $orm)
     {
+        $orm->getORM()->getRepository(OfferNotification::class)
+                      ->update([
+                          'seen' => 1,
+                      ])->where([
+                          'user.id' => $auth->user()->id,
+                      ]);
 
+        $this->index($notifier, $auth);
     }
 }
