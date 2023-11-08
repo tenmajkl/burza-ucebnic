@@ -7,6 +7,7 @@ namespace App;
 use App\Contracts\ORM as ORMContract;
 use Cycle\Annotated;
 use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Database\DatabaseInterface;
 use Cycle\Database\DatabaseManager;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\EntityManagerInterface;
@@ -73,5 +74,10 @@ class ORM implements ORMContract
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->manager;
+    }
+
+    public function db(): DatabaseInterface
+    {
+        return $this->dbal->database();
     }
 }

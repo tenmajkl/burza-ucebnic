@@ -12,6 +12,9 @@
     let openned = false;
 
     function open() {
+        if (notification.seen) {
+            return;
+        }
         openned = !openned;
         notification.seen = true;
         fetch('/api/notifications/'+notification.id, {

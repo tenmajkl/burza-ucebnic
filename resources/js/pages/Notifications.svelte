@@ -13,7 +13,7 @@
         });
 
     function readAll() {
-        fetch('/api/messages/read-all', {
+        fetch('/api/notifications/read-all', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +26,7 @@
     }
 
     function clear() {
-        fetch('/api/messages/clear', {
+        fetch('/api/notifications/clear', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
