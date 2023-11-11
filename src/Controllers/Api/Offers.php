@@ -52,8 +52,14 @@ class Offers
 
         //dd($select->sqlStatement());
 
-        return $select->fetchAll();
-        // TODO filtr pro rezervovane
+        $data = $select->fetchAll();
+
+        $user = $auth->user();
+        foreach ($data as $offer) {
+            $offer->canUserMakeReservation($user);
+        }
+
+        return $data;
     }
 
     public function init(Auth $auth)

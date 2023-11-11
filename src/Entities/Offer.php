@@ -56,6 +56,11 @@ class Offer implements \JsonSerializable, Injectable
     #[HasMany(target: Rating::class, nullable: true)]
     public ?array $ratings = [];
 
+    /**
+     * Whenever currently logged user can make reservation, thus its not saved in db. This value is generated manualy using function canUserMakeReservation
+     */
+    public bool $can_be_reserved = false;
+
     public function __construct(
         #[BelongsTo(target: Book::class)]
         public Book $book,
@@ -66,6 +71,22 @@ class Offer implements \JsonSerializable, Injectable
         #[BelongsTo(target: User::class, nullable: true)]
         public User $user,
     ) {
+    }
+
+    /**
+     * Sets internal value can_be_reserved
+     */
+    public function canUserMakeReservation(User $user): self
+    {
+        foreach ($this->reservations as $reservation) {
+            if ($reservation->user->id === $user->id) {
+                $this->can_be_reserved = false;
+                return $this;
+            }
+        }
+
+        $this->can_be_reserved = true;
+        return $this;
     }
 
     // TBD
@@ -80,6 +101,7 @@ class Offer implements \JsonSerializable, Injectable
             'author_rating' => $this->user->countRating(),
             'created_at' => diff($this->createdAt),
             'reservations' => count($this->reservations),
+            'can_be_reserved' => $this->can_be_reserved,
         ];
     }
 

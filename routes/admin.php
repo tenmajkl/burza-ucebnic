@@ -8,7 +8,7 @@ use App\Controllers\Admin\Years;
 use App\Controllers\Offers;
 use Lemon\Route;
 
-Route::redirect('/', 'years');
+Route::redirect('/', 'admin/years');
 
 Route::controller('years', Years::class);
 
