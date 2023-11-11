@@ -78,6 +78,11 @@ class Offer implements \JsonSerializable, Injectable
      */
     public function canUserMakeReservation(User $user): self
     {
+        if ($this->user->id === $user->id) {
+            $this->can_be_reserved = false;
+            return $this;
+        }
+
         foreach ($this->reservations as $reservation) {
             if ($reservation->user->id === $user->id) {
                 $this->can_be_reserved = false;
