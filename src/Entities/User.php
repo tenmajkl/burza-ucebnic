@@ -40,7 +40,7 @@ class User implements Injectable
     #[HasMany(target: Reservation::class)]
     public array $reservations = [];
 
-    #[HasMany(target: Rating::class)]
+    #[HasMany(target: Rating::class, nullable: true)]
     public array $given_ratings = [];
 
     #[HasMany(target: Rating::class)]
