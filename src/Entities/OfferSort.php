@@ -19,7 +19,7 @@ enum OfferSort: string
 
     public function sort(Select $select): Select
     {
-//        $rating = new \Cycle\Database\Injection\Expression('');
+        $rating = new \Cycle\Database\Injection\Expression('');
         return match ($this) {
             self::Newest => $select->orderBy('created_at', SelectQuery::SORT_DESC),
             self::Oldest => $select->orderBy('created_at', SelectQuery::SORT_ASC),

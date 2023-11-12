@@ -41,11 +41,10 @@ class Offers
         $state = (int) $state;
 
         $select = $orm->getORM()->getRepository(Offer::class)
-            ->select()
+            ->select()                
             ->where(['bought_at' => null])
             ->where(['book.subjects.id' => $subject])
             ->where(0 === $state ? [] : ['state' => BookState::fromId($state)])
-            ->load('user.received_ratings')
         ;
 
         $select = OfferSort::from($sort)->sort($select);
