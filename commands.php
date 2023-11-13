@@ -37,4 +37,5 @@ Terminal::command('school:make {name} {email}', function (ORM $orm, $name, $emai
     $root = new User('root', $password, $year, 1);
     $orm->getEntityManager()->persist($school)->run();
     $orm->getEntityManager()->persist($year)->run();
+    $orm->getEntityManager()->persist($root)->run();
 }, 'Creates new school');
