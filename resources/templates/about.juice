@@ -16,8 +16,7 @@
             <li>Ema Bagarová</li>
             <li>Alžběta Bagarová</li>
             <li>Hugo Pacek</li>
-            <li>Tvoje máma</li>
-            <li>Trent Reznor</li>
+            <li>{ text 'app.about-classmates' }</li>
         </ul>
         <h1 class="text-2xl font-bold"><a href="https://github.com/tenmajkl/bs">GitHub</h1>
     </main>
