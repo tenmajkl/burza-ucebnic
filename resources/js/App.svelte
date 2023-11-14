@@ -42,7 +42,10 @@
             <span class="text-xl"><Text text="title" /></span>
             <Menu items={items} bind:selected={selected} />
         </div>
-        <div>Burza ucebnic <Text text="current_year" />; <a href="/about"><Text text="about-title" /></a></div>
+        <div>
+            <div><Text text='name' /> <Text text="current_year" /></div>
+            <div><a href="/about"><Text text="about-title" /></a></div>
+        </div>
     </div>
     <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9">
         <svelte:component this={items[selected][1]} bind:selected={selected} />        

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'name' => 'Burza učebnic',
     'state-any' => 'Vše',
     'state-new' => 'Nová',
     'state-used' => 'Použitá',
