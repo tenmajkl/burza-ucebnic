@@ -52,7 +52,7 @@ class Books
         $book = new Book(
             $request->get('name'),
             $request->get('author'),
-            $request->get('release_year'),
+            (int) $request->get('release_year'),
             $request->get('publisher'),
         );
 
