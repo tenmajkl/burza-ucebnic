@@ -19,5 +19,6 @@
             <li>{ text 'app.about-classmates' }</li>
         </ul>
         <h1 class="text-2xl font-bold"><a href="https://github.com/tenmajkl/bs">GitHub</h1>
+        <h1 class="text-2xl font-bold"><a href="/login">{ text 'auth.login' }</h1>
     </main>
 { /block }

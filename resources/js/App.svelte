@@ -8,6 +8,8 @@
     import Wishlist from './pages/Wishlist.svelte';
     import Notifications from './pages/Notifications.svelte';
     import Profile from './pages/Profile.svelte';
+    import NotificationIcon from './components/NotificationIcon.svelte';
+    import { getNotificationCount } from './lib';
 
     const items = [
         ['offers', Offers, 'book'],
@@ -15,9 +17,18 @@
         ['wishlist', Wishlist, 'star'],
         ['add', Add, 'plus-circle'],
         ['my-offers', MyOffers, 'person-lines-fill'],
-        ['notifications', Notifications, 'bell'],
+        ['notifications', Notifications, NotificationIcon],
         ['profile', Profile, 'person-fill'],
     ];
+
+    let menu_data = {
+        notifications: 0,
+    };
+
+    getNotificationCount()
+        .then((data) => {
+            menu_data.notifications = data;
+        })
 
     let selected = 0; 
     
@@ -35,12 +46,12 @@
 
 <div class="md:grid md:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-10">
     <div class="fixed bottom-0 flex justify-around w-screen p-2 bg-white border-t-4 md:hidden border-primary shadow-2xl">
-        <Menu items={items} bind:selected={selected} />
+        <Menu items={items} bind:selected={selected} bind:data={menu_data} />
     </div>
     <div class="flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex shadow-lg">
         <div class="grid gap-4">
             <span class="text-xl"><Text text="title" /></span>
-            <Menu items={items} bind:selected={selected} />
+            <Menu items={items} bind:selected={selected} bind:data={menu_data} />
         </div>
         <div>
             <div><Text text='name' /> <Text text="current_year" /></div>
@@ -48,6 +59,6 @@
         </div>
     </div>
     <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9">
-        <svelte:component this={items[selected][1]} bind:selected={selected} />        
+        <svelte:component this={items[selected][1]} bind:selected={selected} bind:data={menu_data} />        
     </div>
 </div>

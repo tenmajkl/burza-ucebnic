@@ -26,6 +26,7 @@ Route::controller('wishlist', Wishlist::class);
 
 Route::post('notifications/read-all', [Notifications::class, 'readAll']);
 Route::post('notifications/clear', [Notifications::class, 'clear']);
+Route::get('notifications/unread', [Notifications::class, 'getUnread']);
 Route::controller('notifications', Notifications::class);
 
 Route::get('/rating/verify/{target}', [Rating::class, 'verify']);

@@ -6,6 +6,8 @@
 
     let notifications = [];
 
+    export let data;
+
     fetch('/api/notifications')
         .then(res => res.json())
         .then(data => {
@@ -53,18 +55,18 @@
 {#each notifications as notification}
     <div class="w-full p-2">
         {#if notification.type == 0} <!-- wishlist --> 
-            <Notification bind:notification={notification} title="wishlist" arg={notification.offer.name} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="wishlist" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                 <Offer offer={notification.offer} />
             </Notification>
         {:else if notification.type == 1} <!-- rating -->
-            <Notification bind:notification={notification} title="rating" arg={notification.offer.author_email} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="rating" arg={notification.offer.author_email} created_at={notification.created_at} bind:data={data}>
                 <Rating offer={notification.offer} />
             </Notification>
         {:else if notification.type == 2} <!-- active reservation --> 
-            <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
             </Notification>
         {:else if notification.type == 3}
-            <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at}>
+            <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                 <MyOffer offer={notification.offer} editing={null} openned={null} />
             </Notification>
         {:else}

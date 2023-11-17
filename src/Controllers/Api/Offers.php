@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
+use App\Contracts\Notifier;
 use App\Contracts\ORM;
 use App\Entities\Book;
 use App\Entities\BookState;
@@ -81,7 +82,7 @@ class Offers
         ];
     }
 
-    public function store(Application $app, ORM $orm, Auth $auth, Request $request): array|Response
+    public function store(Application $app, ORM $orm, Auth $auth, Request $request, Notifier $notifier): array|Response
     {
         $request->validate([
             'book' => 'numeric',
@@ -144,6 +145,10 @@ class Offers
         $orm->getEntityManager()->persist($offer)->run();
 
         file_put_contents($app->file('storage.images.offers.'.$offer->id, 'image'), $image);
+
+        foreach ($book->inquiries as $inquiry) {
+            $notifier->notifyWishlist($inquiry->user, $offer);
+        }
 
         return [
             'status' => '200',

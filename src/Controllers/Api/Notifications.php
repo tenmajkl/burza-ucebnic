@@ -34,6 +34,22 @@ class Notifications
         ];
     }
 
+    public function getUnread(Auth $auth, ORM $orm): array
+    {
+        $notifications = $orm->getORM()->getRepository(OfferNotification::class)
+                             ->select()
+                             ->where('user.id', $auth->user()->id)
+                             ->where('seen', '0')
+                             ->count()
+                         ;
+
+        return [
+            'status' => 200,
+            'message' => 'OK',
+            'data' => $notifications,
+        ];
+    }
+
     public function clear(Notifier $notifier, Auth $auth, ORM $orm)
     {
         $orm->db()->table('offer_notifications')

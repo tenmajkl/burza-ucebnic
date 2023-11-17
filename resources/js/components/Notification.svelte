@@ -2,12 +2,14 @@
     import Text from "../components/Text.svelte";
     import { slide } from 'svelte/transition';
     import { fade } from 'svelte/transition';
+    import { getNotificationCount } from '../lib';
 
     export let notification;
     export let emoji;
     export let title;
     export let arg;    
     export let created_at;
+    export let data;
 
     let openned = false;
 
@@ -24,6 +26,8 @@
             },
             body: '{}'
         })
+
+        getNotificationCount().then((res) => { data = res })
     }
 </script>
 <div class="gap-2 flex flex-col">

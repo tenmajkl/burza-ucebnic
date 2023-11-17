@@ -9,6 +9,7 @@ use App\Entities\Offer;
 use App\Entities\OfferNotification;
 use App\Entities\OfferNotificationType;
 use App\Entities\User;
+use Cycle\Database\Query\SelectQuery;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -54,9 +55,9 @@ class Notifier implements NotifierContract
 
     public function of(User $user): array
     {
-        return $this->orm->getORM()->getRepository(OfferNotification::class)->findAll([
+        return $this->orm->getORM()->getRepository(OfferNotification::class)->select()->where([
             'user.id' => $user->id,
-        ]);
+        ])->orderBy('id', SelectQuery::SORT_DESC)->fetchAll();
     }
 
     public function see(OfferNotification $notification): self
@@ -82,7 +83,7 @@ class Notifier implements NotifierContract
 
     private function mail(string $subject, string $arg, User $user): void
     {
-        $text = text('emoji-'.$subject).' '.str_replace('%arg', $arg, text('notification-'.$subject));
+        $text = text('app.emoji-'.$subject).' '.str_replace('%arg', $arg, text('app.notification-'.$subject));
         $message = (new Email())
             ->from(config('mail.from'))
             ->to($user->email.'@'.$user->year->school->email)
