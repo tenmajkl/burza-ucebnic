@@ -11,10 +11,13 @@
         { text admin.year-name }
         <input type="text" name="name" class="input">
     </div>
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full gap-2">
         { text admin.subjects }
-        <div id="subjects" class="w-full">
-            <input type="text" name="subject1" class="w-full mb-2 input" placeholder="1. { text admin.subject }">
+        <div id="subjects" class="w-full gap-2 flex flex-col">
+            <div class="flex items-center" id="subject1">
+                <input type="text" name="subject1" class="w-full input" placeholder="1. { text admin.subject }">
+                <i class="bi bi-x text-red text-xl" onclick="removeSubject(1)"></i>
+            </div>
         </div>
         <span id="add" class="text-center button" onclick="addSubject()"><i class="bi bi-plus"></i></span>
     </div>

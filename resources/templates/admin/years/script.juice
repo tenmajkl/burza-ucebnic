@@ -2,11 +2,24 @@
     function addSubject() {
         if (i == 16) return;
         i++;
-        let input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'subject' + i;
-        input.className = 'w-full mb-2 input';
-        input.placeholder = i + '. { text admin.subject }';
+        const input = document.getElementById('subject1').cloneNode(true);
+        input.id = 'subject' + i;
+        input.childNodes[1].placeholder = i + '. { text admin.subject }'
+        input.childNodes[1].name = 'subject' + i;
+        input.childNodes[1].value = '';
+        input.childNodes[3].attributes.onclick.value = "removeSubject(" + i + ")";
         document.getElementById('subjects').appendChild(input);
+    }
+
+    function removeSubject(id) {
+        document.getElementById('subject' + id).remove()
+        for (let index = id; index < i; index++) {
+            const input = document.getElementById('subject' + (index + 1));
+            input.id = 'subject' + index;
+            input.childNodes[1].placeholder = index + '. { text admin.subject }';
+            input.childNodes[1].name = 'subject' + index;
+            input.childNodes[2].onclick = 'removeSubject(' + index + ')';
+        }
+        i--;
     }
 </script>
