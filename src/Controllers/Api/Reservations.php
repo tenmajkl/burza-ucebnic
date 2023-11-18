@@ -13,7 +13,7 @@ use App\Entities\ReservationState;
 
 class Reservations
 {
-    public function make($target, Auth $auth, ORM $orm)
+    public function make($target, Auth $auth, ORM $orm, Notifier $notifier)
     {
         $offer = $orm->getORM()
             ->getRepository(Offer::class)
@@ -49,6 +49,8 @@ class Reservations
 
         $orm->getEntityManager()->persist($reservation)->run();
 
+        $notifier->notifyNewReservation($offer->user, $offer);
+
         return [
             'status' => '200',
             'message' => 'OK',
@@ -66,6 +68,7 @@ class Reservations
         ];
     }
 
+    // not sure what this function does?
     public function delete($target, ORM $orm, Auth $auth)
     {
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
@@ -191,8 +194,8 @@ class Reservations
         $offer->buyer = $reservation->user;
 
         $offer->reservations = [];
-        $notifier->notifyRating($auth->user(), $offer);
         $orm->getEntityManager()->persist($offer)->run();
+        $notifier->notifyRating($auth->user(), $offer);
 
         return redirect('/');
     }
@@ -210,7 +213,6 @@ class Reservations
         }
 
         $reservation->status = ReservationState::Denied;
-        $notifier->notifyRating($auth->user(), $reservation->offer);
         $offer = $reservation->offer;
         $deletion = $orm->getEntityManager()->persist($reservation);
 
@@ -229,6 +231,8 @@ class Reservations
         } else {
             $deletion->run();
         }
+
+        $notifier->notifyRating($auth->user(), $reservation->offer);
 
         // TODO less boilerplate, maybe
 
