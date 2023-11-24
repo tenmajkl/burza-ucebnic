@@ -21,7 +21,9 @@ class School
         #[Column(type: 'string')]
         public string $name,
         #[Column(type: 'string')]
-        public string $email
+        public string $email,
+        #[Column(type: 'string')]
+        public string $admin_email,
     ) {
     }
 }

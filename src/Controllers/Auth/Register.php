@@ -32,13 +32,19 @@ class Register
         $email = $request->get('email');
         [$login, $host] = explode('@', $email);
 
-        $school = $orm->getORM()->getRepository(School::class)->findOne(['email' => $host]);
+        $school = $orm->getORM()->getRepository(School::class)->select()
+                      ->where(['email' => $host])
+                      ->orWhere('admin_email' => $host)
+                      ->fetchAll();
 
-        if (null === $school) {
+        if ([] === $school) {
             Validator::addError('school-email', 'email', '');
 
             return template('auth.register');
         }
+
+        $school = $school[0];
+        $admin = $school->admin_email === $host;
 
         if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $login])) {
             Validator::addError('user-exists', 'email', '');
@@ -59,7 +65,7 @@ class Register
         $mailer->send($message);
 
         $password = password_hash($request->get('password'), PASSWORD_ARGON2I);
-        $session->set('verify_data', ['email' => $login, 'password' => $password, 'school' => $school->id, 'token' => $token]);
+        $session->set('verify_data', ['email' => $login, 'password' => $password, 'school' => $school->id, 'token' => $token, 'admin' => $admin]);
         $session->expireAt(3);
 
         return template('auth.register', message: 'auth.email-sent');

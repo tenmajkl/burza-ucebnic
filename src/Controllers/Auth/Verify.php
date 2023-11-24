@@ -25,6 +25,10 @@ class Verify
 
         $email = explode('@', $data['email']);
 
+        if ($session->get('admin')) {
+            // set admin gaddgasdg
+        }
+
         $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
 
         $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id, 'name' => ['!=' => 'admins']]);
