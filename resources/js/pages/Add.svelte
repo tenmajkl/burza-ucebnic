@@ -63,9 +63,7 @@
         <label for="subject" class="text-xs text-secondary"><Text text="year" /></label>
             <select id="year" name="year" class="input" bind:value={year} required>
                 {#each years as year, index}
-                    {#if year.name != 'admins'}
-                        <option value="{index}">{year.name}</option>
-                    {/if}
+                    <option value="{index}">{year.name}</option>
                 {/each}
             </select>
     </div>

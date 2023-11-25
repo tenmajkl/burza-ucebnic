@@ -22,20 +22,16 @@ Terminal::command('server', function () {
     exec('yarn run mix watch &');
 }, 'Starts server with mix watch');
 
-Terminal::command('school:make {name} {email}', function (ORM $orm, $name, $email) {
+Terminal::command('school:make {name} {email} {admin_email}', function (ORM $orm, $name, $email, $admin_email) {
     $school = new School(
         $name,
-        $email
-    );
-    $year = new Year(
-        'admins',
-        $school
+        $email,
+        $admin_email,
     );
     $password = base64_encode(random_bytes(16));
     Terminal::out('<div class="text-yellow">Mrkej na heslo: '.$password.'</div>');
     $password = password_hash($password, PASSWORD_DEFAULT);
-    $root = new User('root', $password, $year, 1);
+    $root = new User('root', $password, null, 1);
     $orm->getEntityManager()->persist($school)->run();
-    $orm->getEntityManager()->persist($year)->run();
     $orm->getEntityManager()->persist($root)->run();
 }, 'Creates new school');

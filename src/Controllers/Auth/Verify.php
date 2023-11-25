@@ -26,7 +26,13 @@ class Verify
         $email = explode('@', $data['email']);
 
         if ($session->get('admin')) {
-            // set admin gaddgasdg
+            $user = new User($email[0], $session->get('verify_data')['password'], null, 1);
+            $orm->getEntityManager()->persist($user)->run();
+            $session->dontExpire();
+            $session->remove('verify_data');
+
+            $session->set('email', $email);
+            return redirect('/');
         }
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
