@@ -64,7 +64,7 @@ class User implements Injectable
         #[Column(type: 'string')]
         public string $password,
         #[BelongsTo(target: Year::class, nullable: true)]
-        public ?Year $year,
+        public Year $year,
         #[Column(type: 'int')]
         public int $role,
     ) {

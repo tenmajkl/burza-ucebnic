@@ -54,6 +54,10 @@ class Years
             return error(404);
         }
 
+        if ($target->name === 'admins') {
+            return error(404);
+        }
+
         return template('admin.years.show', year: $target);
     }
 
@@ -64,6 +68,10 @@ class Years
         ], template('admin.years.create'));
 
         if (null === $target) {
+            return error(404);
+        }
+
+        if ($target->name === 'admins') {
             return error(404);
         }
 
@@ -84,6 +92,10 @@ class Years
     public function delete(?Year $target, ORM $orm, Auth $auth)
     {
         if (null === $target) {
+            return redirect('/admin/years');
+        }
+
+        if ($year->name === 'admins') {
             return redirect('/admin/years');
         }
 

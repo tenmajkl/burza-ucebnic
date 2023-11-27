@@ -34,7 +34,7 @@ class Register
 
         $school = $orm->getORM()->getRepository(School::class)->select()
                       ->where(['email' => $host])
-                      ->orWhere('admin_email' => $host)
+                      ->orWhere(['admin_email' => $host])
                       ->fetchAll();
 
         if ([] === $school) {

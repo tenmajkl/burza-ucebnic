@@ -30,7 +30,7 @@ class Users
 
     public function banMenu(?User $target, ORM $orm, Auth $auth)
     {
-        if (null === $target || $target->isBanned()) {
+        if (null === $target || $target->isBanned() || $target->id === $auth->user()->id) {
             return error(404);
         }
 
@@ -44,7 +44,7 @@ class Users
             'expires' => 'datetime',
         ], template('admin.users.ban'));
 
-        if (null === $target || $target->isBanned()) {
+        if (null === $target || $target->isBanned() || $target->id === $auth->user()->id) {
             return error(404);
         }
 
