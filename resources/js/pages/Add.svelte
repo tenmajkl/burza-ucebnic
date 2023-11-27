@@ -1,5 +1,7 @@
 <script>
     import Text from "../components/Text.svelte";
+    import imageCompression from 'browser-image-compression';
+
     let states = [];
     let years = [];
 
@@ -17,20 +19,22 @@
 
     export let selected = 0;
 
-    function send() {
-        let reader = new FileReader();
+    async function send() {
+        const image = document.querySelector('input[type=file]').files[0];
+        const options = {
+            maxSizeMB: 0.1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+        }
+
         try {
-            reader.readAsDataURL(document.querySelector('input[type=file]').files[0]);
-        } catch (_) {
-                result.message = translations['missing-image'];
+            const compressed = await imageCompression(image, options);
+            offer.image = await imageCompression.getDataUrlFromFile(compressed);
+        } catch (error) {
+            console.log(error);
             return;
         }
-        reader.onload = function () {
-            offer.image = reader.result;
-        };
-        reader.onerror = function (error) {
-            result.message = translations['broken-image'];
-        };
+
         fetch('/api/offers/create', {
             method: 'POST',
             headers: {
@@ -47,7 +51,6 @@
             }
         });
     }
-    // I usualy dont hate languages, but js...
 </script>
 
 <div class="text-2xl font-bold">
@@ -71,7 +74,7 @@
     <div class="flex overflow-x-auto md:col-span-2 gap-3 pb-2">
         {#if years[year]}
             {#each years[year].books as book}
-                <div class="w-1/4 font-bold card">
+                <div class="w-1/2 md:w-1/4 font-bold card">
                     <div ><img src="/img/cover/{book.id}.png" alt="Photo of {book.name}" class="object-cover w-full h-full rounded-md"></div>
                     <div>
                         <div class="text-xl">{book.name}</div>
