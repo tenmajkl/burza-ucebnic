@@ -19,7 +19,10 @@
 
     export let selected = 0;
 
+    let loading = 0;
+
     async function send() {
+        loading = 1;
         const image = document.querySelector('input[type=file]').files[0];
         const options = {
             maxSizeMB: 0.1,
@@ -50,6 +53,7 @@
                 selected = 0;
             }
         });
+        loading = 0;
     }
 </script>
 
@@ -108,4 +112,12 @@
     <div class="text-xs text-secondary"><Text text="photo" /></div>
     <input type="file" class="input" required></div>
 </div>
-<button class="button mt-2" on:click={send} ><Text text="add-button" /></button>
+{#if loading}
+    <button class="button mt-2">
+        <div class="animate-spin">
+            <i class="bi bi-arrow-clockwise"></i>
+        </div>
+    </button>
+{:else}
+    <button class="button mt-2" on:click={send}><Text text="add-button" /></button>
+{/if}
