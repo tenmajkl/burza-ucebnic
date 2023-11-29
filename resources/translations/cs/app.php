@@ -22,7 +22,7 @@ return [
     'about-title' => 'O projektu',
     'about-content' => 'Projekt má za cíl digitalizovat fyzickou burzu učebnic, probíhající na středních školách skrz webovou aplikaci, kde mohou studenti vkládat kromě nabídek také poptávky. Aplikace je navržená tak, aby ji mohlo využívat více škol nezávisle na sobě. Projekt je zároveň součást Středoškolské Odborné Činnosti Michala Křipače.',
     'about-thanks' => 'Poděkování',
-    'about-classmates' => 'Spolužáci, kteří se taktéž věnují SOČ',
+    'about-classmates' => 'Spolužáci, kteří se taktéž věnují, nebo věnovali SOČ',
 
     // Feedback
     'feedback-title' => 'Zpětná vazba',
