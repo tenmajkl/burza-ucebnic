@@ -14,7 +14,7 @@ class Auth implements AuthContract
     public const Roles = [
         0 => 'user',
         1 => 'admin',
-        2 => 'majkel',
+        2 => 'hybrid',
     ];
 
     public function __construct(

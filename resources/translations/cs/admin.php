@@ -16,7 +16,7 @@ return [
 
     'admin' => 'Admin',
     'user' => 'Uživatel',
-    'majkel' => 'Majkel',
+    'hybrid' => 'Hybrid',
 
     // Menu
 

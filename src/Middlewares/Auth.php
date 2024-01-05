@@ -42,7 +42,7 @@ class Auth
         }
     }
 
-    public function onlyMajkel(AuthContract $auth)
+    public function onlyHybrid(AuthContract $auth)
     {
         if (2 !== $auth->user()->role) {
             return error(404);
