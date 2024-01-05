@@ -18,7 +18,7 @@ return [
     'reset-password' => 'Obnovit heslo',
     'resetting-password' => 'Obnovení hesla',
     'new-password' => 'Nové heslo',
-    'reset-email-sent' => 'Email pro resetování hesla poslán.',
+    'reset-email-sent' => 'Pokud je adresa v databázi, byl na ni poslán email pro resetování hesla.',
     'email-sent' => 'Ověřovací email poslán',
     'send-email' => 'Poslat e-mail',
     'verify-subject' => 'Ověření',

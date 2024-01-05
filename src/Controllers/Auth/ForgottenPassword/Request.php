@@ -28,8 +28,8 @@ class Request
         ], template('auth.forgotten-password.request'));
 
         if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => explode('@', $request->get('email'))[0]]))) {
-            Validator::addError('invalid-email', 'email', '');
-            return template('auth.forgotten-password.request');
+            // trolling hackers, they cant find out if the users is registered gg
+            return template('auth.forgotten-password.request', message: 'auth.reset-email-sent');
         }
 
         $token = TokenGenerator::generate();

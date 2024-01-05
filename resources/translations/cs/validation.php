@@ -17,7 +17,6 @@ return [
     'doesntContain' => 'Hodnota %field není platná.',
     'missing' => 'Hodnota %field chybí.',
     'school-email' => 'Hodnota %field musí být email existující školy.',
-    'invalid-email' => 'Uživatel s tímto e-mailem neexistuje',
     'unknown-year' => 'Ročník neexistuje.',
     'unknown-book' => 'Učebnice neexistuje.',
     'missing-image' => 'Chybí obrázek.',
