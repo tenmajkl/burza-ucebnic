@@ -194,6 +194,16 @@ class Reservations
         $offer->buyer = $reservation->user;
 
         $offer->reservations = [];
+
+        $inquiry = $orm->getORM->getRepository(Inquiry::class)->findOne([
+            'book.id' => $offer->book->id,
+            'user.id' => $auth->user->id,
+        ]);
+
+        if ($inquiry) {
+            $orm->getEntityManager()->delete($inquiry); 
+        }
+
         $orm->getEntityManager()->persist($offer)->run();
         $notifier->notifyRating($auth->user(), $offer);
 
