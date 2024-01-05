@@ -31,7 +31,9 @@ class Year implements \JsonSerializable, Injectable
         #[Column(type: 'string')]
         public string $name,
         #[BelongsTo(target: School::class)]
-        public School $school
+        public School $school,
+        #[Column(type: 'boolean')]
+        public int $visible = 1, // whenever this year has any books that can be sold
     ) {
     }
 
@@ -48,6 +50,7 @@ class Year implements \JsonSerializable, Injectable
                 ),
                 []
             ),
+            'visible' => $this->visible,
         ];
     }
 }

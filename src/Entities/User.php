@@ -63,7 +63,7 @@ class User implements Injectable
         public string $email,
         #[Column(type: 'string')]
         public string $password,
-        #[BelongsTo(target: Year::class, nullable: true)]
+        #[BelongsTo(target: Year::class)]
         public Year $year,
         #[Column(type: 'int')]
         public int $role,

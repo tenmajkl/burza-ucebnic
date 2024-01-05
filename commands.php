@@ -28,7 +28,7 @@ Terminal::command('school:make {name} {email} {adminEmail}', function (ORM $orm,
         $email,
         $adminEmail,
     );
-    $year = new Year('admins', $school);
+    $year = new Year('teachers', $school, 0);
     $password = base64_encode(random_bytes(16));
     Terminal::out('<div class="text-yellow">Mrkej na heslo: '.$password.'</div>');
     $password = password_hash($password, PASSWORD_DEFAULT);

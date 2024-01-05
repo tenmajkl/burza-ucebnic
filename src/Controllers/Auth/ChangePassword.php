@@ -24,15 +24,15 @@ class ChangePassword
 
         $user = $auth->user();
 
-        if (!password_verify($request->get('password'), $user->password)) {
+        if (!password_verify($request->get('old_password'), $user->password)) {
             return response([
                 'status' => 400,
                 'message' => text('auth.wrong-password'),
             ])->code(400);
         }
 
-        $user->password = $request->get('password');
-        $orm->getEntityManager()->persist($user);
+        $user->password = password_hash($request->get('password'), PASSWORD_ARGON2I);
+        $orm->getEntityManager()->persist($user)->run();
 
         return [
             'status' => 200,

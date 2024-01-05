@@ -25,8 +25,15 @@ class Verify
 
         $email = explode('@', $data['email']);
 
-        if ($session->has('admin')) {
-            $user = new User($email[0], $session->get('verify_data')['password'], null, 1);
+        $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
+
+        if ($session->has('admin') && $session->get('admin')) {
+            $teachers = $orm->getORM()->getRepository(Year::class)
+                                      ->findOne([
+                                          'school_id' => $school->id,
+                                          'name' => 'teachers',
+                                      ]);
+            $user = new User($email[0], $session->get('verify_data')['password'], $teachers, 1);
             $orm->getEntityManager()->persist($user)->run();
             $session->dontExpire();
             $session->remove('verify_data');
@@ -35,9 +42,7 @@ class Verify
             return redirect('/');
         }
 
-        $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
-
-        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id, 'name' => ['!=' => 'admins']]);
+        $years = $orm->getORM()->getRepository(Year::class)->findAll(['school_id' => $school->id, 'visible' => true]);
 
         return template('auth.verify', years: $years);
     }

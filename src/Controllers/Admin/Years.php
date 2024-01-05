@@ -35,7 +35,7 @@ class Years
             'name' => 'max:32',
         ], template('admin.years.create'));
 
-        $year = new Year($request->get('name'), $auth->user()->year->school);
+        $year = new Year($request->get('name'), $auth->user()->year->school, 1);
 
         for ($index = 1; $index <= 16; ++$index) {
             if (null === $request->get("subject{$index}")) {
