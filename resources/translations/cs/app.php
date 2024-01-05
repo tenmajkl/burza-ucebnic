@@ -18,6 +18,11 @@ return [
     'offers-error' => 'Nabídky neexistují',
     'title' => 'Burza Učebnic',
 
+    'cookies-banner' => 'Tento web využívá cookies, které jsou nezbytně nutné pro chod aplikace.',
+    'cookies-accept' => 'Rozumím!',
+    'cookies-more' => 'Zjistit více',
+    'cookies-title' => 'Ukládané cookies',
+
     // About
     'about-title' => 'O projektu',
     'about-content' => 'Projekt má za cíl digitalizovat fyzickou burzu učebnic, probíhající na středních školách skrz webovou aplikaci, kde mohou studenti vkládat kromě nabídek také poptávky. Aplikace je navržená tak, aby ji mohlo využívat více škol nezávisle na sobě. Projekt je zároveň součást Středoškolské Odborné Činnosti Michala Křipače.',

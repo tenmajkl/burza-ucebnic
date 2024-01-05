@@ -21,3 +21,5 @@ Route::get('/', [Welcome::class, 'handle']);
 
 Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSeller']); // to show specific message, this route doesnt have mauth middleware
 Route::template('/about', 'about');
+
+Route::template('cookies');

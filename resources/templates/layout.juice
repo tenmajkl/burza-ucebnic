@@ -14,7 +14,28 @@
     -->
     <link rel="stylesheet" href="/css/app.css">
 </head>
-<body class="">
+<body>
     { yield 'content' }
 </body>
+<script>
+
+let cookies = {};
+document.cookie.split("; ").forEach((cookie) => \{
+    let data = cookie.split('=');
+    cookies[data[0]] = data[1];
+});
+
+const cookies_banner = '<div class="fixed bottom-0 p-4 w-screen" id="cookies"><div class="card flex justify-between items-center"><div>{text app.cookies-banner} (<a href="/cookies">{text app.cookies-more}</a>)</div><div class="button" onclick="acceptCookies()">{text app.cookies-accept}</div></div></div>';
+
+if (cookies['cookies_accepted'] != 'true') \{ 
+    document.body.innerHTML += cookies_banner;
+}
+
+function acceptCookies() {
+   cookies.cookies_accepted = true;
+   document.cookie = 'cookies_accepted=true'
+   document.getElementById('cookies').remove();
+}
+
+</script>
 </html>

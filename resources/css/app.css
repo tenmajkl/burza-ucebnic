@@ -19,11 +19,11 @@
 }
 
 .alert {
-     @apply bg-red p-1 rounded-md text-white
+     @apply bg-red p-1 rounded-md text-white shadow-xl
 }
 
 .alert-success {
-     @apply bg-blue p-1 rounded-md text-white
+     @apply bg-blue p-1 rounded-md text-white shadow-xl
 }
 
 .card {
