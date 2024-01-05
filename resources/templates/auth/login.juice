@@ -18,7 +18,10 @@
             <input name="email" type="email" class="mb-2 input" placeholder="{ text auth.email }">
             <input name="password" type="password" class="mb-2 input" placeholder="{ text auth.password }">
             <button class="button">{ text auth.login }</button>
-            <a href="/forgotten-password">{ text auth.forgotten-password }</a>
+            <div class="flex gap-1">
+                <a href="/forgotten-password">{ text auth.forgotten-password }</a>|
+                <a href="/register">{ text auth.register-title }</a>
+            </div>
         </form>
     </main>
 { /block }

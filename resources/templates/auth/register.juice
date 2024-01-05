@@ -18,6 +18,7 @@
             <input name="email" type="email" class="mb-2 input" placeholder="{ text auth.email }">
             <input name="password" type="password" class="mb-2 input" placeholder="{ text auth.password }">
             <button class="button hover:bg-primary hover:text-white">{ text auth.register }</button>
+            <a href="/login">{ text auth.login-title }</a>
         </form>
     </main>
 { /block }
