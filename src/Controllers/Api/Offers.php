@@ -147,7 +147,9 @@ class Offers
         file_put_contents($app->file('storage.images.offers.'.$offer->id, 'image'), $image);
 
         foreach ($book->inquiries as $inquiry) {
-            $notifier->notifyWishlist($inquiry->user, $offer);
+            if ($offer->price <= $inquiry->expected_price) {
+                $notifier->notifyWishlist($inquiry->user, $offer);
+            }
         }
 
         return [
