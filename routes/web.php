@@ -15,9 +15,7 @@ Route::collection(function () {
     Route::controller('feedback', Feedback::class);
     Route::get('reservations/forward/{target}', [Reservations::class, 'forward']);
     Route::get('reservations/deny/{target}', [Reservations::class, 'deny']);
-})->middleware([Auth::class, 'onlyAuthenticated'])
-    ->middleware([Auth::class, 'onlyUser'])
-;
+})->middleware([Auth::class, 'onlyAuthenticated']);
 
 Route::get('/', [Welcome::class, 'handle']);
 

@@ -25,7 +25,7 @@ class Verify
 
         $email = explode('@', $data['email']);
 
-        if ($session->get('admin')) {
+        if ($session->has('admin')) {
             $user = new User($email[0], $session->get('verify_data')['password'], null, 1);
             $orm->getEntityManager()->persist($user)->run();
             $session->dontExpire();

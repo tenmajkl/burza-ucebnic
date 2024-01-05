@@ -12,6 +12,7 @@ use Lemon\Http\Session;
 use Lemon\Templating\Template;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Lemon\Validator;
 
 class Request
 {
@@ -27,7 +28,8 @@ class Request
         ], template('auth.forgotten-password.request'));
 
         if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => explode('@', $request->get('email'))[0]]))) {
-            return template('auth.forgotten-password.request', message: 'auth.wrong-email');
+            Validator::addError('invalid-email', 'email', '');
+            return template('auth.forgotten-password.request');
         }
 
         $token = TokenGenerator::generate();

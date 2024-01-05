@@ -144,6 +144,10 @@ class Users
             return error(404);
         }
 
+        if ($target->id === $auth->user()->id) {
+            return error(400);
+        }
+
         $year = $orm->getORM()->getRepository(Year::class)->findOne([
             'id' => $request->get('year'),
         ]);

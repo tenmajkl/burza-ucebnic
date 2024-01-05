@@ -16,10 +16,6 @@ class Welcome
             return template('about');
         }
 
-        if ($auth->user()->role === 1) {
-            return redirect('/admin');
-        }
-
         return template('welcome');
     }
 }

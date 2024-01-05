@@ -34,18 +34,4 @@ class Auth
             return error(404);
         }
     }
-
-    public function onlyUser(AuthContract $auth)
-    {
-        if (1 === $auth->user()->role) {
-            return redirect('/admin/');
-        }
-    }
-
-    public function onlyHybrid(AuthContract $auth)
-    {
-        if (2 !== $auth->user()->role) {
-            return error(404);
-        }
-    }
 }
