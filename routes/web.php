@@ -23,3 +23,4 @@ Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSell
 Route::template('/about', 'about');
 
 Route::template('cookies');
+Route::template('personal_info');

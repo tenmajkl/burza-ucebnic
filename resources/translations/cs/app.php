@@ -21,8 +21,13 @@ return [
     'cookies-banner' => 'Tento web využívá cookies, které jsou nezbytně nutné pro chod aplikace.',
     'cookies-accept' => 'Rozumím!',
     'cookies-more' => 'Zjistit více',
+    'cookies-header' => 'Web ukládá následující cookies:',
+    'cookies-note' => 'Všechny ukládané cookies jsou nutné pro bezpečnou funkcionalitu webu.', 
     'cookies-title' => 'Ukládané cookies',
-
+    'cookies-session' => 'Udržuje kontext při posílání požadavků.',
+    'cookies-csrf' => 'Ochrana před CSRF útokem.',
+    'cookies-accepted' => 'Informace, zda uživatel souhlasil z cookies.',
+ 
     // About
     'about-title' => 'O projektu',
     'about-content' => 'Projekt má za cíl digitalizovat fyzickou burzu učebnic, probíhající na středních školách skrz webovou aplikaci, kde mohou studenti vkládat kromě nabídek také poptávky. Aplikace je navržená tak, aby ji mohlo využívat více škol nezávisle na sobě. Projekt je zároveň součást Středoškolské Odborné Činnosti Michala Křipače.',

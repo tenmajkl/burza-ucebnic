@@ -1,0 +1,25 @@
+{ extends 'layout' }
+
+{ block 'title' } 
+    { text app.cookies-title }
+{ /block }
+
+{ block 'content' }
+    <main class="w-screen h-screen flex flex-col items-center justify-center p-4 gap-1">
+
+        <div class="sm:w-1/2 2xl:w-1/6">
+            <h1 class="text-2xl font-bold">Zásady zpracování osobních údajů</h1>
+            Zpracováváme následující údaje:
+            <ul class="list-disc list-inside">
+                <li>e-mailovou adresu</li>
+                <li>školu a ročník, který navštěvujete</li>
+                <li>IP adresu</li>
+                <li>soukromé zprávy při domlouvání převzetí</li>
+            </ul>
+
+            <p>K vaší e-mailové adrese, a škole mají přístup všichni registrovaní nakupující z vaší školy (pouze v přípaďe, že něco prodáváte). Dále také školní administrátoři.</p>
+            <p>K vašemu ročníku mají přístup pouze administrátoři vaší školy.</p>
+            <p>Ke všem osobním údajům mají přistup správci serveru.</p>
+        </div>
+    </main>
+{ /block }

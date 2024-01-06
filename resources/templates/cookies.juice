@@ -5,5 +5,13 @@
 { /block }
 
 { block 'content' }
-    tbd
+    <main class="w-screen h-screen flex flex-col items-center justify-center p-4 gap-1">
+        <h1 class="text-2xl font-bold">{ text app.cookies-header }</h1>
+        <ul class="list-disc">
+            <li>PHP_SESSION &#45; { text app.cookies-session }</li>
+            <li>CSRF_TOKEN &#45; { text app.cookies-csrf }</li>
+            <li>cookies_accepted &#45; { text app.cookies-accepted }</li>
+        </ul>
+        <div class="italic">{ text app.cookies-note }</div>
+    </main>
 { /block }
