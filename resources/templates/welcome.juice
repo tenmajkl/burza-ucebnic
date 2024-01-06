@@ -9,6 +9,7 @@
         <App />
     </div>
     <script>
+        let admin = {{ $admin }};
         let translations = {{ \Lemon\Translator::translations('app') }}
     </script>
     <script src="js/main.js"></script>

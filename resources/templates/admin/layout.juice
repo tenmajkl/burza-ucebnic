@@ -12,7 +12,7 @@
         <div class="fixed bottom-0 flex justify-around w-screen p-2 bg-white border-t-4 md:hidden border-primary">
             { include 'admin.menu' }
         </div>
-        <div class="flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex">
+        <div class="flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex shadow-lg">
             <div class="grid gap-4">
                 <span class="text-xl">{ text admin.title }</span>
                 { include 'admin.menu' }

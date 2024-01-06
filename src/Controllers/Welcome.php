@@ -16,6 +16,6 @@ class Welcome
             return template('about');
         }
 
-        return template('welcome');
+        return template('welcome', admin: $auth->user()->role !== 0);
     }
 }

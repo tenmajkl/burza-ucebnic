@@ -9,6 +9,7 @@
     import Notifications from './pages/Notifications.svelte';
     import Profile from './pages/Profile.svelte';
     import NotificationIcon from './components/NotificationIcon.svelte';
+    import Admin from './pages/Admin.svelte';
     import { getNotificationCount } from './lib';
 
     const items = [
@@ -19,6 +20,7 @@
         ['my-offers', MyOffers, 'person-lines-fill'],
         ['notifications', Notifications, NotificationIcon],
         ['profile', Profile, 'person-fill'],
+        admin ? ['admin', Admin, 'tools'] : [],
     ];
 
     let menu_data = {

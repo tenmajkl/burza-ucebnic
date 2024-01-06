@@ -18,6 +18,9 @@ return [
     'offers-error' => 'Nabídky neexistují',
     'title' => 'Burza Učebnic',
 
+    'admin' => 'Administrace',
+    'market' => 'Burza',
+
     'cookies-banner' => 'Tento web využívá cookies, které jsou nezbytně nutné pro chod aplikace.',
     'cookies-accept' => 'Rozumím!',
     'cookies-more' => 'Zjistit více',
