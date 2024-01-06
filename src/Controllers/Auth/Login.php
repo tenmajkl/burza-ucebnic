@@ -31,6 +31,10 @@ class Login
             'email' => $email,
         ]);
 
+        if (!$user !password_verify($request->get('password'), $user->password)) {
+            return template('auth.login', message: 'auth.error');
+        }
+
         $school = $user->year->school;
 
         $expected_host = match ($user->role) {
@@ -38,10 +42,7 @@ class Login
             1 => $school->admin_email,
         };
 
-        if (!$user 
-            || !password_verify($request->get('password'), $user->password)
-            || $host !== $expected_host
-        ) {
+        if ($host !== $expected_host) {
             return template('auth.login', message: 'auth.error');
         }
 
