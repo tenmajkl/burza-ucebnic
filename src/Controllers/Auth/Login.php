@@ -35,7 +35,8 @@ class Login
             return template('auth.login', message: 'auth.error');
         }
 
-        $school = $user->year->school;
+        $year = $user->year;
+        $school = $year->school;
 
         $expected_host = match ($user->role) {
             0 => $school->email,
