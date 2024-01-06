@@ -27,7 +27,17 @@ return [
     'cookies-session' => 'Udržuje kontext při posílání požadavků.',
     'cookies-csrf' => 'Ochrana před CSRF útokem.',
     'cookies-accepted' => 'Informace, zda uživatel souhlasil z cookies.',
- 
+
+    'personal-info-title' => 'Zásady zpracování osobních údajů',
+    'personal-info-list'=> 'Zpracováváme následující údaje:',
+    'personal-info-email' => 'e-mailovou adresu',
+    'personal-info-school-year' => 'školu a ročník, který navštěvujete',
+    'personal-info-ip' => 'IP adresu',
+    'personal-info-pm' => 'soukromé zprávy při domlouvání převzetí',
+    'personal-info-email-access' => 'K vaší e-mailové adrese, a škole mají přístup všichni registrovaní nakupující z vaší školy (pouze v přípaďe, že něco prodáváte). Dále také školní administrátoři.',
+    'personal-info-year-access' => 'K vašemu ročníku mají přístup pouze administrátoři vaší školy.',
+    'personal-info-all-access' => 'Ke všem osobním údajům mají přistup správci serveru.', 
+
     // About
     'about-title' => 'O projektu',
     'about-content' => 'Projekt má za cíl digitalizovat fyzickou burzu učebnic, probíhající na středních školách skrz webovou aplikaci, kde mohou studenti vkládat kromě nabídek také poptávky. Aplikace je navržená tak, aby ji mohlo využívat více škol nezávisle na sobě. Projekt je zároveň součást Středoškolské Odborné Činnosti Michala Křipače.',
