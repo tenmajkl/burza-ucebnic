@@ -25,7 +25,9 @@ class Mailer implements MailerInterface
 
     public function send(RawMessage $message, Envelope $envelope = null): void
     {
-        d($message); return; // dirty debugging practice
+        if (config('debug.debug')) {
+            d($message); return; // dirty debugging practice
+        }
         $this->mailer->send($message, $envelope);
     }
 }
