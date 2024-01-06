@@ -32,5 +32,7 @@ Route::get('upload/{password}', function($password) {
 
     exec('git pull; yarn mix', $output);
 
-    return "uploaded&lt;&lt;".$output;
+    d($output);
+
+    return "uploaded&lt;&lt;";
 });
