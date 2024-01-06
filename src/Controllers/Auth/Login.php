@@ -31,7 +31,7 @@ class Login
             'email' => $email,
         ]);
 
-        if (!$user !password_verify($request->get('password'), $user->password)) {
+        if (!$user || !password_verify($request->get('password'), $user->password)) {
             return template('auth.login', message: 'auth.error');
         }
 
