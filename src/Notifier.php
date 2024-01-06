@@ -86,7 +86,7 @@ class Notifier implements NotifierContract
         $text = text('app.emoji-'.$subject).' '.str_replace('%arg', $arg, text('app.notification-'.$subject));
         $message = (new Email())
             ->from(config('mail.from'))
-            ->to($user->email.'@'.$user->year->school->email)
+            ->to($user->email())
             ->subject($text)
             ->html(template('mail.notifications', text: $text)->render())
         ;

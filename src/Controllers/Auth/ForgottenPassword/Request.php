@@ -27,8 +27,21 @@ class Request
             'email' => 'email',
         ], template('auth.forgotten-password.request'));
 
-        if (is_null($orm->getORM()->getRepository(User::class)->findOne(['email' => explode('@', $request->get('email'))[0]]))) {
+        [$email, $host] = explode('@', $request->get('email'));
+
+        $users = $orm->getORM()->getRepository(User::class)->select()->where('email', $email)->where(function($select) use ($host) {
+            $select->where('year.school.email', $host)
+                   ->orWhere('year.school.admin_email', $host);
+        })->fetchAll();
+
+        if (!isset($users[0])) {
             // trolling hackers, they cant find out if the users is registered gg
+            return template('auth.forgotten-password.request', message: 'auth.reset-email-sent');
+        }
+
+        $user = $users[0];
+
+        if ($user->email() !== $request->get('email')) {
             return template('auth.forgotten-password.request', message: 'auth.reset-email-sent');
         }
 

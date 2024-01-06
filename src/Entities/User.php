@@ -70,6 +70,16 @@ class User implements Injectable
     ) {
     }
 
+    /**
+     * Returns whole e-mail address
+     */
+    public function email(): string
+    {
+        $school = $this->year->school;
+        $host = $this->year->name === 'teachers' ? $school->admin_email : $school->email;
+        return $this->email.'@'.$host;
+    }
+
     public function countRating()
     {
         $sum = 0;

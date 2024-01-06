@@ -21,6 +21,9 @@ $application = new Application(__DIR__);
 // --- Loading default Lemon services ---
 $application->loadServices();
 
+$application->add(App\Logger::class);
+$application->alias(Lemon\Contracts\Logging\Logger::class, App\Logger::class);
+
 // --- Loading Zests for services ---
 $application->loadZests();
 
