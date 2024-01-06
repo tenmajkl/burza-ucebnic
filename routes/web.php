@@ -24,15 +24,3 @@ Route::template('/about', 'about');
 
 Route::template('cookies');
 Route::template('personal_info');
-
-Route::get('upload/{password}', function($password) {
-    if (!password_verify($password, '$argon2i$v=19$m=65536,t=4,p=1$cXdrVVQwLmN5ckJXRU51ZQ$QVr3QBUj/B0bJ+ODFlZjSpPwn2pkTf48J+hGlGql9hU')) {
-        return error(404);
-    }
-
-    exec('git pull; yarn mix', $output);
-
-    d($output);
-
-    return "uploaded&lt;&lt;";
-});

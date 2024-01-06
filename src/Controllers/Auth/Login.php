@@ -35,6 +35,8 @@ class Login
             return template('auth.login', message: 'auth.error');
         }
 
+        print_r($user);
+        die();
         $year = $user->year;
         $school = $year->school;
 
