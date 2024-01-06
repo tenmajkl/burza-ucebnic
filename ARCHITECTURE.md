@@ -1,6 +1,6 @@
 # Architektura
 
-- cela aplikace bude postavena na extremni duvere
+- cela aplikace bude postavena na extremni duvere (real)
 - akorat ze vubec, je tam stale osobni kontakt, pokud si to nekdo rozmysli na miste, muze, tahle aplikace jen dava moznost prodat vse a ve vetsim casovem useku
 
 ## Vyhody
