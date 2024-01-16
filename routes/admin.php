@@ -21,3 +21,10 @@ $users->add('{target}/ban', 'get', [Users::class, 'banMenu']);
 $users->add('{target}/ban', 'post', [Users::class, 'ban']);
 $users->add('{target}/unban', 'get', [Users::class, 'unban']);
 
+Route::get('/logs', function(\App\Auth $auth) {
+    if ($auth->user()->email !== 'kripa19111') {
+        return error(404);
+    }
+
+    return file_get_contents(\Lemon\Config::file('logging.file', 'log'));
+});
