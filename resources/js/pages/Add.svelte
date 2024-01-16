@@ -104,7 +104,7 @@
         <label for="subject" class="text-xs text-secondary"><Text text="book-state" /></label>
         <select id="subject" name="subject" class="input" bind:value={offer.state} required>
             {#each states as state, id}
-                <option value="{id}"><Text text="state-{state}" /></option>
+                <option value="{id + 1}"><Text text="state-{state}" /></option>
             {/each}
         </select>
     </div>
