@@ -48,7 +48,7 @@ class Notifier implements NotifierContract
     public function notifyNewReservation(User $user, Offer $offer): self
     {
         $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
-        $this->mail('new-reservations', $offer->book->name, $user);
+        $this->mail('new-reservation', $offer->book->name, $user);
 
         return $this;
     }

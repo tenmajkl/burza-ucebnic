@@ -13,8 +13,8 @@ Route::collection(function () {
     Route::get('static/img/offers/{image}', [Files::class, 'offer']);
     Route::controller('change-password', \App\Controllers\Auth\ChangePassword::class);
     Route::controller('feedback', Feedback::class);
-    Route::get('reservations/forward/{target}', [Reservations::class, 'forward']);
-    Route::get('reservations/deny/{target}', [Reservations::class, 'deny']);
+    Route::post('reservations/forward/{target}', [Reservations::class, 'forward']);
+    Route::post('reservations/deny/{target}', [Reservations::class, 'deny']);
 })->middleware([Auth::class, 'onlyAuthenticated']);
 
 Route::get('/', [Welcome::class, 'handle']);

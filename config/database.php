@@ -17,7 +17,7 @@ return [
             ),
             queryCache: true,
         ),
-        'mysql' => new Config\MySQLDriverConfig(
+        'mysql' => defined('PDO::MYSQL_ATTR_INIT_COMMAND') ? new Config\MySQLDriverConfig(
             connection: new Config\MySQL\TcpConnectionConfig(
                 database: Env::get('DB_DATABASE', ''),
                 host: Env::get('DB_HOST', ''),
@@ -26,6 +26,6 @@ return [
                 password: Env::get('DB_PASSWORD', '')
             ),
             queryCache: true,
-        ),
+        ) : null,
     ],
 ];

@@ -94,7 +94,8 @@ return [
     'order-acceptance-fail' => 'Skenovaná objednávka neexistuje nebo k ní nemáte přístup.',
     'order-acceptance-unauthorized' => 'Pro zobrazení objednávky se musíte přihlásit.',
     'reserved-by' => 'Rezervováno uživatelem',
-    'order-accept' => 'Předat',
+    'order-accept' => 'Předáno',
+    'order-deny' => 'Nepředáno',
 
     // Wishlist
 
