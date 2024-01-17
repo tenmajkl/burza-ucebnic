@@ -101,7 +101,7 @@ class Offer implements \JsonSerializable, Injectable
             'id' => $this->id,
             'name' => $this->book->name,
             'price' => $this->price,
-            'state' => $this->state,
+            'state' => $this->state->name(),
             'author_email' => $this->user->email,
             'author_rating' => $this->user->countRating(),
             'created_at' => diff($this->createdAt),

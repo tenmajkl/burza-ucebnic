@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
-enum BookState: string
+enum BookState: int 
 {
-    case Any = 'any';
-    case New = 'new';
-    case Used = 'used';
-    case Damaged = 'damaged';
+    case Any = 0;
+    case New = 1;
+    case Used = 2;
+    case Damaged = 3;
 
     public static function fromId(int $id): ?self
     {
@@ -20,6 +20,26 @@ enum BookState: string
             3 => self::Damaged,
             default => null
         };
+    }
+
+    public function name(): string
+    {
+        return match($this) {
+            self::Any => 'any',
+            self::New => 'new',
+            self::Used => 'used',
+            self::Damaged => 'damaged',
+        };
+    }
+
+    public static function all(): array
+    {
+        return [
+            'any',
+            'new',
+            'used',
+            'damaged',
+        ];
     }
 
     /**

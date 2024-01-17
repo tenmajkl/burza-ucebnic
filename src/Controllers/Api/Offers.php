@@ -66,7 +66,7 @@ class Offers
     {
         return [
             'subjects' => $auth->user()->year->subjects,
-            'states' => BookState::cases(),
+            'states' => BookState::all(),
             'sorts' => OfferSort::cases(),
         ];
     }
@@ -74,7 +74,7 @@ class Offers
     public function create(ORM $orm, Auth $auth): array
     {
         $years = $orm->getORM()->getRepository(Year::class)->findAll(['school.id' => $auth->user()->year->school->id, 'id' => ['!=' => $auth->user()->year->id], 'visible' => true]);
-        $states = BookState::cases();
+        $states = BookState::all();
 
         return [
             'years' => $years,
