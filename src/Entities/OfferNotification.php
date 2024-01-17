@@ -37,7 +37,7 @@ class OfferNotification implements \JsonSerializable, Injectable
         #[Column(type: 'int', typecast: OfferNotificationType::class)]
         public OfferNotificationType $type,
         #[Column(type: 'bool')]
-        public int $seen = 0,
+        public int|bool $seen = 0,
     ) {
     }
 
