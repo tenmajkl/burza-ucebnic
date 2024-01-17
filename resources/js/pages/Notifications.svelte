@@ -65,7 +65,7 @@
         {:else if notification.type == 2} <!-- active reservation --> 
             <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
             </Notification>
-        {:else if notification.type == 3}
+        {:else if notification.type == 3} <!-- new reservation -->
             <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                 <MyOffer offer={notification.offer} editing={null} openned={null} />
             </Notification>

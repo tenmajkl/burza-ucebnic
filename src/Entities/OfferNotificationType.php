@@ -23,6 +23,7 @@ enum OfferNotificationType: int
             0 => self::Wishlist,
             1 => self::Rating,
             2 => self::ActiveReseration,
+            3 => self::NewReservation,
             default => throw new \Exception('Unexpected value: '.$value),
         };
     }

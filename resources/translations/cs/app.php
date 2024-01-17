@@ -136,7 +136,7 @@ return [
     'notification-wishlist' => 'Učebnice "%arg" je nyní k dispozici!',
     'notification-rating' => 'Jak jste byli spokojeni s prodávajícím @%arg?',
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
-    'notifications-new-reservations' => 'Nová rezervace od uživatele @%arg!',
+    'notification-new-reservation' => 'Nová rezervace od uživatele @%arg!',
 
     // Emojis
 

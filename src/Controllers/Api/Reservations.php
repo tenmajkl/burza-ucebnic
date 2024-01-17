@@ -7,6 +7,7 @@ namespace App\Controllers\Api;
 use App\Contracts\Auth;
 use App\Contracts\Notifier;
 use App\Contracts\ORM;
+use App\Entities\Inquiry;
 use App\Entities\Offer;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
@@ -195,17 +196,17 @@ class Reservations
 
         $offer->reservations = [];
 
-        $inquiry = $orm->getORM->getRepository(Inquiry::class)->findOne([
+        $inquiry = $orm->getORM()->getRepository(Inquiry::class)->findOne([
             'book.id' => $offer->book->id,
-            'user.id' => $auth->user->id,
+            'user.id' => $auth->user()->id,
         ]);
 
         if ($inquiry) {
-            $orm->getEntityManager()->delete($inquiry); 
+            $orm->getEntityManager()->delete($inquiry)->run(); 
         }
 
         $orm->getEntityManager()->persist($offer)->run();
-        $notifier->notifyRating($auth->user(), $offer);
+        $notifier->notifyRating($offert->buyer, $offer);
 
         return redirect('/');
     }
@@ -226,6 +227,8 @@ class Reservations
         $offer = $reservation->offer;
         $deletion = $orm->getEntityManager()->persist($reservation);
 
+        $buyer = $reservation->user;
+
         $reservation = $orm->getORM()->getRepository(Reservation::class)
             ->findOne([
                 'offer.id' => $offer->id,
@@ -242,7 +245,7 @@ class Reservations
             $deletion->run();
         }
 
-        $notifier->notifyRating($auth->user(), $reservation->offer);
+        $notifier->notifyRating($buyer, $reservation->offer);
 
         // TODO less boilerplate, maybe
 
