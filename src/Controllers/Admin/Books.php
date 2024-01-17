@@ -134,7 +134,7 @@ class Books
 
         $target->name = $request->get('name');
         $target->author = $request->get('author');
-        $target->release_year = $request->get('release_year');
+        $target->release_year = (int) $request->get('release_year');
         $target->publisher = $request->get('publisher');
 
         $subjects = [];
