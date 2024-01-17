@@ -54,7 +54,7 @@ class Wishlist
         return $this->index($orm, $auth);
     }
 
-    public function delete(?Inquiry $target, ORM $orm, Auth $auth): array
+    public function delete(?Inquiry $target, ORM $orm, Auth $auth) 
     {
         if (null === $target) {
             return error(404);
