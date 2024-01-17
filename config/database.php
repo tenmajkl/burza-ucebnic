@@ -17,15 +17,15 @@ return [
             ),
             queryCache: true,
         ),
-        'mysql' => new Config\MySQLDriverConfig(
-            connection: new Config\MySQL\TcpConnectionConfig(
-                database: Env::get('DB_DATABASE', ''),
-                host: Env::get('DB_HOST', ''),
-                port: Env::get('DB_PORT', ''),
-                user: Env::get('DB_USER', ''),
-                password: Env::get('DB_PASSWORD', '')
-            ),
-            queryCache: true,
-        ),
+        //'mysql' => new Config\MySQLDriverConfig(
+        //    connection: new Config\MySQL\TcpConnectionConfig(
+        //        database: Env::get('DB_DATABASE', ''),
+        //        host: Env::get('DB_HOST', ''),
+        //        port: Env::get('DB_PORT', ''),
+        //        user: Env::get('DB_USER', ''),
+        //        password: Env::get('DB_PASSWORD', '')
+        //    ),
+        //    queryCache: true,
+        //),
     ],
 ];

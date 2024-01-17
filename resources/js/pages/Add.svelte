@@ -12,7 +12,7 @@
                 years = data.years;
             });
 
-    let offer = { state: 0 };
+    let offer = { state: 1 };
     let year = 0;
 
     let result = null;
