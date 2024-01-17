@@ -108,6 +108,7 @@
             {/each}
         </select>
     </div>
+
 <div class="flex flex-col">
     <div class="text-xs text-secondary"><Text text="photo" /></div>
     <input type="file" class="input" required></div>

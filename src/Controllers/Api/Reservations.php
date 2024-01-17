@@ -206,7 +206,7 @@ class Reservations
         }
 
         $orm->getEntityManager()->persist($offer)->run();
-        $notifier->notifyRating($offert->buyer, $offer);
+        $notifier->notifyRating($offer->buyer, $offer);
 
         return redirect('/');
     }
