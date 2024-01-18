@@ -60,7 +60,7 @@
             <div><a href="/about"><Text text="about-title" /></a></div>
         </div>
     </div>
-    <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9">
+    <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9 pb-32">
         <svelte:component this={items[selected][1]} bind:selected={selected} bind:data={menu_data} />        
     </div>
 </div>
