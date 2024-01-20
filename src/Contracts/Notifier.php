@@ -7,12 +7,13 @@ namespace App\Contracts;
 use App\Entities\Offer;
 use App\Entities\OfferNotification;
 use App\Entities\User;
+use App\Entities\Reservation;
 
 interface Notifier
 {
     public function notifyWishlist(User $user, Offer $offer): self;
 
-    public function notifyRating(User $user, Offer $offer): self;
+    public function notifyRating(User $user, Reservation $reservation): self;
 
     public function notifyActiveReservation(User $user, Offer $offer): self;
 

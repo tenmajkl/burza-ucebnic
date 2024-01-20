@@ -116,7 +116,7 @@ return [
     'missing-image' => 'Chybí obrázek',
     'image-error' => 'Chyba v obrázku',
     'average-price' => 'Průměrná cena',
-    'average-max-price' => 'Maximální cena',
+    'average-max-price' => 'Průměrná maximální cena',
     'book' => 'Učebnice',
     'photo' => 'Fotografie',
 
@@ -133,7 +133,7 @@ return [
 
     'notifications-title' => 'Notifikace',
     'notifications-unsupported' => 'Tato notifikace nemůže být zobrazena!',
-    'notification-wishlist' => 'Učebnice "%arg" je nyní k dispozici!',
+    'notification-wishlist' => 'Někdo nabízí učebnici "%arg"!',
     'notification-rating' => 'Jak jste byli spokojeni s prodávajícím @%arg?',
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
     'notification-new-reservation' => 'Nová rezervace učebnice %arg!',

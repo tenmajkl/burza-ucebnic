@@ -7,8 +7,10 @@ namespace App;
 use App\Contracts\Notifier as NotifierContract;
 use App\Entities\Offer;
 use App\Entities\OfferNotification;
-use App\Entities\OfferNotificationType;
+use App\Entities\RatingNotification;
+use App\Entities\NotificationType;
 use App\Entities\User;
+use App\Entities\Reservation;
 use Cycle\Database\Query\SelectQuery;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -23,23 +25,24 @@ class Notifier implements NotifierContract
 
     public function notifyWishlist(User $user, Offer $offer): self
     {
-        $this->saveOfferNotification($user, $offer, OfferNotificationType::Wishlist);
+        $this->saveOfferNotification($user, $offer, NotificationType::Wishlist);
         $this->mail('wishlist', $offer->book->name, $user);
 
         return $this;
     }
 
-    public function notifyRating(User $user, Offer $offer): self
+    public function notifyRating(User $user, Reservation $reservation): self
     {
-        $this->saveOfferNotification($user, $offer, OfferNotificationType::Rating);
-        $this->mail('rating', $offer->user->email, $user);
+        $not = new RatingNotification($reservation, $user);
+        $this->orm->getEntityManager()->persist($not)->run();
+        $this->mail('rating', $reservation->user->email, $user);
 
         return $this;
     }
 
     public function notifyActiveReservation(User $user, Offer $offer): self
     {
-        $this->saveOfferNotification($user, $offer, OfferNotificationType::ActiveReseration);
+        $this->saveOfferNotification($user, $offer, NotificationType::ActiveReseration);
         $this->mail('active-reservation', $offer->book->name, $user);
 
         return $this;
@@ -47,7 +50,7 @@ class Notifier implements NotifierContract
 
     public function notifyNewReservation(User $user, Offer $offer): self
     {
-        $this->saveOfferNotification($user, $offer, OfferNotificationType::NewReservation);
+        $this->saveOfferNotification($user, $offer, NotificationType::NewReservation);
         $this->mail('new-reservation', $offer->book->name, $user);
 
         return $this;
@@ -72,7 +75,7 @@ class Notifier implements NotifierContract
         return $this;
     }
 
-    private function saveOfferNotification(User $user, Offer $offer, OfferNotificationType $type): void
+    private function saveOfferNotification(User $user, Offer $offer, NotificationType $type): void
     {
         $this->orm->getEntityManager()->persist(new OfferNotification(
             $offer,

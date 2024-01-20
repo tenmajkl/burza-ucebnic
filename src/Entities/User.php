@@ -40,12 +40,6 @@ class User implements Injectable
     #[HasMany(target: Reservation::class)]
     public array $reservations = [];
 
-    #[HasMany(target: Rating::class, nullable: true)]
-    public array $given_ratings = [];
-
-    #[HasMany(target: Rating::class)]
-    public array $received_ratings = [];
-
     #[HasMany(target: Report::class)]
     public array $given_reports = [];
 
@@ -67,6 +61,8 @@ class User implements Injectable
         public Year $year,
         #[Column(type: 'int')]
         public int $role,
+        #[Column(type: 'int')]
+        public int $rating = 0,
     ) {
     }
 
@@ -78,16 +74,6 @@ class User implements Injectable
         $school = $this->year->school;
         $host = $this->year->name === 'teachers' ? $school->admin_email : $school->email;
         return $this->email.'@'.$host;
-    }
-
-    public function countRating()
-    {
-        $sum = 0;
-        foreach ($this->received_ratings as $rating) {
-            $sum += $rating->rating;
-        }
-
-        return $sum;
     }
 
     public function isBanned()

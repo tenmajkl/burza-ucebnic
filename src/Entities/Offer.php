@@ -7,6 +7,7 @@ namespace App\Entities;
 use App\Entities\Traits\DateTimes;
 use App\Entities\Traits\Dynamic;
 use App\Entities\Traits\InjectableEntity;
+use App\Scopes\NotBoughtScope;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
@@ -17,7 +18,7 @@ use Lemon\Contracts\Kernel\Injectable;
 /**
  * AHOJTE LIDI, MAM PRO VAS VELICE ZAJIMAVOU NABIDKU.
  */
-#[Entity]
+#[Entity(scope: NotBoughtScope::class)]
 #[Behavior\CreatedAt(
     field: 'createdAt',
     column: 'created_at'
@@ -25,10 +26,6 @@ use Lemon\Contracts\Kernel\Injectable;
 #[Behavior\UpdatedAt(
     field: 'updatedAt',
     column: 'updated_at'
-)]
-#[Behavior\SoftDelete(
-    field: 'deletedAt',
-    column: 'deleted_at'
 )]
 class Offer implements \JsonSerializable, Injectable
 {
@@ -45,16 +42,10 @@ class Offer implements \JsonSerializable, Injectable
     public array $reservations = [];
 
     #[Column(type: 'datetime', nullable: true)]
-    public ?\DateTimeImmutable $updatedAt;
-
-    #[Column(type: 'datetime', nullable: true)]
     public ?\DateTimeImmutable $boughtAt;
 
     #[BelongsTo(target: User::class, nullable: true)]
     public ?User $buyer;
-
-    #[HasMany(target: Rating::class, nullable: true)]
-    public ?array $ratings = [];
 
     /**
      * Whenever currently logged user can make reservation, thus its not saved in db. This value is generated manualy using function canUserMakeReservation
@@ -103,18 +94,10 @@ class Offer implements \JsonSerializable, Injectable
             'price' => $this->price,
             'state' => $this->state->name(),
             'author_email' => $this->user->email,
-            'author_rating' => $this->user->countRating(),
+            'author_rating' => $this->user->rating,
             'created_at' => diff($this->createdAt),
             'reservations' => count($this->reservations),
             'can_be_reserved' => $this->can_be_reserved,
         ];
-    }
-
-    public function canRate(User $user): bool
-    {
-        // ayo what the fuck is this
-        return ($this->buyer?->id === $user->id
-            || (array_filter($this->reservations, fn (Reservation $item) => $item->user->id === $user->id)[-2] ?? null)?->state === ReservationState::Denied)
-            && ([] === array_filter($this->ratings, fn (Rating $rating) => $rating->author->id === $user->id));
     }
 }

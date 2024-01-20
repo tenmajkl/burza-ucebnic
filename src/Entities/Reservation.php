@@ -7,6 +7,8 @@ namespace App\Entities;
 use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Traits\DateTimes;
+use App\TokenGenerator as Token;
+use App\Scopes\NotAcceptedReservationScope;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
@@ -16,7 +18,7 @@ use Cycle\ORM\Select\QueryBuilder;
 use Lemon\Contracts\Kernel\Injectable;
 use Lemon\Kernel\Container;
 
-#[Entity()]
+#[Entity(scope: NotAcceptedReservationScope::class)]
 #[Behavior\CreatedAt(
     field: 'createdAt',
     column: 'created_at'
@@ -38,16 +40,18 @@ class Reservation implements \JsonSerializable, Injectable
     #[HasMany(target: Message::class)]
     public array $messages = [];
 
+    #[Column(type: 'bool')]
+    public bool|int $rated = false;
+
     public function __construct(
-        #[BelongsTo(target: Offer::class)]
-        public Offer $offer,
+        #[BelongsTo(target: Offer::class, nullable: true)]
+        public ?Offer $offer,
         #[BelongsTo(target: User::class)]
         public User $user,
         #[Column(type: 'int', typecast: ReservationState::class)]
         public ReservationState $status,
     ) {
-        // Profi token generation coolfido aproves
-        $this->hash = sha1(str_shuffle(base64_encode(str_shuffle($this->offer->id.rand().time()).sha1(rand().time().$user->id))));
+        $this->hash = Token::generate();
     }
 
     public function jsonSerialize(): array
@@ -58,7 +62,7 @@ class Reservation implements \JsonSerializable, Injectable
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
             'author' => $this->user->email,
-            'offer' => $this->offer->jsonSerialize(),
+            'offer' => $this->offer?->jsonSerialize(),
         ];
     }
 
@@ -80,5 +84,12 @@ class Reservation implements \JsonSerializable, Injectable
             )
             ->fetchOne()
         ;
+    }
+
+    public function canRate(User $user)
+    {
+        return !$this->rated 
+               && $this->user->id == $user->id 
+               && ($this->status === ReservationState::Accepted || $this->status === ReservationState::Denied);
     }
 }

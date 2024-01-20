@@ -37,7 +37,6 @@ class Change
 
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
-            'year.school.email' => $host,
         ]);
         $user->password = password_hash($request->get('password'), PASSWORD_ARGON2I);
         $orm->getEntityManager()->persist($user)->run();

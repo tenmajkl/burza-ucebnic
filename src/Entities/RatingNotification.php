@@ -20,9 +20,9 @@ use Lemon\Kernel\Container;
     column: 'created_at'
 )]
 /**
- * Represents notification somehow related to direct offer.
+ * Represents notification for rating
  */
-class OfferNotification implements \JsonSerializable, Injectable
+class RatingNotification implements \JsonSerializable, Injectable
 {
     use DateTimes;
 
@@ -30,12 +30,10 @@ class OfferNotification implements \JsonSerializable, Injectable
     public int $id;
 
     public function __construct(
-        #[BelongsTo(target: Offer::class)]
-        public Offer $offer,
+        #[BelongsTo(target: Reservation::class)]
+        public Reservation $reservation,
         #[BelongsTo(target: User::class)]
         public User $user,
-        #[Column(type: 'int', typecast: NotificationType::class)]
-        public NotificationType $type,
         #[Column(type: 'bool')]
         public int|bool $seen = 0,
     ) {
@@ -45,11 +43,12 @@ class OfferNotification implements \JsonSerializable, Injectable
     {
         return [
             'id' => $this->id,
-            'offer' => $this->offer,
+            'reservation' => $this->reservation,
             'user' => $this->user,
-            'type' => $this->type,
+            'type' => NotificationType::Rating,
             'seen' => (bool) $this->seen,
             'created_at' => diff($this->createdAt),
+            'can_rate' => $this->reservation->canRate($this->user),
         ];
     }
 

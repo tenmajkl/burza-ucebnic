@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
-enum OfferNotificationType: int
+enum NotificationType: int
 {
     case Wishlist = 0;
 

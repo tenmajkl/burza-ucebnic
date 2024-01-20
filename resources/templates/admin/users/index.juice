@@ -33,7 +33,7 @@
                     <td class="table-item">{{ $user->email }}</td>
                     <td class="table-item">{{ text('admin.'.\App\Auth::Roles[$user->role]) }}</td>
                     <td class="table-item">{{ $user->year->name }}</td>
-                    <td class="table-item">{{ $user->countRating() }}</td>
+                    <td class="table-item">{{ $user->rating }}</td>
                     <td class="table-item">{{ count($user->received_reports) }}</td>
                     { if $user->isBanned() }
                         <td class="table-item" title="{{ $user->banUntil()->format(\DateTimeInterface::ISO8601) }}" >{{ diff($user->banUntil()) }}</td>

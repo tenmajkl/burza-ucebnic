@@ -89,7 +89,7 @@
                     {#if book.average_price > 0} 
                         <div><Text text="average-price" />: {book.average_price} <Text text="currency" /></div>
                     {/if}
-                    {#if book.max_price > 0} 
+                    {#if book.average_max_price > 0} 
                         <div><Text text="average-max-price" />: {book.average_max_price} <Text text="currency" /></div>
                     {/if}
                 </div>

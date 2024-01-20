@@ -205,8 +205,20 @@ class Reservations
             $orm->getEntityManager()->delete($inquiry)->run(); 
         }
 
+        $orm->db()->table('offer_notifications')->delete()->where([
+            'offer_id' => $offer->id,
+        ])->run();
+
+        $orm->db()->table('reservations')->delete()->where([
+            'id' => ['!=' => $reservation->id],
+            'offer_id' => $offer->id,
+        ])->run();
+
+        $reservation->status = ReservationState::Accepted;
+
         $orm->getEntityManager()->persist($offer)->run();
-        $notifier->notifyRating($offer->buyer, $offer);
+        $orm->getEntityManager()->persist($reservation)->run();
+        $notifier->notifyRating($reservation->user, $reservation);
 
         return redirect('/');
     }
@@ -245,7 +257,7 @@ class Reservations
             $deletion->run();
         }
 
-        $notifier->notifyRating($buyer, $reservation->offer);
+        $notifier->notifyRating($buyer, $reservation);
 
         // TODO less boilerplate, maybe
 

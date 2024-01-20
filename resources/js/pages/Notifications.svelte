@@ -59,8 +59,8 @@
                 <Offer offer={notification.offer} />
             </Notification>
         {:else if notification.type == 1} <!-- rating -->
-            <Notification bind:notification={notification} title="rating" arg={notification.offer.author_email} created_at={notification.created_at} bind:data={data}>
-                <Rating offer={notification.offer} />
+            <Notification bind:notification={notification} title="rating" arg={notification.offer.reservation.author_email} created_at={notification.created_at} bind:data={data}>
+                <Rating notification={notification} />
             </Notification>
         {:else if notification.type == 2} <!-- active reservation --> 
             <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
