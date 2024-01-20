@@ -205,7 +205,7 @@ class Reservations
             $orm->getEntityManager()->delete($inquiry)->run(); 
         }
 
-        $orm->db()->table('offer_notifications')->delete()->where([
+        $orm->db()->table('notifications')->delete()->where([
             'offer_id' => $offer->id,
         ])->run();
 

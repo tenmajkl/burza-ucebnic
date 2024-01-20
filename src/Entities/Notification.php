@@ -22,7 +22,7 @@ use Lemon\Kernel\Container;
 /**
  * Represents notification somehow related to direct offer.
  */
-class OfferNotification implements \JsonSerializable, Injectable
+class Notification implements \JsonSerializable, Injectable
 {
     use DateTimes;
 
@@ -30,8 +30,10 @@ class OfferNotification implements \JsonSerializable, Injectable
     public int $id;
 
     public function __construct(
-        #[BelongsTo(target: Offer::class)]
-        public Offer $offer,
+        #[BelongsTo(target: Offer::class, nullable: true)]
+        public ?Offer $offer,
+        #[BelongsTo(target: Reservation::class, nullable: true)]
+        public ?Reservation $reservation,
         #[BelongsTo(target: User::class)]
         public User $user,
         #[Column(type: 'int', typecast: NotificationType::class)]
@@ -43,14 +45,26 @@ class OfferNotification implements \JsonSerializable, Injectable
 
     public function jsonSerialize(): mixed
     {
-        return [
-            'id' => $this->id,
-            'offer' => $this->offer,
-            'user' => $this->user,
-            'type' => $this->type,
-            'seen' => (bool) $this->seen,
-            'created_at' => diff($this->createdAt),
-        ];
+        return
+            $this->offer 
+            ? [
+                'id' => $this->id,
+                'offer' => $this->offer,
+                'user' => $this->user,
+                'type' => $this->type,
+                'seen' => (bool) $this->seen,
+                'created_at' => diff($this->createdAt),
+            ]
+            : [
+                'id' => $this->id,
+                'reservation' => $this->reservation,
+                'user' => $this->user,
+                'type' => NotificationType::Rating,
+                'seen' => (bool) $this->seen,
+                'created_at' => diff($this->createdAt),
+                'can_rate' => $this->reservation?->canRate($this->user),
+            ]
+        ;
     }
 
     public static function fromInjection(Container $container, mixed $value): ?self

@@ -8,6 +8,6 @@ class NotAcceptedReservationScope implements Select\ScopeInterface
 {
     public function apply(Select\QueryBuilder $query): void
     {
-        $query->where('status', '=', 3);
+//        $query->where('status', '!=', 3);
     }
 }

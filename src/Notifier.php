@@ -6,7 +6,7 @@ namespace App;
 
 use App\Contracts\Notifier as NotifierContract;
 use App\Entities\Offer;
-use App\Entities\OfferNotification;
+use App\Entities\Notification;
 use App\Entities\RatingNotification;
 use App\Entities\NotificationType;
 use App\Entities\User;
@@ -25,7 +25,7 @@ class Notifier implements NotifierContract
 
     public function notifyWishlist(User $user, Offer $offer): self
     {
-        $this->saveOfferNotification($user, $offer, NotificationType::Wishlist);
+        $this->saveNotification($user, $offer, null, NotificationType::Wishlist);
         $this->mail('wishlist', $offer->book->name, $user);
 
         return $this;
@@ -33,8 +33,7 @@ class Notifier implements NotifierContract
 
     public function notifyRating(User $user, Reservation $reservation): self
     {
-        $not = new RatingNotification($reservation, $user);
-        $this->orm->getEntityManager()->persist($not)->run();
+        $this->saveNotification($user, null, $reservation, NotificationType::Rating);
         $this->mail('rating', $reservation->user->email, $user);
 
         return $this;
@@ -42,7 +41,7 @@ class Notifier implements NotifierContract
 
     public function notifyActiveReservation(User $user, Offer $offer): self
     {
-        $this->saveOfferNotification($user, $offer, NotificationType::ActiveReseration);
+        $this->saveNotification($user, $offer, null, NotificationType::ActiveReseration);
         $this->mail('active-reservation', $offer->book->name, $user);
 
         return $this;
@@ -50,7 +49,7 @@ class Notifier implements NotifierContract
 
     public function notifyNewReservation(User $user, Offer $offer): self
     {
-        $this->saveOfferNotification($user, $offer, NotificationType::NewReservation);
+        $this->saveNotification($user, $offer, null, NotificationType::NewReservation);
         $this->mail('new-reservation', $offer->book->name, $user);
 
         return $this;
@@ -58,12 +57,12 @@ class Notifier implements NotifierContract
 
     public function of(User $user): array
     {
-        return $this->orm->getORM()->getRepository(OfferNotification::class)->select()->where([
+        return $this->orm->getORM()->getRepository(Notification::class)->select()->where([
             'user.id' => $user->id,
         ])->orderBy('id', SelectQuery::SORT_DESC)->fetchAll();
     }
 
-    public function see(OfferNotification $notification): self
+    public function see(Notification $notification): self
     {
         if ($notification->seen) {
             return $this;
@@ -75,10 +74,11 @@ class Notifier implements NotifierContract
         return $this;
     }
 
-    private function saveOfferNotification(User $user, Offer $offer, NotificationType $type): void
+    private function saveNotification(User $user, ?Offer $offer, ?Reservation $reservation, NotificationType $type): void
     {
-        $this->orm->getEntityManager()->persist(new OfferNotification(
+        $this->orm->getEntityManager()->persist(new Notification(
             $offer,
+            $reservation,
             $user,
             $type
         ))->run();

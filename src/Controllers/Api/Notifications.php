@@ -6,7 +6,7 @@ namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
 use App\Contracts\Notifier;
-use App\Entities\OfferNotification;
+use App\Entities\Notification;
 use App\Contracts\ORM;
 
 class Notifications
@@ -20,7 +20,7 @@ class Notifications
         ];
     }
 
-    public function update(?OfferNotification $target, Notifier $notifier)
+    public function update(?Notification $target, Notifier $notifier)
     {
         if (null === $target) {
             return error(404);
@@ -36,7 +36,7 @@ class Notifications
 
     public function getUnread(Auth $auth, ORM $orm): array
     {
-        $notifications = $orm->getORM()->getRepository(OfferNotification::class)
+        $notifications = $orm->getORM()->getRepository(Notification::class)
                              ->select()
                              ->where('user.id', $auth->user()->id)
                              ->where('seen', '0')

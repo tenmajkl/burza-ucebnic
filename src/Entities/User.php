@@ -23,7 +23,7 @@ use Lemon\Contracts\Kernel\Injectable;
     field: 'updatedAt',
     column: 'updated_at'
 )]
-class User implements Injectable
+class User implements Injectable, \JsonSerializable
 {
     use DateTimes;
     use Dynamic;
@@ -99,5 +99,12 @@ class User implements Injectable
         }
 
         return null;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'email' => $this->email,
+        ];
     }
 }
