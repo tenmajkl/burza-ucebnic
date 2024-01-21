@@ -16,7 +16,7 @@ class Notifications
         return [
             'status' => 200,
             'message' => 'OK',
-            'data' => $notifier->of($auth->user()),
+            'data' => $notifier->of($auth->user(with_hidden: true)),
         ];
     }
 

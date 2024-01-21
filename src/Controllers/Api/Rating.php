@@ -21,18 +21,17 @@ class Rating
         return [
             'status' => 200,
             'message' => 'OK',
-            'data' => $target->canRate($auth->user()),
+            'data' => $target !== null,
         ];
     }
 
-    public function update(?Reservation $target, ORM $orm, Auth $auth, Request $request): Response|array
+    public function update(?RatingAbility $target, ORM $orm, Auth $auth, Request $request): Response|array
     {
         if (null === $target) {
             return error(404);
         }
 
-        if (!$target->canRate($auth->user())) {
-            // bez sance brasko
+        if ($target->user !== $auth->user()) {
             return error(404);
         }
 
@@ -43,16 +42,12 @@ class Rating
             'message' => Validator::error(),
         ]));
 
-        $user = $offer->user;
+        $user = $target->user;
         $user->rating += $request->get('rating'); 
 
+        $orm->getEntityManager()->delete($target)->run();
+
         $orm->getEntityManager()->persist($user)->run();
-
-        if ($target->status === ReservationState::Accepted) {
-            $orm->getEntityManager()->delete($target)->run();
-        }
-
-        $offer->rated = true;
 
         return [
             'status' => 200,

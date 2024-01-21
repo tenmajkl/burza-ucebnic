@@ -9,6 +9,7 @@ use App\Contracts\Notifier;
 use App\Contracts\ORM;
 use App\Entities\Inquiry;
 use App\Entities\Offer;
+use App\Entities\RatingAbility;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
 
@@ -210,14 +211,15 @@ class Reservations
         ])->run();
 
         $orm->db()->table('reservations')->delete()->where([
-            'id' => ['!=' => $reservation->id],
             'offer_id' => $offer->id,
         ])->run();
 
-        $reservation->status = ReservationState::Accepted;
+        $orm->getEntityManager()->persist(new RatingAbility(
+            $offer->buyer,
+            $offer->user,
+        ))->run();
 
         $orm->getEntityManager()->persist($offer)->run();
-        $orm->getEntityManager()->persist($reservation)->run();
         $notifier->notifyRating($reservation->user, $reservation);
 
         return redirect('/');

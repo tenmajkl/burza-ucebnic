@@ -18,7 +18,7 @@ use Cycle\ORM\Select\QueryBuilder;
 use Lemon\Contracts\Kernel\Injectable;
 use Lemon\Kernel\Container;
 
-#[Entity(scope: NotAcceptedReservationScope::class)]
+#[Entity()]
 #[Behavior\CreatedAt(
     field: 'createdAt',
     column: 'created_at'
@@ -39,9 +39,6 @@ class Reservation implements \JsonSerializable, Injectable
 
     #[HasMany(target: Message::class)]
     public array $messages = [];
-
-    #[Column(type: 'bool')]
-    public bool|int $rated = false;
 
     public function __construct(
         #[BelongsTo(target: Offer::class, nullable: true)]
@@ -86,10 +83,4 @@ class Reservation implements \JsonSerializable, Injectable
         ;
     }
 
-    public function canRate(User $user)
-    {
-        return !$this->rated 
-               && $this->user->id == $user->id 
-               && ($this->status === ReservationState::Accepted || $this->status === ReservationState::Denied);
-    }
 }
