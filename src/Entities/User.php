@@ -52,6 +52,12 @@ class User implements Injectable, \JsonSerializable
     #[HasMany(target: Ban::class, outerKey: 'banned_id')]
     public array $received_bans = [];
 
+    #[HasMany(target: RatingAbility::class, outerKey: 'user_id')]
+    public array $rating_abilities = [];
+
+    #[HasMany(target: RatingAbility::class, outerKey: 'rated_id')]
+    public array $unresolved_given_ratings = [];
+
     public function __construct(
         #[Column(type: 'string')]
         public string $email,
@@ -64,6 +70,7 @@ class User implements Injectable, \JsonSerializable
         #[Column(type: 'int')]
         public int $rating = 0,
     ) {
+
     }
 
     /**

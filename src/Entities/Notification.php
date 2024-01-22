@@ -32,8 +32,8 @@ class Notification implements \JsonSerializable, Injectable
     public function __construct(
         #[BelongsTo(target: Offer::class, nullable: true)]
         public ?Offer $offer,
-        #[BelongsTo(target: Reservation::class, nullable: true)]
-        public ?Reservation $reservation,
+        #[BelongsTo(target: RatingAbility::class, nullable: true)]
+        public ?RatingAbility $rating,
         #[BelongsTo(target: User::class)]
         public User $user,
         #[Column(type: 'int', typecast: NotificationType::class)]
@@ -57,12 +57,12 @@ class Notification implements \JsonSerializable, Injectable
             ]
             : [
                 'id' => $this->id,
-                'reservation' => $this->reservation,
+                'rating' => $this->rating,
                 'user' => $this->user,
                 'type' => NotificationType::Rating,
                 'seen' => (bool) $this->seen,
                 'created_at' => diff($this->createdAt),
-                'can_rate' => $this->reservation?->canRate($this->user),
+                'can_rate' => $this->rating->user->id === $this->user->id,
             ]
         ;
     }

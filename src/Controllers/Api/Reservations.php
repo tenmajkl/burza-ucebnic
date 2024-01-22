@@ -214,13 +214,16 @@ class Reservations
             'offer_id' => $offer->id,
         ])->run();
 
-        $orm->getEntityManager()->persist(new RatingAbility(
+
+        $rating = new RatingAbility(
             $offer->buyer,
             $offer->user,
-        ))->run();
+        );
+
+        $orm->getEntityManager()->persist($rating)->run();
 
         $orm->getEntityManager()->persist($offer)->run();
-        $notifier->notifyRating($reservation->user, $reservation);
+        $notifier->notifyRating($reservation->user, $rating);
 
         return redirect('/');
     }

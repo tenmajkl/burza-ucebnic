@@ -7,10 +7,9 @@ namespace App;
 use App\Contracts\Notifier as NotifierContract;
 use App\Entities\Offer;
 use App\Entities\Notification;
-use App\Entities\RatingNotification;
+use App\Entities\RatingAbility;
 use App\Entities\NotificationType;
 use App\Entities\User;
-use App\Entities\Reservation;
 use Cycle\Database\Query\SelectQuery;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -31,10 +30,10 @@ class Notifier implements NotifierContract
         return $this;
     }
 
-    public function notifyRating(User $user, Reservation $reservation): self
+    public function notifyRating(User $user, RatingAbility $rating): self
     {
-        $this->saveNotification($user, null, $reservation, NotificationType::Rating);
-        $this->mail('rating', $reservation->user->email, $user);
+        $this->saveNotification($user, null, $rating, NotificationType::Rating);
+        $this->mail('rating', $rating->rated->email, $user);
 
         return $this;
     }
@@ -74,11 +73,11 @@ class Notifier implements NotifierContract
         return $this;
     }
 
-    private function saveNotification(User $user, ?Offer $offer, ?Reservation $reservation, NotificationType $type): void
+    private function saveNotification(User $user, ?Offer $offer, ?RatingAbility $rating, NotificationType $type): void
     {
         $this->orm->getEntityManager()->persist(new Notification(
             $offer,
-            $reservation,
+            $rating,
             $user,
             $type
         ))->run();
