@@ -70,28 +70,7 @@ class Reservations
         ];
     }
 
-    // not sure what this function does?
-    public function delete($target, ORM $orm, Auth $auth)
-    {
-        $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
-            'hash' => $target,
-            'user.id' => $auth->user()->id,
-            'status' => ['!=' => 2],
-        ]);
-
-        if (!$reservation) {
-            return error(404);
-        }
-
-        $orm->getEntityManager()->delete($reservation)->run();
-
-        return [
-            'status' => '200',
-            'message' => 'OK',
-        ];
-    }
-
-    public function disable($target, ORM $orm, Auth $auth, Notifier $notifier)
+    public function delete($target, ORM $orm, Auth $auth, Notifier $notifier)
     {
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
             'id' => $target,
