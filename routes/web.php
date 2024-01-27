@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Controllers\Api\Reservations;
+use App\Controllers\Reservations;
 use App\Controllers\Feedback;
 use App\Controllers\Files;
 use App\Controllers\Welcome;
@@ -19,8 +19,9 @@ Route::collection(function () {
 
 Route::get('/', [Welcome::class, 'handle']);
 
-Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSeller']); // to show specific message, this route doesnt have mauth middleware
-Route::template('/about', 'about');
+// to show specific message, this route doesnt have mauth middleware
+Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSeller']); 
 
+Route::template('/about', 'about');
 Route::template('cookies');
 Route::template('personal_info');
