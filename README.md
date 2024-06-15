@@ -1,15 +1,13 @@
 # Burza ucebnic
 
-Tento projekt ma za cil digitalizovat kazdorocni burzu ucebnic a umoznit tak snazsi prodej a vice uspesnych objednavek.
+This project is part of my SOC publication which aims to digitalize textbook market hapenning on czech highschools via web app.
 
-## Instalace
+More info about this project can be found in [paper](https://drive.google.com/file/d/1C2qaYZN-6t3q1xU-A2tvjIzx2YB0Ung4/view?usp=sharing).
+
+## Instalation
 
 ```sh
 $ make
 ```
 
-Pro instalaci je vyzadovano php 8.1 a vyssi, yarn a nodejs.
-
-## Clanek
-
-Samotny clanek je dostupny na [overleafu]([https://www.overleaf.com/read/rswvgpjjmcvp](https://www.overleaf.com/read/rswvgpjjmcvp#859ffe))
+Installation requires php 8.1 or higher, yarn and nodejs.
