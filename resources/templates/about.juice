@@ -6,6 +6,7 @@
 
 { block 'content' }
     <main class="w-screen h-screen flex flex-col items-center justify-center p-4">
+        <img src="svg/dbu.svg" alt="Logo" class="w-36">
         <h1 class="text-2xl font-bold">{ text app.about-title }</h1>
         <p class='text-center sm:w-9/12'>{ text app.about-content }</p>
         <h1 class="text-2xl font-bold">{ text app.about-thanks }</h1>
