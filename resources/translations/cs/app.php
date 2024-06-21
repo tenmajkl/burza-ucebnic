@@ -52,6 +52,11 @@ return [
     'feedback-content' => 'Napište nám, co byste chtěli zlepšit, nebo co se vám nelíbí. Děkujeme za každou zpětnou vazbu.',
     'send' => 'Odeslat',
 
+    // School Registration
+    'school-registration-title' => 'Registrace školy',
+    'admin-email' => 'E-mail správce',
+    'school-name' => 'Název školy',
+
     // Menu
     'offers' => 'Nabídky',
     'reservations' => 'Rezervace',

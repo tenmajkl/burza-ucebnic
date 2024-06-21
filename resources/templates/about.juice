@@ -5,7 +5,14 @@
 { /block }
 
 { block 'content' }
-    <main class="w-screen h-screen flex flex-col items-center justify-center p-4">
+    <div class="fixed bottom-0 left-0 text-2xl p-2">
+    { if (\Lemon\Translator::locale() == 'cs')}
+        <a href="/lang/en">🇺🇸</a>
+    { else }
+        <a href="/lang/cs">🇨🇿</a>
+    {/if}
+    </div>
+    <main class="w-screen sm:h-screen flex flex-col items-center justify-center px-4 py-8 gap-1">
         <img src="svg/dbu.svg" alt="Logo" class="w-36">
         <h1 class="text-2xl font-bold">{ text app.about-title }</h1>
         <p class='text-center sm:w-9/12'>{ text app.about-content }</p>
@@ -21,5 +28,6 @@
         </ul>
         <h1 class="text-2xl font-bold"><a href="https://github.com/tenmajkl/bs">GitHub</h1>
         <h1 class="text-2xl font-bold"><a href="/login">{ text 'auth.login' }</h1>
+        <h1 class="text-2xl font-bold"><a href="/school-registration">{ text 'app.school-registration-title' }</h1>
     </main>
 { /block }

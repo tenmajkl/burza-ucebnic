@@ -5,9 +5,11 @@ declare(strict_types=1);
 use App\Controllers\Reservations;
 use App\Controllers\Feedback;
 use App\Controllers\Files;
+use App\Controllers\SchoolRegistration;
 use App\Controllers\Welcome;
 use App\Middlewares\Auth;
 use Lemon\Route;
+use Lemon\Session;
 
 Route::collection(function () {
     Route::get('static/img/offers/{image}', [Files::class, 'offer']);
@@ -19,9 +21,15 @@ Route::collection(function () {
 
 Route::get('/', [Welcome::class, 'handle']);
 
+Route::get('lang/{lang}', function($lang) {
+    Session::set('locale', $lang);
+    return redirect('/');
+});
+
 // to show specific message, this route doesnt have mauth middleware
 Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSeller']); 
 
 Route::template('/about', 'about');
+Route::controller('/school-registration', SchoolRegistration::class);
 Route::template('cookies');
 Route::template('personal_info');

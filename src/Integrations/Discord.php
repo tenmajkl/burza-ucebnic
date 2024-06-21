@@ -44,4 +44,22 @@ class Discord implements DiscordContract
             ],
         ]);
     }
+    
+    public function sendRequest(string $email, string $school): bool
+    {
+        return $this->sendWebhook([
+            'embeds' => [
+                [
+                    'title' => 'Škola má zájem o burzu! <:kanec_exploze:1107056283003142166>',
+                    'description' => $email,
+                    'color' => 0x00FF00,
+                    'timestamp' => date('c'),
+                    'author' => [
+                        'name' => $school,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
 }

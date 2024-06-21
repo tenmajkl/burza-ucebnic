@@ -1,0 +1,22 @@
+{ extends 'layout' }
+
+{ block 'title' } 
+    { text app.school-registration-title }
+{ /block }
+
+{ block 'content' }
+    <main class="w-screen h-screen flex flex-col items-center justify-center gap-2">
+        <div>
+            <h1 class="text-2xl font-bold">{ text app.school-registration-title }</h1>
+            <form method="post" class="flex flex-col gap-2 w-full justify-center">
+                { ifError }
+                    <div class="alert">{ error }</div>
+                { /ifError }
+                { csrf }
+                <input type="text" class="input" placeholder="{ text app.admin-email }" name="email">
+                <input type="text" class="input" placeholder="{ text app.school-name }" name="school-name">
+                <button class="button">{ text app.send }</button>
+            </form>
+        </div>
+    </main>
+{ /block }

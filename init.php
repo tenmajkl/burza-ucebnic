@@ -15,6 +15,8 @@ use Lemon\Http\Middlewares\TrimStrings;
 use Lemon\Http\Request;
 use Lemon\Kernel\Application;
 use Lemon\Protection\Middlwares\Csrf;
+use Lemon\Session;
+use Lemon\Translating\Middlewares\TranslationLocalizer;
 
 $application = new Application(__DIR__);
 
@@ -60,8 +62,14 @@ $response->handle(404, function (Request $request) {
     }
 });
 
+if (!Session::has('locale')) {
+    Session::set('locale', 'cs');
+}
+
 /** @var \Lemon\Routing\Router $router */
 $router = $application->get('routing');
+
+$router->routes()->middleware(TranslationLocalizer::class);
 
 $router->file('routes.web')
     ->middleware(Csrf::class)
