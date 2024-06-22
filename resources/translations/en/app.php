@@ -43,7 +43,7 @@ return [
 
     // About
     'about-title' => 'About the project',
-    'about-content' => 'The project aims to digitize the physical book exchange that takes place in high schools through a web application, where students can post both offers and requests. The application is designed to be used independently by multiple schools. The project is also part of Michal Křipač\'s SOČ.',
+    'about-content' => 'This project aims to digitize the physical book market that takes place in high schools through a web application, where students can post both offers and requests. The application is designed to be used independently by multiple schools. The project is also part of Michal Křipač\'s SOČ.',
     'about-thanks' => 'Thanks',
     'about-classmates' => 'Classmates who are or were also involved in SOČ',
 
