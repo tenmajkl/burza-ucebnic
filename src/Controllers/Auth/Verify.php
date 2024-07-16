@@ -37,7 +37,7 @@ class Verify
                                           'school_id' => $school->id,
                                           'name' => 'teachers',
                                       ]);
-            $user->token = null;
+            $user->verify_token = null;
             $user->year = $teachers;
             $orm->getEntityManager()->persist($user)->run();
             $session->dontExpire();
@@ -77,6 +77,7 @@ class Verify
 
         $session->dontExpire();
         $user->year = $year;
+        $user->verify_token = null;
 
         $session->set('email', $user->email);
 

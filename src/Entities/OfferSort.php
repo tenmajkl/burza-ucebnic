@@ -14,23 +14,22 @@ enum OfferSort: string
     case Oldest = 'oldest';
     case Cheapest = 'cheapest';
     case MostExpensive = 'most-expensive';
-//    case BestReviews = 'best-reviews';
-//    case WorstReviews = 'worst-reviews';
+    case BestReviews = 'best-reviews';
+    case WorstReviews = 'worst-reviews';
 
     public function sort(Select $select): Select
     {
-        $rating = new \Cycle\Database\Injection\Expression('');
         return match ($this) {
             self::Newest => $select->orderBy('created_at', SelectQuery::SORT_DESC),
             self::Oldest => $select->orderBy('created_at', SelectQuery::SORT_ASC),
             self::Cheapest => $select->orderBy('price', SelectQuery::SORT_ASC),
             self::MostExpensive => $select->orderBy('price', SelectQuery::SORT_ASC),
-//            self::BestReviews => $select->orderBy($rating, SelectQuery::SORT_DESC),
-//            self::WorstReviews => $select->orderBy($rating, SelectQuery::SORT_ASC),
+            self::BestReviews => $select->orderBy('user.rating', SelectQuery::SORT_DESC),
+            self::WorstReviews => $select->orderBy('user.rating', SelectQuery::SORT_ASC),
             self::Optimal => $select
                 ->orderBy('created_at', SelectQuery::SORT_DESC)
                 ->orderBy('price', SelectQuery::SORT_ASC)
-//                ->orderBy($rating, SelectQuery::SORT_DESC),
+                ->orderBy('user.rating', SelectQuery::SORT_DESC),
         };
     }
 }
