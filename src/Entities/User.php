@@ -63,10 +63,12 @@ class User implements Injectable, \JsonSerializable
         public string $email,
         #[Column(type: 'string')]
         public string $password,
-        #[BelongsTo(target: Year::class)]
-        public Year $year,
         #[Column(type: 'int')]
         public int $role,
+        #[Column(type: 'string', nullable: true)]
+        public ?string $verify_token = null,
+        #[BelongsTo(target: Year::class, nullable: true)]
+        public ?Year $year = null,
         #[Column(type: 'int')]
         public int $rating = 0,
     ) {
@@ -83,7 +85,7 @@ class User implements Injectable, \JsonSerializable
         return $this->email.'@'.$host;
     }
 
-    public function isBanned()
+    public function isBanned(): bool
     {
         return 1 === count(
             array_filter($this->received_bans, fn ($ban) => $ban->isActive())

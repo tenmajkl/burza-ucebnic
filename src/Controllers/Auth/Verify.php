@@ -8,6 +8,7 @@ use App\Contracts\ORM;
 use App\Entities\School;
 use App\Entities\User;
 use App\Entities\Year;
+use DateTime;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
@@ -15,30 +16,32 @@ use Lemon\Templating\Template;
 
 class Verify
 {
-    public function get($token, Session $session, ORM $orm): RedirectResponse|Template
+    public function get($token, $school, Session $session, ORM $orm): RedirectResponse|Template
     {
-        if (!$session->has('verify_data')
-            || $token !== ($data = $session->get('verify_data'))['token']
-        ) {
+
+        /** @var User $user */        
+        if (!($user = $orm->getORM()->getRepository(User::class)->findOne(['verify_token' => sha1($token.$school)]))) {
             return redirect('/register');
         }
 
-        $email = explode('@', $data['email']);
+        if ($user->createdAt->diff(new DateTime("now"))->i > 10)  {
+            $orm->getEntityManager()->delete($user);
+            return redirect('/');
+        }
 
-        $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $data['school']]);
+        $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $school]);
 
-        if ($session->has('admin') && $session->get('admin')) {
+        if ($user->role != 0) {
             $teachers = $orm->getORM()->getRepository(Year::class)
                                       ->findOne([
                                           'school_id' => $school->id,
                                           'name' => 'teachers',
                                       ]);
-            $user = new User($email[0], $session->get('verify_data')['password'], $teachers, 1);
+            $user->token = null;
+            $user->year = $teachers;
             $orm->getEntityManager()->persist($user)->run();
             $session->dontExpire();
-            $session->remove('verify_data');
-
-            $session->set('email', $email);
+            $session->set('email', $user->email);
             return redirect('/');
         }
 
@@ -47,19 +50,20 @@ class Verify
         return template('auth.verify', years: $years);
     }
 
-    public function post($token, Session $session, ORM $orm, Request $request): RedirectResponse|Template
+    public function post($token, $school, Session $session, ORM $orm, Request $request): RedirectResponse|Template
     {
-        if (!$session->has('verify_data')
-            || $token !== ($data = $session->get('verify_data'))['token']
-        ) {
+        if (!($user = $orm->getORM()->getRepository(User::class)->findOne(['verify_token' => sha1($token.$school)]))) {
             return redirect('/register');
+        }
+
+        if ($user->createdAt->diff(new DateTime("now"))->i > 10)  {
+            $orm->getEntityManager()->delete($user);
+            return redirect('/');
         }
 
         $request->validate([
             'year' => 'numeric',
         ], redirect('/verify/'.$token));
-
-        $email = $data['email'];
 
         $year = $orm->getORM()->getRepository(Year::class)
             ->findOne([
@@ -68,15 +72,13 @@ class Verify
         ;
 
         if (null === $year) {
-            return redirect('/verify/'.$token);
+            return redirect('/verify/'.$token.'/'.$school);
         }
 
-        $user = new User($email, $data['password'], $year, 0);
-
         $session->dontExpire();
-        $session->remove('verify_data');
+        $user->year = $year;
 
-        $session->set('email', $email);
+        $session->set('email', $user->email);
 
         $orm->getEntityManager()->persist($user)->run();
 

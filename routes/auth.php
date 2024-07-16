@@ -13,8 +13,8 @@ Route::controller('login', Login::class);
 
 Route::controller('register', Register::class);
 
-Route::get('verify/{token}', [Verify::class, 'get']);
-Route::post('verify/{token}', [Verify::class, 'post']);
+Route::get('verify/{token}/{school}', [Verify::class, 'get']);
+Route::post('verify/{token}/{school}', [Verify::class, 'post']);
 
 Route::controller('forgotten-password', Request::class);
 Route::get('forgotten-password/{token}', [Change::class, 'get']);

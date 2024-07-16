@@ -8,6 +8,7 @@ use App\Contracts\ORM;
 use App\Entities\School;
 use App\Entities\User;
 use App\TokenGenerator;
+use DateTime;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Templating\Template;
@@ -46,28 +47,35 @@ class Register
         $school = $school[0];
         $admin = $school->admin_email === $host;
 
-        if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $login])) {
-            Validator::addError('user-exists', 'email', '');
+        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login])) {
+        
+            if ($user->verify_token && $user->createdAt->diff(new DateTime("now"))->i > 10)  {
+                $orm->getEntityManager()->delete($user);
+            } else {
+                Validator::addError('user-exists', 'email', '');
 
-            return template('auth.register');
+                return template('auth.register');
+            }
         }
 
-        $token = TokenGenerator::generate();
+        $raw_token = TokenGenerator::generate(); 
+        $token = sha1($raw_token. $school->id);
 
         $message =
             (new Email())
                 ->from(config('mail.from'))
                 ->to($email)
                 ->subject(text('auth.verify-subject'))
-                ->html(template('mail.verify', token: $token)->render())
+                ->html(template('mail.verify', token: $raw_token, school: $school)->render())
         ;
 
         $mailer->send($message);
 
         $password = password_hash($request->get('password'), PASSWORD_ARGON2I);
-        $session->set('verify_data', ['email' => $login, 'password' => $password, 'school' => $school->id, 'token' => $token, 'admin' => $admin]);
-        $session->expireAt(3);
+        $user = new User($login, $password, (int) $admin, $token);        
 
+        $orm->getEntityManager()->persist($user)->run();
+        
         return template('auth.register', message: 'auth.email-sent');
     }
 }

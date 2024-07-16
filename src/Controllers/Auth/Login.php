@@ -6,6 +6,7 @@ namespace App\Controllers\Auth;
 
 use App\Entities\User;
 use App\ORM;
+use DateTime;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
@@ -33,6 +34,14 @@ class Login
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
             return template('auth.login', message: 'auth.error');
+        }
+
+        if ($user->verify_token) {
+            if ($user->createdAt->diff(new DateTime("now"))->i > 10)  {
+                $orm->getEntityManager()->delete($user);
+            }
+
+            return redirect('/login');
         }
 
         if ($user->email() !== $request->get('email')) {
