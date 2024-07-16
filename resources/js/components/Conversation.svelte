@@ -51,7 +51,7 @@
     </div>
 
     <div class="flex items-center gap-2">
-        <input type="text" class="w-full border-2 border-black input" placeholder="..." bind:value={message}>
+        <input type="text" class="w-full border-2 border-black input" placeholder="..." bind:value={message} on:keydown={(e) => { if (e.key == 'Enter') { send() } } }>
         <button on:click={send} disabled={message ===''} ><i class="text-2xl bi bi-send"></i></button>
     </div>
 </div>

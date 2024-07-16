@@ -101,6 +101,7 @@ return [
     'reserved-by' => 'Reserved by user',
     'order-accept' => 'Accepted',
     'order-deny' => 'Denied',
+    'reserved' => 'RESERVED',
 
     // Wishlist
 

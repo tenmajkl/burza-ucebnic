@@ -101,6 +101,7 @@ return [
     'reserved-by' => 'Rezervováno uživatelem',
     'order-accept' => 'Předáno',
     'order-deny' => 'Nepředáno',
+    'reserved' => 'REZERVOVÁNO',
 
     // Wishlist
 
