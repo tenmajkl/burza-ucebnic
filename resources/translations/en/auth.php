@@ -24,6 +24,7 @@ return [
     'verify-subject' => 'Verification',
     'verify-link' => 'Verify',
     'verify-text' => 'Welcome!<br>Before you log in, you need to verify yourself and select your class. Just click the Verify button.',
+    'verify-description' => 'Select year:',
     'success' => '',
     'verify-title' => 'Complete registration',
     'banned-title' => 'Access denied.',

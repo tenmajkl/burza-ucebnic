@@ -8,6 +8,7 @@
     <main class="flex items-center justify-center h-screen">
         <form method="POST" class="flex flex-col">
             <span class="mb-2 text-2xl">{ text auth.verify-title }</span>
+            { text auth.verify-description }
             { ifError }
                 <div class="mb-2 alert">{ error }</div>
             { /ifError }
