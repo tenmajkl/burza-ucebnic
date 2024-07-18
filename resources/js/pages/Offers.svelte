@@ -39,46 +39,50 @@
 <div class="text-2xl font-bold">
     <Text text="offers-title" />
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-    <div class="flex flex-col">
-        <label for="subject" class="text-xs text-secondary"><Text text="subject" /></label>
-        <select id="subject" name="subject" class="input" bind:value={subject} on:change={getOffers}>
-            {#each subjects as _subject}
-                <option value={_subject.id}>{_subject.name}</option>
-            {/each}
-        </select>
+{#if subjects[0]}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="flex flex-col">
+            <label for="subject" class="text-xs text-secondary"><Text text="subject" /></label>
+            <select id="subject" name="subject" class="input" bind:value={subject} on:change={getOffers}>
+                {#each subjects as _subject}
+                    <option value={_subject.id}>{_subject.name}</option>
+                {/each}
+            </select>
+        </div>
+        <div class="flex flex-col">
+            <label for="state" class="text-xs text-secondary"><Text text="book-state" /></label>
+                <select id="state" name="state" class="input" bind:value={state} on:change={getOffers}>
+                {#each states as _state, id}
+                    <option value={id}><Text text="state-{_state}" /></option>
+                {/each}
+            </select>
+        </div>
+        <div class="flex flex-col">
+            <label for="sort" class="text-xs text-secondary"><Text text="sorting" /></label>
+            <select id="sort" name="sort" class="input" bind:value={sort} on:change={getOffers}>
+                {#each sorting as _sort}
+                    <option value={_sort} ><Text text="sorting-{_sort}" /></option>
+                {/each}
+            </select>
+        </div>
+        <div class="flex flex-col">
+            <label for="offer-state" class="text-xs text-secondary"><Text text="offer-state" /></label>
+            <select id="offer-state" name="offer-state" class="input" bind:value={offerState}>
+                <option value="0"><Text text="offer-state-free" /></option>
+                <option value="1"><Text text="offer-state-reserved" /></option>
+            </select>
+        </div>
     </div>
-    <div class="flex flex-col">
-        <label for="state" class="text-xs text-secondary"><Text text="book-state" /></label>
-            <select id="state" name="state" class="input" bind:value={state} on:change={getOffers}>
-            {#each states as _state, id}
-                <option value={id}><Text text="state-{_state}" /></option>
-            {/each}
-        </select>
-    </div>
-    <div class="flex flex-col">
-        <label for="sort" class="text-xs text-secondary"><Text text="sorting" /></label>
-        <select id="sort" name="sort" class="input" bind:value={sort} on:change={getOffers}>
-            {#each sorting as _sort}
-                <option value={_sort} ><Text text="sorting-{_sort}" /></option>
-            {/each}
-        </select>
-    </div>
-    <div class="flex flex-col">
-        <label for="offer-state" class="text-xs text-secondary"><Text text="offer-state" /></label>
-        <select id="offer-state" name="offer-state" class="input" bind:value={offerState}>
-            <option value="0"><Text text="offer-state-free" /></option>
-            <option value="1"><Text text="offer-state-reserved" /></option>
-        </select>
-    </div>
-</div>
 
-<hr class="my-2 border-t-4 rounded-sm border-secondary">
+    <hr class="my-2 border-t-4 rounded-sm border-secondary">
 
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
-    {#each offers as offer}
-        {#if offerState == 1 || offer.reservations == 0}
-            <Offer {offer} bind:with_reserved={offerState} />
-        {/if}
-    {/each}
-</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
+        {#each offers as offer}
+            {#if offerState == 1 || offer.reservations == 0}
+                <Offer {offer} bind:with_reserved={offerState} />
+            {/if}
+        {/each}
+    </div>
+{:else}
+    <Text text="no-offers"></Text>
+{/if}

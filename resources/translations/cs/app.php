@@ -71,6 +71,7 @@ return [
     'offers-title' => 'Aktuální nabídky',
     'reserve' => 'REZERVOVAT',
     'rating' => 'Hodnocení uživatele @%arg',
+    'no-offers' => 'Váš ročník nemá k dispozici žádné učebnice ke koupi.',
 
     // Filters
 
