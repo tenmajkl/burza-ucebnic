@@ -12,7 +12,7 @@
     let enabled = true;
 
     async function disable() {
-        await fetch('/api/reservations/disable/' + reservation.id, {
+        await fetch('/api/reservations/' + reservation.id + '/delete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
