@@ -2,6 +2,8 @@
     import Text from "../components/Text.svelte";
     import Offer from '../components/Offer.svelte';
 
+    const params = new URLSearchParams(window.location.search);
+
     let subjects = [];
     let states = [];
     let sorting = [];
@@ -9,6 +11,7 @@
     let state = 0;
     let sort;
     let offerState = '0';
+    let less_than = params.get('less_than');
 
     let offers = [];
 
@@ -29,11 +32,13 @@
             subjects = data.subjects;
             states = data.states;
             sorting = data.sorts;
-            subject = subjects[0].id;
+            subject = params.has('subject') ? params.get("subject") : subjects[0].id;
             sort = sorting[0];
             getOffers();
         })
     ;
+
+    window.history.pushState('page2', 'Title', '/');
 </script>
 
 <div class="text-2xl font-bold">
@@ -72,13 +77,17 @@
                 <option value="1"><Text text="offer-state-reserved" /></option>
             </select>
         </div>
+        <div class="flex flex-col">
+            <label for="max-price" class="text-xs text-secondary"><Text text="wishlist-max-price" /></label>
+            <input id="max-price" name="max-price" class="input" type="number" min="0" bind:value={less_than}>
+        </div>
     </div>
 
     <hr class="my-2 border-t-4 rounded-sm border-secondary">
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
         {#each offers as offer}
-            {#if offerState == 1 || offer.reservations == 0}
+            {#if (offerState == 1 || offer.reservations == 0) && (less_than === null || less_than === undefined || offer.price < less_than)}
                 <Offer {offer} bind:with_reserved={offerState} />
             {/if}
         {/each}

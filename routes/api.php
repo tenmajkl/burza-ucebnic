@@ -21,6 +21,7 @@ $reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations
 
 Route::controller('messages', Messages::class);
 
+Route::get('wishlist/search/{target}', [Wishlist::class, 'search']);
 Route::controller('wishlist', Wishlist::class);
 
 Route::post('notifications/read-all', [Notifications::class, 'readAll']);

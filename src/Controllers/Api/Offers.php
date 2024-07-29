@@ -86,7 +86,7 @@ class Offers
     {
         $request->validate([
             'book' => 'numeric',
-            'price' => 'numeric',
+            'price' => 'numeric|min:0',
             'state' => 'state',
         ], fn () => response([
             'status' => '400',

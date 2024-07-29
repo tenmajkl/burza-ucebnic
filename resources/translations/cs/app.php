@@ -112,6 +112,7 @@ return [
     'wishlist-select-title' => 'Výběr učebnic do seznamu',
     'wishlist-max-price' => 'Maximálně za',
     'wishlist-empty' => 'Seznam přání je prázdný',
+    'wishlist-added' => 'Učebnice přidána na seznam přání, až bude k dispozici, přijde vám notifikace.',
 
     // Add
 

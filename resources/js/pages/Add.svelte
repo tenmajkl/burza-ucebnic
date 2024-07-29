@@ -102,7 +102,7 @@
     </div>
     <div class="flex flex-col">
         <label for="subject" class="text-xs text-secondary"><Text text="price" /></label>
-        <input type="number" class="input" bind:value={offer.price} required min='1' max='999'>
+        <input type="number" class="input" bind:value={offer.price} required min='0' max='999'>
     </div>
     <div class="flex flex-col">
         <label for="subject" class="text-xs text-secondary"><Text text="book-state" /></label>

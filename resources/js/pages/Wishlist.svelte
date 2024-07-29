@@ -14,6 +14,9 @@
             available = data['data'][1];
         });
 
+
+    let banner = false;
+
     function create(book)
     {
         fetch('/api/wishlist/'+available[book].id, {
@@ -35,6 +38,9 @@
                 available = data['data'][1];
                 error = null;
             });
+
+        banner = true;
+
     }
 
     function remove(inquiry)
@@ -52,11 +58,30 @@
                 available = data['data'][1];
             })
     }
+
+    function search(inquiry) 
+    {
+        fetch("/api/wishlist/search/" + inquiry.id)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                window.location += '?less_than=' + inquiry.max_price + '&subject=' + data.data;
+            });       
+    }
+
+
 </script>
 
 <div class="text-2xl font-bold">
     <Text text="wishlist-title" />
 </div>
+
+{#if banner}
+    <div class="alert-success mb-3 flex justify-between">
+        <Text text="wishlist-added"></Text>
+            <i class="bi bi-check text-xl" on:click={() => banner = false}></i>
+    </div>
+{/if}
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each wishlist as inquiry}
@@ -70,7 +95,7 @@
                     <div class="text-sm"><Text text="wishlist-max-price" /> {inquiry.max_price} <Text text="currency"/></div>                  
                 </div>
                 <div class="flex gap-3">
-                    <button class="text-sm uppercase button"><Text text="search" /></button>
+                    <button class="text-sm uppercase button" on:click={() => search(inquiry)}><Text text="search" /></button>
                     <button class="text-sm uppercase button-red" on:click={() => remove(inquiry.id)}><Text text="remove" /></button>
                 </div>
             </div>

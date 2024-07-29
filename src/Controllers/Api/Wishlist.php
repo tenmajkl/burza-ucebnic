@@ -64,4 +64,26 @@ class Wishlist
 
         return $this->index($orm, $auth);
     }
+
+    /**
+     * Returns subject of given book that can be searched by user
+     */
+    public function search(?Inquiry $target): mixed 
+    {
+        if ($target === null) {
+            return error(404);
+        }
+
+        foreach ($target->book->subjects as $subject) {
+            if ($subject->year->id == $target->user->year->id) {
+                return [
+                    'code' => 200,
+                    'message' => 'OK',
+                    'data' => $subject->id,
+                ];
+            }
+        }
+
+        return error(404);
+    }
 }
