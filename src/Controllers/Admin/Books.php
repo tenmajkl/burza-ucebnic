@@ -186,7 +186,7 @@ class Books
         /**
          * THE FORMAT.
          *
-         * subject,year,name,author,publisher,release_year
+         * subject;year;name;author;publisher;release_year
          *
          * which will be converted to this shit db architecture
          *
@@ -196,7 +196,7 @@ class Books
 
         $school = $auth->user()->year->school;
 
-        while ($line = fgetcsv($file)) {
+        while ($line = fgetcsv($file, separator: ';')) {
             [$subject_name, $year_name, $name, $author, $publisher, $release_year] = $line;
 
             if (($year = $orm->getORM()->getRepository(Year::class)->findOne(['name' => $year_name, 'school.id' => $school->id])) === null) {

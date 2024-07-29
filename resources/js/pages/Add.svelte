@@ -65,7 +65,7 @@
         {result.message}
     </div>
 {/if}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-2 xl:w-1/2 2xl:w-1/3">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
     <div class="flex flex-col md:col-span-2">
         <label for="subject" class="text-xs text-secondary"><Text text="year" /></label>
             <select id="year" name="year" class="input" bind:value={year} required>
@@ -78,20 +78,24 @@
     <div class="flex overflow-x-auto md:col-span-2 gap-3 pb-2">
         {#if years[year]}
             {#each years[year].books as book}
-                <div class="w-1/2 md:w-1/4 font-bold card">
-                    <div ><img src="/img/cover/{book.id}.png" alt="Photo of {book.name}" class="object-cover w-full h-full rounded-md"></div>
-                    <div>
-                        <div class="text-xl">{book.name}</div>
-                        <div class="text-xs text-secondary">{book.author}</div>
-                        <div class="text-xs text-secondary">{book.publisher} {book.release_year}</div>
-                    </div>
-                    <button class="{offer.book == book.id ? 'button' : 'button-secondary'} " on:click={() => offer.book = book.id}><Text text="{offer.book === book.id ? 'selected' : 'select'}" /></button>
-                    {#if book.average_price > 0} 
-                        <div><Text text="average-price" />: {book.average_price} <Text text="currency" /></div>
-                    {/if}
-                    {#if book.average_max_price > 0} 
-                        <div><Text text="average-max-price" />: {book.average_max_price} <Text text="currency" /></div>
-                    {/if}
+                <div class="shrink-0 w-1/2 md:w-1/4 font-bold card flex flex-col justify-between gap-1">
+                    <!--<div><img src="/img/cover/{book.id}.png" alt="Photo of {book.name}" class="object-cover w-full h-full rounded-md"></div>!-->
+                    <div class="text-xl">{book.name}</div>
+                    <div class="gap-2 flex flex-col">
+                        <div>
+                            <div class="text-xs text-secondary">{book.author}</div>
+                            <div class="text-xs text-secondary">{book.publisher} {book.release_year}</div>
+                        </div>
+                        <div class="flex gap-1 items-center">
+                            <button class="{offer.book == book.id ? 'button-secondary' : 'button'} " on:click={() => offer.book = book.id}><Text text="{offer.book === book.id ? 'selected' : 'select'}" /></button>
+                            {#if book.average_price > 0} 
+                                <div><Text text="average-price" />: {book.average_price} <Text text="currency" /></div>
+                            {/if}
+                            {#if book.average_max_price > 0} 
+                                <div><Text text="average-max-price" />: {book.average_max_price} <Text text="currency" /></div>
+                            {/if}
+                        </div>
+                    </div>  
                 </div>
             {/each}
         {/if}
