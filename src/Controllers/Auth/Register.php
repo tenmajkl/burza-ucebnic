@@ -47,7 +47,7 @@ class Register
         $school = $school[0];
         $admin = $school->admin_email === $host;
 
-        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login])) {
+        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'role' => (int) $admin, 'year.school.id' => $school->id])) {
         
             if ($user->verify_token && $user->createdAt->diff(new DateTime("now"))->i > 10)  {
                 $orm->getEntityManager()->delete($user);

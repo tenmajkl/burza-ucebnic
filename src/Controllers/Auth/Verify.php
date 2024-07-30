@@ -42,6 +42,8 @@ class Verify
             $orm->getEntityManager()->persist($user)->run();
             $session->dontExpire();
             $session->set('email', $user->email);
+            $session->set('role', 1);
+            $session->set('school', $school);
             return redirect('/');
         }
 
@@ -68,6 +70,7 @@ class Verify
         $year = $orm->getORM()->getRepository(Year::class)
             ->findOne([
                 'id' => $request->get('year'),
+                'school.id' => $school,
             ])
         ;
 
@@ -80,6 +83,8 @@ class Verify
         $user->verify_token = null;
 
         $session->set('email', $user->email);
+        $session->set('role', (int) 0);
+        $session->set('school', $school);
 
         $orm->getEntityManager()->persist($user)->run();
 

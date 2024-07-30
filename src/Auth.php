@@ -29,9 +29,10 @@ class Auth implements AuthContract
             return null;
         }
 
-        // TODO
         return $this->orm->getORM()->getRepository(User::class)->findOne([
             'email' => $this->session->get('email'),
+            'role' => $this->session->get('role'),
+            'school' => $this->session->get('school'),
         ]);
     }
 

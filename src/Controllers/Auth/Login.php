@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Auth;
 
+use App\Entities\School;
 use App\Entities\User;
 use App\ORM;
 use DateTime;
@@ -28,8 +29,24 @@ class Login
 
         [$email, $host] = explode('@', $request->get('email'));
 
+        $school = $orm->getORM()->getRepository(School::class)->select()
+                      ->where(['email' => $host])
+                      ->orWhere(['admin_email' => $host])
+                      ->fetchAll();
+    
+        if ([] === $school) {
+            Validator::addError('school-email', 'email', '');
+
+            return template('auth.register');
+        }
+
+        $school = $school[0];
+        $admin = $school->admin_email === $host;
+
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
+            'year.school.id' => $school->id,
+            'role' => $admin,
         ]);
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
@@ -44,11 +61,8 @@ class Login
             return redirect('/login');
         }
 
-        if ($user->email() !== $request->get('email')) {
-            return template('auth.login', message: 'auth.error');
-        }
-
         $session->set('email', explode('@', $request->get('email'))[0]);
+        $session->set('role', (int) $admin);
 
         $session->expireAt(31536000); // 1 year
 
