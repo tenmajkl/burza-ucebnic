@@ -63,6 +63,7 @@ class Login
 
         $session->set('email', explode('@', $request->get('email'))[0]);
         $session->set('role', (int) $admin);
+        $session->set('school', $school->id);
 
         $session->expireAt(31536000); // 1 year
 
