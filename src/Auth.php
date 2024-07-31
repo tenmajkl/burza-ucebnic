@@ -32,7 +32,7 @@ class Auth implements AuthContract
         return $this->orm->getORM()->getRepository(User::class)->findOne([
             'email' => $this->session->get('email'),
             'role' => $this->session->get('role'),
-            'school' => $this->session->get('school'),
+            'year.school.id' => $this->session->get('school'),
         ]);
     }
 

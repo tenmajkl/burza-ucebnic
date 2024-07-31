@@ -5,10 +5,10 @@
     const params = new URLSearchParams(window.location.search);
 
     let subjects = [];
-    let states = [];
+    let states = {};
     let sorting = [];
     let subject;
-    let state = 0;
+    let state = "-1";
     let sort;
     let offerState = '0';
     let less_than = params.get('less_than');
@@ -57,7 +57,7 @@
         <div class="flex flex-col">
             <label for="state" class="text-xs text-secondary"><Text text="book-state" /></label>
                 <select id="state" name="state" class="input" bind:value={state} on:change={getOffers}>
-                {#each states as _state, id}
+                {#each Object.entries(states) as [id, _state]}
                     <option value={id}><Text text="state-{_state}" /></option>
                 {/each}
             </select>

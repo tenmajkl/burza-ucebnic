@@ -6,18 +6,16 @@ namespace App\Entities;
 
 enum BookState: int 
 {
-    case Any = 0;
-    case New = 1;
-    case Used = 2;
-    case Damaged = 3;
+    case New = 0;
+    case Used = 1;
+    case Damaged = 2;
 
     public static function fromId(int $id): ?self
     {
         return match ($id) {
-            0 => self::Any,
-            1 => self::New,
-            2 => self::Used,
-            3 => self::Damaged,
+            0 => self::New,
+            1 => self::Used,
+            2 => self::Damaged,
             default => null
         };
     }
@@ -25,7 +23,6 @@ enum BookState: int
     public function name(): string
     {
         return match($this) {
-            self::Any => 'any',
             self::New => 'new',
             self::Used => 'used',
             self::Damaged => 'damaged',
@@ -35,10 +32,10 @@ enum BookState: int
     public static function all(): array
     {
         return [
-            'any',
-            'new',
-            'used',
-            'damaged',
+            -1 => 'any',
+            0 => 'new',
+            1 => 'used',
+            2 => 'damaged',
         ];
     }
 

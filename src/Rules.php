@@ -21,6 +21,7 @@ class Rules
         $this->app->get('validation')->rules()
             ->rule('id', [$this, 'id'])
             ->rule('state', [$this, 'state'])
+            ->rule('state-get', [$this, 'stateGet'])
             ->rule('offer-state', [$this, 'offerState'])
             ->rule('sort', [$this, 'sort'])
         ;
@@ -46,7 +47,15 @@ class Rules
 
     public function state(string $state): bool
     {
-        return BookState::fromId((int) $state + 1) ? true : false;
+        return BookState::fromId((int) $state) ? true : false;
+    }
+
+    /**
+     * For situations where there is state any (mostly reading situations)
+     */
+    public function stateGet(string $state): bool
+    {
+        return $state === '-1' || BookState::fromId((int) $state) ? true : false;
     }
 
     public function offerState(string $state): bool

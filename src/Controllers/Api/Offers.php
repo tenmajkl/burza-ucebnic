@@ -24,7 +24,7 @@ class Offers
     {
         $ok = Validator::validate($request->query() ?? [], [
             'subject' => 'numeric',
-            'state' => 'state',
+            'state' => 'state-get',
             'sort' => 'sort',
         ]);
 
@@ -45,7 +45,7 @@ class Offers
             ->select()                
             ->where(['bought_at' => null])
             ->where(['book.subjects.id' => $subject])
-            ->where(0 === $state ? [] : ['state' => BookState::fromId($state)])
+            ->where(-1 === $state ? [] : ['state' => BookState::fromId($state)])
         ;
 
         $select = OfferSort::from($sort)->sort($select);
@@ -78,7 +78,7 @@ class Offers
 
         return [
             'years' => $years,
-            'states' => array_slice($states, 1),
+            'states' => $states,
         ];
     }
 
