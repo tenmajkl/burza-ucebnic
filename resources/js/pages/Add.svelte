@@ -51,7 +51,7 @@
             result = data;
             if (result && result.status == '200') {
                 offer = { state: 0 };
-                selected = 0;
+                selected = 4;
             }
         });
         loading = 0;

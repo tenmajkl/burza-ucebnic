@@ -7,6 +7,8 @@
 
     let error = null;
 
+    export let selected;
+
     fetch("/api/wishlist")
         .then(response => response.json())
         .then(data => {
@@ -65,7 +67,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                window.location += '?less_than=' + inquiry.max_price + '&subject=' + data.data;
+                window.history.pushState('page2', 'Title', '?less_than=' + inquiry.max_price + '&subject=' + data.data);
+                selected = 0;
             });       
     }
 
