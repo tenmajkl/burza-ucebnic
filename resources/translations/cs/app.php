@@ -147,6 +147,7 @@ return [
     'notification-rating' => 'Jak jste byli spokojeni s prodávajícím @%arg?',
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
     'notification-new-reservation' => 'Nová rezervace učebnice %arg!',
+    'notifications-editing' => 'Nabídka učebnice %arg byla upravena!',
 
     // Emojis
 

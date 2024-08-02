@@ -170,7 +170,7 @@ class Offers
         ];
     }
 
-    public function update(?Offer $target, Request $request, ORM $orm, Auth $auth)
+    public function update(?Offer $target, Request $request, ORM $orm, Auth $auth, Notifier $notifier)
     {
         if (!$target || $target->user->id !== $auth->user()->id) {
             return error(404);
@@ -186,6 +186,10 @@ class Offers
         $target->price = (int) $request->get('price');
 
         $orm->getEntityManager()->persist($target)->run();
+
+        foreach ($target->reservations as $reservation) {
+            $notifier->notifyEditing($reservation->user, $target);
+        }
 
         return [
             'status' => '200',

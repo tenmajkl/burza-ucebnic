@@ -69,6 +69,10 @@
             <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                 <MyOffer offer={notification.offer} editing={null} openned={null} />
             </Notification>
+        {:else if notification.type == 4} <!-- editing -->
+            <Notification bind:notification={notification} title="editing" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
+                <Offer offer={notification.offer} />
+            </Notification>
         {:else}
             <Text text="notifications-unsupported" />
         {/if}
