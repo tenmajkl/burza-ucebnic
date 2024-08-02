@@ -48,4 +48,5 @@
                 </tr>
             { /foreach }
         </tbody>
+    </table>
 { /block }

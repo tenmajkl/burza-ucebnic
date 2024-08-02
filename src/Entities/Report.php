@@ -29,8 +29,6 @@ class Report
         public User $author,
         #[BelongsTo(target: Offer::class)]
         public Offer $offer,
-        #[Column(type: 'bool')]
-        public int|bool $active = 1,
     ) {
     }
 }
