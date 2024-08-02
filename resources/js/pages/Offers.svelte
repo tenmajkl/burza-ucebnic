@@ -32,7 +32,8 @@
             subjects = data.subjects;
             states = data.states;
             sorting = data.sorts;
-            subject = params.has('subject') ? params.get("subject") : subjects[0].id;
+            subject = params.has('subject') ? (params.get("subject") - 0) : subjects[0].id; // javascript was a mistake what the actual duck is this
+            console.log(subject);
             sort = sorting[0];
             getOffers();
         })

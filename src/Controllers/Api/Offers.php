@@ -41,16 +41,16 @@ class Offers
 
         $state = (int) $state;
 
+
         $select = $orm->getORM()->getRepository(Offer::class)
             ->select()                
             ->where(['bought_at' => null])
             ->where(['book.subjects.id' => $subject])
+            ->where(['book.subjects.year.id' => $auth->user()->year->id])
             ->where(-1 === $state ? [] : ['state' => BookState::fromId($state)])
         ;
 
         $select = OfferSort::from($sort)->sort($select);
-
-        //dd($select->sqlStatement());
 
         $data = $select->fetchAll();
 

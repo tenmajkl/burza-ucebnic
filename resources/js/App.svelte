@@ -50,7 +50,7 @@
     <div class="fixed bottom-0 flex justify-around w-screen p-2 bg-white border-t-4 md:hidden border-primary shadow-2xl">
         <Menu items={items} bind:selected={selected} bind:data={menu_data} />
     </div>
-    <div class="sticky top-0 flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex shadow-lg bg-white">
+    <div class="sticky overflow-auto top-0 flex-col justify-between hidden h-screen p-3 border-r-4 border-primary md:flex shadow-lg bg-white">
         <div class="grid gap-4">
             <span class="text-xl"><Text text="title" /></span>
             <Menu items={items} bind:selected={selected} bind:data={menu_data} />
