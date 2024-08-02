@@ -7,12 +7,11 @@ namespace App\Controllers\Auth;
 use App\Auth;
 use App\Contracts\ORM;
 use Lemon\Http\Request;
-use Lemon\Templating\Template;
 use Lemon\Validator;
 
 class ChangePassword
 {
-    public function post(Request $request, Auth $auth, ORM $orm) 
+    public function post(Request $request, Auth $auth, ORM $orm): mixed
     {
         $request->validate([
             'old_password' => 'max:256',

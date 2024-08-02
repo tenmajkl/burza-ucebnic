@@ -6,7 +6,7 @@ return [
     'name' => 'Burza učebnic',
     'state-any' => 'Vše',
     'state-new' => 'Nová',
-    'state-used' => 'Použitá',
+    'state-covered' => 'Popsaná',
     'state-damaged' => 'Poškozená',
 
     'get-back' => 'Zpět',
@@ -162,6 +162,7 @@ return [
     'profile-change-password' => 'Změnit heslo',
     'profile-old-password' => 'Staré heslo',
     'profile-new-password' => 'Nové heslo',
+    'profile-password-changed' => 'Heslo změněno!',
 
     // Reporting
     

@@ -2,7 +2,7 @@
     import Text from "../components/Text.svelte";
     import imageCompression from 'browser-image-compression';
 
-    let states = [];
+    let states = {};
     let years = [];
 
     fetch('/api/offers/create')
@@ -12,7 +12,7 @@
                 years = data.years;
             });
 
-    let offer = { state: 0 };
+    let offer = { state: "0" };
     let year = 0;
 
     let result = null;
@@ -107,7 +107,7 @@
     <div class="flex flex-col">
         <label for="subject" class="text-xs text-secondary"><Text text="book-state" /></label>
         <select id="subject" name="subject" class="input" bind:value={offer.state} required>
-            {#each states as state, id}
+            {#each Object.entries(states) as [id, state]}
                 <option value="{id}"><Text text="state-{state}" /></option>
             {/each}
         </select>

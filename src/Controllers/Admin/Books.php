@@ -52,7 +52,7 @@ class Books
         $book = new Book(
             $request->get('name'),
             $request->get('author'),
-            (int) $request->get('release_year'),
+            $request->get('release_year'),
             $request->get('publisher'),
         );
 
@@ -217,7 +217,7 @@ class Books
                 continue;
             }
 
-            $book = new Book($name, $author, (int) $release_year, $publisher);
+            $book = new Book($name, $author, $release_year, $publisher);
             $book->subjects[] = $subject;
 
             $orm->getEntityManager()->persist($book)->run();

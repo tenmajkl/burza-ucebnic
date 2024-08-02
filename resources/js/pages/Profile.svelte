@@ -4,6 +4,7 @@
     let old_password = '';
     let new_password = '';
     let error = null;
+    let success = false;
 
     function logout() {
         fetch('/api/logout', {
@@ -31,6 +32,10 @@
         .then((res) => {
             if (res.status != 200) {
                 error = res.message;
+                success = false;
+            } else {
+                success = true;
+                error = null;
             }
         })
     }
@@ -50,6 +55,12 @@
         {#if error}
             <div class="alert">
                 {error}
+            </div>            
+        {/if}
+
+        {#if success}
+            <div class="alert-success">
+                <Text text="profile-password-changed"></Text>
             </div>            
         {/if}
         <div class="flex flex-col sm:w-1/3 md:w-1/2 xl:w-1/4">

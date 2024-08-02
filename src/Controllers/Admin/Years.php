@@ -95,7 +95,7 @@ class Years
             return redirect('/admin/years');
         }
 
-        if ($year->name === 'admins') {
+        if ($target->name === 'admins') {
             return redirect('/admin/years');
         }
 
