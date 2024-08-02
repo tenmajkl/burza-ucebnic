@@ -11,7 +11,7 @@ use App\Entities\Book;
 use App\Entities\BookState;
 use App\Entities\Offer;
 use App\Entities\OfferSort;
-use App\Entities\User;
+use App\Entities\Report;
 use App\Entities\Year;
 use Lemon\Http\Request;
 use Lemon\Http\Response;
@@ -195,11 +195,31 @@ class Offers
 
     public function delete(?Offer $target, Auth $auth, ORM $orm)
     {
-        if ($target->user->id !== $auth->user()->id) {
+        if (!$target || $target->user->id !== $auth->user()->id) {
             return error(404);
         }
 
         $orm->getEntityManager()->delete($target)->run();
+
+        return [
+            'status' => '200',
+            'message' => 'OK',
+        ];
+    }
+
+    public function report(?Offer $target, Auth $auth, ORM $orm, Request $request) 
+    {
+        $request->validate([
+            'reason' => 'min:8|max:2048',
+        ], fn() => error(400));
+
+        if (!$target) {
+            return error(404);
+        }
+
+        $report = new Report($request->get('reason'), $auth->user(), $target);
+        
+        $orm->getEntityManager()->persist($report)->run();
 
         return [
             'status' => '200',

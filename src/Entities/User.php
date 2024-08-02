@@ -43,9 +43,6 @@ class User implements Injectable, \JsonSerializable
     #[HasMany(target: Report::class)]
     public array $given_reports = [];
 
-    #[HasMany(target: Report::class)]
-    public array $received_reports = [];
-
     #[HasMany(target: Ban::class, outerKey: 'admin_id')]
     public array $given_bans = [];
 
@@ -108,6 +105,18 @@ class User implements Injectable, \JsonSerializable
         }
 
         return null;
+    }
+
+    public function getReports(): array 
+    {
+        $result = [];
+        foreach ($this->offers as $offer) {
+            foreach ($offer->reports as $report) {
+                $result[] = $report;
+            }
+        }
+
+        return $result;
     }
 
     public function jsonSerialize(): mixed

@@ -73,6 +73,7 @@ return [
     'rating' => 'Hodnocení uživatele @%arg',
     'no-offers' => 'Váš ročník nemá k dispozici žádné učebnice ke koupi.',
     'number-of-reservations' => 'Počet rezervací učebnice',
+    'photo-book' => 'Fotografie učebnice ',
 
     // Filters
 
@@ -161,4 +162,10 @@ return [
     'profile-change-password' => 'Změnit heslo',
     'profile-old-password' => 'Staré heslo',
     'profile-new-password' => 'Nové heslo',
+
+    // Reporting
+    
+    'report-title' => 'Nahlásit uživatele',
+    'reason' => 'Důvod',
+    'report' => 'Nahlásit',
 ];

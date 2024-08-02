@@ -41,6 +41,9 @@ class Offer implements \JsonSerializable, Injectable
     #[HasMany(target: Reservation::class)]
     public array $reservations = [];
 
+    #[HasMany(target: Report::class)]
+    public array $reports = [];
+
     #[Column(type: 'datetime', nullable: true)]
     public ?\DateTimeImmutable $boughtAt;
 

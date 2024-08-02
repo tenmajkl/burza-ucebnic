@@ -37,8 +37,9 @@ class Book implements \JsonSerializable, Injectable
         public string $name,
         #[Column(type: 'string')]
         public string $author,
-        #[Column(type: 'int')]
-        public int $release_year,
+        // yes, release year is string, its so you can enter multiple editions and stuff
+        #[Column(type: 'string')]
+        public string $release_year,
         #[Column(type: 'string')]
         public string $publisher,
     ) {

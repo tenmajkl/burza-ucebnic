@@ -19,18 +19,18 @@ class Report
     #[Column(type: 'primary')]
     public int $id;
 
-    #[BelongsTo(target: User::class)]
-    public User $author;
-
-    #[BelongsTo(target: User::class)]
-    public User $reported;
-
     #[Column(type: 'datetime')]
     public \DateTimeImmutable $createdAt;
 
     public function __construct(
         #[Column(type: 'string')]
         public string $reason,
+        #[BelongsTo(target: User::class)]
+        public User $author,
+        #[BelongsTo(target: Offer::class)]
+        public Offer $offer,
+        #[Column(type: 'bool')]
+        public int|bool $active = 1,
     ) {
     }
 }

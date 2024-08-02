@@ -73,6 +73,7 @@ return [
     'rating' => 'User rating @%arg',
     'no-offers' => 'Your year can\'t buy books.',
     'number-of-reservations' => 'Number of reservations',
+    'photo-book' => 'Photo of book ',
 
     // Filters
 
