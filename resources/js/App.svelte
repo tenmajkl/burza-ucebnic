@@ -33,16 +33,15 @@
         })
 
     let selected = 0; 
-    
+    $: window.history.pushState('page2', 'Title', '/?page='+items[selected][0]);       
+
     const params = new URLSearchParams(window.location.search);
     const page = params.get('page')
     if (page) {
-        console.log(items, page);
         let location = items.findIndex((item) => item[0] == page);
-        if (location != undefined) {
+        if (location != -1) {
             selected = location;
         }
-        window.history.pushState('page2', 'Title', '/');
     }
 </script>
 
