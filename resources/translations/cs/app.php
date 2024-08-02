@@ -72,6 +72,7 @@ return [
     'reserve' => 'REZERVOVAT',
     'rating' => 'Hodnocení uživatele @%arg',
     'no-offers' => 'Váš ročník nemá k dispozici žádné učebnice ke koupi.',
+    'number-of-reservations' => 'Počet rezervací učebnice',
 
     // Filters
 

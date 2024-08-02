@@ -38,7 +38,10 @@
                     <div class="text-sm text-secondary"><Text text='state-{offer.state}' /></div>
                     <div class="flex gap-3">
                         <div class="text-xl">{offer.price} <Text text='currency' /></div>
-                            <button class="text-sm {offer.can_be_reserved ? 'button' : 'button-secondary'}" disabled={offer.can_be_reserved ? '' : '1'} on:click={() => reserve(offer.id)}><Text text="{offer.can_be_reserved ? 'reserve' : 'reserved'}"/></button>
+                        <button class="text-sm {offer.can_be_reserved ? 'button' : 'button-secondary'}" disabled={offer.can_be_reserved ? '' : '1'} on:click={() => reserve(offer.id)}><Text text="{offer.can_be_reserved ? 'reserve' : 'reserved'}"/></button>
+                        {#if offer.reservations != 0}
+                            <span title="{_text('number-of-reservations')}">({offer.reservations})</span>
+                        {/if}
                     </div>
                 </div>
             </div>

@@ -71,7 +71,8 @@ return [
     'offers-title' => 'Current Offers',
     'reserve' => 'RESERVE',
     'rating' => 'User rating @%arg',
-    'no-offers' => 'Your year can\'t buy books.'
+    'no-offers' => 'Your year can\'t buy books.',
+    'number-of-reservations' => 'Number of reservations',
 
     // Filters
 

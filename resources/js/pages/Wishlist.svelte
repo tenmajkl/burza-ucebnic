@@ -86,7 +86,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each wishlist as inquiry}
         <div class="flex card gap-5">
-            <img src="/img/cover/{inquiry.book.id}.png" alt="cecko" class="card-image">
+            <!--<img src="/img/cover/{inquiry.book.id}.png" alt="cecko" class="card-image">-->
             <div class="flex flex-col justify-between font-bold">
                 <div>
                     <div class="text-xl">{inquiry.book.name}</div>
@@ -115,22 +115,18 @@
     {#each available as book, index}
         {#if wishlist.filter((item) => item.book.id === book.id).length === 0}
             <div class="flex card gap-5">
-                <img src="/img/cover/{book.id}.png" alt="{book.name}" class="card-image">
+                <!--<img src="/img/cover/{book.id}.png" alt="{book.name}" class="card-image">-->
                 <div class="flex flex-col justify-between font-bold">
                     <div>
                         <div class="text-xl">{book.name}</div>
                         <div class="text-sm text-secondary">{book.author}</div>
                         <div class="text-sm text-secondary">{book.release_year}</div>
                     </div>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex gap-3 items-center">
                         <Text text="wishlist-max-price" />:
-                        <div class="flex gap-2">
-                            <div class="flex items-center gap-1 w-1/2">
-                                <input type="number" class="w-full input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required>
-                                <Text text="currency" />
-                            </div>
-                            <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>
-                        </div>
+                        <input type="number" class="w-1/3 input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required>
+                        <Text text="currency" />
+                        <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>
                     </div>
                 </div>
             </div>
