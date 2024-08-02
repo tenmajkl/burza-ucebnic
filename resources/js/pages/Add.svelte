@@ -1,6 +1,7 @@
 <script>
     import Text from "../components/Text.svelte";
     import imageCompression from 'browser-image-compression';
+    import { _text } from "../main";
 
     let states = {};
     let years = [];
@@ -75,7 +76,7 @@
             </select>
     </div>
     <div class="text-xs text-secondary"><Text text="book" /></div>
-    <div class="flex overflow-x-auto md:col-span-2 gap-3 pb-2">
+    <div class="flex overflow-x-scroll md:col-span-2 gap-3 pb-4">
         {#if years[year]}
             {#each years[year].books as book}
                 <div class="shrink-0 w-1/2 md:w-1/4 font-bold card flex flex-col justify-between gap-1">
@@ -89,13 +90,16 @@
                         <div class="flex gap-1 items-center">
                             <button class="{offer.book == book.id ? 'button-secondary' : 'button'} " on:click={() => offer.book = book.id}><Text text="{offer.book === book.id ? 'selected' : 'select'}" /></button>
                             {#if book.average_price > 0} 
-                                <div><Text text="average-price" />: {book.average_price} <Text text="currency" /></div>
+                                <div title="average-price">{book.average_price} <Text text="currency" /></div>
+                            {/if}
+                            {#if book.average_price > 0 && book.average_max_price > 0}
+                                /
                             {/if}
                             {#if book.average_max_price > 0} 
-                                <div><Text text="average-max-price" />: {book.average_max_price} <Text text="currency" /></div>
+                                <div title="average-max-price" >{book.average_max_price} <Text text="currency" /></div>
                             {/if}
                         </div>
-                    </div>  
+                    </div> 
                 </div>
             {/each}
         {/if}
