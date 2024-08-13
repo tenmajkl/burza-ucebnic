@@ -2,6 +2,7 @@
     import Text from './Text.svelte';
     import {_text} from '../main.js';
 	import { blur } from 'svelte/transition';
+    import PopUp from './PopUp.svelte';
 
     export let offer;
     export let with_reserved = false;
@@ -45,16 +46,14 @@
 </script>
 
 {#if report}
-    <div class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex items-center justify-center" transition:blur={{ amount: 1 }}>
-        <div class="card w-9/12 sm:w-1/3">
-            <div class="flex justify-between">
-                <Text text="report-title"></Text> @{offer.author_email}
-                <i class="bi bi-x text-red text-2xl cursor-pointer" on:click={() => report = false}></i>
-            </div>
-            <textarea id="" name="" class="input w-full h-1/2 resize-none" placeholder="{_text('reason')}" bind:value={reason}></textarea>
-            <button class="button-red" on:click={sendReport}><Text text="report"></Text></button>
+    <PopUp>
+        <div class="flex justify-between">
+            <Text text="report-title"></Text> @{offer.author_email}
+            <i class="bi bi-x text-red text-2xl cursor-pointer" on:click={() => report = false}></i>
         </div>
-    </div>
+        <textarea id="" name="" class="input w-full h-1/2 resize-none" placeholder="{_text('reason')}" bind:value={reason}></textarea>
+        <button class="button-red" on:click={sendReport}><Text text="report"></Text></button>
+    </PopUp>
 {/if}
 
 {#if enabled || with_reserved == 1}
