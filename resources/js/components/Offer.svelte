@@ -1,7 +1,6 @@
 <script>
     import Text from './Text.svelte';
     import {_text} from '../main.js';
-	import { blur } from 'svelte/transition';
     import PopUp from './PopUp.svelte';
 
     export let offer;
@@ -46,7 +45,7 @@
 </script>
 
 {#if report}
-    <PopUp>
+    <PopUp bind:state={report}>
         <div class="flex justify-between">
             <Text text="report-title"></Text> @{offer.author_email}
             <i class="bi bi-x text-red text-2xl cursor-pointer" on:click={() => report = false}></i>
