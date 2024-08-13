@@ -4,9 +4,35 @@
 
     export let state;
 
+    let char_state = 0;
+
+    let state_table = [
+        {':': [1, null]},
+        {'q': [2, null], 'x': [2, null]},
+        {'Enter': [3, () => state = false]},
+        null,
+    ]
+
     function close(event) {
         if (event.key == "Escape") {
             state = false;
+            return;
+        }
+
+        if (!state_table[char_state][event.key]) {
+            char_state = 0;
+            return;
+        }
+
+        if (state_table[char_state][event.key][1]) {
+            state_table[char_state][event.key][1]();
+        }
+
+        char_state = state_table[char_state][event.key][0];
+        
+        if (state_table[char_state] == null) {
+            char_state = 0;
+            return;
         }
     }
 

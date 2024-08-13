@@ -72,5 +72,19 @@
             <input class="input" type="password" bind:value={new_password}></div>
         </div>
         <button on:click={changePassword} class="button mt-2"><Text text="profile-change-password" /></button>
+            
     </div>
+
+    <hr class="my-2 border-t-2 rounded-sm border-primary">
+    
+    <div class="text-2xl font-bold text-red">
+        <Text text="profile-dangerous-zone"></Text>
+    </div>
+
+    <button class="button-red danger">
+        <Text text="profile-change-year"></Text>
+    </button>
+    <button class="button-red danger">
+        <Text text="profile-delete"></Text>
+    </button>
 </div>

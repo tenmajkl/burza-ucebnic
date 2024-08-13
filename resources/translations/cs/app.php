@@ -164,6 +164,9 @@ return [
     'profile-old-password' => 'Staré heslo',
     'profile-new-password' => 'Nové heslo',
     'profile-password-changed' => 'Heslo změněno!',
+    'profile-dangerous-zone' => 'Nebezpečná zóna',
+    'profile-change-year' => 'Změnit ročník',
+    'profile-delete' => 'Smazat účet',
 
     // Reporting
     

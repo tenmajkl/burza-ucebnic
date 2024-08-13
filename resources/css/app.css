@@ -45,3 +45,7 @@
 .table-item {
     @apply p-2 text-left border-b border-secondary
 }
+
+.danger:hover {
+    
+}
