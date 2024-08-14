@@ -3,6 +3,7 @@
     import Notification from "../components/Notification.svelte";
     import Offer from '../components/Offer.svelte';
     import Rating from '../components/Rating.svelte';
+    import MyOffer from "../components/MyOffer.svelte";
 
     let notifications = [];
 
