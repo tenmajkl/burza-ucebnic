@@ -14,15 +14,7 @@
     let openned = false;
 
     function open() {
-        if (openned && notification.seen) {
-            openned = false;
-        }
-
-        if (notification.seen) {
-            return;
-        }
-
-        openned = true;
+        openned = !openned;
         notification.seen = true;
         fetch('/api/notifications/'+notification.id, {
             method: 'post',

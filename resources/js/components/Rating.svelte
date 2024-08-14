@@ -1,7 +1,7 @@
 <script>
     export let notification;
     async function send(value) {
-        const response = await fetch('/api/rating/'+notification.reservation.id, {
+        return await fetch('/api/rating/'+notification.rating.id, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

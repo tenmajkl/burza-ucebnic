@@ -5,11 +5,13 @@ namespace App\Entities;
 use App\Contracts\ORM;
 use App\Contracts\Auth;
 use Cycle\Annotated\Annotation\{Entity, Column};
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use JsonSerializable;
 use Lemon\Contracts\Kernel\Injectable;
 use Lemon\Kernel\Container;
 
 #[Entity()]
-class RatingAbility implements Injectable
+class RatingAbility implements Injectable, JsonSerializable
 {
     #[Column(type: 'primary')]
     public int $id;
@@ -32,5 +34,14 @@ class RatingAbility implements Injectable
                 'id' => $value,
                 'user.id' => $user_id,
             ]);
+    }
+
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'rated' => $this->rated->email,
+        ];
     }
 }

@@ -6,6 +6,7 @@ namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
 use App\Contracts\ORM;
+use App\Entities\Notification;
 use App\Entities\Offer;
 use App\Entities\RatingAbility;
 use Lemon\Http\Request;
@@ -43,7 +44,11 @@ class Rating
         $user = $target->user;
         $user->rating += (int) $request->get('rating'); 
 
-        $orm->getEntityManager()->delete($target)->run();
+        $notification = $orm->getORM()->getRepository(Notification::class)->findOne([
+            'rating.id' => $target->id
+        ]); 
+
+        $orm->getEntityManager()->delete($target)->delete($notification)->run();
 
         $orm->getEntityManager()->persist($user)->run();
 
