@@ -20,11 +20,11 @@
             body: '{}',
         })
             .then(res => res.json())
-            .then(data => {
-            })
+            .then(_ => {})
         ;
         enabled = false;
         offer.can_be_reserved = false;
+
     }
 
     let reason;
