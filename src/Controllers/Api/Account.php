@@ -8,6 +8,12 @@ use App\Entities\Year;
 
 class Account
 {
+
+    public function getInfo(): array
+    {
+        
+    } 
+
     public function delete(Auth $auth, ORM $orm)
     {
         $orm->getEntityManager()->delete($auth->user());

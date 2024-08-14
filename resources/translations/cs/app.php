@@ -105,6 +105,8 @@ return [
     'order-accept' => 'Předáno',
     'order-deny' => 'Nepředáno',
     'reserved' => 'REZERVOVÁNO',
+    'no-reservations' => 'Nemáte žádné rezervované učebnice.',
+    'show-offers' => 'Zobrazit nabídky', 
 
     // Wishlist
 
@@ -113,8 +115,9 @@ return [
     'remove' => 'Odebrat',
     'wishlist-select-title' => 'Výběr učebnic do seznamu',
     'wishlist-max-price' => 'Maximálně za',
-    'wishlist-empty' => 'Seznam přání je prázdný',
+    'wishlist-empty' => 'Seznam přání je prázdný, vyberte si učebnice o které máte zájem níže.',
     'wishlist-added' => 'Učebnice přidána na seznam přání, až bude k dispozici, přijde vám notifikace.',
+    'no-wishlist' => "Váš ročník nemá žádné učebnice, které byste mohl*a přidat na seznam přání",
 
     // Add
 
@@ -137,7 +140,7 @@ return [
     'interested-1' => 'zájemce',
     'interested-2-3' => 'zájemci',
     'interested' => 'zájemců',
-    'my-offers-none' => 'Nic nenabízíš',
+    'my-offers-none' => 'Nic nenabízíte.',
 
     // Notifications
 
@@ -148,6 +151,7 @@ return [
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
     'notification-new-reservation' => 'Nová rezervace učebnice %arg!',
     'notifications-editing' => 'Nabídka učebnice %arg byla upravena!',
+    'no-notifications' => 'Nemáte žádné notifikace.',
 
     // Emojis
 

@@ -2,6 +2,8 @@
     import Reservation from '../components/Reservation.svelte';
     import Text from "../components/Text.svelte";
 
+    export let selected;
+
     let message = null;
     let qr = null;
 
@@ -27,5 +29,10 @@
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
     {#each data as reservation, index}
         <Reservation reservation={reservation} index={index} bind:message={message} bind:qr={qr} />
+    {:else}
+        <span>
+            <Text text="no-reservations"></Text>
+            <span  class="cursor-pointer" on:click={() => selected = 0}><Text text="show-offers"></Text></span>
+        </span>
     {/each}
 </div>

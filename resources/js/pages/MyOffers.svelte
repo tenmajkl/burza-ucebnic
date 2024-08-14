@@ -3,6 +3,8 @@
 
     import Text from "../components/Text.svelte";
 
+    export let selected;
+
     let message = null;
     let data = [];
     let reservation;
@@ -25,6 +27,9 @@
     {#each data as offer, index}
         <MyOffer {offer} bind:editing={editing} bind:openned={openned} {index} />
     {:else}
-        <Text text="my-offers-none" />
+        <span>
+            <Text text="my-offers-none" />
+            <span  class="cursor-pointer" on:click={() => selected = 3}><Text text="add-title"></Text></span>
+        </span>
     {/each}
 </div>

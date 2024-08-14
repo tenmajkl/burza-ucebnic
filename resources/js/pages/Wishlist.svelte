@@ -86,53 +86,57 @@
     </div>
 {/if}
 
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
-    {#each wishlist as inquiry}
-        <div class="flex card gap-5">
-            <!--<img src="/img/cover/{inquiry.book.id}.png" alt="cecko" class="card-image">-->
-            <div class="flex flex-col justify-between font-bold">
-                <div>
-                    <div class="text-xl">{inquiry.book.name}</div>
-                    <div class="text-sm text-secondary">{inquiry.book.author}</div>
-                    <div class="text-sm text-secondary">{inquiry.book.release_year}</div>
-                    <div class="text-sm"><Text text="wishlist-max-price" /> {inquiry.max_price} <Text text="currency"/></div>                  
-                </div>
-                <div class="flex gap-3">
-                    <button class="text-sm uppercase button" on:click={() => search(inquiry)}><Text text="search" /></button>
-                    <button class="text-sm uppercase button-red" on:click={() => remove(inquiry.id)}><Text text="remove" /></button>
-                </div>
-            </div>
-        </div>
-    {:else}
-        <div class="text-xl"><Text text="wishlist-empty" /></div>
-    {/each}
-</div>
-
-<hr class="my-2 border-t-4 rounded-sm border-secondary">
-
-<div class="text-2xl font-bold">
-    <Text text="wishlist-select-title" />
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
-    {#each available as book, index}
-        {#if wishlist.filter((item) => item.book.id === book.id).length === 0}
+{#if available.length != 0}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
+        {#each wishlist as inquiry}
             <div class="flex card gap-5">
-                <!--<img src="/img/cover/{book.id}.png" alt="{book.name}" class="card-image">-->
+                <!--<img src="/img/cover/{inquiry.book.id}.png" alt="cecko" class="card-image">-->
                 <div class="flex flex-col justify-between font-bold">
                     <div>
-                        <div class="text-xl">{book.name}</div>
-                        <div class="text-sm text-secondary">{book.author}</div>
-                        <div class="text-sm text-secondary">{book.release_year}</div>
+                        <div class="text-xl">{inquiry.book.name}</div>
+                        <div class="text-sm text-secondary">{inquiry.book.author}</div>
+                        <div class="text-sm text-secondary">{inquiry.book.release_year}</div>
+                        <div class="text-sm"><Text text="wishlist-max-price" /> {inquiry.max_price} <Text text="currency"/></div>                  
                     </div>
-                    <div class="flex gap-3 items-center">
-                        <Text text="wishlist-max-price" />:
-                        <input type="number" class="w-1/3 input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required>
-                        <Text text="currency" />
-                        <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>
+                    <div class="flex gap-3">
+                        <button class="text-sm uppercase button" on:click={() => search(inquiry)}><Text text="search" /></button>
+                        <button class="text-sm uppercase button-red" on:click={() => remove(inquiry.id)}><Text text="remove" /></button>
                     </div>
                 </div>
             </div>
-        {/if}
-    {/each}
-</div>
+        {:else}
+            <div class="text-xl"><Text text="wishlist-empty" /></div>
+        {/each}
+    </div>
+
+    <hr class="my-2 border-t-4 rounded-sm border-secondary">
+
+    <div class="text-2xl font-bold">
+        <Text text="wishlist-select-title" />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
+        {#each available as book, index}
+            {#if wishlist.filter((item) => item.book.id === book.id).length === 0}
+                <div class="flex card gap-5">
+                    <!--<img src="/img/cover/{book.id}.png" alt="{book.name}" class="card-image">-->
+                    <div class="flex flex-col justify-between font-bold">
+                        <div>
+                            <div class="text-xl">{book.name}</div>
+                            <div class="text-sm text-secondary">{book.author}</div>
+                            <div class="text-sm text-secondary">{book.release_year}</div>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <Text text="wishlist-max-price" />:
+                            <input type="number" class="w-1/3 input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required>
+                            <Text text="currency" />
+                            <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        {/each}
+    </div>
+{:else}
+    <Text text="no-wishlist"></Text>
+{/if}

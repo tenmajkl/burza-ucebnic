@@ -32,9 +32,14 @@
             subjects = data.subjects;
             states = data.states;
             sorting = data.sorts;
-            subject = params.has('subject') ? (params.get("subject") - 0) : subjects[0].id; // javascript was a mistake what the actual duck is this
-            sort = sorting[0];
-            getOffers();
+            if (subjects.length != 0) {
+                subject = 
+                    params.has('subject') 
+                    ? (params.get("subject") - 0) 
+                    : subjects[0].id; // javascript was a mistake what the actual duck is this
+                sort = sorting[0];
+                getOffers();
+            }
         })
     ;
 
@@ -44,7 +49,7 @@
 <div class="text-2xl font-bold">
     <Text text="offers-title" />
 </div>
-{#if subjects[0]}
+{#if subjects.length != 0}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div class="flex flex-col">
             <label for="subject" class="text-xs text-secondary"><Text text="subject" /></label>

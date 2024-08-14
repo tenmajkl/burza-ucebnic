@@ -79,4 +79,6 @@
         {/if}
     </div>
     <hr class="my-2 border-t-2 rounded-sm border-primary">
+{:else}
+    <Text text="no-notifications"></Text>
 {/each}
