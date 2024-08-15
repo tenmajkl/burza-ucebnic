@@ -26,7 +26,7 @@ class Report
         #[Column(type: 'string')]
         public string $reason,
         #[BelongsTo(target: User::class)]
-        public User $author,
+        public User $user,
         #[BelongsTo(target: Offer::class)]
         public Offer $offer,
     ) {

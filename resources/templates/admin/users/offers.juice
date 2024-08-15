@@ -1,0 +1,25 @@
+{ foreach $user->offers as $offer }
+<div class="card">
+    <div class="flex gap-5">
+        <img src="/static/img/offers/{{ $offer->id }}" alt="{{ text('app.photo-book').$offer->book->name}}" class="card-image">
+        <div class="flex flex-col justify-between font-bold">
+            <div>
+                <div class="text-xl">{{ $offer->book->name }}</div>
+            </div>
+            <div>
+                <div class="text-sm text-secondary">{{ text("app.state-".$offer->state->name()) }}</div>
+                <div class="flex gap-3">
+                    <div class="text-xl">{{ $offer->price }} { text app.currency } </div>
+                    <span title="{ text 'app.number-of-reservations' }">({{ count($offer->reservations) }})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <details>
+        <summary>{ text admin.user-reports }</summary>
+        { foreach $offer->reports as $report }
+            <div>@{{ $report->user->email }}: {{ $report->reason }}</div>
+        { /foreach }
+    </details>
+</div>
+{/foreach}

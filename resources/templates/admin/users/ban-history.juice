@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="table-item">{ text admin.user-bans-from }</th>
+            <th class="table-item">{ text admin.user-bans-to }</th>
+            <th class="table-item">{ text admin.user-bans-reason }</th>
+            <th class="table-item">{ text admin.user-bans-by }</th>
+            <th class="table-item">{ text admin.user-bans-active }</th>
+        </tr>
+    </thead>
+    <tbody>
+        { foreach $user->received_bans as $ban }
+            <tr>
+                <td class="table-item">{{ diff($ban->createdAt) }}</td>
+                <td class="table-item">{{ diff($ban->expiresAt) }}</td>
+                <td class="table-item">{{ $ban->reason }}</td>                                      
+                <td class="table-item">{{ $ban->admin->email }}</td>                                                            
+                <td class="table-item">{{ text($ban->isActive() ? 'admin.yes' : 'admin.no') }}</td>                                                            
+            </tr>
+        { /foreach }
+    </tbody>
+</table>
