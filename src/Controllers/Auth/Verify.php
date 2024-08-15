@@ -8,7 +8,6 @@ use App\Contracts\ORM;
 use App\Entities\School;
 use App\Entities\User;
 use App\Entities\Year;
-use DateTime;
 use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
@@ -24,8 +23,8 @@ class Verify
             return redirect('/register');
         }
 
-        if ($user->createdAt->diff(new DateTime("now"))->i > 10)  {
-            $orm->getEntityManager()->delete($user);
+        if (time() - $user->createdAt->getTimestamp() > 600)  {
+            $orm->getEntityManager()->delete($user)->run();
             return redirect('/');
         }
 
@@ -58,7 +57,7 @@ class Verify
             return redirect('/register');
         }
 
-        if ($user->createdAt->diff(new DateTime("now"))->i > 10)  {
+        if (time() - $user->createdAt->getTimestamp() > 600)  {
             $orm->getEntityManager()->delete($user);
             return redirect('/');
         }

@@ -23,7 +23,7 @@ class Register
         return template('auth.register');
     }
 
-    public function post(Request $request, Session $session, MailerInterface $mailer, ORM $orm): Template
+    public function post(Request $request, MailerInterface $mailer, ORM $orm): Template
     {
         $request->validate([
             'email' => 'max:128|email',
@@ -50,7 +50,7 @@ class Register
         if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'role' => (int) $admin, 'year.school.id' => $school->id])) {
         
             if ($user->verify_token && $user->createdAt->diff(new DateTime("now"))->i > 10)  {
-                $orm->getEntityManager()->delete($user);
+                $orm->getEntityManager()->delete($user)->run();
             } else {
                 Validator::addError('user-exists', 'email', '');
 
