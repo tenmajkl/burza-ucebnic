@@ -18,7 +18,7 @@
     <details>
         <summary>{ text admin.user-reports }</summary>
         { foreach $offer->reports as $report }
-            <div>@{{ $report->user->email }}: {{ $report->reason }}</div>
+            <div>@{{ $report->user->email }} ({{ diff($report->created_at) }}): {{ $report->reason }}</div>
         { /foreach }
     </details>
 </div>
