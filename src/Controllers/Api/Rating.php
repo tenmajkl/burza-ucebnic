@@ -6,17 +6,16 @@ namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
 use App\Contracts\ORM;
+use App\Entities\Notification;
 use App\Entities\Offer;
-use App\Entities\Rating as RatingEntity;
-use App\Entities\Reservation;
-use App\Entities\ReservationState;
+use App\Entities\RatingAbility;
 use Lemon\Http\Request;
 use Lemon\Http\Response;
 use Lemon\Validator;
 
 class Rating
 {
-    public function verify(?Offer $target, Auth $auth)
+    public function verify(?Offer $target, Auth $auth): array
     {
         return [
             'status' => 200,
@@ -43,9 +42,13 @@ class Rating
         ]));
 
         $user = $target->user;
-        $user->rating += $request->get('rating'); 
+        $user->rating += (int) $request->get('rating'); 
 
-        $orm->getEntityManager()->delete($target)->run();
+        $notification = $orm->getORM()->getRepository(Notification::class)->findOne([
+            'rating.id' => $target->id
+        ]); 
+
+        $orm->getEntityManager()->delete($target)->delete($notification)->run();
 
         $orm->getEntityManager()->persist($user)->run();
 

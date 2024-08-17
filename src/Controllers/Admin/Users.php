@@ -109,8 +109,9 @@ class Users
         $user = new User(
             $request->get('name'),
             password_hash($password, PASSWORD_DEFAULT),
-            $year,
             (int) ('on' === $request->get('admin')),
+            null,
+            $year,
         );
         $orm->getEntityManager()->persist($user)->run();
 

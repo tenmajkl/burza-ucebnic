@@ -221,6 +221,10 @@ class Offers
             return error(404);
         }
 
+        if ($target->user->id == $auth->user()->id) {
+            return error(404);
+        }
+
         $report = new Report($request->get('reason'), $auth->user(), $target);
         
         $orm->getEntityManager()->persist($report)->run();

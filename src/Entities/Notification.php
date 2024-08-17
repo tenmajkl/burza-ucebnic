@@ -62,7 +62,7 @@ class Notification implements \JsonSerializable, Injectable
                 'type' => NotificationType::Rating,
                 'seen' => (bool) $this->seen,
                 'created_at' => diff($this->createdAt),
-                'can_rate' => $this->rating->user->id === $this->user->id,
+                'can_rate' => $this->rating?->user->id === $this->user->id,
             ]
         ;
     }

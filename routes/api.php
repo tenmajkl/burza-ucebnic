@@ -13,7 +13,7 @@ use Lemon\Route;
 
 Route::get('/offers/init', [Offers::class, 'init']);
 Route::get('/offers/mine', [Offers::class, 'mine']);
-Route::post('/offers/{target}/report', [Offers::class, 'mine']);
+Route::post('/offers/{target}/report', [Offers::class, 'report']);
 Route::controller('offers', Offers::class);
 
 $reservations = Route::controller('reservations', \App\Controllers\Api\Reservations::class);

@@ -8,6 +8,8 @@ use App\Contracts\Auth;
 use App\Contracts\Notifier;
 use App\Contracts\ORM;
 use App\Entities\Inquiry;
+use App\Entities\Notification;
+use App\Entities\NotificationType;
 use App\Entities\Offer;
 use App\Entities\RatingAbility;
 use App\Entities\Reservation;
@@ -51,7 +53,9 @@ class Reservations
 
         $orm->getEntityManager()->persist($reservation)->run();
 
-        $notifier->notifyNewReservation($offer->user, $offer);
+        if ($status) {
+            $notifier->notifyNewReservation($offer->user, $offer);
+        }
 
         return [
             'status' => '200',
@@ -85,21 +89,34 @@ class Reservations
         $offer = $reservation->offer;
         $deletion = $orm->getEntityManager()->delete($reservation);
 
+
         $reservation = $orm->getORM()->getRepository(Reservation::class)
             ->findOne([
                 'offer.id' => $offer->id,
                 'id' => ['!=' => $reservation->id],
             ])
-        ;
+            ;
+
+        $notification = $orm->getORM()->getRepository(Notification::class)->findOne([
+            'user.id' => $offer->user->id,
+            'seen' => 0,
+            'offer.id' => $offer->id,
+            'type' => NotificationType::NewReservation,
+        ]);
+
+        if ($notification) {
+            $deletion->delete($notification);
+        }
 
         if ($reservation) {
             $reservation->status = ReservationState::Active;
             $orm->getEntityManager()->persist($reservation)->run();
 
             $notifier->notifyActiveReservation($reservation->user, $offer);
-        } else {
-            $deletion->run();
+            $notifier->notifyNewReservation($offer->user, $offer);
         }
+
+        $deletion->run();
 
         return [
             'status' => '200',

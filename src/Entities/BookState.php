@@ -24,7 +24,7 @@ enum BookState: int
     {
         return match($this) {
             self::New => 'new',
-            self::Covered => 'used',
+            self::Covered => 'covered',
             self::Damaged => 'damaged',
         };
     }

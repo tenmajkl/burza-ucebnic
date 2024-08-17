@@ -3,6 +3,7 @@
     import Notification from "../components/Notification.svelte";
     import Offer from '../components/Offer.svelte';
     import Rating from '../components/Rating.svelte';
+    import MyOffer from "../components/MyOffer.svelte";
 
     let notifications = [];
 
@@ -59,7 +60,7 @@
                 <Offer offer={notification.offer} />
             </Notification>
         {:else if notification.type == 1} <!-- rating -->
-            <Notification bind:notification={notification} title="rating" arg={notification.reservation.author} created_at={notification.created_at} bind:data={data}>
+            <Notification bind:notification={notification} title="rating" arg={notification.offer.user.email} created_at={notification.created_at} bind:data={data}>
                 <Rating notification={notification} />
             </Notification>
         {:else if notification.type == 2} <!-- active reservation --> 
@@ -78,4 +79,6 @@
         {/if}
     </div>
     <hr class="my-2 border-t-2 rounded-sm border-primary">
+{:else}
+    <Text text="no-notifications"></Text>
 {/each}

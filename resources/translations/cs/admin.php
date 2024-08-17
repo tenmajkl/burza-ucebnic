@@ -48,6 +48,7 @@ return [
     'user-is-admin' => 'Je admin?',
     'user-create-success' => 'Přidání uživatele úspěšné, heslo je ',
     'users-show' => 'Zobrazit uživatele',
+    'user-offers' => 'Nabídky uživatele',
 
     // Bans
     'ban' => 'Odepřít přístup',

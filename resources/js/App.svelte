@@ -38,9 +38,13 @@
     const params = new URLSearchParams(window.location.search);
     const page = params.get('page')
     if (page) {
-        let location = items.findIndex((item) => item[0] == page);
-        if (location != -1) {
-            selected = location;
+        if (page == 'admin') {
+            selected = 0;
+        } else {
+            let location = items.findIndex((item) => item[0] == page);
+            if (location != -1) {
+                selected = location;
+            }
         }
     }
 </script>
