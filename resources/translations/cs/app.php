@@ -171,6 +171,9 @@ return [
     'profile-dangerous-zone' => 'Nebezpečná zóna',
     'profile-change-year' => 'Změnit ročník',
     'profile-delete' => 'Smazat účet',
+    'profile-change-year-u-sure' => 'Jste si jistý*á, že chcete změnit ročník? Pokud ano, zadejte Vaše heslo.',
+    'profile-delete-u-sure' => 'Jste si jistý*á, že chcete smazat Váš účet? Tato akce nevratně smaže všechny vaše osobní údaje. Pokud ano, zadejte Vaše heslo.',
+    'profile-password' => 'Heslo',
 
     // Reporting
     

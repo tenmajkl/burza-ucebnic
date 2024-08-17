@@ -1,5 +1,7 @@
 <script>
+    import PopUp from "../components/PopUp.svelte";
     import Text from "../components/Text.svelte";
+    import { _text } from "../main";
     
     let old_password = '';
     let new_password = '';
@@ -16,8 +18,7 @@
         }).then(() => window.location = '/')
     }
 
-    function changePassword()
-    {
+    function changePassword() {
         fetch('/api/change-password', {
             method: 'post',
             headers: {
@@ -39,7 +40,42 @@
             }
         })
     }
+
+    let yearPopup = false;
+    let deletePopup = false;
+    let password;
+
+    function changeYear() {
+        
+    }
+
+    function deleteAccount() {
+
+    }
+
 </script>
+
+{#if yearPopup}
+    <PopUp bind:state={yearPopup}>
+        <div class="flex flex-col">
+                <Text text="profile-change-year-u-sure"></Text>
+                <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')}>
+                <button class="button-red danger" on:click={changeYear}>
+                    <Text text="profile-change-year"></Text>
+                </button>
+        </div>
+    </PopUp>
+{/if}
+
+{#if deletePopup}
+    <PopUp bind:state={deletePopup}>
+        <Text text="profile-delete-u-sure"></Text>
+        <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')}>
+        <button class="button-red danger" on:click={deleteAccount}>
+            <Text text="profile-delete"></Text>
+        </button>
+    </PopUp>
+{/if}
 
 <div class="text-2xl font-bold">
     <Text text="profile-title" />
@@ -81,10 +117,10 @@
         <Text text="profile-dangerous-zone"></Text>
     </div>
 
-    <button class="button-red danger">
+    <button class="button-red danger" on:click={() => yearPopup = true}>
         <Text text="profile-change-year"></Text>
     </button>
-    <button class="button-red danger">
+    <button class="button-red danger" on:click={() => deletePopup = true}>
         <Text text="profile-delete"></Text>
     </button>
 </div>
