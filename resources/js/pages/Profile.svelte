@@ -44,6 +44,13 @@
     let yearPopup = false;
     let deletePopup = false;
     let password;
+    let year;
+
+    async function getYears() {
+        let res = await fetch('/api/account/years');
+        res = await res.json();
+        return res.data;
+    }
 
     function changeYear() {
         
@@ -53,16 +60,28 @@
 
     }
 
+    let years = getYears();
+
 </script>
 
 {#if yearPopup}
     <PopUp bind:state={yearPopup}>
-        <div class="flex flex-col">
-                <Text text="profile-change-year-u-sure"></Text>
-                <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')}>
-                <button class="button-red danger" on:click={changeYear}>
-                    <Text text="profile-change-year"></Text>
-                </button>
+        <div class="flex flex-col gap-3">
+            <Text text="profile-pick-year"></Text>
+            <select id="year" name="year" class="input" bind:value={year} required>
+                {#await years}
+                {:then years}
+                    {#each years as year, index}
+                        <option value="{index}">{year.name}</option>
+                    {/each}
+                {/await}
+            </select>
+
+            <Text text="profile-change-year-u-sure"></Text>
+            <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')}>
+            <button class="button-red danger" on:click={changeYear}>
+                <Text text="profile-change-year"></Text>
+            </button>
         </div>
     </PopUp>
 {/if}

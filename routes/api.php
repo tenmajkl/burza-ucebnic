@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\Api\Account;
 use App\Controllers\Api\Messages;
 use App\Controllers\Api\Notifications;
 use App\Controllers\Api\Offers;
@@ -36,3 +37,5 @@ Route::post('/rating/{target}', [Rating::class, 'update']);
 Route::post('logout', [Logout::class, 'post']);
 
 Route::post('change-password', [ChangePassword::class, 'post']);
+
+Route::get('/account/years', [Account::class, 'getYears']);
