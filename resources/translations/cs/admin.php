@@ -44,6 +44,8 @@ return [
     'user-edit' => 'Upravit uživatele',
     'user-rating' => 'Hodnocení',
     'user-reports' => 'Nahlášení',
+    'user-make-ban' => 'Odepřít přístup',
+    'user-unban' => 'Navrátit přístup',
     'users-add' => 'Přidat uživatele',
     'user-is-admin' => 'Je admin?',
     'user-create-success' => 'Přidání uživatele úspěšné, heslo je ',

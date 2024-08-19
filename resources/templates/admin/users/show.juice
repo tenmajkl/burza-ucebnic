@@ -24,7 +24,14 @@
             { text admin.user-is-admin }
             <input type="checkbox" name="admin" {{ $user->role > 0 ? 'checked' : '' }}>
         </div>
-        <button class="button">{ text admin.user-edit }</button>
+        <div class="flex flex-col gap-3">
+            <button class="button">{ text admin.user-edit }</button>
+            { if $user->isBanned() }
+                <a class="button-red text-center" href="/admin/users/{{ $user->id }}/unban">{ text admin.user-unban }</a>
+            { else }
+                <a class="button-red text-center" href="/admin/users/{{ $user->id }}/ban">{ text admin.user-make-ban }</a>
+            { /if }
+        </div>
     </form>
 
     {# for more atomized code or sth #}
