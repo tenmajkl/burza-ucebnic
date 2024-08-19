@@ -16,10 +16,13 @@ class Account
     {
         $u = $auth->user();
         return [
-            'name' => $u->email(),
-            'year' => $u->year->name,
-            'school' => $u->year->school->name,
-            'rating' => $u->rating,
+            'code' => 200,
+            'data' => [
+                'name' => $u->email,
+                'year' => $u->year->name,
+                'school' => $u->year->school->name,
+                'rating' => $u->rating,
+            ]
         ];
     } 
 

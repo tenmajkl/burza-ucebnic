@@ -8,8 +8,8 @@
             </div>
             <div>
                 <div class="text-sm text-secondary">{{ text("app.state-".$offer->state->name()) }}</div>
-                <div class="flex gap-3">
-                    <div class="text-xl">{{ $offer->price }} { text app.currency } </div>
+                <div class="gap-3 flex">
+                    <span class="text-xl">{{ $offer->price }} { text app.currency } </span>
                     <span title="{ text 'app.number-of-reservations' }">({{ count($offer->reservations) }})</span>
                 </div>
             </div>
@@ -18,7 +18,7 @@
     <details>
         <summary>{ text admin.user-reports }</summary>
         { foreach $offer->reports as $report }
-            <div>@{{ $report->user->email }} ({{ diff($report->created_at) }}): {{ $report->reason }}</div>
+            <div>@{{ $report->user->email }} {{ diff($report->createdAt) }}: {{ $report->reason }}</div>
         { /foreach }
     </details>
 </div>

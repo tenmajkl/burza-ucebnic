@@ -47,6 +47,19 @@
     let errorPopUp = null;
     let yearPopup = false;
     let deletePopup = false;
+    let name = '';
+    let rating = 0;
+    let user_year = '';
+
+    function getInfo() {
+        fetch('/api/account/info').then((res) => res.json()).then((res) => {
+            name = res.data.name;
+            rating = res.data.rating;
+            user_year = res.data.year;
+        });
+    }
+
+    getInfo();
 
     async function getYears() {
         let res = await fetch('/api/account/years');
@@ -151,6 +164,8 @@
 <div class="text-2xl font-bold">
     <Text text="profile-title" />
 </div>
+
+@{name} (<span class="text-{rating > 0 ? 'blue' : 'red'}" title={_text('rating', name)}>{rating}</span>) {user_year}
 
 <div class="block">
     <button class="button" on:click={logout}><Text text="profile-logout" /></button>

@@ -41,3 +41,4 @@ Route::post('change-password', [ChangePassword::class, 'post']);
 Route::get('/account/years', [Account::class, 'getYears']);
 Route::post('/account/changeYear', [Account::class, 'changeYear']);
 Route::post('/account/delete', [Account::class, 'delete']);
+Route::get('/account/info', [Account::class, 'getInfo']);
