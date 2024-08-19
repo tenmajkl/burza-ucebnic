@@ -41,44 +41,91 @@
         })
     }
 
-    let yearPopup = false;
-    let deletePopup = false;
+
     let password;
     let year;
+    let errorPopUp = null;
+    let yearPopup = false;
+    let deletePopup = false;
 
     async function getYears() {
         let res = await fetch('/api/account/years');
         res = await res.json();
+        year = Object.values(res.data)[0].id;
         return res.data;
     }
 
     function changeYear() {
-        
+        if (password.length < 8) {
+            return;
+        }
+
+        fetch('/api/account/changeYear/', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password: password,
+                year: year,
+            }),
+        }).then((res) => res.json())
+            .then((res) => {
+                if (res.code !== 200) {
+                    errorPopUp = res.message;
+                    return;
+                }
+
+                yearPopup = false;
+            })
     }
 
     function deleteAccount() {
+        fetch('/api/account/delete/', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password: password,
+            }),
+        }).then((res) => res.json())
+            .then((res) => {
+                if (res.code === 200) {
+                    window.location = '/';
+                    return;
+                }
 
+                errorPopUp = res.message;
+        })       
     }
 
-    let years = getYears();
+    function clear() {
+        errorPopUp = null;
+        password = null;
+    }
 
 </script>
 
 {#if yearPopup}
-    <PopUp bind:state={yearPopup}>
+    <PopUp bind:state={yearPopup} onClose={clear}>
+        {#if errorPopUp} 
+            <div class="alert">{errorPopUp}</div>
+        {/if}
         <div class="flex flex-col gap-3">
             <Text text="profile-pick-year"></Text>
-            <select id="year" name="year" class="input" bind:value={year} required>
-                {#await years}
+                {#await getYears()}
                 {:then years}
-                    {#each years as year, index}
-                        <option value="{index}">{year.name}</option>
-                    {/each}
+                    <select id="year" name="year" class="input" bind:value={year} required>
+                        {#each Object.values(years) as year}
+                            <option value="{year.id}">{year.name}</option>
+                        {/each}
+
+                    </select>
                 {/await}
-            </select>
 
             <Text text="profile-change-year-u-sure"></Text>
-            <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')}>
+                <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')} on:keydown={(e) => { if (e.key =='Enter') { changeYear() } }}>
             <button class="button-red danger" on:click={changeYear}>
                 <Text text="profile-change-year"></Text>
             </button>
@@ -87,12 +134,17 @@
 {/if}
 
 {#if deletePopup}
-    <PopUp bind:state={deletePopup}>
-        <Text text="profile-delete-u-sure"></Text>
-        <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')}>
-        <button class="button-red danger" on:click={deleteAccount}>
-            <Text text="profile-delete"></Text>
-        </button>
+    <PopUp bind:state={deletePopup} onClose={clear}>
+        {#if errorPopUp} 
+            <div class="alert">{errorPopUp}</div>
+        {/if}
+        <div class="flex flex-col gap-3">
+            <Text text="profile-delete-u-sure"></Text>
+            <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')} on:keydown={(e) => { if (e.key =='Enter') { deleteAccount() } }}>
+            <button class="button-red danger" on:click={deleteAccount}>
+                <Text text="profile-delete"></Text>
+            </button>
+        </div>
     </PopUp>
 {/if}
 

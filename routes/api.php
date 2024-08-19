@@ -39,3 +39,5 @@ Route::post('logout', [Logout::class, 'post']);
 Route::post('change-password', [ChangePassword::class, 'post']);
 
 Route::get('/account/years', [Account::class, 'getYears']);
+Route::post('/account/changeYear', [Account::class, 'changeYear']);
+Route::post('/account/delete', [Account::class, 'delete']);

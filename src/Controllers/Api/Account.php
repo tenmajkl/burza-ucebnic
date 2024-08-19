@@ -27,54 +27,70 @@ class Account
     {
         $request->validate([
             'password' => 'min:8|max:256',
-        ], fn() => [
+        ], fn() => response([
             'code' => 400,
             'message' => Validator::error()
-        ]);
+        ])->code(400));
 
         if (!password_verify($request->get('password'), $auth->user()->password)) {
-            return [
+            return response([
                 'code' => 400,
-                'message' => text('wrong-password'),
-            ];
+                'message' => text('auth.wrong-password'),
+            ])->code(400);
         }
 
-        $orm->getEntityManager()->delete($auth->user());
+        $orm->getEntityManager()->delete($auth->user())->run();
 
         $session->clear();
 
-        return redirect('/');
+        return [
+            'code' => 200, 
+            'status' => 'OK',
+        ];
     }
 
     public function getYears(Auth $auth) 
     {
+        $user = $auth->user();
         return [
             'code' => 200,
-            'data' => $auth->user()->year->school->years,
+            'data' => array_filter(
+                $user->year->school->years,
+                fn(Year $year) => $year->visible && $year->id !== $user->year->id
+            ),
         ];
     }
 
-    public function changeYear(?Year $target, Auth $auth, Request $request)
+    public function changeYear(Auth $auth, Request $request, ORM $orm)
     {
-        if ($target === null || $target->school->id === $auth->user()->year->school->id) {
-            return error(404);
-        }
-
         $request->validate([
             'password' => 'min:8|max:256',
-        ], fn() => [
+            'year' => 'numeric',
+        ], fn() => response([
             'code' => 400,
             'message' => Validator::error()
+        ])->code(400));
+
+        $user = $auth->user();
+        $year = $orm->getORM()->getRepository(Year::class)->findOne([
+            'id' => $request->get('year'),
+            'school.id' => $user->year->school->id,
+            'visible' => true,
         ]);
 
-        if (!password_verify($request->get('password'), $auth->user()->password)) {
-            return [
-                'code' => 400,
-                'message' => text('wrong-password'),
-            ];
+        if (!$year) {
+            return error(400); 
         }
 
-        $auth->user()->year = $target;
+        if (!password_verify($request->get('password'), $user->password)) {
+            return response([
+                'code' => 400,
+                'message' => text('auth.wrong-password'),
+            ])->code(400);
+        }
+
+        $user->year = $year;
+        $orm->getEntityManager()->persist($user)->run();
 
         return [
             'code' => 200, 

@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 
     export let state;
+    export let onClose = null;
 
     let char_state = 0;
 
@@ -41,6 +42,9 @@
 
         return () => {
             window.removeEventListener("keydown", close);
+            if (onClose) {
+                onClose();
+            }
         }
     })
 </script>
