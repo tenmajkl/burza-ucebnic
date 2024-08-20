@@ -13,10 +13,19 @@ class Notifications
 {
     public function index(Notifier $notifier, Auth $auth): array
     {
+        $data = $notifier->of($auth->user());
+
+        // wip
+        foreach ($data as $notification) {
+            if ($notification->offer) {
+                $notification->offer->canUserMakeReservation($auth->user());
+            }
+        }
+
         return [
             'status' => 200,
             'message' => 'OK',
-            'data' => $notifier->of($auth->user()),
+            'data' => $data,
         ];
     }
 
