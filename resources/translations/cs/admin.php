@@ -31,6 +31,7 @@ return [
     'year-name' => 'Název',
     'years-create' => 'Vytvořit ročník',
     'years-show' => 'Zobrazit ročník',
+    'year-visible' => 'Viditelný?',
 
     // Subjects
 

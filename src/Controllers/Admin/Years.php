@@ -43,6 +43,9 @@ class Years
             }
             $year->subjects[] = new Subject($request->get("subject{$index}"));
         }
+
+        $year->visible = (int) ($request->get('visible') === 'on');
+
         $orm->getEntityManager()->persist($year)->run();
 
         return redirect('/admin/years');
@@ -84,6 +87,9 @@ class Years
             }
             $target->subjects[] = new Subject($request->get("subject{$index}"));
         }
+
+        $target->visible = (int) ($request->get('visible') === 'on');
+
         $orm->getEntityManager()->persist($target)->run();
 
         return redirect('/admin/years');

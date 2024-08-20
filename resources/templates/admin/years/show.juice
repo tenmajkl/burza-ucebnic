@@ -25,6 +25,10 @@
         </div>
         <span id="add" class="text-center button" onclick="addSubject()"><i class="bi bi-plus"></i></span>
     </div>
+    <div class="flex gap-1">
+        { text admin.year-visible }
+        <input type="checkbox" name="visible" {{ $year->visible > 0 ? 'checked' : '' }}>
+    </div>
     <button class="mt-2 button">{ text admin.edit }</button>
 </form>
 <script>let i = {{ count($year->subjects) }}</script>
