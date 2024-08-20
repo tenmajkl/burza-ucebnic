@@ -14,7 +14,6 @@ class Auth implements AuthContract
     public const Roles = [
         0 => 'user',
         1 => 'admin',
-        // 2 => 'teacher', // -- TODO
     ];
 
     public function __construct(
@@ -31,7 +30,7 @@ class Auth implements AuthContract
 
         return $this->orm->getORM()->getRepository(User::class)->findOne([
             'email' => $this->session->get('email'),
-            'role' => $this->session->get('role'),
+            'email_host' => $this->session->get('host'),
             'year.school.id' => $this->session->get('school'),
         ]);
     }

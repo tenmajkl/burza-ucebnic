@@ -124,6 +124,10 @@ class Users
             return error(404);
         }
 
+        if ($target->id == $auth->user()->id) {
+            return redirect('/admin/users');
+        }
+
         $years = $orm->getORM()->getRepository(Year::class)
             ->select()
             ->with('school')
@@ -137,7 +141,6 @@ class Users
     public function update(?User $target, Request $request, ORM $orm, Auth $auth)
     {
         $request->validate([
-            'name' => 'max:64',
             'year' => 'numeric',
         ], $this->show($target, $orm, $auth));
 
@@ -159,7 +162,6 @@ class Users
             return $this->show($target, $orm, $auth);
         }
 
-        $target->email = $request->get('name');
         $target->year = $year;
         $target->role = (int) ('on' === $request->get('admin'));
         $orm->getEntityManager()->persist($target)->run();

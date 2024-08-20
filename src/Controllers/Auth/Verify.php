@@ -41,7 +41,7 @@ class Verify
             $orm->getEntityManager()->persist($user)->run();
             $session->dontExpire();
             $session->set('email', $user->email);
-            $session->set('role', 1);
+            $session->set('host', 1);
             $session->set('school', $school);
             return redirect('/');
         }
@@ -82,7 +82,7 @@ class Verify
         $user->verify_token = null;
 
         $session->set('email', $user->email);
-        $session->set('role', (int) 0);
+        $session->set('host', 0);
         $session->set('school', $school);
 
         $orm->getEntityManager()->persist($user)->run();

@@ -72,7 +72,7 @@ class Register
         $mailer->send($message);
 
         $password = password_hash($request->get('password'), PASSWORD_ARGON2I);
-        $user = new User($login, $password, (int) $admin, $token);        
+        $user = new User($login, (int) $admin, $password, (int) $admin, $token);        
 
         $orm->getEntityManager()->persist($user)->run();
         

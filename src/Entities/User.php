@@ -58,6 +58,8 @@ class User implements Injectable, \JsonSerializable
     public function __construct(
         #[Column(type: 'string')]
         public string $email,
+        #[Column(type: 'int')]
+        public int $email_host,
         #[Column(type: 'string')]
         public string $password,
         #[Column(type: 'int')]

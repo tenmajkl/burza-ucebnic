@@ -13,7 +13,7 @@
         { /ifset }
         { csrf }
         { text admin.user-name }
-        <input class="input" type="text" name="name" value="{{ $user->email }}">
+        <input class="input text-secondary" type="text" name="name" value="{{ $user->email }}" disabled>
         { text admin.user-year }
         <select id="years" name="year" class="mb-2 input">
             { foreach $years as $year }

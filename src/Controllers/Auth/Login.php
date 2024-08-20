@@ -45,7 +45,7 @@ class Login
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
             'year.school.id' => $school->id,
-            'role' => $admin,
+            'email_host' => $admin,
         ]);
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
@@ -61,7 +61,7 @@ class Login
         }
 
         $session->set('email', explode('@', $request->get('email'))[0]);
-        $session->set('role', (int) $admin);
+        $session->set('host', (int) $admin);
         $session->set('school', $school->id);
 
         $session->expireAt(31536000); // 1 year

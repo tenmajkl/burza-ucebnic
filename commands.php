@@ -32,7 +32,7 @@ Terminal::command('school:make {name} {email} {adminEmail}', function (ORM $orm,
     $password = base64_encode(random_bytes(16));
     Terminal::out('<div class="text-yellow">Mrkej na heslo: '.$password.'</div>');
     $password = password_hash($password, PASSWORD_DEFAULT);
-    $root = new User('root', $password, 1, null, $year);
+    $root = new User('root', 1, $password, 1, null, $year);
     $orm->getEntityManager()->persist($school)->run();
     $orm->getEntityManager()->persist($root)->run();
 }, 'Creates new school');

@@ -191,7 +191,7 @@
         <div>
         <div class="flex flex-col sm:w-1/3 md:w-1/2 xl:w-1/4">
             <Text text="profile-new-password" />
-            <input class="input" type="password" bind:value={new_password}></div>
+            <input class="input" type="password" bind:value={new_password} on:keydown={(e) => { if (e.key == 'Enter') { changePassword() } }}></div>
         </div>
         <button on:click={changePassword} class="button mt-2"><Text text="profile-change-password" /></button>
             
