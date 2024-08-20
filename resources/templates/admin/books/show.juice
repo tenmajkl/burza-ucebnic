@@ -1,7 +1,7 @@
 { extends 'admin.layout' }
 
 { block 'header' }
-    { text admin.books-create }
+    { text admin.books-edit }
 { /block }
 
 { block 'content' }
@@ -15,7 +15,7 @@
         { text admin.book-author }
         <input type="text" name="author" class="input" value="{{ $book->author }}" />
         { text admin.book-release-year }
-        <input type="number" name="release_year" class="input" value="{{ $book->release_year }}" />
+        <input type="text" name="release_year" class="input" value="{{ $book->release_year }}" />
         { text admin.book-publisher }
         <input type="text" name="publisher" class="input" value="{{ $book->publisher }}" />
         { text admin.book-subjects }

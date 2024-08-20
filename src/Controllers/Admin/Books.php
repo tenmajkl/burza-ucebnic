@@ -41,7 +41,7 @@ class Books
         $request->validate([
             'name' => 'max:512',
             'author' => 'max:512',
-            'release_year' => 'numeric',
+            'release_year' => 'max:512',
             'publisher' => 'max:512',
         ], $this->create($orm, $auth));
 
@@ -77,25 +77,25 @@ class Books
 
         $book->subjects = array_values($book->subjects);
 
-        if (!$request->hasFile('cover')) {
-            return $this->create($orm, $auth);
-        }
-
-        if (UPLOAD_ERR_OK !== $request->file('cover')->error) {
-            return $this->create($orm, $auth);
-        }
-
-        if ($request->file('cover')->size > 1024 * 1024 * 2) {
-            return $this->create($orm, $auth);
-        }
-
-        if ('image/png' !== $request->file('cover')->type) {
-            return $this->create($orm, $auth);
-        }
+//        if (!$request->hasFile('cover')) {
+//            return $this->create($orm, $auth);
+//        }
+//
+//        if (UPLOAD_ERR_OK !== $request->file('cover')->error) {
+//            return $this->create($orm, $auth);
+//        }
+//
+//        if ($request->file('cover')->size > 1024 * 1024 * 2) {
+//            return $this->create($orm, $auth);
+//        }
+//
+//        if ('image/png' !== $request->file('cover')->type) {
+//            return $this->create($orm, $auth);
+//        }
 
         $orm->getEntityManager()->persist($book)->run();
 
-        $request->file('cover')->copy($app->file('public.img.cover.'.$book->id, 'png'));
+//        $request->file('cover')->copy($app->file('public.img.cover.'.$book->id, 'png'));
 
         return redirect('/admin/books');
     }
@@ -120,7 +120,7 @@ class Books
         $request->validate([
             'name' => 'max:512',
             'author' => 'max:512',
-            'release_year' => 'numeric',
+            'release_year' => 'max:512',
             'publisher' => 'max:512',
         ], $this->show($orm, $auth, $target));
 
@@ -134,7 +134,7 @@ class Books
 
         $target->name = $request->get('name');
         $target->author = $request->get('author');
-        $target->release_year = (int) $request->get('release_year');
+        $target->release_year = $request->get('release_year');
         $target->publisher = $request->get('publisher');
 
         $subjects = [];
@@ -197,7 +197,7 @@ class Books
         $school = $auth->user()->year->school;
 
         while ($line = fgetcsv($file, separator: ';')) {
-            [$subject_name, $year_name, $name, $author, $publisher, $release_year] = $line;
+            [$subject_name, $year_name, $name, $author, $publisher, $compulsory, $release_year] = $line;
 
             if (($year = $orm->getORM()->getRepository(Year::class)->findOne(['name' => $year_name, 'school.id' => $school->id])) === null) {
                 $year = new Year($year_name, $school);

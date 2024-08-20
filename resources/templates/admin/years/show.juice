@@ -25,7 +25,7 @@
         </div>
         <span id="add" class="text-center button" onclick="addSubject()"><i class="bi bi-plus"></i></span>
     </div>
-    <div class="flex gap-1">
+    <div class="flex gap-2">
         { text admin.year-visible }
         <input type="checkbox" name="visible" {{ $year->visible > 0 ? 'checked' : '' }}>
     </div>
