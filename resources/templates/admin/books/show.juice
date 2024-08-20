@@ -5,6 +5,9 @@
 { /block }
 
 { block 'content' }
+    { ifError }
+        <div class="alert">{ error }</div>
+    { /ifError }
     <form method="post" class="flex flex-col">
         { csrf }
         { text admin.book-name }

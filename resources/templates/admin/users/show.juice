@@ -4,6 +4,7 @@
     { text admin.users-show }
 { /block }
 
+
 { block 'content' }
     <form method="post" class="flex flex-col">
         { ifset $message }

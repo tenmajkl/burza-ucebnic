@@ -11,6 +11,7 @@ return [
     'yes' => 'Ano',
     'no' => 'Ne',
     'upload' => 'Nahrát',
+    'back' => 'Zpět',
 
     // Roles
 
