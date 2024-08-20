@@ -7,7 +7,9 @@ namespace App\Entities;
 use App\Entities\Traits\DateTimes;
 use App\Entities\Traits\Dynamic;
 use App\Entities\Traits\InjectableEntity;
+use App\Repositories\OfferRepository;
 use App\Scopes\NotBoughtScope;
+use App\Zests\Auth;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
@@ -91,6 +93,8 @@ class Offer implements \JsonSerializable, Injectable
     // TBD
     public function jsonSerialize(): mixed
     {
+        // this is terrible practice and I should be blamed however it works and its faster than the "cleaner way"
+        $this->canUserMakeReservation(Auth::user()); 
         return [
             'id' => $this->id,
             'name' => $this->book->name,

@@ -52,14 +52,7 @@ class Offers
 
         $select = OfferSort::from($sort)->sort($select);
 
-        $data = $select->fetchAll();
-
-        $user = $auth->user();
-        foreach ($data as $offer) {
-            $offer->canUserMakeReservation($user);
-        }
-
-        return $data;
+        return $select->fetchAll();
     }
 
     public function init(Auth $auth)
