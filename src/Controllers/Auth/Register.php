@@ -28,7 +28,7 @@ class Register
         $request->validate([
             'email' => 'max:128|email',
             'password' => 'max:128|min:8',
-        ], redirect('/register'));
+        ], template('auth.register'));
 
         $email = $request->get('email');
         [$login, $host] = explode('@', $email);
@@ -52,7 +52,7 @@ class Register
         if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'email_host' => (int) $admin, 'year.school.id' => $school->id])) {
             Validator::addError('user-exists', 'email', '');
 
-            return redirect('/register');
+            return template('auth.register');
         }
 
         $raw_token = TokenGenerator::generate(); 

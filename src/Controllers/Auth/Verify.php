@@ -17,9 +17,16 @@ class Verify
 {
     public function get($token, $school, Session $session, ORM $orm): RedirectResponse|Template
     {
+        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
 
         /** @var User $user */        
         if (!($user = $orm->getORM()->getRepository(User::class)->findOne(['verify_token' => sha1($token.$school)]))) {
+            return redirect('/register');
+        }
+
+        if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $user->email, 'email_host' => $user->email_host, 'verify_token' => null, 'year.school.id' => $school])) {
+            $orm->getEntityManager()->delete($user)->run();
+
             return redirect('/register');
         }
 
@@ -57,7 +64,7 @@ class Verify
             return redirect('/register');
         }
 
-        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['verify_token' => null, 'school' => $school,])) {
+        if ($orm->getORM()->getRepository(User::class)->findOne(['email' => $user->email, 'email_host' => $user->email_host, 'verify_token' => null, 'year.school.id' => $school])) {
             $orm->getEntityManager()->delete($user)->run();
 
             return redirect('/register');
@@ -67,8 +74,6 @@ class Verify
             $orm->getEntityManager()->delete($user)->run();
             return redirect('/');
         }
-
-        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
 
         $request->validate([
             'year' => 'numeric',
