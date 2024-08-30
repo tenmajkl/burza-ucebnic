@@ -86,7 +86,7 @@ class Offers
             'message' => Validator::error(),
         ])->code(400));
 
-        if ($orm->getORM()->getRepository(Offer::class)->findOne(['book.id' => $request->get('book'), 'user.id' => $auth->user()->id])) {
+        if (count($orm->getORM()->getRepository(Offer::class)->findAll(['book.id' => $request->get('book'), 'user.id' => $auth->user()->id])) == 2) {
             return response([
                 'status' => '400',
                 'message' => text('validation.already-offered'),

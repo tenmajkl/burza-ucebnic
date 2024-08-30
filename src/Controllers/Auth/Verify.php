@@ -30,7 +30,7 @@ class Verify
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $school]);
 
-        if ($user->role != 0) {
+        if ($user->email_host != 0) {
             $teachers = $orm->getORM()->getRepository(Year::class)
                                       ->findOne([
                                           'school_id' => $school->id,
@@ -57,10 +57,18 @@ class Verify
             return redirect('/register');
         }
 
+        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['verify_token' => null, 'school' => $school,])) {
+            $orm->getEntityManager()->delete($user)->run();
+
+            return redirect('/register');
+        }
+
         if (time() - $user->createdAt->getTimestamp() > 600)  {
-            $orm->getEntityManager()->delete($user);
+            $orm->getEntityManager()->delete($user)->run();
             return redirect('/');
         }
+
+        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
 
         $request->validate([
             'year' => 'numeric',

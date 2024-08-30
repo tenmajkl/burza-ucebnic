@@ -9,7 +9,6 @@ use App\Entities\School;
 use App\Entities\User;
 use App\TokenGenerator;
 use DateTime;
-use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Templating\Template;
 use Lemon\Validator;
@@ -47,15 +46,12 @@ class Register
         $school = $school[0];
         $admin = $school->admin_email === $host;
 
-        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'role' => (int) $admin, 'year.school.id' => $school->id])) {
-        
-            if ($user->verify_token && $user->createdAt->diff(new DateTime("now"))->i > 10)  {
-                $orm->getEntityManager()->delete($user)->run();
-            } else {
-                Validator::addError('user-exists', 'email', '');
+        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
 
-                return template('auth.register');
-            }
+        if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'email_host' => (int) $admin, 'year.school.id' => $school->id])) {
+            Validator::addError('user-exists', 'email', '');
+
+            return template('auth.register');
         }
 
         $raw_token = TokenGenerator::generate(); 

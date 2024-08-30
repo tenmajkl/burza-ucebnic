@@ -42,6 +42,8 @@ class Login
         $school = $school[0];
         $admin = $school->admin_email === $host;
 
+        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
+
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
             'year.school.id' => $school->id,
@@ -52,13 +54,6 @@ class Login
             return template('auth.login', message: 'auth.error');
         }
 
-        if ($user->verify_token) {
-            if (time() - $user->createdAt->getTimestamp() > 600)  {
-                $orm->getEntityManager()->delete($user)->run();
-            }
-
-            return redirect('/login');
-        }
 
         $session->set('email', explode('@', $request->get('email'))[0]);
         $session->set('host', (int) $admin);
