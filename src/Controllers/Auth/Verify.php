@@ -90,7 +90,7 @@ class Verify
             return redirect('/verify/'.$token.'/'.$school);
         }
 
-        $session->dontExpire();
+        $session->expireAt(31536000);
         $user->year = $year;
         $user->verify_token = null;
 
