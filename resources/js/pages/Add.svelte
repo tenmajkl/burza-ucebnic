@@ -61,6 +61,9 @@
 <div class="text-2xl font-bold">
     <Text text="add-title" />
 </div>
+
+<div class="text-sm"><Text text="compulsory" /></div>
+
 {#if result}
     <div class="alert">
         {result.message}
@@ -75,7 +78,7 @@
                 {/each}
             </select>
     </div>
-    <div class="text-xs text-secondary"><Text text="book" /></div>
+    <div class="text-xs text-secondary"><Text text="book" />*</div>
     <div class="flex overflow-x-scroll md:col-span-2 gap-3 pb-4">
         {#if years[year]}
             {#each years[year].books as book}
@@ -102,14 +105,19 @@
                     </div> 
                 </div>
             {/each}
+        {:else}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-clockwise animate-spin" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+            </svg>
         {/if}
     </div>
     <div class="flex flex-col">
-        <label for="subject" class="text-xs text-secondary"><Text text="price" /></label>
+        <label for="subject" class="text-xs text-secondary"><Text text="price" />*</label>
         <input type="number" class="input" bind:value={offer.price} required min='0' max='999'>
     </div>
     <div class="flex flex-col">
-        <label for="subject" class="text-xs text-secondary"><Text text="book-state" /></label>
+        <label for="subject" class="text-xs text-secondary"><Text text="book-state" />*</label>
         <select id="subject" name="subject" class="input" bind:value={offer.state} required>
             {#each Object.entries(states) as [id, state]}
                 <option value="{id}"><Text text="state-{state}" /></option>
@@ -118,7 +126,7 @@
     </div>
 
 <div class="flex flex-col">
-    <div class="text-xs text-secondary"><Text text="photo" /></div>
+    <div class="text-xs text-secondary"><Text text="photo" />*</div>
     <input type="file" class="input" required></div>
 </div>
 {#if loading}

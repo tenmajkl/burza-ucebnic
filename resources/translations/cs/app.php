@@ -11,6 +11,8 @@ return [
 
     'get-back' => 'Zpět',
 
+    'compulsory' => 'Povinné pole*',
+
     'current_year' => date('Y'),
     'currency' => 'Kč',
 
