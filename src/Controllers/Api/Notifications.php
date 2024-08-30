@@ -52,7 +52,7 @@ class Notifications
 
     public function clear(Notifier $notifier, Auth $auth, ORM $orm)
     {
-        $orm->db()->table('offer_notifications')
+        $orm->db()->table('notifications')
                       ->delete([
                           'user_id' => $auth->user()->id,
                           'seen' => 1,
@@ -63,7 +63,7 @@ class Notifications
 
     public function readAll(Notifier $notifier, Auth $auth, ORM $orm)
     {
-        $orm->db()->table('offer_notifications')
+        $orm->db()->table('notifications')
                       ->update([
                           'seen' => 1,
                       ])->where([
