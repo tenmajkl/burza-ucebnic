@@ -10,6 +10,7 @@ use App\Entities\User;
 use App\TokenGenerator;
 use DateTime;
 use Lemon\Http\Request;
+use Lemon\Http\Response;
 use Lemon\Templating\Template;
 use Lemon\Validator;
 use Symfony\Component\Mailer\MailerInterface;
@@ -22,12 +23,12 @@ class Register
         return template('auth.register');
     }
 
-    public function post(Request $request, MailerInterface $mailer, ORM $orm): Template
+    public function post(Request $request, MailerInterface $mailer, ORM $orm): Template|Response
     {
         $request->validate([
             'email' => 'max:128|email',
             'password' => 'max:128|min:8',
-        ], template('auth.register'));
+        ], redirect('/register'));
 
         $email = $request->get('email');
         [$login, $host] = explode('@', $email);
@@ -51,7 +52,7 @@ class Register
         if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'email_host' => (int) $admin, 'year.school.id' => $school->id])) {
             Validator::addError('user-exists', 'email', '');
 
-            return template('auth.register');
+            return redirect('/register');
         }
 
         $raw_token = TokenGenerator::generate(); 
