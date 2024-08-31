@@ -1,0 +1,11 @@
+{
+    "require": {
+        "workerman/workerman": "^4.1",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    }
+}

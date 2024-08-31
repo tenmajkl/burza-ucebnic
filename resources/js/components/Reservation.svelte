@@ -47,7 +47,7 @@
             </div>
         </div>
         {#if message === index}
-            <div transition:slide={{}}><Conversation opponent={reservation.seller} reservation={reservation} /></div>
+            <div transition:slide={{}}><Conversation opponent={reservation.offer.author_email} reservation={reservation} /></div>
         {/if}
         {#if qr === index} 
             <div transition:slide={{}}><QR reservation={reservation} /></div>

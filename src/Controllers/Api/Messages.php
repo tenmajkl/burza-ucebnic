@@ -9,6 +9,7 @@ use App\Contracts\ORM;
 use App\Entities\Message;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
+use DateTimeImmutable;
 use Lemon\Http\Request;
 use Lemon\Validator;
 
@@ -24,6 +25,7 @@ class Messages
             'code' => 200,
             'message' => 'OK',
             'data' => $target->messages,
+            'session_id' => session_id(), // IDK IF THIS IS SAFE?
         ];
     }
 
@@ -46,10 +48,12 @@ class Messages
 
         $message = new Message($request->get('content'), $auth->user(), $target);
         $orm->getEntityManager()->persist($message)->run();
+        $message->createdAt = new DateTimeImmutable('now');
 
         return [
             'code' => 200,
             'message' => 'OK',
+            'data' => $message->jsonSerialize(),
         ];
     }
 }

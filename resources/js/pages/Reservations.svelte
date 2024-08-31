@@ -37,7 +37,7 @@
         {:else}
             <span>
                 <Text text="no-reservations"></Text>
-                <span  class="cursor-pointer" on:click={() => selected = 0}><Text text="show-offers"></Text></span>
+                <span class="cursor-pointer" on:click={() => selected = 0}><Text text="show-offers"></Text></span>
             </span>
         {/each}
     </div>
