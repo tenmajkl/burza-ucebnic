@@ -1,6 +1,7 @@
 <script>
     import { slide } from 'svelte/transition';
     import { onMount } from 'svelte';
+    import Text from './Text.svelte';
 
     export let reservation;
     export let opponent;
@@ -71,6 +72,7 @@
 </script>
 
 <div class="flex flex-col justify-between h-64 md:h-96 gap-2">
+<div class="font-bold"><Text text="chat"></Text></div>
     <div class="overflow-y-auto h-full flex flex-col gap-2 overflow-x-clip" id="chat">
         {#each messages as message}
             <div class="flex flex-col">

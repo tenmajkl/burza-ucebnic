@@ -183,4 +183,7 @@ return [
     'report-title' => 'Nahlásit uživatele',
     'reason' => 'Důvod',
     'report' => 'Nahlásit',
+
+    // Chat
+    'chat' => 'Chat s prvním zájemcem'
 ];
