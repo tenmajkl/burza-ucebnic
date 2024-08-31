@@ -50,9 +50,7 @@ class Register
         $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
 
         if ($user = $orm->getORM()->getRepository(User::class)->findOne(['email' => $login, 'email_host' => (int) $admin, 'year.school.id' => $school->id])) {
-            Validator::addError('user-exists', 'email', '');
-
-            return template('auth.register');
+            return template('auth.register', message: 'auth.email-sent');
         }
 
         $raw_token = TokenGenerator::generate(); 
