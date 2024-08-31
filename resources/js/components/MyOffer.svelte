@@ -10,6 +10,7 @@
     export let openned;
     export let index;
     let enabled = true;
+    let init_price = offer.price;
 
     function interestedText(interested)
     {
@@ -32,6 +33,10 @@
 
     function edit() 
     {
+        if (offer.price == init_price) {
+            return;
+        }
+
         fetch('/api/offers/' + offer.id, {
             method: 'POST',
             headers: {
@@ -44,6 +49,7 @@
             .then(response => response.json())
             .then(res => {
                 result = res.status;
+                init_price = price;
             });
     }
 
@@ -74,9 +80,8 @@
                 <div class="text-sm text-secondary"><Text text="state-{offer.state}" /></div>
                 <div class="flex gap-3">
                     <div class="text-xl flex items-center">
-                        <input type="number" bind:value={offer.price} class="w-20 input {result != 200 ? 'border-2 border-red rounded-0 mr-1' : ''}" required min='1' max='999'> <Text text="currency" />
+                        <input type="number" bind:value={offer.price} class="w-20 input {result != 200 ? 'border-2 border-red rounded-0 mr-1' : ''}" required min='0' max='999' on:keydown={(e) => {if (e.key == 'Enter') { edit() }}}> <Text text="currency" />
                     </div>
-                    <button on:click={() => edit()}><i class="text-lg bi bi-pen text-blue"></i></button>
                     <button on:click={async () => {reservation = await getReservation(offer); openned = openned == index ? null : index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
                     <button on:click={() => remove()}><i class="text-lg bi bi-trash text-red"></i></button>
                 </div>

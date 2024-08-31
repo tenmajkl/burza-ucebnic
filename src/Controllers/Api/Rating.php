@@ -41,16 +41,14 @@ class Rating
             'message' => Validator::error(),
         ]));
 
-        $user = $target->user;
+        $user = $target->rated;
         $user->rating += (int) $request->get('rating'); 
 
         $notification = $orm->getORM()->getRepository(Notification::class)->findOne([
             'rating.id' => $target->id
         ]); 
 
-        $orm->getEntityManager()->delete($target)->delete($notification)->run();
-
-        $orm->getEntityManager()->persist($user)->run();
+        $orm->getEntityManager()->delete($target)->delete($notification)->persist($user)->run();
 
         return [
             'status' => 200,

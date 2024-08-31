@@ -14,8 +14,8 @@
 </script>
 
 {#if notification.can_rate}
-    <i class="bi bi-check text-4xl text-blue" on:click={async () => await send(1)}></i>
-    <i class="bi bi-x text-4xl text-red" on:click={async () => await send(-1)}></i>
+    <i class="bi bi-check text-4xl text-blue" on:click={async () => {await send(1); notification.can_rate = false;} }></i>
+    <i class="bi bi-x text-4xl text-red" on:click={async () => {await send(-1); notification.can_rate = false;} }></i>
 {/if}
 
 
