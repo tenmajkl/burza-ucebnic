@@ -23,6 +23,14 @@ return [
     'admin' => 'Administrace',
     'market' => 'Burza',
 
+    'days' => ' dní ',
+    'hours' => ' hodin ',
+    'minutes' => ' minut ',
+    'seconds' => ' sekund ',
+    'starting' => 'Spouštíme za',
+    'how' => 'Jak to funguje?',
+    'register' => 'Registrujete se školním e-mailem',
+
     'cookies-banner' => 'Tento web využívá cookies, které jsou nezbytně nutné pro chod aplikace.',
     'cookies-accept' => 'Rozumím!',
     'cookies-more' => 'Zjistit více',
@@ -42,12 +50,6 @@ return [
     'personal-info-email-access' => 'K vaší e-mailové adrese, a škole mají přístup všichni registrovaní nakupující z vaší školy (pouze v přípaďe, že něco prodáváte). Dále také školní administrátoři.',
     'personal-info-year-access' => 'K vašemu ročníku mají přístup pouze administrátoři vaší školy.',
     'personal-info-all-access' => 'Ke všem osobním údajům mají přistup správci serveru.', 
-
-    // About
-    'about-title' => 'O projektu',
-    'about-content' => 'Projekt má za cíl digitalizovat fyzickou burzu učebnic, probíhající na středních školách skrz webovou aplikaci, kde mohou studenti vkládat kromě nabídek také poptávky. Aplikace je navržená tak, aby ji mohlo využívat více škol nezávisle na sobě. Projekt je zároveň součást Středoškolské Odborné Činnosti Michala Křipače.',
-    'about-thanks' => 'Poděkování',
-    'about-classmates' => 'Spolužáci, kteří se taktéž věnují, nebo věnovali SOČ',
 
     // Feedback
     'feedback-title' => 'Zpětná vazba',

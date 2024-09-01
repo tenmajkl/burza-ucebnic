@@ -49,3 +49,12 @@
 .danger:hover {
     
 }
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none !important;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */ 
+}

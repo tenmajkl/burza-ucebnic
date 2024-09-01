@@ -1,7 +1,7 @@
 { extends 'layout' }
 
 { block 'title' } 
-    { text app.about-title }
+    { text app.name }
 { /block }
 
 { block 'content' }
@@ -12,22 +12,147 @@
         <a href="/lang/cs">🇨🇿</a>
     {/if}
     </div>
-    <main class="w-screen sm:h-screen flex flex-col items-center justify-center px-4 py-8 gap-1">
-        <img src="svg/dbu.svg" alt="Logo" class="w-36">
-        <h1 class="text-2xl font-bold">{ text app.about-title }</h1>
-        <p class='text-center sm:w-9/12'>{ text app.about-content }</p>
-        <h1 class="text-2xl font-bold">{ text app.about-thanks }</h1>
-        <ul class="text-center">
-            <li>Jakub Harabiš (<a href="https://github.com/harabisj">@harabisj</a>)</li>
-            <li>Jan Kvapil (<a href="https://github.com/quapka">@quapka</a>)</li>
-            <li>Šimon Kratochvíl</li>
-            <li>Ema Bagarová</li>
-            <li>Alžběta Bagarová</li>
-            <li>Hugo Pacek</li>
-            <li>{ text 'app.about-classmates' }</li>
-        </ul>
-        <h1 class="text-2xl font-bold"><a href="https://github.com/tenmajkl/bs">GitHub</h1>
-        <h1 class="text-2xl font-bold"><a href="/login">{ text 'auth.login' }</h1>
-        <h1 class="text-2xl font-bold"><a href="/school-registration">{ text 'app.school-registration-title' }</h1>
-    </main>
+        <div class="bg-blue overflow-x-hidden" id="main">
+            <div class="w-screen h-screen flex flex-col items-center justify-center px-4 py-8 gap-5">
+                <div id="logo" class="transition-all ease-in-out duration-1000 translate-y-1/3 delay-300">{ include 'white_logo' }</div>
+                <div id="text" class="text-white transition-all opacity-0 drop-shadow-2xl duration-1000 delay-500 text-center">
+                    <div class="text-5xl mb-5">{ text 'app.name' }</div>
+                    <div class="text-2xl">{ text 'app.starting' }</div>
+                    <div class="text-4xl" id="counter">69:69:69:69</div>
+                </div>
+            </div>
+            <div id="about" class="hidden">
+                <div class="w-screen h-screen flex flex-col items-center px-4 py-8 gap-8">
+                    <div class="text-5xl text-white drop-shadow-2xl" id="how"></div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-white text-4xl" id="register"></div>
+                        <img src="img/register.png" alt="Register" class="shadow-2xl w-1/2" id="register-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+
+        const base_color = [13, 98, 134];
+        const mult = 10 / 700;
+        const bg = document.getElementById('main');
+        const how = {{ text('app.how') }} 
+        const how_mult = (how.length / 2) / 900;
+        const how_middle = Math.floor(how.length / 2);
+        const how_element = document.getElementById('how');
+        const register_img = document.getElementById('register-img');
+        const register_mult = 90 / 1000;
+        const register_text_el = document.getElementById('register');
+        const register_text = {{ text("app.register") }};
+        const register_text_mult = register_text.length / 900;
+
+        function changeRegister(offset) {
+            // 
+            if (offset > 1000) \{
+                return;    
+            }
+
+            register_img.style.transform = 'translate(' + (100 - (offset * register_mult)) + "%)";
+        }
+
+        function changeRegisterText(offset) {
+            //
+            if (offset < 300) \{
+                return;
+            }
+
+            if (offset > 1200) \{
+                register_text_el.innerText = register_text;
+                return;
+            }
+
+            offset -= 300;
+            let text = register_text.substr(0, Math.floor(offset * register_text_mult)) + Math.floor(Math.random() * 2); 
+            if (text.length != register_text_el.length) \{
+                register_text_el.innerText = text; 
+            }
+        }
+
+        function changeTitle(offset) {
+            if (offset > 900) \{
+                how_element.innerText = how;
+                return;
+            }
+            offset = offset * how_mult;
+            let text = how.substr(how_middle - offset + 1, offset * 2 - 1);
+            text = Math.floor(Math.random() * 2) + text + Math.floor(Math.random() * 2);
+            if (text.length != how_element.innerText.length) \{
+                how_element.innerText = text;
+            }
+        }
+
+        function changeBg(offset) \{
+            offset = offset * mult;
+            bg.style.backgroundColor = "rgb(" + (base_color[0] + offset) + ", " + (base_color[1] + offset) + ", " + (base_color[2] + offset) + ")";
+        }
+
+        window.onscroll = function() {
+            let offset = window.pageYOffset;
+            console.log(offset);
+            changeBg(offset);
+            changeTitle(offset);
+            changeRegister(offset);
+            changeRegisterText(offset);
+        };
+
+        let numbers = [...Array(19).keys()];
+        let i = 1;
+
+        setTimeout(function() {
+            let interval = setInterval(function() {
+                if (i == 20) {
+                    i = 0
+                    clearInterval(interval);
+                    for (let index = 1; index <= 18; index++) \{
+                        document.getElementById('pixel'+index).setAttribute("visibility", "hidden");           
+                    }
+
+                    document.getElementById("right").setAttribute("visibility", "hidden");
+                    let logo = document.getElementById('logo');
+                    logo.classList.add("drop-shadow-2xl");
+                    logo.classList.remove('translate-y-1/3');
+                    document.getElementById('text').classList.add('opacity-100');
+                    document.getElementById('about').classList.remove('hidden');
+                    return;
+                }
+               
+                let index = Math.floor(Math.random() * (20 - i));
+                let num = numbers[index] + 1;
+                numbers[index] = numbers[19 - i]
+
+                document.getElementById('bin'+num).setAttribute("visibility", "visible");
+                if (num != 19) \{
+                    document.getElementById('pixel'+num).setAttribute("visibility", "visible");
+                }
+
+                i++;
+            }, 50);
+        }, 500);
+
+        let counter = document.getElementById('counter');
+
+        let start = 1726444800;
+
+        function diff() {
+            let diff = Math.floor(start - (new Date().getTime() / 1000));
+            let days = Math.floor(diff / (86400));
+            diff -= 86400 * days;
+            let hours = Math.floor(diff / 3600);
+            diff -= hours * 3600;
+            let minutes = Math.floor(diff / 60);
+            diff -= minutes * 60;
+            counter.innerText = days + {{ text('app.days') }} + hours + {{ text('app.hours') }} + minutes + {{ text('app.minutes') }} + diff + {{ text('app.seconds') }};
+        }
+
+        diff();
+
+        setInterval(diff, 1000);
+
+    </script>
 { /block }
