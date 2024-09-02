@@ -32,4 +32,4 @@ Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSell
 Route::template('/about', 'about');
 Route::controller('/school-registration', SchoolRegistration::class);
 Route::template('cookies');
-Route::template('personal_info');
+Route::template('personal-info');

@@ -108,7 +108,9 @@ class Reservations
             $deletion->run();
         }
 
-        $notifier->notifyRating($buyer, $reservation);
+        $rating = new RatingAbility($buyer, $offer->author);
+        $orm->getEntityManager()->persist($rating)->run();
+        $notifier->notifyRating($buyer, $rating);
 
         // TODO less boilerplate, maybe
 

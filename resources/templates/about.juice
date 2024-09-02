@@ -22,11 +22,31 @@
                 </div>
             </div>
             <div id="about" class="hidden">
-                <div class="w-screen h-screen flex flex-col items-center px-4 py-8 gap-8">
-                    <div class="text-5xl text-white drop-shadow-2xl" id="how"></div>
+                <div class="w-screen h-[200vh] flex flex-col items-center px-4 py-8 gap-8">
+                    <div class="text-5xl text-white drop-shadow-2xl" id="how">{ text 'app.how' }</div>
                     <div class="flex justify-between items-center">
-                        <div class="text-white text-4xl" id="register"></div>
-                        <img src="img/register.png" alt="Register" class="shadow-2xl w-1/2" id="register-img">
+                        <div class="text-white text-4xl" id="register">{ text 'app.register' }</div>
+                        <img src="img/register.png" alt="Register" class="shadow-2xl translate-x-16 w-1/2" id="register-img">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <img src="img/add.png" alt="Register" class="shadow-2xl -translate-x-20 w-1/2" id="add-img">
+                        <div class="text-white text-4xl text-right" id="add">{ text 'app.make-offer' }</div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-white text-4xl" id="register">{ text 'app.add-wishlist' }</div>
+                        <img src="img/wishlist.png" alt="Register" class="shadow-2xl translate-x-16 w-1/2" id="register-img">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <img src="img/offers.png" alt="Register" class="shadow-2xl -translate-x-16 w-1/2" id="register-img">
+                        <div class="text-white text-4xl text-right" id="register">{ text 'app.find-offer' }</div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-white text-4xl" id="register">{ text 'app.make-deal' }</div>
+                        <img src="img/reservations.png" alt="Register" class="shadow-2xl translate-x-16 w-1/2" id="register-img">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <img src="img/hand.png" alt="Register" class="shadow-2xl -translate-x-24 w-1/2" id="register-img">
+                        <div class="text-white text-4xl text-right" id="register">{ text 'app.meet' }</div>
                     </div>
                 </div>
             </div>
@@ -37,55 +57,6 @@
         const base_color = [13, 98, 134];
         const mult = 10 / 700;
         const bg = document.getElementById('main');
-        const how = {{ text('app.how') }} 
-        const how_mult = (how.length / 2) / 900;
-        const how_middle = Math.floor(how.length / 2);
-        const how_element = document.getElementById('how');
-        const register_img = document.getElementById('register-img');
-        const register_mult = 90 / 1000;
-        const register_text_el = document.getElementById('register');
-        const register_text = {{ text("app.register") }};
-        const register_text_mult = register_text.length / 900;
-
-        function changeRegister(offset) {
-            // 
-            if (offset > 1000) \{
-                return;    
-            }
-
-            register_img.style.transform = 'translate(' + (100 - (offset * register_mult)) + "%)";
-        }
-
-        function changeRegisterText(offset) {
-            //
-            if (offset < 300) \{
-                return;
-            }
-
-            if (offset > 1200) \{
-                register_text_el.innerText = register_text;
-                return;
-            }
-
-            offset -= 300;
-            let text = register_text.substr(0, Math.floor(offset * register_text_mult)) + Math.floor(Math.random() * 2); 
-            if (text.length != register_text_el.length) \{
-                register_text_el.innerText = text; 
-            }
-        }
-
-        function changeTitle(offset) {
-            if (offset > 900) \{
-                how_element.innerText = how;
-                return;
-            }
-            offset = offset * how_mult;
-            let text = how.substr(how_middle - offset + 1, offset * 2 - 1);
-            text = Math.floor(Math.random() * 2) + text + Math.floor(Math.random() * 2);
-            if (text.length != how_element.innerText.length) \{
-                how_element.innerText = text;
-            }
-        }
 
         function changeBg(offset) \{
             offset = offset * mult;
@@ -96,9 +67,6 @@
             let offset = window.pageYOffset;
             console.log(offset);
             changeBg(offset);
-            changeTitle(offset);
-            changeRegister(offset);
-            changeRegisterText(offset);
         };
 
         let numbers = [...Array(19).keys()];

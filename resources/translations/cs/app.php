@@ -30,6 +30,11 @@ return [
     'starting' => 'Spouštíme za',
     'how' => 'Jak to funguje?',
     'register' => 'Registrujete se školním e-mailem',
+    'make-offer' => 'Nabídněte učebnice mladším spolužákům',
+    'add-wishlist' => 'Vyberte si učebnice o které máte zájem',
+    'find-offer' => 'Rezervujte si některou z nabízených učebnic',
+    'make-deal' => 'Dohodněte se na předání',
+    'meet' => 'Předejte si učebnice ve škole',
 
     'cookies-banner' => 'Tento web využívá cookies, které jsou nezbytně nutné pro chod aplikace.',
     'cookies-accept' => 'Rozumím!',
@@ -41,15 +46,8 @@ return [
     'cookies-csrf' => 'Ochrana před CSRF útokem.',
     'cookies-accepted' => 'Informace, zda uživatel souhlasil z cookies.',
 
-    'personal-info-title' => 'Zásady zpracování osobních údajů',
-    'personal-info-list'=> 'Zpracováváme následující údaje:',
-    'personal-info-email' => 'e-mailovou adresu',
-    'personal-info-school-year' => 'školu a ročník, který navštěvujete',
-    'personal-info-ip' => 'IP adresu',
-    'personal-info-pm' => 'soukromé zprávy při domlouvání převzetí',
-    'personal-info-email-access' => 'K vaší e-mailové adrese, a škole mají přístup všichni registrovaní nakupující z vaší školy (pouze v přípaďe, že něco prodáváte). Dále také školní administrátoři.',
-    'personal-info-year-access' => 'K vašemu ročníku mají přístup pouze administrátoři vaší školy.',
-    'personal-info-all-access' => 'Ke všem osobním údajům mají přistup správci serveru.', 
+    'personal-info-title' => 'Zásady osobních údajů',
+    'personal-info' => 'Vyjadřuji souhlas se zpracováním výše uvedených osobních údajů správcem osobních údajů dle čl. 13 a 14 nařízení Evropského parlamentu a Rady (EU) 2016/679 ze dne 27. dubna 2016 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ES (obecné nařízení o ochraně osobních údajů). Martin Pecl. E-mailová adresa a škola uživatele je zpracovávána za účelem autentifikace. IP adresa je ukládaná za účelem záznamů a není přímo asociovaná s konkrétním uživatelem. Soukromé zprávy dostupné v rámci rezervací jsou uloženy pouze po dobu existence rezervace a to za účelem domluvy uživatelů na předání učebnic.',
 
     // Feedback
     'feedback-title' => 'Zpětná vazba',
