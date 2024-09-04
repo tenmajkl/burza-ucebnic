@@ -11,6 +11,7 @@ use Lemon\Contracts\Http\Session;
 use Lemon\Http\Request;
 use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
+use Lemon\Validator;
 
 class Login
 {
