@@ -10,8 +10,6 @@ enum ReservationState: int
 
     case Active = 1;
 
-    case Denied = 2;
-
     public static function typecast(mixed $value): self
     {
         return self::tryFrom($value);

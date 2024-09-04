@@ -49,6 +49,9 @@ class Offer implements \JsonSerializable, Injectable
     #[Column(type: 'datetime', nullable: true)]
     public ?\DateTimeImmutable $boughtAt;
 
+    #[BelongsTo(target: User::class, nullable: true)]
+    public ?User $buyer;
+
     /**
      * Whenever currently logged user can make reservation, thus its not saved in db. This value is generated manualy using function canUserMakeReservation
      */

@@ -41,17 +41,6 @@ class Reservations
         $offer->boughtAt = new \DateTimeImmutable();
         $offer->buyer = $reservation->user;
 
-        $offer->reservations = [];
-
-        $inquiry = $orm->getORM()->getRepository(Inquiry::class)->findOne([
-            'book.id' => $offer->book->id,
-            'user.id' => $auth->user()->id,
-        ]);
-
-        if ($inquiry) {
-            $orm->getEntityManager()->delete($inquiry)->run(); 
-        }
-
         $orm->db()->table('notifications')->delete()->where([
             'offer_id' => $offer->id,
         ])->run();
@@ -66,9 +55,18 @@ class Reservations
             $offer->user,
         );
 
-        $orm->getEntityManager()->persist($rating)->run();
+        $job = $orm->getEntityManager()->persist($rating);
 
-        $orm->getEntityManager()->persist($offer)->run();
+        $inquiry = $orm->getORM()->getRepository(Inquiry::class)->findOne([
+            'book.id' => $offer->book->id,
+            'user.id' => $auth->user()->id,
+        ]);
+
+        if ($inquiry) {
+            $job->delete($inquiry)->run(); 
+        }
+
+        $job->persist($offer)->run();
         $notifier->notifyRating($reservation->user, $rating);
 
         return redirect('/');
@@ -86,9 +84,8 @@ class Reservations
             return error(404);
         }
 
-        $reservation->status = ReservationState::Denied;
         $offer = $reservation->offer;
-        $deletion = $orm->getEntityManager()->persist($reservation);
+        $deletion = $orm->getEntityManager()->delete($reservation);
 
         $buyer = $reservation->user;
 
