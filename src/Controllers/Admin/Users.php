@@ -108,6 +108,7 @@ class Users
 
         $user = new User(
             $request->get('name'),
+            (int) ('on' === $request->get('admin')),
             password_hash($password, PASSWORD_DEFAULT),
             (int) ('on' === $request->get('admin')),
             null,
