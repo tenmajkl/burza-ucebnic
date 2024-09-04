@@ -31,11 +31,11 @@ return [
     'how' => 'Jak to funguje?',
     'register' => 'Registrujete se školním e-mailem',
     'make-offer' => 'Nabídnete učebnice mladším spolužákům',
-    'add-wishlist' => 'Vyberete si učebnice o které máte zájem',
-    'find-offer' => 'Rezervujete si některou z nabízených učebnic',
+    'add-wishlist' => 'Vyberete si učebnice o&nbsp;které máte zájem',
+    'find-offer' => 'Rezervujete si některou z&nbsp;nabízených učebnic',
     'make-deal' => 'Dohodnete se na předání',
     'meet' => 'Předáte si učebnice ve škole',
-    'more' => 'Zjistit více o projektu',
+    'more' => 'Zjistit více o&nbsp;projektu',
 
     'cookies-banner' => 'Tento web využívá cookies, které jsou nezbytně nutné pro chod aplikace.',
     'cookies-accept' => 'Rozumím!',
@@ -45,10 +45,10 @@ return [
     'cookies-title' => 'Ukládané cookies',
     'cookies-session' => 'Udržuje kontext při posílání požadavků.',
     'cookies-csrf' => 'Ochrana před CSRF útokem.',
-    'cookies-accepted' => 'Informace, zda uživatel souhlasil z cookies.',
+    'cookies-accepted' => 'Informace, zda uživatel souhlasil z&nbsp;cookies.',
 
     'personal-info-title' => 'Zásady osobních údajů',
-    'personal-info' => 'Vyjadřuji souhlas se zpracováním výše uvedených osobních údajů správcem osobních údajů dle čl. 13 a 14 nařízení Evropského parlamentu a Rady (EU) 2016/679 ze dne 27. dubna 2016 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ES (obecné nařízení o ochraně osobních údajů). Martin Pecl. E-mailová adresa a škola uživatele je zpracovávána za účelem autentifikace. IP adresa je ukládaná za účelem záznamů a není přímo asociovaná s konkrétním uživatelem. Soukromé zprávy dostupné v rámci rezervací jsou uloženy pouze po dobu existence rezervace a to za účelem domluvy uživatelů na předání učebnic.',
+    'personal-info' => 'Vyjadřuji souhlas se zpracováním výše uvedených osobních údajů správcem osobních údajů dle čl.&nbsp;13 a&nbsp;14 nařízení Evropského parlamentu a&nbsp;Rady (EU) 2016/679 ze dne 27.&nbsp;dubna 2016 o&nbsp;ochraně fyzických osob v&nbsp;souvislosti se zpracováním osobních údajů a&nbsp;o&nbsp;volném pohybu těchto údajů a&nbsp;o&nbsp;zrušení směrnice 95/46/ES (obecné nařízení o&nbsp;ochraně osobních údajů). Správcem osobních údajů je Martin Pecl. E-mailová adresa a&nbsp;škola uživatele je zpracovávána za účelem autentizace. IP adresa je ukládaná za účelem záznamů a&nbsp;není přímo asociovaná s&nbsp;konkrétním uživatelem. Soukromé zprávy dostupné v&nbsp;rámci rezervací jsou uloženy pouze po dobu existence rezervace a&nbsp;to za účelem domluvy uživatelů na předání učebnic.',
 
     // Feedback
     'feedback-title' => 'Zpětná vazba',
@@ -74,7 +74,7 @@ return [
     'offers-title' => 'Aktuální nabídky',
     'reserve' => 'REZERVOVAT',
     'rating' => 'Hodnocení uživatele @%arg',
-    'no-offers' => 'Váš ročník nemá k dispozici žádné učebnice ke koupi.',
+    'no-offers' => 'Váš ročník nemá k&nbsp;dispozici žádné učebnice ke koupi.',
     'number-of-reservations' => 'Počet rezervací učebnice',
     'photo-book' => 'Fotografie učebnice ',
 
@@ -100,9 +100,9 @@ return [
     // Reservations
 
     'reservations-title' => 'Moje rezervace',
-    'qr-info' => 'Ukažte tento QR kód prodejci a ověřte, že objednávka je vaše',
+    'qr-info' => 'Ukažte tento QR kód prodejci a&nbsp;ověřte, že objednávka je vaše',
     'order-acceptance' => 'Převzetí objednávky',
-    'order-acceptance-fail' => 'Skenovaná objednávka neexistuje nebo k ní nemáte přístup.',
+    'order-acceptance-fail' => 'Skenovaná objednávka neexistuje nebo k&nbsp;ní nemáte přístup.',
     'order-acceptance-unauthorized' => 'Pro zobrazení objednávky se musíte přihlásit.',
     'reserved-by' => 'Rezervováno uživatelem',
     'order-accept' => 'Předáno',
@@ -118,8 +118,8 @@ return [
     'remove' => 'Odebrat',
     'wishlist-select-title' => 'Výběr učebnic do seznamu',
     'wishlist-max-price' => 'Maximálně za',
-    'wishlist-empty' => 'Seznam přání je prázdný, vyberte si učebnice o které máte zájem níže.',
-    'wishlist-added' => 'Učebnice přidána na seznam přání, až bude k dispozici, přijde vám notifikace.',
+    'wishlist-empty' => 'Seznam přání je prázdný, vyberte si učebnice o&nbsp;které máte zájem níže.',
+    'wishlist-added' => 'Učebnice přidána na seznam přání, až bude k&nbsp;dispozici, přijde vám notifikace.',
     'no-wishlist' => "Váš ročník nemá žádné učebnice, které byste mohl*a přidat na seznam přání",
 
     // Add
@@ -130,7 +130,7 @@ return [
     'select' => 'Vybrat',
     'selected' => 'Vybráno',
     'missing-image' => 'Chybí obrázek',
-    'image-error' => 'Chyba v obrázku',
+    'image-error' => 'Chyba v&nbsp;obrázku',
     'average-price' => 'Průměrná cena',
     'average-max-price' => 'Průměrná maximální cena',
     'book' => 'Učebnice',
@@ -150,7 +150,7 @@ return [
     'notifications-title' => 'Notifikace',
     'notifications-unsupported' => 'Tato notifikace nemůže být zobrazena!',
     'notification-wishlist' => 'Někdo nabízí učebnici "%arg"!',
-    'notification-rating' => 'Jak jste byli spokojeni s prodávajícím @%arg?',
+    'notification-rating' => 'Jak jste byli spokojeni s&nbsp;prodávajícím @%arg?',
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
     'notification-new-reservation' => 'Nová rezervace učebnice %arg!',
     'notification-editing' => 'Nabídka učebnice %arg byla upravena!',
@@ -187,5 +187,5 @@ return [
     'report' => 'Nahlásit',
 
     // Chat
-    'chat' => 'Chat s prvním zájemcem'
+    'chat' => 'Chat s&nbsp;prvním zájemcem'
 ];
