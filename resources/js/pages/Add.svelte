@@ -2,6 +2,7 @@
     import Text from "../components/Text.svelte";
     import imageCompression from 'browser-image-compression';
     import { _text } from "../main";
+    import { fade, fly, slide } from "svelte/transition";
 
     let states = {};
     let years = [];
@@ -23,6 +24,7 @@
     let loading = 0;
 
     async function send() {
+        offer.book = offer.book.id;
         loading = 1;
         const image = document.querySelector('input[type=file]').files[0];
         const options = {
@@ -82,7 +84,7 @@
     <div class="flex overflow-x-scroll md:col-span-2 gap-3 pb-4">
         {#if years[year]}
             {#each years[year].books as book}
-                <div class="shrink-0 w-1/2 md:w-1/4 font-bold card flex flex-col justify-between gap-1">
+                <div class="shrink-0 w-1/2 xl:w-1/4 font-bold card flex flex-col justify-between gap-1">
                     <!--<div><img src="/img/cover/{book.id}.png" alt="Photo of {book.name}" class="object-cover w-full h-full rounded-md"></div>!-->
                     <div class="text-xl">{book.name}</div>
                     <div class="gap-2 flex flex-col">
@@ -90,18 +92,7 @@
                             <div class="text-xs text-secondary">{book.author}</div>
                             <div class="text-xs text-secondary">{book.publisher} {book.release_year}</div>
                         </div>
-                        <div class="flex gap-1 items-center">
-                            <button class="{offer.book == book.id ? 'button-secondary' : 'button'} " on:click={() => offer.book = book.id}><Text text="{offer.book === book.id ? 'selected' : 'select'}" /></button>
-                            {#if book.average_price > 0} 
-                                <div title="average-price">{book.average_price} <Text text="currency" /></div>
-                            {/if}
-                            {#if book.average_price > 0 && book.average_max_price > 0}
-                                /
-                            {/if}
-                            {#if book.average_max_price > 0} 
-                                <div title="average-max-price" >{book.average_max_price} <Text text="currency" /></div>
-                            {/if}
-                        </div>
+                        <button class="{offer.book && offer.book.id == book.id ? 'button-secondary' : 'button'} " on:click={() => offer.book = book}><Text text="{offer.book && offer.book.id === book.id ? 'selected' : 'select'}" /></button>
                     </div> 
                 </div>
             {/each}
@@ -112,6 +103,20 @@
             </svg>
         {/if}
     </div>
+
+    {#if offer.book && (offer.book.average_price || offer.book.average_max_price)}
+        <div class="flex gap-1 items-center md:col-span-2" transition:slide>
+            {#if offer.book.average_price > 0} 
+                <div class="text-xs text-secondary"><Text text="average-price"></Text>: </div>
+                    {offer.book.average_price} <Text text="currency" />
+            {/if}
+            {#if offer.book.average_max_price > 0} 
+                <div class="text-xs text-secondary"><Text text="average-max-price"></Text>: </div>
+
+                {offer.book.average_max_price} <Text text="currency" />
+            {/if}
+        </div>
+    {/if}
     <div class="flex flex-col">
         <label for="subject" class="text-xs text-secondary"><Text text="price" />*</label>
         <input type="number" class="input" bind:value={offer.price} required min='0' max='999'>
