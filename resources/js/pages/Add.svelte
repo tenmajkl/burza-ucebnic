@@ -81,7 +81,7 @@
             </select>
     </div>
     <div class="text-xs text-secondary"><Text text="book" />*</div>
-    <div class="flex overflow-x-scroll md:col-span-2 gap-3 pb-4">
+    <div class="flex overflow-x-scroll md:col-span-2 gap-3 pb-4" id="books">
         {#if years[year]}
             {#each years[year].books as book}
                 <div class="shrink-0 w-1/2 xl:w-1/4 font-bold card flex flex-col justify-between gap-1">

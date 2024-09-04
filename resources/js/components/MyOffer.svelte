@@ -70,7 +70,7 @@
 {#if enabled}
 <div class="flex flex-col card gap-5 {openned === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
     <div class="flex gap-5">
-        <img src="/static/img/offers/{offer.id}" alt="cecko" class="card-image">
+        <img src="/static/img/offers/{offer.id}" alt={offer.name} class="card-image">
         <div class="flex flex-col justify-between font-bold">
             <div>
                 <div class="text-xl">{offer.name}</div>

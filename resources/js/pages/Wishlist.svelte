@@ -95,7 +95,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
         {#each wishlist as inquiry}
             <div class="flex card gap-5">
-                <!--<img src="/img/cover/{inquiry.book.id}.png" alt="cecko" class="card-image">-->
+                <!--<img src="/img/cover/{inquiry.book.id}.png" class="card-image">-->
                 <div class="flex flex-col justify-between font-bold">
                     <div>
                         <div class="text-xl">{inquiry.book.name}</div>
