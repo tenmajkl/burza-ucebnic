@@ -35,7 +35,7 @@ class Offers
             ])->code(400);
         }
 
-        $subject = $request->query('subject');
+        $subject = (int) $request->query('subject');
         $state = $request->query('state');
         $sort = $request->query('sort');
 
@@ -45,7 +45,7 @@ class Offers
         $select = $orm->getORM()->getRepository(Offer::class)
             ->select()                
             ->where(['bought_at' => null])
-            ->where(['book.subjects.id' => $subject])
+            ->where($subject === -1 ?  [] : ['book.subjects.id' => $subject])
             ->where(['book.subjects.year.id' => $auth->user()->year->id])
             ->where(-1 === $state ? [] : ['state' => BookState::fromId($state)])
         ;

@@ -1,6 +1,7 @@
 <script>
     import Text from "../components/Text.svelte";
     import Offer from '../components/Offer.svelte';
+    import { _text } from "../main";
 
     const params = new URLSearchParams(window.location.search);
 
@@ -30,7 +31,7 @@
     fetch('/api/offers/init')
         .then(res => res.json())
         .then(data => {
-            subjects = data.subjects;
+            subjects = [{id: -1, name: _text('all-subjects')}, ...data.subjects];
             states = data.states;
             sorting = data.sorts;
             if (subjects.length != 0) {

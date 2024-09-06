@@ -81,6 +81,7 @@ return [
     // Filters
 
     'subject' => 'Předmět',
+    'all-subjects' => 'Všechny předměty',
     'book-state' => 'Stav učebnice',
     'sorting' => 'Řazení',
     'offer-state' => 'Filtr podle stavu nabídky',

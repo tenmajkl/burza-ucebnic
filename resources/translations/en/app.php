@@ -79,6 +79,7 @@ return [
 
     // Filters
     'subject' => 'Subject',
+    'all-subjects' => 'All subjects',
     'book-state' => 'Textbook condition',
     'sorting' => 'Sorting',
     'offer-state' => 'Filter by offer status',
