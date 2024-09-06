@@ -5,7 +5,8 @@
 { /block }
 
 { block 'content' }
-    <main class="flex items-center justify-center h-screen">
+    <main class="flex items-center justify-center h-screen flex-col">
+<div class="alert mb-5">Aplikace se nachází v testovacím režimu, všechna data budou 12. 9. smazána</div>
         <form method="POST" class="flex flex-col">
             <span class="mb-2 text-2xl">{ text auth.register-title }</span>
             { ifError }
