@@ -66,6 +66,7 @@ class Reservations
             $job->delete($inquiry)->run(); 
         }
 
+        unlink($app->file('storage.images.offers.'.$offer->id, 'image'));
         $job->persist($offer)->run();
         $notifier->notifyRating($reservation->user, $rating);
 

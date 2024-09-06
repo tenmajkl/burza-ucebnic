@@ -190,11 +190,13 @@ class Offers
         ];
     }
 
-    public function delete(?Offer $target, Auth $auth, ORM $orm)
+    public function delete(?Offer $target, Auth $auth, ORM $orm, Application $app)
     {
         if (!$target || $target->user->id !== $auth->user()->id) {
             return error(404);
         }
+
+        unlink($app->file('storage.images.offers.'.$target->id, 'image'));
 
         $orm->getEntityManager()->delete($target)->run();
 
