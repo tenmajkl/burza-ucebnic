@@ -3,6 +3,8 @@
     import QR from "../components/QR.svelte";
     import Text from "../components/Text.svelte";
     import { slide } from 'svelte/transition';
+    import { _text } from "../main";
+    import PopUp from "./PopUp.svelte";
 
     export let reservation;
     export let index;
@@ -21,11 +23,19 @@
         })
         enabled = false;
     }
+    let photo = false;
 </script>
+
+{#if photo}
+    <PopUp bind:state={photo}>
+        <img src="/static/img/offers/{reservation.offer.id}" alt="{_text('photo-book') + reservation.offer.name}" class="shadow-2xl !opacity-100 sm:w-1/2 w-3/4">
+    </PopUp>
+{/if}
+
 {#if enabled}
     <div class="flex flex-col card gap-5 {message === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
         <div class="flex gap-5">
-            <img src="/static/img/offers/{reservation.offer.id}" alt="{reservation.offer.name}" class="card-image">
+            <img src="/static/img/offers/{reservation.offer.id}" alt="{_text('photo-book') + reservation.offer.name}" class="card-image" on:click={() => photo = true}>
             <div class="flex flex-col justify-between font-bold">
                 <div>
                     <div class="text-xl">{reservation.offer.name}</div>

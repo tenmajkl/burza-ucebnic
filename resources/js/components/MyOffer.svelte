@@ -2,6 +2,8 @@
     import Conversation from "../components/Conversation.svelte";
 
     import Text from "../components/Text.svelte";
+    import { _text } from "../main";
+    import PopUp from "./PopUp.svelte";
 
     export let offer;
     let result = 200; 
@@ -65,12 +67,19 @@
 
         enabled = false;
     }
+    let photo = false;
 </script>
+
+{#if photo}
+    <PopUp bind:state={photo}>
+        <img src="/static/img/offers/{offer.id}" alt="{_text('photo-book') + offer.name}" class="shadow-2xl !opacity-100 sm:w-1/2 w-3/4">
+    </PopUp>
+{/if}
 
 {#if enabled}
 <div class="flex flex-col card gap-5 {openned === index ? 'md:col-span-2 xl:col-span-3 2xl:col-span-4' : ''}">
     <div class="flex gap-5">
-        <img src="/static/img/offers/{offer.id}" alt={offer.name} class="card-image">
+        <img src="/static/img/offers/{offer.id}" alt={_text('photo-book') + offer.name} class="card-image" on:click={() => photo = true}>
         <div class="flex flex-col justify-between font-bold">
             <div>
                 <div class="text-xl">{offer.name}</div>
@@ -82,7 +91,9 @@
                     <div class="text-xl flex items-center">
                         <input type="number" bind:value={offer.price} class="w-20 input {result != 200 ? 'border-2 border-red rounded-0 mr-1' : ''}" required min='0' max='999' on:keydown={(e) => {if (e.key == 'Enter') { edit() }}}> <Text text="currency" />
                     </div>
-                    <button on:click={async () => {reservation = await getReservation(offer); openned = openned == index ? null : index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
+                    {#if offer.reservations > 0}
+                        <button on:click={async () => {reservation = await getReservation(offer); openned = openned == index ? null : index;}} disabled={offer.reservations == 0}><i class="text-lg bi bi-chat text-blue"></i></button>
+                    {/if}
                     <button on:click={() => remove()}><i class="text-lg bi bi-trash text-red"></i></button>
                 </div>
             </div>

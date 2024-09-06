@@ -22,6 +22,7 @@
             .then(res => res.json())
             .then(data => {
                 offers = data;
+                window.history.pushState('page2', 'Title', '/?page=offers');
             })
         ;
     }
@@ -43,7 +44,6 @@
         })
     ;
 
-    window.history.pushState('page2', 'Title', '/');
 </script>
 
 <div class="text-2xl font-bold">

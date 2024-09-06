@@ -122,26 +122,28 @@
 
 {#if yearPopup}
     <PopUp bind:state={yearPopup} onClose={clear}>
-        {#if errorPopUp} 
-            <div class="alert">{errorPopUp}</div>
-        {/if}
-        <div class="flex flex-col gap-3">
-            <Text text="profile-pick-year"></Text>
-                {#await getYears()}
-                {:then years}
-                    <select id="year" name="year" class="input" bind:value={year} required>
-                        {#each Object.values(years) as year}
-                            <option value="{year.id}">{year.name}</option>
-                        {/each}
+        <div class="card w-9/12 sm:w-1/3">
+            {#if errorPopUp} 
+                <div class="alert">{errorPopUp}</div>
+            {/if}
+            <div class="flex flex-col gap-3">
+                <Text text="profile-pick-year"></Text>
+                    {#await getYears()}
+                    {:then years}
+                        <select id="year" name="year" class="input" bind:value={year} required>
+                            {#each Object.values(years) as year}
+                                <option value="{year.id}">{year.name}</option>
+                            {/each}
 
-                    </select>
-                {/await}
+                        </select>
+                    {/await}
 
-            <Text text="profile-change-year-u-sure"></Text>
-                <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')} on:keydown={(e) => { if (e.key =='Enter') { changeYear() } }}>
-            <button class="button-red danger" on:click={changeYear}>
-                <Text text="profile-change-year"></Text>
-            </button>
+                <Text text="profile-change-year-u-sure"></Text>
+                    <input type="password" bind:value={password} class="input" placeholder={_text('profile-password')} on:keydown={(e) => { if (e.key =='Enter') { changeYear() } }}>
+                <button class="button-red danger" on:click={changeYear}>
+                    <Text text="profile-change-year"></Text>
+                </button>
+            </div>
         </div>
     </PopUp>
 {/if}

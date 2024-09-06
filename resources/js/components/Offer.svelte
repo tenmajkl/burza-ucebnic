@@ -42,23 +42,33 @@
                 report = false;
             })
     }
+
+    let photo = false;
 </script>
+
+{#if photo}
+    <PopUp bind:state={photo}>
+        <img src="/static/img/offers/{offer.id}" alt="{_text('photo-book') + offer.name}" class="shadow-2xl !opacity-100 sm:w-1/2 w-3/4">
+    </PopUp>
+{/if}
 
 {#if report}
     <PopUp bind:state={report}>
-        <div class="flex justify-between">
-            <Text text="report-title"></Text> @{offer.author_email}
-            <i class="bi bi-x text-red text-2xl cursor-pointer" on:click={() => report = false}></i>
-        </div>
-        <textarea id="" name="" class="input w-full h-1/2 resize-none" placeholder="{_text('reason')}" bind:value={reason}></textarea>
-        <button class="button-red" on:click={sendReport}><Text text="report"></Text></button>
+        <div class="card w-9/12 sm:w-1/3">
+            <div class="flex justify-between">
+                <Text text="report-title"></Text> @{offer.author_email}
+                <i class="bi bi-x text-red text-2xl cursor-pointer" on:click={() => report = false}></i>
+            </div>
+            <textarea id="" name="" class="input w-full h-1/2 resize-none" placeholder="{_text('reason')}" bind:value={reason}></textarea>
+            <button class="button-red" on:click={sendReport}><Text text="report"></Text></button>
+        </div>            
     </PopUp>
 {/if}
 
 {#if enabled || with_reserved == 1}
     <div class="card">
         <div class="flex gap-5">
-            <img src="/static/img/offers/{offer.id}" alt="{_text('photo-book') + offer.name}" class="card-image">
+            <img src="/static/img/offers/{offer.id}" alt="{_text('photo-book') + offer.name}" class="card-image" on:click="{() => photo = true}">
             <div class="flex flex-col justify-between font-bold">
                 <div>
                     <div class="text-xl">{offer.name}</div>

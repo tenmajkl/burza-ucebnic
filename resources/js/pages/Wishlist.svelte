@@ -66,8 +66,7 @@
         fetch("/api/wishlist/search/" + inquiry.id)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                window.history.pushState('page2', 'Title', '?less_than=' + inquiry.max_price + '&subject=' + data.data);
+                window.location =  '/?less_than=' + inquiry.max_price + '&subject=' + data.data;
                 selected = 0;
             });       
     }
