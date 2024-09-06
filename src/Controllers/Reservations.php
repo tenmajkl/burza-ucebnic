@@ -9,6 +9,7 @@ use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\RatingAbility;
 use App\Entities\Inquiry;
+use Lemon\Kernel\Application;
 
 class Reservations
 {
@@ -24,7 +25,7 @@ class Reservations
         return template('order-acceptance', reservation: $reservation, user: $user);
     }
 
-    public function forward($target, ORM $orm, Auth $auth, Notifier $notifier)
+    public function forward($target, ORM $orm, Auth $auth, Notifier $notifier, Application $app)
     {
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
             'hash' => $target,
