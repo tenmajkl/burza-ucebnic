@@ -67,7 +67,6 @@
             .then(response => response.json())
             .then(data => {
                 window.location =  '/?less_than=' + inquiry.max_price + '&subject=' + data.data;
-                selected = 0;
             });       
     }
 

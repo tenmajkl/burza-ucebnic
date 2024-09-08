@@ -43,12 +43,11 @@ class Login
         $school = $school[0];
         $admin = $school->admin_email === $host;
 
-        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
-
         $user = $orm->getORM()->getRepository(User::class)->findOne([
             'email' => $email,
             'year.school.id' => $school->id,
             'email_host' => $admin,
+            'verify_token' => null,
         ]);
 
         if (!$user || !password_verify($request->get('password'), $user->password)) {
