@@ -44,6 +44,6 @@ class Auth implements AuthContract
 
     public function canEditOffer(Offer $offer): bool
     {
-        return $this->user()->id === $offer->author->id;
+        return $this->user()->id === $offer->user->id;
     }
 }

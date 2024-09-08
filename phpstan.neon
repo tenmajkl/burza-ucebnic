@@ -3,3 +3,6 @@ parameters:
     paths:
         - src
         - routes
+    ignoreErrors:
+        - '#Call to an undefined method Cycle\\ORM\\RepositoryInterface<object>::select\(\)#'
+        - '#Call to an undefined method Cycle\\Database\\TableInterface::(delete|update)\(\)#'

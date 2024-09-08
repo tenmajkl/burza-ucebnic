@@ -37,7 +37,7 @@ class Login
         if ([] === $school) {
             Validator::addError('school-email', 'email', '');
 
-            return template('auth.register');
+            return template('auth.login');
         }
 
         $school = $school[0];
