@@ -36,7 +36,7 @@
     const params = new URLSearchParams(window.location.search);
     const page = params.get('page')
 
-    $: selected, window.history.pushState('page2', 'Title', params.toString());
+    $: selected, window.history.pushState('page2', 'Title', '?' + params.toString());
 
     if (page) {
         if (page == 'admin') {
@@ -61,7 +61,6 @@
         </div>
         <div>
             <div><Text text='name' /> <Text text="current_year" /></div>
-            <div><a href="/about"><Text text="about-title" /></a></div>
         </div>
     </div>
     <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9 pb-32 w-full overflow-auto">

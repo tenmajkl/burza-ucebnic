@@ -151,7 +151,7 @@ return [
     'notifications-title' => 'Notifikace',
     'notifications-unsupported' => 'Tato notifikace nemůže být zobrazena!',
     'notification-wishlist' => 'Někdo nabízí učebnici "%arg"!',
-    'notification-rating' => 'Jak jste byli spokojeni s&nbsp;prodávajícím @%arg?',
+    'notification-rating' => 'Jak jste byli spokojeni s prodávajícím @%arg?',
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
     'notification-new-reservation' => 'Nová rezervace učebnice %arg!',
     'notification-editing' => 'Nabídka učebnice %arg byla upravena!',

@@ -52,6 +52,8 @@ date_default_timezone_set(config('app.timezone'));
 
 Carbon::setLocale($application->get(Translator::class)->locale());
 
+ini_set('session.gc_maxlifetime', 31536000);
+
 new Rules($application);
 
 /** @var \Lemon\Contracts\Http\ResponseFactory $response */
