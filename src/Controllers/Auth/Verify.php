@@ -17,8 +17,6 @@ class Verify
 {
     public function get($token, $school, Session $session, ORM $orm): RedirectResponse|Template
     {
-        $orm->db()->table('users')->delete()->where('created_at', '<', time() - 600)->run();
-
         if (!($user = $orm->getORM()->getRepository(User::class)->findOne(['verify_token' => sha1($token.$school)]))) {
             return redirect('/register');
         }

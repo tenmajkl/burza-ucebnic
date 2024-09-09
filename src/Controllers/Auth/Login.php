@@ -54,7 +54,6 @@ class Login
             return template('auth.login', message: 'auth.error');
         }
 
-
         $session->set('email', explode('@', $request->get('email'))[0]);
         $session->set('host', (int) $admin);
         $session->set('school', $school->id);
