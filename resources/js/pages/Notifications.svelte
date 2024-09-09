@@ -9,6 +9,8 @@
 
     export let data;
 
+    let openned = -1;
+
     fetch('/api/notifications')
         .then(res => res.json())
         .then(data => {
@@ -55,11 +57,11 @@
 </div>
 
 {#if notifications}
-    {#each notifications as notification}
+    {#each notifications as notification, index}
         <div class="w-full p-2">
             {#if notification.type == 0} <!-- wishlist --> 
                 <Notification bind:notification={notification} title="wishlist" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                    <Offer offer={notification.offer} />
+                    <Offer offer={notification.offer} index={index} bind:openned={openned}/>
                 </Notification>
             {:else if notification.type == 1} <!-- rating -->
                 <Notification bind:notification={notification} title="rating" arg={notification.rating.rated} created_at={notification.created_at} bind:data={data}>
@@ -67,22 +69,22 @@
                 </Notification>
             {:else if notification.type == 2} <!-- active reservation --> 
                 <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                    <Offer offer={notification.offer} />
+                    <Offer offer={notification.offer} index={index} bind:openned={openned}/>
                 </Notification>
             {:else if notification.type == 3} <!-- new reservation -->
                 <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                    <MyOffer offer={notification.offer} editing={null} openned={null} />
+                    <MyOffer offer={notification.offer} editing={null} index={index} bind:openned={openned} />
                 </Notification>
             {:else if notification.type == 4} <!-- editing -->
                 <Notification bind:notification={notification} title="editing" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                    <Offer offer={notification.offer} />
+                    <Offer offer={notification.offer} index={index} bind:openned={openned}/>
                 </Notification>
             {:else if notification.type == 5} <!-- new message -->
                 <Notification bind:notification={notification} title="new-message" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                     {#if notification.offer.author_email == notification.user.email}
-                        <MyOffer offer={notification.offer} editing={null} openned={null} />
+                        <MyOffer offer={notification.offer} editing={null} index={index} bind:openned={openned} />
                     {:else}
-                        <Offer offer={notification.offer} />
+                        <Offer offer={notification.offer} index={index} bind:openned={openned}/>
                     {/if}
                 </Notification>
             {:else}
