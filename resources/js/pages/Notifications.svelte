@@ -67,6 +67,7 @@
                 </Notification>
             {:else if notification.type == 2} <!-- active reservation --> 
                 <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
+                    <Offer offer={notification.offer} />
                 </Notification>
             {:else if notification.type == 3} <!-- new reservation -->
                 <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
@@ -75,6 +76,14 @@
             {:else if notification.type == 4} <!-- editing -->
                 <Notification bind:notification={notification} title="editing" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                     <Offer offer={notification.offer} />
+                </Notification>
+            {:else if notification.type == 5} <!-- new message -->
+                <Notification bind:notification={notification} title="new-message" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
+                    {#if notification.offer.author_email == notification.user.email}
+                        <MyOffer offer={notification.offer} editing={null} openned={null} />
+                    {:else}
+                        <Offer offer={notification.offer} />
+                    {/if}
                 </Notification>
             {:else}
                 <Text text="notifications-unsupported" />

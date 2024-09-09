@@ -21,6 +21,8 @@ interface Notifier
 
     public function notifyEditing(User $user, Offer $offer): self;
 
+    public function notifyNewMessage(User $user, Offer $offer): self;
+
     public function of(User $user): array;
 
     public function see(Notification $notification): self;

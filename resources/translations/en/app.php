@@ -146,6 +146,7 @@ return [
     'notification-active-reservation' => 'The reservation for the textbook "%arg" is now active!',
     'notification-new-reservation' => 'New reservation for the textbook %arg!',
     'notification-editing' => 'The offer for the textbook %arg has been edited!',
+    'notification-new-message' => 'New message for offer of %arg!',
     'no-notifications' => 'You have no notifications.',
 
     // Emojis
@@ -154,6 +155,7 @@ return [
     'emoji-active-reservation' => '✨',
     'emoji-new-reservation' => '🤑',
     'emoji-editing' => '✍️',
+    'emoji-new-message' => '💬',
 
     // Profile
     'profile-title' => 'Profile',

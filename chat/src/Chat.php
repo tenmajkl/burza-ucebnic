@@ -56,21 +56,22 @@ class Chat
         }
 
         $user = $this->users[$connection->id];
+        $room = $this->getRoom($user->room);
 
-        if (!($message = $this->sendToServer($data->content, $user))) {
+        if (!($message = $this->sendToServer($data->content, $user, $room->hasJustOneUser()))) {
             $this->onClose($connection);
             return;
         }
 
-        $this->getRoom($user->room)->send($message);
+        $room->send($message);
     }
 
-    private function sendToServer(string $message, User $user): false|stdClass
+    private function sendToServer(string $message, User $user, bool $notify): false|stdClass
     {
         $client = new Client();
         try {
             $res = $client->request('POST', 'http://localhost:8000/api/messages/'.$user->room, [
-                'body' => json_encode(['content' => $message]),
+                'body' => json_encode(['content' => $message, 'notify' => (int) $notify]),
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Cookie' => 'PHP_SESSION='.$user->session,

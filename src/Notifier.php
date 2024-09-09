@@ -62,6 +62,14 @@ class Notifier implements NotifierContract
         return $this;
     }
 
+    public function notifyNewMessage(User $user, Offer $offer): self
+    {
+        $this->saveNotification($user, $offer, null, NotificationType::NewMessage);
+        $this->mail('new-message', $offer->book->name, $user);
+
+        return $this;
+    }
+
     public function of(User $user): array
     {
         return $this->orm->getORM()->getRepository(Notification::class)->select()->where([

@@ -31,6 +31,11 @@ class Room
         return count($this->users) === 0;
     }
 
+    public function hasJustOneUser(): bool
+    {
+        return count($this->users) === 1;
+    }
+
     public function send(stdClass $message): self
     {
         foreach ($this->users as $user) {

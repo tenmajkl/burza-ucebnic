@@ -155,6 +155,7 @@ return [
     'notification-active-reservation' => 'Rezervace učebnice "%arg" je nyní aktivní!',
     'notification-new-reservation' => 'Nová rezervace učebnice %arg!',
     'notification-editing' => 'Nabídka učebnice %arg byla upravena!',
+    'notification-new-message' => 'Nová zpráva u nabídky učebnice %arg!',
     'no-notifications' => 'Nemáte žádné notifikace.',
 
     // Emojis
@@ -164,6 +165,7 @@ return [
     'emoji-active-reservation' => '✨',
     'emoji-new-reservation' => '🤑',
     'emoji-editing' => '✍️',
+    'emoji-new-message' => '💬',
 
     // Profile
 

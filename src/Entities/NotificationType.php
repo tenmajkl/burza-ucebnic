@@ -16,6 +16,8 @@ enum NotificationType: int
 
     case Editing = 4;
 
+    case NewMessage = 5;
+
     /**
      * For cycle ORM.
      */
@@ -27,6 +29,7 @@ enum NotificationType: int
             2 => self::ActiveReseration,
             3 => self::NewReservation,
             4 => self::Editing,
+            5 => self::NewMessage,
             default => throw new \Exception('Unexpected value: '.$value),
         };
     }
