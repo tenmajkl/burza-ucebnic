@@ -39,7 +39,7 @@
     $: selected, (() => {
         params.set('page', items[selected][0]);
         window.history.pushState('page2', 'Title', '?' + params.toString());
-    });
+    })();
 
     if (page) {
         if (page == 'admin') {

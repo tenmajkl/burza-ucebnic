@@ -24,7 +24,7 @@
             body: '{}'
         })
 
-        getNotificationCount().then((res) => { data = res })
+        getNotificationCount().then((res) => { data.notifications = res })
     }
 </script>
 <div class="gap-2 flex flex-col">

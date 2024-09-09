@@ -8,6 +8,7 @@
     let notifications = null;
 
     export let data;
+    export let selected;
 
     let openned = -1;
 
@@ -68,9 +69,10 @@
                     <Rating notification={notification} />
                 </Notification>
             {:else if notification.type == 2} <!-- active reservation --> 
-                <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                    <Offer offer={notification.offer} index={index} bind:openned={openned}/>
-                </Notification>
+                <div on:click={() => { window.location = '?page=reservations'}}>
+                    <Notification bind:notification={notification} title="active-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
+                    </Notification>
+                </div>
             {:else if notification.type == 3} <!-- new reservation -->
                 <Notification bind:notification={notification} title="new-reservation" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
                     <MyOffer offer={notification.offer} editing={null} index={index} bind:openned={openned} />
@@ -80,13 +82,10 @@
                     <Offer offer={notification.offer} index={index} bind:openned={openned}/>
                 </Notification>
             {:else if notification.type == 5} <!-- new message -->
-                <Notification bind:notification={notification} title="new-message" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                    {#if notification.offer.author_email == notification.user.email}
-                        <MyOffer offer={notification.offer} editing={null} index={index} bind:openned={openned} />
-                    {:else}
-                        <Offer offer={notification.offer} index={index} bind:openned={openned}/>
-                    {/if}
-                </Notification>
+                <div on:click={() => { window.location = notification.user.email == notification.offer.author_email ? '?page=my-offers' : '?page=reservations'}}>
+                    <Notification bind:notification={notification} title="new-message" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
+                    </Notification>
+                </div>
             {:else}
                 <Text text="notifications-unsupported" />
             {/if}

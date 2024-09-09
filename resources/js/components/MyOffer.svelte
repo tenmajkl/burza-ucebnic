@@ -1,4 +1,5 @@
 <script>
+    import { slide } from "svelte/transition";
     import Conversation from "../components/Conversation.svelte";
 
     import Text from "../components/Text.svelte";
@@ -101,7 +102,7 @@
     </div>
     <div>
         {#if openned === index}
-            <Conversation reservation={reservation} opponent={reservation.author} />
+            <div transition:slide={{}}><Conversation reservation={reservation} opponent={reservation.author} /></div>
         {/if}
     </div>
 </div>
