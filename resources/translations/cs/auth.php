@@ -30,4 +30,5 @@ return [
     'banned-title' => 'Přístup zamítnut.',
     'reason' => 'Důvod',
     'expires-at' => 'Zákaz vyprší',
+    'registration' => 'Registrace',
 ];

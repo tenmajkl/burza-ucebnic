@@ -11,6 +11,7 @@ use App\TokenGenerator;
 use DateTime;
 use Lemon\Http\Request;
 use Lemon\Http\Response;
+use Lemon\Http\Responses\RedirectResponse;
 use Lemon\Templating\Template;
 use Lemon\Validator;
 use Symfony\Component\Mailer\MailerInterface;
@@ -18,13 +19,21 @@ use Symfony\Component\Mime\Email;
 
 class Register
 {
-    public function get(ORM $orm): Template
+    public function get(ORM $orm): Template|RedirectResponse
     {
+        if (time() < 1726239600) {
+            return redirect('/');
+        }
+
         return template('auth.register');
     }
 
     public function post(Request $request, MailerInterface $mailer, ORM $orm): Template|Response
     {
+        if (time() < 1726239600) {
+            return redirect('/');
+        }
+
         $request->validate([
             'email' => 'max:128|email',
             'password' => 'max:128|min:8',

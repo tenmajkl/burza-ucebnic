@@ -30,4 +30,5 @@ return [
     'banned-title' => 'Access denied.',
     'reason' => 'Reason',
     'expires-at' => 'Ban expires',
+    'registration' => 'Registration',
 ];

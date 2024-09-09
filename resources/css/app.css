@@ -14,6 +14,10 @@
     @apply bg-red text-white p-1 rounded-md
 }
 
+.button-white {
+    @apply bg-white text-blue p-1 rounded-md
+}
+
 .button-secondary {
     @apply bg-secondary text-white p-1 rounded-md
 }
