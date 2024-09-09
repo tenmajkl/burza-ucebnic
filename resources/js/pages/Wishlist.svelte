@@ -131,7 +131,7 @@
                         </div>
                         <div class="flex gap-3 items-center">
                             <Text text="wishlist-max-price" />:
-                            <input type="number" class="w-1/3 input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required>
+                            <input type="number" class="w-1/3 input {error === index ? 'border-2 border-red' : ''}" placeholder="..." bind:value={book.price} max='999' min='1' required on:keydown={(e) => {if (e.key == 'Enter') { create(index) }}}>
                             <Text text="currency" />
                             <button class="text-sm uppercase button" on:click={() => create(index)}><Text text="add" /></button>
                         </div>

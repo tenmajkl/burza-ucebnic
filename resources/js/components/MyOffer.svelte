@@ -52,7 +52,7 @@
             .then(res => {
                 result = res.status;
                 init_price = price;
-            });
+           });
     }
 
     function remove()
