@@ -197,7 +197,7 @@ class Books
         $school = $auth->user()->year->school;
 
         while ($line = fgetcsv($file, separator: ';')) {
-            [$subject_name, $year_name, $name, $author, $publisher, $compulsory, $release_year] = $line;
+            [$subject_name, $year_name, $name, $author, $publisher, $release_year] = $line;
 
             if (($year = $orm->getORM()->getRepository(Year::class)->findOne(['name' => $year_name, 'school.id' => $school->id])) === null) {
                 $year = new Year($year_name, $school);

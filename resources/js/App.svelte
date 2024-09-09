@@ -36,7 +36,10 @@
     const params = new URLSearchParams(window.location.search);
     const page = params.get('page')
 
-    $: selected, window.history.pushState('page2', 'Title', '?page=' + items[selected][0]);
+    $: selected, (() => {
+        params.set('page', items[selected][0]);
+        window.history.pushState('page2', 'Title', '?' + params.toString());
+    });
 
     if (page) {
         if (page == 'admin') {
