@@ -8,7 +8,6 @@ use App\Contracts\Auth;
 use App\Contracts\ORM;
 use App\Entities\Traits\DateTimes;
 use App\TokenGenerator as Token;
-use App\Scopes\NotAcceptedReservationScope;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
@@ -41,8 +40,8 @@ class Reservation implements \JsonSerializable, Injectable
     public array $messages = [];
 
     public function __construct(
-        #[BelongsTo(target: Offer::class, nullable: true)]
-        public ?Offer $offer,
+        #[BelongsTo(target: Offer::class)]
+        public Offer $offer,
         #[BelongsTo(target: User::class)]
         public User $user,
         #[Column(type: 'int', typecast: ReservationState::class)]
@@ -59,7 +58,7 @@ class Reservation implements \JsonSerializable, Injectable
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
             'author' => $this->user->email,
-            'offer' => $this->offer?->jsonSerialize(),
+            'offer' => $this->offer->jsonSerialize(),
         ];
     }
 
