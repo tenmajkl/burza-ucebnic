@@ -17,27 +17,34 @@
         .then(data => {
             messages = data.data;
             session_id = data.session_id;
-            ws.send(JSON.stringify({
-                type: 0,
-                session: session_id,
-                reservation: reservation.id,
-            }));
+            if (ws_online) {
+                ws.send(JSON.stringify({
+                    type: 0,
+                    session: session_id,
+                    reservation: reservation.id,
+                }));
+            }
             })
     }
 
     function send()
     {
-        //fetch(`/api/messages/${reservation.id}`, {
-        //    method: 'post',
-        //    headers: {
-        //        'Content-Type': 'application/json'
-        //    },
-        //    body: JSON.stringify({
-        //        content: message,
-        //    })
-        //});
-        //getMessages();
-        //message = '';
+        if (!ws_online) {
+            fetch(`/api/messages/${reservation.id}`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: message,
+                    notify: 1,
+                })
+            });
+            getMessages();
+            message = '';
+            return;
+        }
+
         ws.send(JSON.stringify({
             type: 1,
             content: message,
@@ -55,8 +62,17 @@
 
     let ws = new WebSocket('ws://localhost:2346');
 
-    getMessages();
+    let ws_online = false;
 
+    ws.onopen = function() {
+        ws_online = true;
+    }
+
+    ws.onerror = function() {
+        ws_online = false;
+    }
+
+    getMessages();
 
     ws.onmessage = function(e) {
         let data = JSON.parse(e.data);
