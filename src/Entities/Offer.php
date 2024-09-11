@@ -10,11 +10,13 @@ use App\Entities\Traits\InjectableEntity;
 use App\Repositories\OfferRepository;
 use App\Scopes\NotBoughtScope;
 use App\Zests\Auth;
+use Carbon\Carbon;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
+use DateTime;
 use Lemon\Contracts\Kernel\Injectable;
 
 /**
@@ -103,6 +105,7 @@ class Offer implements \JsonSerializable, Injectable
             'author_email' => $this->user->email,
             'author_rating' => $this->user->rating,
             'created_at' => diff($this->createdAt),
+            'fuck_timezones_dont_forget_to_delete' => $this->createdAt->format(DateTime::ISO8601)." ".(Carbon::now()->format(DateTime::ISO8601)),
             'reservations' => count($this->reservations),
             'can_be_reserved' => $this->can_be_reserved,
         ];

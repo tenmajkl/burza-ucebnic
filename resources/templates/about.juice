@@ -56,6 +56,7 @@
                         <div class="text-white text-4xl text-center sm:text-right" id="register">{ text 'app.meet' }</div>
                     </div>
 
+                    
                     <a href="https://drive.google.com/file/d/1C2qaYZN-6t3q1xU-A2tvjIzx2YB0Ung4/view?usp=sharing" class="text-4xl m-16 text-white text-center">{ text app.more }</a>
                 </div>
             </div>
