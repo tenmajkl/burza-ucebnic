@@ -139,6 +139,7 @@ return [
     'average-max-price' => 'Průměrná maximální cena',
     'book' => 'Učebnice',
     'photo' => 'Fotografie',
+    'server-error' => 'Vyskytla se neznámá chyba',
 
     // My Offers
 

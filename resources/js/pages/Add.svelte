@@ -37,7 +37,7 @@
             const compressed = await imageCompression(image, options);
             offer.image = await imageCompression.getDataUrlFromFile(compressed);
         } catch (error) {
-            console.log(error);
+            result = {message: _text('image-error')}
             return;
         }
 
@@ -54,6 +54,10 @@
             if (result && result.status == '200') {
                 offer = { state: 0 };
                 selected = 4;
+            } 
+
+            if (!result) {
+                result = { message:  _text('server-error') }
             }
         });
         loading = 0;
