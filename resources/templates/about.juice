@@ -19,14 +19,16 @@
                 <div id="logo" class="transition-all ease-in-out duration-1000 translate-y-1/3 delay-300">{ include 'white_logo' }</div>
                 <div id="text" class="text-white transition-all opacity-0 drop-shadow-2xl duration-1000 delay-500 text-center">
                     <div class="text-5xl mb-5">{ text 'app.name' }</div>
-                    { if time() < 1726239600 }
-                        <div class="text-2xl">{ text 'app.starting' }</div>
-                        <div class="text-4xl" id="counter">69:69:69:69</div>
-                    { else }
-                        <div class="flex gap-2 justify-center">
-                            <a href="/login" class="button-white">{ text auth.login }</a>
-                            <a href="/register" class="button-white">{ text auth.registration }</a>
-                        </div>
+                    { if isset($welcome) }
+                        { if time() < 1726239600 }
+                            <div class="text-2xl">{ text 'app.starting' }</div>
+                            <div class="text-4xl" id="counter">69:69:69:69</div>
+                        { else }
+                            <div class="flex gap-2 justify-center">
+                                <a href="/login" class="button-white">{ text auth.login }</a>
+                                <a href="/register" class="button-white">{ text auth.registration }</a>
+                            </div>
+                        { /if }
                     { /if }
                 </div>
             </div>
@@ -58,8 +60,21 @@
                         <div class="text-white text-4xl text-center sm:text-right" id="register">{ text 'app.meet' }</div>
                     </div>
 
-                    
-                    <a href="https://drive.google.com/file/d/1C2qaYZN-6t3q1xU-A2tvjIzx2YB0Ung4/view?usp=sharing" class="text-4xl m-16 text-white text-center">{ text app.more }</a>
+                    { if isset($welcome) && time() > 1726239600 }
+                        <div class="flex gap-2 justify-center">
+                            <a href="/login" class="button-white">{ text auth.login }</a>
+                            <a href="/register" class="button-white">{ text auth.registration }</a>
+                        </div>
+                    { /if }
+
+                    <div class="text-4xl m-16 text-white text-center">
+                        { if !isset($welcome) }
+                            <a href="/feedback">{ text 'app.feedback-title' }</a> | 
+                        {/if}
+
+                        <a href="/school-registration">{ text 'app.school-registration-title' }</a>
+                        | <a href="https://github.com/tenmajkl/burza-ucebnic">GitHub</a>
+                    </div>
                 </div>
             </div>
         </div>

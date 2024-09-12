@@ -13,7 +13,7 @@ class Welcome
     public function handle(Auth $auth): Template|RedirectResponse
     {
         if (!$auth->user()) {
-            return template('about');
+            return template('about', welcome: true);
         }
 
         return template('welcome', admin: $auth->user()->role !== 0);

@@ -104,7 +104,7 @@ return [
     // Reservations
 
     'reservations-title' => 'Moje rezervace',
-    'qr-info' => 'Ukažte tento QR kód prodejci a&nbsp;ověřte, že objednávka je vaše',
+    'qr-info' => 'Ukažte tento QR kód prodejci při setkání a&nbsp;ověřte, že objednávka je vaše',
     'order-acceptance' => 'Převzetí objednávky',
     'order-acceptance-fail' => 'Skenovaná objednávka neexistuje nebo k&nbsp;ní nemáte přístup.',
     'order-acceptance-unauthorized' => 'Pro zobrazení objednávky se musíte přihlásit.',
