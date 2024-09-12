@@ -1,5 +1,7 @@
 # Chat
 
+OUT OF ORDER, API IS NOT READY FOR THIS, DO NOT USE IT AT ALL COSTS UNLESS YOU FIX IT TEST IT BREAK IT REWIND IT IM SO JULIA
+
 This folder contains sourcecode of chat gateway.
 
 The reason its separated is becasue of how does Lemon work and thus doesn't support websockets. This way its written as second process which handles the messages.

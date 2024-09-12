@@ -27,7 +27,7 @@ class Messages
             'code' => 200,
             'message' => 'OK',
             'data' => $target->messages,
-            'session_id' => session_id(), // IDK IF THIS IS SAFE?
+            //'session_id' => session_id(), // IDK IF THIS IS SAFE?
         ];
     }
 
@@ -61,7 +61,7 @@ class Messages
         return [
             'code' => 200,
             'message' => 'OK',
-            'data' => $message->jsonSerialize(),
+            'data' => $target->messages,
         ];
     }
 }

@@ -17,19 +17,19 @@
         .then(data => {
             messages = data.data;
             session_id = data.session_id;
-            if (ws_online) {
-                ws.send(JSON.stringify({
-                    type: 0,
-                    session: session_id,
-                    reservation: reservation.id,
-                }));
-            }
+            //if (ws_online) {
+            //    ws.send(JSON.stringify({
+            //        type: 0,
+            //        session: session_id,
+            //        reservation: reservation.id,
+            //    }));
+            //}
             })
     }
 
     function send()
     {
-        if (!ws_online) {
+        //if (!ws_online) {
             fetch(`/api/messages/${reservation.id}`, {
                 method: 'post',
                 headers: {
@@ -39,16 +39,18 @@
                     content: message,
                     notify: 1,
                 })
+            }).then((res) => res.json()).then((res) => {
+                messages = res.data;
             });
-            getMessages();
+            //getMessages();
             message = '';
             return;
-        }
+        //}
 
-        ws.send(JSON.stringify({
-            type: 1,
-            content: message,
-        }))
+        //ws.send(JSON.stringify({
+        //    type: 1,
+        //    content: message,
+        //}))
         message = '';
     }
 
@@ -60,30 +62,30 @@
 
     $: messages, scroll();
 
-    let ws = new WebSocket('ws://localhost:2346');
+    //let ws = new WebSocket('ws://localhost:2346');
 
-    let ws_online = false;
+    //let ws_online = false;
 
-    ws.onopen = function() {
-        ws_online = true;
-    }
+    //ws.onopen = function() {
+    //    ws_online = true;
+    //}
 
-    ws.onerror = function() {
-        ws_online = false;
-    }
+    //ws.onerror = function() {
+    //    ws_online = false;
+    //}
 
     getMessages();
 
-    ws.onmessage = function(e) {
-        let data = JSON.parse(e.data);
-        messages = [...messages, data];
-    };
+    //ws.onmessage = function(e) {
+    //    let data = JSON.parse(e.data);
+    //    messages = [...messages, data];
+    //};
 
-    onMount(() => {
-        return () => {
-            ws.close();
-        }
-    });
+    //onMount(() => {
+    //    return () => {
+    //        ws.close();
+    //    }
+    //});
 
 </script>
 
