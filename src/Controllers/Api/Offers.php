@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
+use App\Contracts\Discord;
 use App\Contracts\Notifier;
 use App\Contracts\ORM;
 use App\Entities\Book;
@@ -75,7 +76,7 @@ class Offers
         ];
     }
 
-    public function store(Application $app, ORM $orm, Auth $auth, Request $request, Notifier $notifier): array|Response
+    public function store(Application $app, ORM $orm, Auth $auth, Request $request, Notifier $notifier, Discord $discord): array|Response
     {
         $request->validate([
             'book' => 'numeric',
@@ -144,6 +145,8 @@ class Offers
                 $notifier->notifyWishlist($inquiry->user, $offer);
             }
         }
+
+        $discord->sendOffer($offer);
 
         return [
             'status' => '200',

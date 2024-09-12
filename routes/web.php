@@ -21,6 +21,8 @@ Route::collection(function () {
 
 Route::get('/', [Welcome::class, 'handle']);
 
+Route::get('static/img/discord/offers/{image}/{webhook}', [Files::class, 'discord']);
+
 //Route::get('lang/{lang}', function($lang) {
 //    Session::set('locale', $lang);
 //    return redirect('/');

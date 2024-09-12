@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Contracts\Discord;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
 use App\Contracts\Notifier;
@@ -25,7 +26,7 @@ class Reservations
         return template('order-acceptance', reservation: $reservation, user: $user);
     }
 
-    public function forward($target, ORM $orm, Auth $auth, Notifier $notifier, Application $app)
+    public function forward($target, ORM $orm, Auth $auth, Notifier $notifier, Application $app, Discord $discord)
     {
         $reservation = $orm->getORM()->getRepository(Reservation::class)->findOne([
             'hash' => $target,
@@ -70,6 +71,7 @@ class Reservations
         unlink($app->file('storage.images.offers.'.$offer->id, 'image'));
         $job->persist($offer)->run();
         $notifier->notifyRating($reservation->user, $rating);
+        $discord->sendSuccess();
 
         return redirect('/');
     }

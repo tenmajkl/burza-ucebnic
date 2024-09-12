@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Integrations;
 
 use App\Contracts\Discord as DiscordContract;
+use App\Entities\Offer;
 use App\Entities\User;
+use Lemon\Kernel\Application;
 use Lemon\Support\Env;
 
 class Discord implements DiscordContract
 {
     public function __construct(
-        public readonly Env $env
+        public readonly Env $env,
+        public readonly Application $app,
     ) {
     }
 
@@ -62,4 +65,31 @@ class Discord implements DiscordContract
         ]);
     }
 
+    public function sendOffer(Offer $offer): bool
+    {
+        return $this->sendWebhook([
+            'embeds' => [
+                [
+                    'title' => 'Nova objednavka',
+                    'color' => 0x396284,
+                    'description' => '@'.$offer->user->email.' tak to pls checkni dik',
+                ],
+            ],
+        ]);
+    }
+
+    public function sendSuccess(): bool
+    {
+        return $this->sendWebhook([
+            'embeds' => [
+                [
+                    'title' => 'USPESNA OBJEDNAVKA I REPEAT USPESNA OBJEDNAVKA MELO TO SMYSL KLUCI <:kanec_exploze:1107056283003142166> <:kanec_exploze:1107056283003142166> <:kanec_exploze:1107056283003142166>',
+                    'color' => 0x00FF00,
+                    'image' => [
+                        'url' => 'https://media1.tenor.com/m/XCReBZW8JFAAAAAd/cr1ti-ka-l-penguinz0.gif',
+                    ]
+                ],
+            ],
+        ]);
+    }
 }
