@@ -105,7 +105,6 @@ class Offer implements \JsonSerializable, Injectable
             'author_email' => $this->user->email,
             'author_rating' => $this->user->rating,
             'created_at' => diff($this->createdAt),
-            'fuck_timezones_dont_forget_to_delete' => $this->createdAt->format(DateTime::ISO8601)." ".(Carbon::now()->format(DateTime::ISO8601)),
             'reservations' => count($this->reservations),
             'can_be_reserved' => $this->can_be_reserved,
         ];

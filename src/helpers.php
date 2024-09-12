@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-use Carbon\Carbon;
-
 if (!function_exists('diff')) {
+    /** @deprecated */
     function diff(DateTimeImmutable $date): string
     {
-        return (new Carbon($date))->diffForHumans();
+        return $date->format("j. n. o G:i");
     }
 }
 
