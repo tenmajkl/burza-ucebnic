@@ -22,6 +22,7 @@ return [
 
     'admin' => 'Administration',
     'market' => 'Exchange',
+    'about' => 'About',
 
     'days' => ' days ',
     'hours' => ' hours ',

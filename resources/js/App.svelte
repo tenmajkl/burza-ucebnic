@@ -64,6 +64,7 @@
         </div>
         <div>
             <div><Text text='name' /> <Text text="current_year" /></div>
+            <div><Text text="about"></Text></div>
         </div>
     </div>
     <div class="p-3 md:col-span-4 xl:col-span-7 2xl:col-span-9 pb-32 w-full overflow-auto">

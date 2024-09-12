@@ -21,10 +21,10 @@ Route::collection(function () {
 
 Route::get('/', [Welcome::class, 'handle']);
 
-Route::get('lang/{lang}', function($lang) {
-    Session::set('locale', $lang);
-    return redirect('/');
-});
+//Route::get('lang/{lang}', function($lang) {
+//    Session::set('locale', $lang);
+//    return redirect('/');
+//});
 
 // to show specific message, this route doesnt have mauth middleware
 Route::get('reservations/acceptance/{target}', [Reservations::class, 'showToSeller']); 

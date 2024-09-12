@@ -23,6 +23,8 @@ return [
     'admin' => 'Administrace',
     'market' => 'Burza',
 
+    'about' => 'O projektu',
+
     'days' => ' dní ',
     'hours' => ' hodin ',
     'minutes' => ' minut ',
