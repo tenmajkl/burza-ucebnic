@@ -74,7 +74,8 @@ return [
     'reserve' => 'RESERVE',
     'rating' => 'User rating @%arg',
     'no-offers' => 'No textbooks are available for purchase for your year.',
-    'number-of-reservations' => 'Number of reservations for the textbook',
+    '1-reservation' => 'reservation',
+    '5-reservations' => 'reservation',
     'photo-book' => 'Textbook photo',
 
     // Filters
