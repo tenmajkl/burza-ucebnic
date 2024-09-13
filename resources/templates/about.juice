@@ -134,9 +134,10 @@
         let counter = document.getElementById('counter');
 
         let start = 1726239600;
-
+        let time = {{ time() }};
+    
         function diff() {
-            let diff = Math.floor(start - (new Date().getTime() / 1000)); 
+            let diff = Math.floor(start - time); 
             if (diff < 0) \{
                 window.location.reload();
                 return;
