@@ -27,7 +27,7 @@ class Verify
             return redirect('/register');
         }
 
-        if (time() - $user->createdAt->getTimestamp() > 600)  {
+        if (_time() - $user->createdAt->getTimestamp() > 600)  {
             $orm->getEntityManager()->delete($user)->run();
             return redirect('/');
         }
@@ -67,7 +67,7 @@ class Verify
             return redirect('/register');
         }
 
-        if (time() - $user->createdAt->getTimestamp() > 600)  {
+        if (_time() - $user->createdAt->getTimestamp() > 600)  {
             $orm->getEntityManager()->delete($user)->run();
             return redirect('/');
         }

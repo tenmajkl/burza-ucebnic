@@ -20,7 +20,7 @@
                 <div id="text" class="text-white transition-all opacity-0 drop-shadow-2xl duration-1000 delay-500 text-center">
                     <div class="text-5xl mb-5">{ text 'app.name' }</div>
                     { if isset($welcome) }
-                        { if time() < 1726239600 }
+                        { if _time() < 1726239600 }
                             <div class="text-2xl">{ text 'app.starting' }</div>
                             <div class="text-4xl" id="counter">69:69:69:69</div>
                         { else }
@@ -60,7 +60,7 @@
                         <div class="text-white text-4xl text-center sm:text-right" id="register">{ text 'app.meet' }</div>
                     </div>
 
-                    { if isset($welcome) && time() > 1726239600 }
+                    { if isset($welcome) && _time() < 1726239600 }
                         <div class="flex gap-2 justify-center">
                             <a href="/login" class="button-white">{ text auth.login }</a>
                             <a href="/register" class="button-white">{ text auth.registration }</a>
@@ -134,9 +134,10 @@
         let counter = document.getElementById('counter');
 
         let start = 1726239600;
-        let time = {{ time() }};
+        let time = {{ _time() }};
     
         function diff() {
+            time++;
             let diff = Math.floor(start - time); 
             if (diff < 0) \{
                 window.location.reload();
@@ -151,7 +152,7 @@
             counter.innerText = days + {{ text('app.days') }} + hours + {{ text('app.hours') }} + minutes + {{ text('app.minutes') }} + diff + {{ text('app.seconds') }};
         }
 
-        { if time() < 1726239600}
+        { if _time() < 1726239600 }
             diff();
 
             setInterval(diff, 1000);

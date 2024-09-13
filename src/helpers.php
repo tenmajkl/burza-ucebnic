@@ -34,3 +34,8 @@ if (!function_exists('url')) {
             .$_SERVER['HTTP_HOST'];
     }
 }
+
+function _time(): int 
+{
+    return (new DateTimeImmutable())->getTimestamp();
+}
