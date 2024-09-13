@@ -30,7 +30,7 @@ class Register
 
     public function post(Request $request, MailerInterface $mailer, ORM $orm): Template|Response
     {
-        if (time() < 1726232400) {
+        if (time() < 1726239600) {
             return redirect('/');
         }
 
