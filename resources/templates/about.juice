@@ -60,7 +60,7 @@
                         <div class="text-white text-4xl text-center sm:text-right" id="register">{ text 'app.meet' }</div>
                     </div>
 
-                    { if isset($welcome) && _time() < 1726239600 }
+                    { if isset($welcome) && _time() > 1726239600 }
                         <div class="flex gap-2 justify-center">
                             <a href="/login" class="button-white">{ text auth.login }</a>
                             <a href="/register" class="button-white">{ text auth.registration }</a>
