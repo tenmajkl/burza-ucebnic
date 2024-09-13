@@ -21,7 +21,7 @@ class Register
 {
     public function get(ORM $orm): Template|RedirectResponse
     {
-        if (time() < 1726239600) {
+        if (time() < 1726232400) {
             return redirect('/');
         }
 
