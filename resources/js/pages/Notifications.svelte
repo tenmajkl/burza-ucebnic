@@ -82,8 +82,10 @@
                     <Offer offer={notification.offer} index={index} bind:openned={openned}/>
                 </Notification>
             {:else if notification.type == 5} <!-- new message -->
-                <Notification bind:notification={notification} title="new-message" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
-                </Notification>
+                <div on:click={() => { window.location = notification.user.email == notification.offer.author_email ? '?page=my-offers' : '?page=reservations'}}>
+                    <Notification bind:notification={notification} title="new-message" arg={notification.offer.name} created_at={notification.created_at} bind:data={data}>
+                    </Notification>
+                </div>
             {:else}
                 <Text text="notifications-unsupported" />
             {/if}
