@@ -37,5 +37,5 @@ if (!function_exists('url')) {
 
 function _time(): int 
 {
-    return (new DateTimeImmutable())->getTimestamp();
+    return (new DateTimeImmutable())->getTimestamp() + 7200;
 }
