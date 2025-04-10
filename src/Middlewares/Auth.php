@@ -18,7 +18,6 @@ class Auth
         if ($auth->user()->isBanned()) {
             return template('auth.banned', user: $auth->user());
         }
-
     }
 
     public function onlyGuest(Session $session)

@@ -81,5 +81,4 @@ class Reservation implements \JsonSerializable, Injectable
             ->fetchOne()
         ;
     }
-
 }

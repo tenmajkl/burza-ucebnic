@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 include __DIR__.'/vendor/autoload.php';
 
+use App\Logger;
 use App\Middlewares\Auth;
 use App\Middlewares\MustBeJson;
 use App\Rules;
@@ -15,6 +16,7 @@ use Lemon\Http\Middlewares\TrimStrings;
 use Lemon\Http\Request;
 use Lemon\Kernel\Application;
 use Lemon\Protection\Middlwares\Csrf;
+use Lemon\Routing\Router;
 use Lemon\Session;
 use Lemon\Translating\Middlewares\TranslationLocalizer;
 
@@ -23,8 +25,8 @@ $application = new Application(__DIR__);
 // --- Loading default Lemon services ---
 $application->loadServices();
 
-$application->add(App\Logger::class);
-$application->alias(Lemon\Contracts\Logging\Logger::class, App\Logger::class);
+$application->add(Logger::class);
+$application->alias(Lemon\Contracts\Logging\Logger::class, Logger::class);
 
 // --- Loading Zests for services ---
 $application->loadZests();
@@ -56,7 +58,7 @@ ini_set('session.gc_maxlifetime', 31536000);
 
 new Rules($application);
 
-/** @var \Lemon\Contracts\Http\ResponseFactory $response */
+/** @var ResponseFactory $response */
 $response = $application->get(ResponseFactory::class);
 $response->handle(404, function (Request $request) {
     if (str_starts_with(trim($request->path, '/'), 'api')) {
@@ -68,7 +70,7 @@ if (!Session::has('locale')) {
     Session::set('locale', 'cs');
 }
 
-/** @var \Lemon\Routing\Router $router */
+/** @var Router $router */
 $router = $application->get('routing');
 
 $router->routes()->middleware(TranslationLocalizer::class);

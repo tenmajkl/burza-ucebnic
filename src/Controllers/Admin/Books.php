@@ -77,25 +77,25 @@ class Books
 
         $book->subjects = array_values($book->subjects);
 
-//        if (!$request->hasFile('cover')) {
-//            return $this->create($orm, $auth);
-//        }
-//
-//        if (UPLOAD_ERR_OK !== $request->file('cover')->error) {
-//            return $this->create($orm, $auth);
-//        }
-//
-//        if ($request->file('cover')->size > 1024 * 1024 * 2) {
-//            return $this->create($orm, $auth);
-//        }
-//
-//        if ('image/png' !== $request->file('cover')->type) {
-//            return $this->create($orm, $auth);
-//        }
+        //        if (!$request->hasFile('cover')) {
+        //            return $this->create($orm, $auth);
+        //        }
+        //
+        //        if (UPLOAD_ERR_OK !== $request->file('cover')->error) {
+        //            return $this->create($orm, $auth);
+        //        }
+        //
+        //        if ($request->file('cover')->size > 1024 * 1024 * 2) {
+        //            return $this->create($orm, $auth);
+        //        }
+        //
+        //        if ('image/png' !== $request->file('cover')->type) {
+        //            return $this->create($orm, $auth);
+        //        }
 
         $orm->getEntityManager()->persist($book)->run();
 
-//        $request->file('cover')->copy($app->file('public.img.cover.'.$book->id, 'png'));
+        //        $request->file('cover')->copy($app->file('public.img.cover.'.$book->id, 'png'));
 
         return redirect('/admin/books');
     }

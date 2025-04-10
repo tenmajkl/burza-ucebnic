@@ -39,14 +39,13 @@ class Notification implements \JsonSerializable, Injectable
         #[Column(type: 'int', typecast: NotificationType::class)]
         public NotificationType $type,
         #[Column(type: 'bool')]
-        public int|bool $seen = 0,
-    ) {
-    }
+        public bool|int $seen = 0,
+    ) {}
 
     public function jsonSerialize(): mixed
     {
         return
-            $this->offer 
+            $this->offer
             ? [
                 'id' => $this->id,
                 'offer' => $this->offer,
@@ -63,8 +62,7 @@ class Notification implements \JsonSerializable, Injectable
                 'seen' => (bool) $this->seen,
                 'created_at' => diff($this->createdAt),
                 'can_rate' => $this->rating?->user->id === $this->user->id,
-            ]
-        ;
+            ];
     }
 
     public static function fromInjection(Container $container, mixed $value): ?self

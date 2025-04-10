@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+declare(strict_types=1);
 
-use stdClass;
+namespace App;
 
 class Room
 {
@@ -10,33 +10,33 @@ class Room
 
     public function __construct(
         public readonly int $id,
-    ) {
-
-    }
+    ) {}
 
     public function addUser(User $user): self
     {
         $this->users[$user->connection->id] = $user;
+
         return $this;
     }
 
     public function removeUser(User $user): self
-    {   
+    {
         unset($this->users[$user->connection->id]);
+
         return $this;
     }
 
     public function empty(): bool
     {
-        return count($this->users) === 0;
+        return 0 === count($this->users);
     }
 
     public function hasJustOneUser(): bool
     {
-        return count($this->users) === 1;
+        return 1 === count($this->users);
     }
 
-    public function send(stdClass $message): self
+    public function send(\stdClass $message): self
     {
         foreach ($this->users as $user) {
             $user->send($message);
@@ -44,5 +44,4 @@ class Room
 
         return $this;
     }
-
 }

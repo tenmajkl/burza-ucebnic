@@ -70,17 +70,16 @@ class User implements Injectable, \JsonSerializable
         public ?Year $year = null,
         #[Column(type: 'int')]
         public int $rating = 0,
-    ) {
-
-    }
+    ) {}
 
     /**
-     * Returns whole e-mail address
+     * Returns whole e-mail address.
      */
     public function email(): string
     {
         $school = $this->year->school;
-        $host = $this->year->name === 'teachers' ? $school->admin_email : $school->email;
+        $host = 'teachers' === $this->year->name ? $school->admin_email : $school->email;
+
         return $this->email.'@'.$host;
     }
 
@@ -109,7 +108,7 @@ class User implements Injectable, \JsonSerializable
         return null;
     }
 
-    public function getReports(): array 
+    public function getReports(): array
     {
         $result = [];
         foreach ($this->offers as $offer) {

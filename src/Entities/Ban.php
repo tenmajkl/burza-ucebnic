@@ -33,8 +33,7 @@ class Ban
         public User $admin,
         #[Column(type: 'boolean')]
         public int $active = 1,
-    ) {
-    }
+    ) {}
 
     public function isActive()
     {

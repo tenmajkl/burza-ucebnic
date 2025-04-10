@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
-use App\Entities\Offer;
 use App\Entities\Notification;
+use App\Entities\Offer;
 use App\Entities\RatingAbility;
 use App\Entities\User;
 

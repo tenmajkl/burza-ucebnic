@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Chat;
 use Workerman\Worker;
 
@@ -12,7 +14,7 @@ $connections = [];
 
 $chat = new Chat();
 
-$worker->onMessage = [$chat, 'onMessage']; 
+$worker->onMessage = [$chat, 'onMessage'];
 
 $worker->onClose = [$chat, 'onClose'];
 

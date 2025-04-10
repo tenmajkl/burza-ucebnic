@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
 
 function findTODOs(string $folder): array
 {
     $todos = [];
     foreach (scandir($folder) as $file) {
-        if ($file === '.' || $file === '..') {
+        if ('.' === $file || '..' === $file) {
             continue;
         }
 
         if (is_dir($folder.'/'.$file)) {
             $todos = [...$todos, ...findTODOs($folder.'/'.$file)];
+
             continue;
         }
 

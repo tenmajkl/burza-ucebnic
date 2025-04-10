@@ -15,8 +15,7 @@ class Discord implements DiscordContract
     public function __construct(
         public readonly Env $env,
         public readonly Application $app,
-    ) {
-    }
+    ) {}
 
     public function sendWebhook(array $message): bool
     {
@@ -47,7 +46,7 @@ class Discord implements DiscordContract
             ],
         ]);
     }
-    
+
     public function sendRequest(string $email, string $school): bool
     {
         return $this->sendWebhook([
@@ -87,7 +86,7 @@ class Discord implements DiscordContract
                     'color' => 0x00FF00,
                     'image' => [
                         'url' => 'https://media1.tenor.com/m/XCReBZW8JFAAAAAd/cr1ti-ka-l-penguinz0.gif',
-                    ]
+                    ],
                 ],
             ],
         ]);

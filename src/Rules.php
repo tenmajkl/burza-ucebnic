@@ -40,7 +40,7 @@ class Rules
 
         return !is_null(
             $db->getORM()
-                ->getRepository('App\\Entities\\'.CaseConverter::toPascal($entity))
+                ->getRepository('App\Entities\\'.CaseConverter::toPascal($entity))
                 ->findByPK($id)
         );
     }
@@ -51,11 +51,11 @@ class Rules
     }
 
     /**
-     * For situations where there is state any (mostly reading situations)
+     * For situations where there is state any (mostly reading situations).
      */
     public function stateGet(string $state): bool
     {
-        return $state === '-1' || BookState::fromId((int) $state) ? true : false;
+        return '-1' === $state || BookState::fromId((int) $state) ? true : false;
     }
 
     public function offerState(string $state): bool

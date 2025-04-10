@@ -7,6 +7,7 @@ use App\Controllers\Api\Messages;
 use App\Controllers\Api\Notifications;
 use App\Controllers\Api\Offers;
 use App\Controllers\Api\Rating;
+use App\Controllers\Api\Reservations;
 use App\Controllers\Api\Wishlist;
 use App\Controllers\Auth\ChangePassword;
 use App\Controllers\Auth\Logout;
@@ -17,9 +18,9 @@ Route::get('/offers/mine', [Offers::class, 'mine']);
 Route::post('/offers/{target}/report', [Offers::class, 'report']);
 Route::controller('offers', Offers::class);
 
-$reservations = Route::controller('reservations', \App\Controllers\Api\Reservations::class);
-$reservations->add('make/{target}', 'post', [\App\Controllers\Api\Reservations::class, 'make']);
-$reservations->add('qr/{reservation}', 'get', [\App\Controllers\Api\Reservations::class, 'qr']);
+$reservations = Route::controller('reservations', Reservations::class);
+$reservations->add('make/{target}', 'post', [Reservations::class, 'make']);
+$reservations->add('qr/{reservation}', 'get', [Reservations::class, 'qr']);
 
 Route::controller('messages', Messages::class);
 

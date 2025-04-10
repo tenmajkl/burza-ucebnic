@@ -42,8 +42,7 @@ class Book implements \JsonSerializable, Injectable
         public string $release_year,
         #[Column(type: 'string')]
         public string $publisher,
-    ) {
-    }
+    ) {}
 
     public function jsonSerialize(): array
     {

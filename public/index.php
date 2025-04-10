@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Lemon\Http\Request;
+use Lemon\Kernel\Application;
 
 $maintenance = __DIR__.'/../maintenance.php';
 
@@ -12,7 +13,7 @@ if (file_exists($maintenance)) {
     exit;
 }
 
-/** @var \Lemon\Kernel\Application $application */
+/** @var Application $application */
 $application = include __DIR__.'/../init.php';
 
 $application->add(Request::class, Request::capture()->injectApplication($application));

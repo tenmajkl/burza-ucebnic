@@ -7,11 +7,9 @@ namespace App\Controllers\Api;
 use App\Contracts\Auth;
 use App\Contracts\Notifier;
 use App\Contracts\ORM;
-use App\Entities\Inquiry;
 use App\Entities\Notification;
 use App\Entities\NotificationType;
 use App\Entities\Offer;
-use App\Entities\RatingAbility;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
 
@@ -28,7 +26,7 @@ class Reservations
         ;
 
         if (!$offer) {
-            return error(404); 
+            return error(404);
         }
 
         if ($offer->user->id === $auth->user()->id) {
@@ -83,19 +81,18 @@ class Reservations
         ]);
 
         if (null === $reservation) {
-            return error(404); 
+            return error(404);
         }
 
         $offer = $reservation->offer;
         $deletion = $orm->getEntityManager()->delete($reservation);
-
 
         $reservation = $orm->getORM()->getRepository(Reservation::class)
             ->findOne([
                 'offer.id' => $offer->id,
                 'id' => ['!=' => $reservation->id],
             ])
-            ;
+        ;
 
         $notification = $orm->getORM()->getRepository(Notification::class)->findOne([
             'user.id' => $offer->user->id,
@@ -161,5 +158,4 @@ class Reservations
             'data' => $reservation->hash,
         ])->code(200);
     }
-
-    }
+}

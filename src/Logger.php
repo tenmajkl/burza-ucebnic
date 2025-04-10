@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
-use Lemon\Logging\Logger as LemonLogger;
-use Lemon\Contracts\Logging\Logger as LoggerContract;
-use Lemon\Contracts\Config\Config;
 use App\Contracts\Discord;
+use Lemon\Contracts\Config\Config;
+use Lemon\Contracts\Logging\Logger as LoggerContract;
+use Lemon\Logging\Logger as LemonLogger;
 
 /**
- * Dirty Lemon hack to send messages to discord
+ * Dirty Lemon hack to send messages to discord.
  */
 class Logger extends LemonLogger implements LoggerContract
 {
@@ -19,9 +21,6 @@ class Logger extends LemonLogger implements LoggerContract
         parent::__construct($config);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function log($level, string|\Stringable $message, array $context = []): void
     {
         $this->discord->sendWebhook([
@@ -36,5 +35,4 @@ class Logger extends LemonLogger implements LoggerContract
         ]);
         parent::log($level, $message, $context);
     }
-    
 }

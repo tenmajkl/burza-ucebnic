@@ -10,9 +10,7 @@ use App\Contracts\ORM;
 use App\Entities\Message;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
-use DateTimeImmutable;
 use Lemon\Http\Request;
-use Lemon\Terminal;
 use Lemon\Validator;
 
 class Messages
@@ -27,7 +25,7 @@ class Messages
             'code' => 200,
             'message' => 'OK',
             'data' => $target->messages,
-            //'session_id' => session_id(), // IDK IF THIS IS SAFE?
+            // 'session_id' => session_id(), // IDK IF THIS IS SAFE?
         ];
     }
 
@@ -51,9 +49,9 @@ class Messages
 
         $message = new Message($request->get('content'), $auth->user(), $target);
         $orm->getEntityManager()->persist($message)->run();
-        $message->createdAt = new DateTimeImmutable('now');
+        $message->createdAt = new \DateTimeImmutable('now');
 
-        if ($request->get('notify') != 0) {
+        if (0 != $request->get('notify')) {
             $user = $auth->user()->id === $target->offer->user->id ? $target->user : $target->offer->user;
             $notifier->notifyNewMessage($user, $target->offer);
         }

@@ -42,11 +42,10 @@ class Offers
 
         $state = (int) $state;
 
-
         $select = $orm->getORM()->getRepository(Offer::class)
-            ->select()                
+            ->select()
             ->where(['bought_at' => null])
-            ->where($subject === -1 ?  [] : ['book.subjects.id' => $subject])
+            ->where(-1 === $subject ? [] : ['book.subjects.id' => $subject])
             ->where(['book.subjects.year.id' => $auth->user()->year->id])
             ->where(-1 === $state ? [] : ['state' => BookState::fromId($state)])
         ;
@@ -87,7 +86,7 @@ class Offers
             'message' => Validator::error(),
         ])->code(400));
 
-        if (count($orm->getORM()->getRepository(Offer::class)->findAll(['book.id' => $request->get('book'), 'user.id' => $auth->user()->id])) == 2) {
+        if (2 == count($orm->getORM()->getRepository(Offer::class)->findAll(['book.id' => $request->get('book'), 'user.id' => $auth->user()->id]))) {
             return response([
                 'status' => '400',
                 'message' => text('validation.already-offered'),
@@ -209,11 +208,11 @@ class Offers
         ];
     }
 
-    public function report(?Offer $target, Auth $auth, ORM $orm, Request $request) 
+    public function report(?Offer $target, Auth $auth, ORM $orm, Request $request)
     {
         $request->validate([
             'reason' => 'min:8|max:2048',
-        ], fn() => error(400));
+        ], fn () => error(400));
 
         if (!$target) {
             return error(404);
@@ -224,7 +223,7 @@ class Offers
         }
 
         $report = new Report($request->get('reason'), $auth->user(), $target);
-        
+
         $orm->getEntityManager()->persist($report)->run();
 
         return [

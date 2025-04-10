@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App;
 
 use App\Contracts\Notifier as NotifierContract;
-use App\Entities\Offer;
 use App\Entities\Notification;
-use App\Entities\RatingAbility;
 use App\Entities\NotificationType;
+use App\Entities\Offer;
+use App\Entities\RatingAbility;
 use App\Entities\User;
 use Cycle\Database\Query\SelectQuery;
 use Symfony\Component\Mailer\MailerInterface;
@@ -19,8 +19,7 @@ class Notifier implements NotifierContract
     public function __construct(
         public readonly MailerInterface $mailer,
         public readonly ORM $orm,
-    ) {
-    }
+    ) {}
 
     public function notifyWishlist(User $user, Offer $offer): self
     {

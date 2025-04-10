@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Contracts\Auth;
@@ -15,7 +17,7 @@ class SchoolRegistration
         return template('school-registration');
     }
 
-    public function post(Request $request, Discord $discord, Auth $auth): Response 
+    public function post(Request $request, Discord $discord, Auth $auth): Response
     {
         $request->validate([
             'email' => 'email',

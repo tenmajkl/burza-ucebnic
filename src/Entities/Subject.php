@@ -24,8 +24,7 @@ class Subject implements \JsonSerializable
     public function __construct(
         #[Column(type: 'string')]
         public string $name,
-    ) {
-    }
+    ) {}
 
     public function jsonSerialize(): array
     {

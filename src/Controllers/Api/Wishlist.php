@@ -54,7 +54,7 @@ class Wishlist
         return $this->index($orm, $auth);
     }
 
-    public function delete(?Inquiry $target, ORM $orm, Auth $auth) 
+    public function delete(?Inquiry $target, ORM $orm, Auth $auth)
     {
         if (null === $target) {
             return error(404);
@@ -66,11 +66,11 @@ class Wishlist
     }
 
     /**
-     * Returns subject of given book that can be searched by user
+     * Returns subject of given book that can be searched by user.
      */
-    public function search(?Inquiry $target): mixed 
+    public function search(?Inquiry $target): mixed
     {
-        if ($target === null) {
+        if (null === $target) {
             return error(404);
         }
 

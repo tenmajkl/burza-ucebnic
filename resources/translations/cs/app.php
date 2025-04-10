@@ -43,7 +43,7 @@ return [
     'cookies-accept' => 'Rozumím!',
     'cookies-more' => 'Zjistit více',
     'cookies-header' => 'Web ukládá následující cookies:',
-    'cookies-note' => 'Všechny ukládané cookies jsou nutné pro bezpečnou funkcionalitu webu.', 
+    'cookies-note' => 'Všechny ukládané cookies jsou nutné pro bezpečnou funkcionalitu webu.',
     'cookies-title' => 'Ukládané cookies',
     'cookies-session' => 'Udržuje kontext při posílání požadavků.',
     'cookies-csrf' => 'Ochrana před CSRF útokem.',
@@ -113,7 +113,7 @@ return [
     'order-deny' => 'Nepředáno',
     'reserved' => 'REZERVOVÁNO',
     'no-reservations' => 'Nemáte žádné rezervované učebnice.',
-    'show-offers' => 'Zobrazit nabídky', 
+    'show-offers' => 'Zobrazit nabídky',
 
     // Wishlist
 
@@ -124,7 +124,7 @@ return [
     'wishlist-max-price' => 'Maximálně za',
     'wishlist-empty' => 'Seznam přání je prázdný, vyberte si učebnice o&nbsp;které máte zájem níže.',
     'wishlist-added' => 'Učebnice přidána na seznam přání, až bude k&nbsp;dispozici, přijde vám notifikace.',
-    'no-wishlist' => "Váš ročník nemá žádné učebnice, které byste mohl*a přidat na seznam přání",
+    'no-wishlist' => 'Váš ročník nemá žádné učebnice, které byste mohl*a přidat na seznam přání',
 
     // Add
 
@@ -188,11 +188,11 @@ return [
     'profile-pick-year' => 'Vyberte ročník',
 
     // Reporting
-    
+
     'report-title' => 'Nahlásit uživatele',
     'reason' => 'Důvod',
     'report' => 'Nahlásit',
 
     // Chat
-    'chat' => 'Chat s&nbsp;prvním zájemcem'
+    'chat' => 'Chat s&nbsp;prvním zájemcem',
 ];

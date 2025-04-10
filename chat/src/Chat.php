@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Workerman\Connection\TcpConnection;
-use stdClass;
 
 class Chat
 {
-
     private array $users = [];
     private array $handlers;
     private array $rooms = [];
@@ -22,7 +22,7 @@ class Chat
             [$this, 'handleMessage'],
         ];
     }
-    
+
     public function onMessage(TcpConnection $connection, string $message): void
     {
         $data = json_decode($message);
@@ -42,14 +42,14 @@ class Chat
         unset($this->users[$connection->id]);
     }
 
-    private function handleAuth(TcpConnection $connection, stdClass $data): void
+    private function handleAuth(TcpConnection $connection, \stdClass $data): void
     {
         $user = new User($data->session, $data->reservation, $connection);
         $this->users[$connection->id] = $user;
         $this->getRoom($data->reservation)->addUser($user);
     }
 
-    private function handleMessage(TcpConnection $connection, stdClass $data): void
+    private function handleMessage(TcpConnection $connection, \stdClass $data): void
     {
         if (!isset($this->users[$connection->id])) {
             return;
@@ -60,37 +60,39 @@ class Chat
 
         if (!($message = $this->sendToServer($data->content, $user, $room->hasJustOneUser()))) {
             $this->onClose($connection);
+
             return;
         }
 
         $room->send($message);
     }
 
-    private function sendToServer(string $message, User $user, bool $notify): false|stdClass
+    private function sendToServer(string $message, User $user, bool $notify): false|\stdClass
     {
         $client = new Client();
+
         try {
             $res = $client->request('POST', 'http://localhost:8000/api/messages/'.$user->room, [
                 'body' => json_encode(['content' => $message, 'notify' => (int) $notify]),
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Cookie' => 'PHP_SESSION='.$user->session,
-                ]
-            ]); 
-        }
-        catch (ServerException $e) {
+                ],
+            ]);
+        } catch (ServerException $e) {
             echo $e->getResponse()->getBody();
+
             return false;
-        }
-        catch (ClientException $_) {
+        } catch (ClientException $_) {
             return false;
         }
 
         $body = $res->getBody();
+
         return json_decode((string) $body)->data;
     }
 
-    private function getRoom(int $id) 
+    private function getRoom(int $id)
     {
         if (!isset($this->rooms[$id])) {
             $this->rooms[$id] = new Room($id);

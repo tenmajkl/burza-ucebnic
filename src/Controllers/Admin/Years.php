@@ -44,7 +44,7 @@ class Years
             $year->subjects[] = new Subject($request->get("subject{$index}"));
         }
 
-        $year->visible = (int) ($request->get('visible') === 'on');
+        $year->visible = (int) ('on' === $request->get('visible'));
 
         $orm->getEntityManager()->persist($year)->run();
 
@@ -57,7 +57,7 @@ class Years
             return error(404);
         }
 
-        if ($target->name === 'admins') {
+        if ('admins' === $target->name) {
             return error(404);
         }
 
@@ -74,7 +74,7 @@ class Years
             return error(404);
         }
 
-        if ($target->name === 'admins') {
+        if ('admins' === $target->name) {
             return error(404);
         }
 
@@ -88,7 +88,7 @@ class Years
             $target->subjects[] = new Subject($request->get("subject{$index}"));
         }
 
-        $target->visible = (int) ($request->get('visible') === 'on');
+        $target->visible = (int) ('on' === $request->get('visible'));
 
         $orm->getEntityManager()->persist($target)->run();
 
@@ -101,7 +101,7 @@ class Years
             return redirect('/admin/years');
         }
 
-        if ($target->name === 'admins') {
+        if ('admins' === $target->name) {
             return redirect('/admin/years');
         }
 

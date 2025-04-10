@@ -27,8 +27,7 @@ class Inquiry implements \JsonSerializable, Injectable
         public User $user,
         #[Column(type: 'int')]
         public int $expected_price,
-    ) {
-    }
+    ) {}
 
     public function jsonSerialize(): mixed
     {

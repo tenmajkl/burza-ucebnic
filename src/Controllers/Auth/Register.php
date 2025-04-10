@@ -8,7 +8,6 @@ use App\Contracts\ORM;
 use App\Entities\School;
 use App\Entities\User;
 use App\TokenGenerator;
-use DateTime;
 use Lemon\Http\Request;
 use Lemon\Http\Response;
 use Lemon\Http\Responses\RedirectResponse;
@@ -19,7 +18,7 @@ use Symfony\Component\Mime\Email;
 
 class Register
 {
-    public function get(ORM $orm): Template|RedirectResponse
+    public function get(ORM $orm): RedirectResponse|Template
     {
         if (_time() < 1726239600) {
             return redirect('/');
@@ -28,7 +27,7 @@ class Register
         return template('auth.register');
     }
 
-    public function post(Request $request, MailerInterface $mailer, ORM $orm): Template|Response
+    public function post(Request $request, MailerInterface $mailer, ORM $orm): Response|Template
     {
         if (_time() < 1726239600) {
             return redirect('/');
@@ -43,9 +42,10 @@ class Register
         [$login, $host] = explode('@', $email);
 
         $school = $orm->getORM()->getRepository(School::class)->select()
-                      ->where(['email' => $host])
-                      ->orWhere(['admin_email' => $host])
-                      ->fetchAll();
+            ->where(['email' => $host])
+            ->orWhere(['admin_email' => $host])
+            ->fetchAll()
+        ;
 
         if ([] === $school) {
             Validator::addError('school-email', 'email', '');
@@ -60,8 +60,8 @@ class Register
             return template('auth.register', message: 'auth.email-sent');
         }
 
-        $raw_token = TokenGenerator::generate(); 
-        $token = sha1($raw_token. $school->id);
+        $raw_token = TokenGenerator::generate();
+        $token = sha1($raw_token.$school->id);
 
         $message =
             (new Email())
@@ -74,10 +74,10 @@ class Register
         $mailer->send($message);
 
         $password = password_hash($request->get('password'), PASSWORD_ARGON2I);
-        $user = new User($login, (int) $admin, $password, (int) $admin, $token);        
+        $user = new User($login, (int) $admin, $password, (int) $admin, $token);
 
         $orm->getEntityManager()->persist($user)->run();
-        
+
         return template('auth.register', message: 'auth.email-sent');
     }
 }

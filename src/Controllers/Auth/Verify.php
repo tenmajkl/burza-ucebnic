@@ -27,19 +27,21 @@ class Verify
             return redirect('/register');
         }
 
-        if (time() - $user->createdAt->getTimestamp() > 600)  {
+        if (time() - $user->createdAt->getTimestamp() > 600) {
             $orm->getEntityManager()->delete($user)->run();
+
             return redirect('/');
         }
 
         $school = $orm->getORM()->getRepository(School::class)->findOne(['id' => $school]);
 
-        if ($user->email_host != 0) {
+        if (0 != $user->email_host) {
             $teachers = $orm->getORM()->getRepository(Year::class)
-                                      ->findOne([
-                                          'school_id' => $school->id,
-                                          'name' => 'teachers',
-                                      ]);
+                ->findOne([
+                    'school_id' => $school->id,
+                    'name' => 'teachers',
+                ])
+            ;
             $user->verify_token = null;
             $user->year = $teachers;
             $orm->getEntityManager()->persist($user)->run();
@@ -47,6 +49,7 @@ class Verify
             $session->set('email', $user->email);
             $session->set('host', 1);
             $session->set('school', $school);
+
             return redirect('/');
         }
 
@@ -67,8 +70,9 @@ class Verify
             return redirect('/register');
         }
 
-        if (time() - $user->createdAt->getTimestamp() > 600)  {
+        if (time() - $user->createdAt->getTimestamp() > 600) {
             $orm->getEntityManager()->delete($user)->run();
+
             return redirect('/');
         }
 

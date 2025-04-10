@@ -49,7 +49,7 @@ class Users
         }
 
         $reason = $request->get('reason');
-        $expires = \DateTimeImmutable::createFromFormat('Y-m-d\\TH:i', $request->get('expires'));
+        $expires = \DateTimeImmutable::createFromFormat('Y-m-d\TH:i', $request->get('expires'));
 
         $ban = new Ban($reason, $expires, $target, $auth->user());
         $orm->getEntityManager()->persist($ban)->run();

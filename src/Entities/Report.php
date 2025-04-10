@@ -29,6 +29,5 @@ class Report
         public User $user,
         #[BelongsTo(target: Offer::class)]
         public Offer $offer,
-    ) {
-    }
+    ) {}
 }

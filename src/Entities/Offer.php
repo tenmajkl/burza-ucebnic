@@ -7,16 +7,13 @@ namespace App\Entities;
 use App\Entities\Traits\DateTimes;
 use App\Entities\Traits\Dynamic;
 use App\Entities\Traits\InjectableEntity;
-use App\Repositories\OfferRepository;
 use App\Scopes\NotBoughtScope;
 use App\Zests\Auth;
-use Carbon\Carbon;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\Annotated\Annotation\Relation\HasMany;
 use Cycle\ORM\Entity\Behavior;
-use DateTime;
 use Lemon\Contracts\Kernel\Injectable;
 
 /**
@@ -55,7 +52,7 @@ class Offer implements \JsonSerializable, Injectable
     public ?User $buyer;
 
     /**
-     * Whenever currently logged user can make reservation, thus its not saved in db. This value is generated manualy using function canUserMakeReservation
+     * Whenever currently logged user can make reservation, thus its not saved in db. This value is generated manualy using function canUserMakeReservation.
      */
     public bool $can_be_reserved = false;
 
@@ -68,27 +65,29 @@ class Offer implements \JsonSerializable, Injectable
         public BookState $state,
         #[BelongsTo(target: User::class, nullable: true)]
         public User $user,
-    ) {
-    }
+    ) {}
 
     /**
-     * Sets internal value can_be_reserved
+     * Sets internal value can_be_reserved.
      */
     public function canUserMakeReservation(User $user): self
     {
         if ($this->user->id === $user->id) {
             $this->can_be_reserved = false;
+
             return $this;
         }
 
         foreach ($this->reservations as $reservation) {
             if ($reservation->user->id === $user->id) {
                 $this->can_be_reserved = false;
+
                 return $this;
             }
         }
 
         $this->can_be_reserved = true;
+
         return $this;
     }
 
@@ -96,7 +95,8 @@ class Offer implements \JsonSerializable, Injectable
     public function jsonSerialize(): mixed
     {
         // this is terrible practice and I should be blamed however it works and its faster than the "cleaner way"
-        $this->canUserMakeReservation(Auth::user()); 
+        $this->canUserMakeReservation(Auth::user());
+
         return [
             'id' => $this->id,
             'name' => $this->book->name,

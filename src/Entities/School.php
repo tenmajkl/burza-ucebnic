@@ -24,6 +24,5 @@ class School
         public string $email,
         #[Column(type: 'string')]
         public string $admin_email,
-    ) {
-    }
+    ) {}
 }

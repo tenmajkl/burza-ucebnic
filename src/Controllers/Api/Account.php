@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Api;
 
 use App\Contracts\Auth;
@@ -11,10 +13,10 @@ use Lemon\Validator;
 
 class Account
 {
-
     public function getInfo(Auth $auth): array
     {
         $u = $auth->user();
+
         return [
             'code' => 200,
             'data' => [
@@ -22,17 +24,17 @@ class Account
                 'year' => $u->year->name,
                 'school' => $u->year->school->name,
                 'rating' => $u->rating,
-            ]
+            ],
         ];
-    } 
+    }
 
     public function delete(Auth $auth, ORM $orm, Session $session, Request $request)
     {
         $request->validate([
             'password' => 'min:8|max:256',
-        ], fn() => response([
+        ], fn () => response([
             'code' => 400,
-            'message' => Validator::error()
+            'message' => Validator::error(),
         ])->code(400));
 
         if (!password_verify($request->get('password'), $auth->user()->password)) {
@@ -47,19 +49,20 @@ class Account
         $session->clear();
 
         return [
-            'code' => 200, 
+            'code' => 200,
             'status' => 'OK',
         ];
     }
 
-    public function getYears(Auth $auth) 
+    public function getYears(Auth $auth)
     {
         $user = $auth->user();
+
         return [
             'code' => 200,
             'data' => array_filter(
                 $user->year->school->years,
-                fn(Year $year) => $year->visible && $year->id !== $user->year->id
+                fn (Year $year) => $year->visible && $year->id !== $user->year->id
             ),
         ];
     }
@@ -69,9 +72,9 @@ class Account
         $request->validate([
             'password' => 'min:8|max:256',
             'year' => 'numeric',
-        ], fn() => response([
+        ], fn () => response([
             'code' => 400,
-            'message' => Validator::error()
+            'message' => Validator::error(),
         ])->code(400));
 
         $user = $auth->user();
@@ -82,7 +85,7 @@ class Account
         ]);
 
         if (!$year) {
-            return error(400); 
+            return error(400);
         }
 
         if (!password_verify($request->get('password'), $user->password)) {
@@ -96,8 +99,8 @@ class Account
         $orm->getEntityManager()->persist($user)->run();
 
         return [
-            'code' => 200, 
+            'code' => 200,
             'message' => 'OK',
         ];
     }
-}   
+}

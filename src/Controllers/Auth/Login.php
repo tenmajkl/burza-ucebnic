@@ -30,10 +30,11 @@ class Login
         [$email, $host] = explode('@', $request->get('email'));
 
         $school = $orm->getORM()->getRepository(School::class)->select()
-                      ->where(['email' => $host])
-                      ->orWhere(['admin_email' => $host])
-                      ->fetchAll();
-    
+            ->where(['email' => $host])
+            ->orWhere(['admin_email' => $host])
+            ->fetchAll()
+        ;
+
         if ([] === $school) {
             Validator::addError('school-email', 'email', '');
 

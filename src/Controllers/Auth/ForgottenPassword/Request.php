@@ -12,7 +12,6 @@ use Lemon\Http\Session;
 use Lemon\Templating\Template;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Lemon\Validator;
 
 class Request
 {
@@ -29,9 +28,10 @@ class Request
 
         [$email, $host] = explode('@', $request->get('email'));
 
-        $users = $orm->getORM()->getRepository(User::class)->select()->where('email', $email)->where(function($select) use ($host) {
+        $users = $orm->getORM()->getRepository(User::class)->select()->where('email', $email)->where(function ($select) use ($host) {
             $select->where('year.school.email', $host)
-                   ->orWhere('year.school.admin_email', $host);
+                ->orWhere('year.school.admin_email', $host)
+            ;
         })->fetchAll();
 
         if (!isset($users[0])) {

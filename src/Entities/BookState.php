@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entities;
 
-enum BookState: int 
+enum BookState: int
 {
     case New = 0;
     case Covered = 1;
@@ -22,7 +22,7 @@ enum BookState: int
 
     public function name(): string
     {
-        return match($this) {
+        return match ($this) {
             self::New => 'new',
             self::Covered => 'covered',
             self::Damaged => 'damaged',

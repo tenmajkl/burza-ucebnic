@@ -19,6 +19,8 @@ use Cycle\Schema;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Lemon\Contracts\Config\Config;
 use Lemon\Contracts\Support\Env;
+use Spiral\Tokenizer\ClassLocator;
+use Symfony\Component\Finder\Finder;
 
 class ORM implements ORMContract
 {
@@ -35,8 +37,8 @@ class ORM implements ORMContract
         // Maybe consider some bootloader class
         $this->dbal = new DatabaseManager(new DatabaseConfig($this->config->get('database')));
 
-        $finder = (new \Symfony\Component\Finder\Finder())->files()->in([__DIR__]);
-        $locator = new \Spiral\Tokenizer\ClassLocator($finder);
+        $finder = (new Finder())->files()->in([__DIR__]);
+        $locator = new ClassLocator($finder);
 
         AnnotationRegistry::registerLoader('class_exists');
 

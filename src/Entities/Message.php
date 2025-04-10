@@ -29,8 +29,7 @@ class Message implements \JsonSerializable
         public User $author,
         #[BelongsTo(target: Reservation::class)]
         public Reservation $reservation,
-    ) {
-    }
+    ) {}
 
     public function jsonSerialize(): array
     {

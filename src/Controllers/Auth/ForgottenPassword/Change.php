@@ -14,7 +14,7 @@ use Lemon\Templating\Template;
 
 class Change
 {
-    public function get($token, Auth $auth): Template|Response
+    public function get($token, Auth $auth): Response|Template
     {
         if (!$auth->canChangeForgottenPassword($token)) {
             return error(404);
@@ -23,7 +23,7 @@ class Change
         return template('auth.forgotten-password.change');
     }
 
-    public function post($token, Auth $auth, ORM $orm, Request $request, Session $session): Template|Response
+    public function post($token, Auth $auth, ORM $orm, Request $request, Session $session): Response|Template
     {
         if (!$auth->canChangeForgottenPassword($token)) {
             return error(404);

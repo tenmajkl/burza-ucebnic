@@ -23,10 +23,13 @@ class Mailer implements MailerInterface
         $this->mailer = new SymfonyMailer(Transport::fromDsn($config->get('mail.dsn')));
     }
 
-    public function send(RawMessage $message, Envelope $envelope = null): void
+    public function send(RawMessage $message, ?Envelope $envelope = null): void
     {
         if (config('debug.debug')) {
-            d($message); return; // dirty debugging practice
+            d($message);
+
+            return; // dirty debugging practice
+
             return;
         }
         $this->mailer->send($message, $envelope);

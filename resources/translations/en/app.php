@@ -42,7 +42,7 @@ return [
     'cookies-accept' => 'Got it!',
     'cookies-more' => 'Learn more',
     'cookies-header' => 'The website stores the following cookies:',
-    'cookies-note' => 'All stored cookies are necessary for the secure functionality of the website.', 
+    'cookies-note' => 'All stored cookies are necessary for the secure functionality of the website.',
     'cookies-title' => 'Stored cookies',
     'cookies-session' => 'Maintains context when sending requests.',
     'cookies-csrf' => 'Protection against CSRF attacks.',
@@ -108,7 +108,7 @@ return [
     'order-deny' => 'Not handed over',
     'reserved' => 'RESERVED',
     'no-reservations' => 'You have no reserved textbooks.',
-    'show-offers' => 'Show offers', 
+    'show-offers' => 'Show offers',
 
     // Wishlist
     'wishlist-title' => 'Wishlist',
@@ -180,5 +180,5 @@ return [
     'report' => 'Report',
 
     // Chat
-    'chat' => 'Chat with the first interested person'
+    'chat' => 'Chat with the first interested person',
 ];

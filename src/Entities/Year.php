@@ -34,8 +34,7 @@ class Year implements \JsonSerializable, Injectable
         public School $school,
         #[Column(type: 'boolean')]
         public bool|int $visible = true, // whenever this year has any books that can be sold
-    ) {
-    }
+    ) {}
 
     public function jsonSerialize(): mixed
     {

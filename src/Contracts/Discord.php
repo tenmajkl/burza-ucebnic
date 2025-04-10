@@ -18,5 +18,4 @@ interface Discord
     public function sendOffer(Offer $offer): bool;
 
     public function sendSuccess(): bool;
-
 }

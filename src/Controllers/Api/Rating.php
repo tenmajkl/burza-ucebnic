@@ -20,11 +20,11 @@ class Rating
         return [
             'status' => 200,
             'message' => 'OK',
-            'data' => $target !== null,
+            'data' => null !== $target,
         ];
     }
 
-    public function update(?RatingAbility $target, ORM $orm, Auth $auth, Request $request): Response|array
+    public function update(?RatingAbility $target, ORM $orm, Auth $auth, Request $request): array|Response
     {
         if (null === $target) {
             return error(404);
@@ -42,11 +42,11 @@ class Rating
         ]));
 
         $user = $target->rated;
-        $user->rating += (int) $request->get('rating'); 
+        $user->rating += (int) $request->get('rating');
 
         $notification = $orm->getORM()->getRepository(Notification::class)->findOne([
-            'rating.id' => $target->id
-        ]); 
+            'rating.id' => $target->id,
+        ]);
 
         $orm->getEntityManager()->delete($target)->delete($notification)->persist($user)->run();
 

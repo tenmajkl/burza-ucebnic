@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
+use App\Contracts\Auth;
 use App\Contracts\Discord;
+use App\Contracts\Notifier;
+use App\Contracts\ORM;
+use App\Entities\Inquiry;
+use App\Entities\Offer;
+use App\Entities\RatingAbility;
 use App\Entities\Reservation;
 use App\Entities\ReservationState;
-use App\Contracts\Notifier;
-use App\Contracts\Auth;
-use App\Contracts\ORM;
-use App\Entities\RatingAbility;
-use App\Entities\Inquiry;
 use Lemon\Kernel\Application;
 
 class Reservations
@@ -38,7 +41,7 @@ class Reservations
             return error(404);
         }
 
-        /** @var \App\Entities\Offer $offer */
+        /** @var Offer $offer */
         $offer = $reservation->offer;
         $offer->boughtAt = new \DateTimeImmutable();
         $offer->buyer = $reservation->user;
@@ -50,7 +53,6 @@ class Reservations
         $orm->db()->table('reservations')->delete()->where([
             'offer_id' => $offer->id,
         ])->run();
-
 
         $rating = new RatingAbility(
             $offer->buyer,
@@ -65,7 +67,7 @@ class Reservations
         ]);
 
         if ($inquiry) {
-            $job->delete($inquiry)->run(); 
+            $job->delete($inquiry)->run();
         }
 
         unlink($app->file('storage.images.offers.'.$offer->id, 'image'));
@@ -117,5 +119,4 @@ class Reservations
 
         return redirect('/');
     }
-
 }
