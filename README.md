@@ -11,3 +11,9 @@ $ make
 ```
 
 Installation requires php 8.1 or higher, yarn and nodejs.
+
+## Usage
+
+There is curently no running instance, but if you belive you could find use of this app, feel free to install it on your server.
+
+It was a wonderful journey but probably not the right solution. I feel like the problem is with the system and this app probably still resulted in more obscurity than solutions.
